@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/daily-vitals": {
+      "name": "/daily-vitals",
+      "lambdaFunction": "dailyVitalsFunction",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
