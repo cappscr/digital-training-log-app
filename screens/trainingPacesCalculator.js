@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon, Input, Text, Chip, Button } from '@rneui/themed';
 
 export const TrainingPacesCalculator = () => {
@@ -9,8 +10,8 @@ export const TrainingPacesCalculator = () => {
   const [secText, setSecText] = useState('');
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.flexRow, {width: '100%'}]}>
+    <SafeAreaView style={styles.container}>
+      <View style={[styles.flexRow, {alignSelf: 'center'}]}>
         <Icon
           type='material-community'
           name='calculator'
@@ -18,12 +19,10 @@ export const TrainingPacesCalculator = () => {
         />
         <Text h1>Training Paces Calculator</Text>
       </View>
-      <View style={{ paddingStart: 30, alignSelf: 'flex-start' }}>
-        <Text h4>
-          Pace
-        </Text>
-      </View>
       <View style={styles.flexRow}>
+        <Text h4>
+          Pace:
+        </Text>
         <View>
           <Input
             style={{flex: 1}}
@@ -67,7 +66,7 @@ export const TrainingPacesCalculator = () => {
         title='Calculate'
         onPress={() => {console.log(`${minText}:${secText} ${minPerMileSelected ? 'min/mi' : 'km/mi'}`)}}
       />
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -78,11 +77,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    //width: '100%',
   },
   flexRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    //alignSelf: 'stretch',
+    flexWrap: 'wrap',
   }
 });
