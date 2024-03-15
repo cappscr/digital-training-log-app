@@ -1,7 +1,13 @@
-import { StyleSheet, View, TextInput } from 'react-native';
-import { Icon, Input, Text, Chip } from '@rneui/themed';
+import { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Icon, Input, Text, Chip, Button } from '@rneui/themed';
 
 export const TrainingPacesCalculator = () => {
+  const [minPerMileSelected, setMinPerMileSelected] = useState(true);
+  const [minPerKmSelected, setMinPerKmSelected] = useState(false);
+  const [minText, setMinText] = useState('');
+  const [secText, setSecText] = useState('');
+
   return (
     <View style={styles.container}>
       <View style={styles.flexRow}>
@@ -17,24 +23,48 @@ export const TrainingPacesCalculator = () => {
       </Text>
       <View style={styles.flexRow}>
         <View>
-          <Input style={{flex: 1}} label='Min' />
+          <Input
+            style={{flex: 1}}
+            label='Min'
+            keyboardType='numeric'
+            onChangeText={newText => setMinText(newText)}
+            value={minText}
+          />
         </View>
         <View>
-          <Input style={{flex: 1}} label='Sec' />
+          <Input
+            style={{flex: 1}}
+            label='Sec'
+            keyboardType='numeric'
+            onChangeText={newText => {setSecText(newText)}}
+            value={secText}
+          />
         </View>
         <View>
           <View style={styles.flexRow}>
             <Chip
               title='min/mi'
-              type='outline'
+              type={minPerMileSelected ? 'solid' : 'outline'}
+              onPress={() => {
+                setMinPerMileSelected(!minPerMileSelected);
+                setMinPerKmSelected(!minPerKmSelected);
+              }}
             />
             <Chip
-              title='km/mi'
-              type='outline'
+              title='min/km'
+              type={minPerKmSelected ? 'solid' : 'outline'}
+              onPress={() => {
+                setMinPerMileSelected(!minPerMileSelected);
+                setMinPerKmSelected(!minPerKmSelected);
+              }}
             />
           </View>
         </View>
       </View>
+      <Button
+        title='Calculate'
+        onPress={() => {console.log(`${minText}:${secText} ${minPerMileSelected ? 'min/mi' : 'km/mi'}`)}}
+      />
     </View>
   )
 }
