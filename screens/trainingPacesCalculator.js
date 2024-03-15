@@ -10,7 +10,7 @@ export const TrainingPacesCalculator = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.flexRow}>
+      <View style={[styles.flexRow, {width: '100%'}]}>
         <Icon
           type='material-community'
           name='calculator'
@@ -18,9 +18,11 @@ export const TrainingPacesCalculator = () => {
         />
         <Text h1>Training Paces Calculator</Text>
       </View>
-      <Text h4 style={{ marginBottom: 10, paddingStart: 5 }}>
-        Pace
-      </Text>
+      <View style={{ paddingStart: 30, alignSelf: 'flex-start' }}>
+        <Text h4>
+          Pace
+        </Text>
+      </View>
       <View style={styles.flexRow}>
         <View>
           <Input
@@ -72,14 +74,15 @@ export const TrainingPacesCalculator = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 20,
     backgroundColor: '#fff',
-    alignItems: 'stretch',
-    justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
     //width: '100%',
   },
   flexRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'stretch',
+    //alignSelf: 'stretch',
   }
 });
