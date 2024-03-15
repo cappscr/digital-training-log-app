@@ -1,21 +1,16 @@
-import './App.css';
+import { PaceCalculator } from './components/PaceCalculator';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <main>
+        <h1 className="mt-3 mb-4">
+          <i className="bi bi-calculator"></i>
+          Training Paces Calulator
+        </h1>
+        <PaceCalculator />
+      </main>
     </div>
   );
 }
