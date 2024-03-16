@@ -1,5 +1,6 @@
 import { useState, Fragment } from 'react';
 
+import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 
 import { PacesTable } from '../components/PacesTable';
@@ -11,7 +12,7 @@ export const PaceCalculator = () => {
   return (
     <Fragment>
       {paces ? (
-        <>
+        <Container>
           <PacesTable trainingPaces={paces} />
           <Button
             variant="primary"
@@ -21,9 +22,9 @@ export const PaceCalculator = () => {
           >
             Reset
           </Button>
-        </>
+        </Container>
       ) : (
-        <PaceCalculatorForm action={setPaces} />
+        <PaceCalculatorForm onSubmit={setPaces} />
       )}
     </Fragment>
   );
