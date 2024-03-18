@@ -26,13 +26,11 @@ export const PaceCalculatorForm = ({ onSubmit }) => {
         type="submit"
         variant="primary"
         onClick={e => {
-          console.log(inputPace.display());
-          console.log(selectedPercentages);
+          e.preventDefault();
           onSubmit({
             pace: inputPace,
             percentages: selectedPercentages,
           });
-          e.preventDefault();
         }}
       >
         Calculate

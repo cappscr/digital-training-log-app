@@ -4,6 +4,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { Pace } from '../lib/pace';
 
 export const PaceInput = ({ paceMin, paceSec, units, setPace }) => {
+
   return (
     <>
       <Form.Label htmlFor="pace">Pace</Form.Label>
@@ -13,7 +14,13 @@ export const PaceInput = ({ paceMin, paceSec, units, setPace }) => {
           id="pace-min"
           type="number"
           value={paceMin}
-          onChange={e => setPace(new Pace(e.target.value, paceSec, units))}
+          onChange={e => setPace(
+            new Pace(
+              e.target.value === '' ? 0 : e.target.value,
+              paceSec,
+              units
+            )
+          )}
         />
         <InputGroup.Text htmlFor="pace-min">Min</InputGroup.Text>
         <Form.Control
@@ -21,7 +28,12 @@ export const PaceInput = ({ paceMin, paceSec, units, setPace }) => {
           id="pace-sec"
           type="number"
           value={paceSec}
-          onChange={e => setPace(new Pace(paceMin, e.target.value, units))}
+          onChange={e => setPace(
+            new Pace(
+              paceMin,
+              e.target.value === '' ? 0 : e.target.value,
+              units)
+          )}
         />
         <InputGroup.Text htmlFor="pace-sec">Sec</InputGroup.Text>
         <Form.Select

@@ -11,8 +11,6 @@ export const PacesTable = ({ trainingPaces }) => {
   });
 
   const paceRows = percentagesToRender.map((trainingPace) => {
-    console.log('trainingPace: ', trainingPace);
-    console.log('paceData: ', trainingPaces.pace.calcPercentage(trainingPace));
     return (
       <tr key={`${trainingPace}-pace`}>
         <td>{trainingPace}</td>
@@ -20,8 +18,6 @@ export const PacesTable = ({ trainingPaces }) => {
       </tr>
     );
   });
-
-  console.log('paceRows', paceRows);
 
   return (
     <Table striped bordered>
