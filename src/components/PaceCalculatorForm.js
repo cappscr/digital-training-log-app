@@ -7,16 +7,20 @@ import { PacePercentagesSelection } from '../components/PacePercentagesSelection
 import { Pace } from '../lib/pace';
 
 export const PaceCalculatorForm = ({ onSubmit }) => {
-  const [inputPace, setInputPace] = useState(new Pace(0, 0, 'mi'));
+  const [inputPaceMin, setInputPaceMin] = useState('');
+  const [inputPaceSec, setInputPaceSec] = useState('');
+  const [paceUnits, setPaceUnits] = useState('mi');
   const [selectedPercentages, setSelectedPercentages] = useState({});
 
   return (
     <Form className="mx-3">
       <PaceInput
-        paceMin={inputPace.min}
-        paceSec={inputPace.sec}
-        units={inputPace.units}
-        setPace={setInputPace}
+        paceMin={inputPaceMin}
+        paceSec={inputPaceSec}
+        units={paceUnits}
+        setPaceMin={setInputPaceMin}
+        setPaceSec={setInputPaceSec}
+        setUnits={setPaceUnits}
       />
       <PacePercentagesSelection
         selectedPercentages={selectedPercentages}
@@ -28,7 +32,7 @@ export const PaceCalculatorForm = ({ onSubmit }) => {
         onClick={e => {
           e.preventDefault();
           onSubmit({
-            pace: inputPace,
+            pace: new Pace(inputPaceMin || 0, inputPaceSec || 0, paceUnits),
             percentages: selectedPercentages,
           });
         }}
