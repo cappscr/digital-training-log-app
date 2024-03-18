@@ -1,0 +1,44 @@
+import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
+import { PaceInput } from '../components/PaceInput';
+import { PacePercentagesSelection } from '../components/PacePercentagesSelection';
+import { Pace } from '../lib/pace';
+
+export const PaceCalculatorForm = ({ onSubmit }) => {
+  const [inputPaceMin, setInputPaceMin] = useState('');
+  const [inputPaceSec, setInputPaceSec] = useState('');
+  const [paceUnits, setPaceUnits] = useState('mi');
+  const [selectedPercentages, setSelectedPercentages] = useState({});
+
+  return (
+    <Form className="mx-3">
+      <PaceInput
+        paceMin={inputPaceMin}
+        paceSec={inputPaceSec}
+        units={paceUnits}
+        setPaceMin={setInputPaceMin}
+        setPaceSec={setInputPaceSec}
+        setUnits={setPaceUnits}
+      />
+      <PacePercentagesSelection
+        selectedPercentages={selectedPercentages}
+        onToggle={setSelectedPercentages}
+      />
+      <Button
+        type="submit"
+        variant="primary"
+        onClick={e => {
+          e.preventDefault();
+          onSubmit({
+            pace: new Pace(inputPaceMin || 0, inputPaceSec || 0, paceUnits),
+            percentages: selectedPercentages,
+          });
+        }}
+      >
+        Calculate
+      </Button>
+    </Form>
+  );
+}
