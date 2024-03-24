@@ -8,7 +8,7 @@ export const SignUpForm = () => {
       initialValues={{ email: '', password: '' }}
       validationSchema={Yup.object({
         email: Yup.string().email('Invalid email address').required('Required'),
-        password: Yup.string().required('Required'),
+        password: Yup.string().min(8, 'Password must be at least 8 characters').matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^$*.[\]{}()?\-"!@#%&/\\,><':;|_~`+=]).{8,}$/, 'Password must contain at least 1 number, 1 uppercase letter, 1 lowercase letter, and 1 special character').required('Required'),
       })}
     >
       {({ handleSubmit, handleChange, handleBlur, values, touched, errors }) => (
