@@ -5,11 +5,13 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import { Formik } from 'formik';
+import { useNavigate } from 'react-router';
 import * as Yup from 'yup';
 
 export const SignUpForm = () => {
   const baseUrl = process.env.REACT_APP_API_URI;
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const navigate = useNavigate();
 
   return (
     <Formik
@@ -23,13 +25,14 @@ export const SignUpForm = () => {
         username: '',
       }}
       onSubmit={async (values, { resetForm }) => {
+        const { email, username } = values;
         const response = await axios.post(`${baseUrl}/api/signup`, {
           ...values,
           zoneinfo: timezone
         });
-        if(response.status === 200) {
+        if (response.status === 200) {
           resetForm();
-          // push user to verify email route
+          navigate(`/verify-email?email=${encodeURIComponent(email)}&user=${username}`);
         }
       }}
       validationSchema={Yup.object({

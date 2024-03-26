@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { PaceCalculatorPage } from './pages/PaceCalculatorPage';
 import { SignUpPage } from './pages/SignUpPage';
+import { VerifyEmailPage } from './pages/VerifyEmailPage';
 
 export const Routes = () => {
   const router = createBrowserRouter([
@@ -12,6 +13,10 @@ export const Routes = () => {
     {
       path: '/sign-up',
       element: <SignUpPage />,
+    },
+    {
+      path: '/verify-email',
+      element: <VerifyEmailPage />,
     }
   ]);
 
