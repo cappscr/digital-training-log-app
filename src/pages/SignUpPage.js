@@ -11,7 +11,7 @@ export const SignUpPage = () => {
           Sign Up
         </h1>
       </Container>
-      <Container>
+      <Container className="px-5">
         <SignUpForm />
       </Container>
     </Layout>

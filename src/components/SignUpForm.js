@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -7,6 +8,9 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 export const SignUpForm = () => {
+  const baseUrl = process.env.REACT_APP_API_URI;
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   return (
     <Formik
       initialValues={{
@@ -18,6 +22,16 @@ export const SignUpForm = () => {
         password: '',
         username: '',
       }}
+      onSubmit={async (values, { resetForm }) => {
+        const response = await axios.post(`${baseUrl}/api/signup`, {
+          ...values,
+          zoneinfo: timezone
+        });
+        if(response.status === 200) {
+          resetForm();
+          // push user to verify email route
+        }
+      }}
       validationSchema={Yup.object({
         birthdate: Yup.date(),
         email: Yup.string().email('Invalid email address').required('Required'),
@@ -28,7 +42,7 @@ export const SignUpForm = () => {
         username: Yup.string().required('Username is required'),
       })}
     >
-      {({ handleSubmit, handleChange, handleBlur, values, touched, errors }) => (
+      {({ handleSubmit, handleChange, handleBlur, isSubmitting, values, touched, errors }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Row>
             <Form.Group as={Col} md="6" lg="4" controlId="username" className="mb-3">
@@ -70,7 +84,7 @@ export const SignUpForm = () => {
           </Row>
 
           <Row>
-            <Form.Group as={Col} md="5" controlId="firstName" className="mb-3">
+            <Form.Group as={Col} md="4" controlId="firstName" className="mb-3">
               <Form.Label>First Name</Form.Label>
               <Form.Control
                 autoComplete="given-name"
@@ -87,7 +101,7 @@ export const SignUpForm = () => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group as={Col} md="5" controlId="lastName" className="mb-3">
+            <Form.Group as={Col} md="4" controlId="lastName" className="mb-3">
               <Form.Label>Last Name</Form.Label>
               <Form.Control
                 autoComplete="family-name"
@@ -103,10 +117,8 @@ export const SignUpForm = () => {
                 {errors.lastName}
               </Form.Control.Feedback>
             </Form.Group>
-          </Row>
 
-          <Row>
-            <Form.Group controlId="birthdate" as={Col} md="6" className="mb-3">
+            <Form.Group controlId="birthdate" as={Col} md="4" className="mb-3">
               <Form.Label>Birthdate</Form.Label>
               <Form.Control
                 autoComplete="date"
@@ -121,6 +133,10 @@ export const SignUpForm = () => {
                 {errors.birthdate}
               </Form.Control.Feedback>
             </Form.Group>
+          </Row>
+
+          <Row>
+
           </Row>
 
           <Row>
@@ -151,7 +167,7 @@ export const SignUpForm = () => {
             </Form.Group>
           </Row>
           
-          <Button type="submit">Sign Up</Button>
+          <Button type="submit" disabled={isSubmitting}>Sign Up</Button>
         </Form>
       )}
     </Formik>
