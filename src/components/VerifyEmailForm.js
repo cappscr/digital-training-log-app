@@ -4,8 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { Formik } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import * as Yup from 'yup';
 
 export const VerifyEmailForm = () => {
@@ -38,7 +37,7 @@ export const VerifyEmailForm = () => {
       {({ handleSubmit, handleChange, handleBlur, isSubmitting, values, touched, errors }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Row>
-            <Form.Group as={Col} md="6" controlId="email" className="mb-3">
+            <Form.Group as={Col} md="6" controlId="emailVerificationCode" className="mb-3">
               <Form.Label>Verification Code</Form.Label>
               <Form.Control
                 autoComplete="one-time-code"
