@@ -29,6 +29,7 @@ export const VerifyEmailForm = () => {
           // login user and redirect to dashboard
           navigate('/');
         }
+        // else if handle error
       }}
       validationSchema={Yup.object({
         verificationCode: Yup.string().length(6, 'Verification codes are 6 characters')

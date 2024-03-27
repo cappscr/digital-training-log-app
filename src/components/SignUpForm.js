@@ -34,6 +34,7 @@ export const SignUpForm = () => {
           resetForm();
           navigate(`/verify-email?email=${encodeURIComponent(email)}&user=${username}`);
         }
+        // TODO: Better error handling for the future
       }}
       validationSchema={Yup.object({
         birthdate: Yup.date(),
@@ -41,7 +42,13 @@ export const SignUpForm = () => {
         firstName: Yup.string().required('First name is required'),
         gender: Yup.string().matches(/male|female|non-binary/),
         lastName: Yup.string().required('Last name is required'),
-        password: Yup.string().min(8, 'Password must be at least 8 characters').matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^$*.[\]{}()?\-"!@#%&/\\,><':;|_~`+=]).{8,}$/, 'Password must contain at least 1 number, 1 uppercase letter, 1 lowercase letter, and 1 special character').required('Required'),
+        password: Yup.string()
+                     .min(8, 'Password must be at least 8 characters')
+                     .matches(/[A-Z]/, 'Password must contain an uppercase letter')
+                     .matches(/[a-z]/, 'Password must contain a lowercase letter')
+                     .matches(/[0-9]/, 'Password must contain a digit between 0 and 9')
+                     .matches(/[\^$*.[\]{}()?\-"!@#%&\\,><':;|_~`+=]/, 'Password must contain a special character')
+                     .required('Required'),
         username: Yup.string().required('Username is required'),
       })}
     >
