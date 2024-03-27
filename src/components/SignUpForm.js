@@ -34,6 +34,7 @@ export const SignUpForm = () => {
           resetForm();
           navigate(`/verify-email?email=${encodeURIComponent(email)}&user=${username}`);
         }
+        // TODO: Better error handling for the future
       }}
       validationSchema={Yup.object({
         birthdate: Yup.date(),
