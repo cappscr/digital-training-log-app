@@ -2,9 +2,13 @@ import Container from 'react-bootstrap/Container';
 import { ForgotPasswordForm } from '../components/ForgotPasswordForm';
 import { Layout } from '../components/Layout';
 import { ResetPasswordForm } from '../components/ResetPasswordForm';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const ForgotPasswordPage = () => {
+  useEffect(() => {
+    document.title = 'Digital Training Log App | Forgot Password';
+  });
+
   const [resetCodeSent, setResetCodeSent] = useState(false);
   const [username, setUsername] = useState('');
 
