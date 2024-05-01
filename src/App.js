@@ -6,7 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
   const firebaseConfig = {
-    apiKey: process.env.FIREBASE_API_KEY,
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: "digital-training-log-app.firebaseapp.com",
     projectId: "digital-training-log-app",
     storageBucket: "digital-training-log-app.appspot.com",
