@@ -5,8 +5,10 @@ import Button from 'react-bootstrap/Button';
 
 import { PacesTable } from '../components/PacesTable';
 import { PaceCalculatorForm } from '../components/PaceCalculatorForm';
+import { getAnalytics, logEvent } from 'firebase/analytics';
 
 export const PaceCalculator = () => {
+  const analytics = getAnalytics();
   const [paces, setPaces] = useState(null);
 
   return (
@@ -17,6 +19,7 @@ export const PaceCalculator = () => {
           <Button
             variant="primary"
             onClick={() => {
+              logEvent(analytics, 'pace_calculator_reset', {});
               setPaces(null);
             }}
           >
