@@ -1,0 +1,7 @@
+{
+  "name": "digital-training-log",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
