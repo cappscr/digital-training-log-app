@@ -24,9 +24,14 @@
             ></ion-input>
           </ion-item>
           <ion-item>
-            <ion-select label="units" aria-label="Pace Units" value="min/mi">
+            <ion-select
+              label="units"
+              aria-label="Pace Units"
+              value="min/mi"
+              (ionChange)="onUnitsSelect($event)"
+            >
               <ion-select-option value="min/mi">min/mi</ion-select-option>
-              <ion-select-option value="km/mi">min/km</ion-select-option>
+              <ion-select-option value="min/km">min/km</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>
