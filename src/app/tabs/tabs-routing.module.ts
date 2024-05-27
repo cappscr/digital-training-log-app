@@ -24,7 +24,7 @@ const routes: Routes = [
       {
         path: 'pace-calculator',
         loadChildren: () =>
-          import('../pace-calculator/tab3.module').then(
+          import('../pace-calculator/pace-calculator.module').then(
             (m) => m.PaceCalculatorPageModule
           ),
       },
