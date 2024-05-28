@@ -13,6 +13,7 @@ const routes: Routes = [
           import('../dashboard/dashboard.module').then(
             (m) => m.DashboardPageModule
           ),
+        title: 'Digital Training Log App | Dashboard',
       },
       {
         path: 'daily-vitals',
@@ -20,6 +21,7 @@ const routes: Routes = [
           import('../daily-vitals/daily-vitals.module').then(
             (m) => m.DailyVitalsPageModule
           ),
+        title: 'Digital Training Log App | Daily Vitals',
       },
       {
         path: 'pace-calculator',
@@ -27,6 +29,7 @@ const routes: Routes = [
           import('../pace-calculator/pace-calculator.module').then(
             (m) => m.PaceCalculatorPageModule
           ),
+        title: 'Digital Training Log App | Pace Caculator',
       },
       {
         path: '',

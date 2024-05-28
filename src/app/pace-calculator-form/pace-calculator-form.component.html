@@ -1,61 +1,45 @@
-<ion-content color="light">
-  <ion-grid>
-    <ion-row class="ion-justify-content-center">
-      <h3>Pace</h3>
-    </ion-row>
+<h4 class="ion-margin-horizontal">Pace</h4>
 
-    <ion-row class="ion-justify-content-center">
-      <ion-col size="10" sizeSm="8" sizeMd="6" sizeLg="4">
-        <ion-list [inset]="true">
-          <ion-item>
-            <ion-input
-              label="min"
-              name="pace-min"
-              type="number"
-              (ionInput)="onMinInput($event)"
-            ></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input
-              label="sec"
-              name="pace-sec"
-              type="number"
-              (ionInput)="onSecInput($event)"
-            ></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-select
-              label="units"
-              aria-label="Pace Units"
-              value="min/mi"
-              (ionChange)="onUnitsSelect($event)"
-            >
-              <ion-select-option value="min/mi">min/mi</ion-select-option>
-              <ion-select-option value="min/km">min/km</ion-select-option>
-            </ion-select>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
+<ion-list [inset]="true">
+  <ion-item>
+    <ion-input
+      label="min"
+      name="pace-min"
+      type="number"
+      (ionInput)="onMinInput($event)"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input
+      label="sec"
+      name="pace-sec"
+      type="number"
+      (ionInput)="onSecInput($event)"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-select
+      label="units"
+      aria-label="Pace Units"
+      value="min/mi"
+      (ionChange)="onUnitsSelect($event)"
+    >
+      <ion-select-option value="min/mi">min/mi</ion-select-option>
+      <ion-select-option value="min/km">min/km</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
 
-    <ion-row class="ion-justify-content-center">
-      <ion-note>Percentages to select</ion-note>
-    </ion-row>
+<ion-note color="medium" class="ion-margin-horizontal"
+  >Percentages to select</ion-note
+>
 
-    <ion-row class="ion-justify-content-center">
-      <ion-col size="10" sizeSm="8" sizeMd="6" sizeLg="4">
-        <ion-list [inset]="true">
-          @for (percentage of trainingPercentages; track percentage) {
-          <ion-item>
-            <ion-toggle> {{ percentage }} </ion-toggle>
-          </ion-item>
-          }
-        </ion-list>
-      </ion-col>
-    </ion-row>
+<ion-list [inset]="true">
+  @for (percentage of trainingPercentages; track percentage) {
+  <ion-item>
+    <ion-toggle> {{ percentage }} </ion-toggle>
+  </ion-item>
+  }
+</ion-list>
 
-    <ion-row class="ion-justify-content-center">
-      <ion-button [disabled]="!paceSet">Calculate</ion-button>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+<ion-button class="ion-margin" [disabled]="!paceSet">Calculate</ion-button>
