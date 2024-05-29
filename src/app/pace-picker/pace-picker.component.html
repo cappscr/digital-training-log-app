@@ -1,0 +1,37 @@
+<ion-modal #modal [trigger]="modalTrigger" (didDismiss)="onDidDismiss()">
+  <ng-template>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="modal.dismiss(null, 'cancel')">Cancel</ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="modal.dismiss(currentPaceValue, 'confirm')"
+          >Done</ion-button
+        >
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-picker>
+      <ion-picker-column
+        [value]="currentMinValue"
+        (ionChange)="onIonChange($event, 'min')"
+      >
+        @for (minValue of availableMinValues; track minValue) {
+        <ion-picker-column-option value="{{ minValue }}">{{
+          minValue
+        }}</ion-picker-column-option>
+        }
+        <div slot="suffix">:</div>
+      </ion-picker-column>
+      <ion-picker-column
+        [value]="currentSecValue"
+        (ionChange)="onIonChange($event, 'sec')"
+      >
+        @for (secValue of availableSecValues; track secValue) {
+        <ion-picker-column-option value="{{ secValue }}">{{
+          secValue
+        }}</ion-picker-column-option>
+        }
+      </ion-picker-column>
+    </ion-picker>
+  </ng-template>
+</ion-modal>

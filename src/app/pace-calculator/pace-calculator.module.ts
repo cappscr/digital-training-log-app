@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { PaceCalculatorPage } from './pace-calculator.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { PaceCalculatorFormComponentModule } from '../pace-calculator-form/pace-calculator-form.module';
+import { PacePickerComponentModule } from '../pace-picker/pace-picker.module';
 
 import { PaceCalculatorPageRoutingModule } from './pace-calculator-routing.module';
 
@@ -16,6 +17,7 @@ import { PaceCalculatorPageRoutingModule } from './pace-calculator-routing.modul
     ExploreContainerComponentModule,
     PaceCalculatorFormComponentModule,
     PaceCalculatorPageRoutingModule,
+    PacePickerComponentModule,
   ],
   declarations: [PaceCalculatorPage],
 })

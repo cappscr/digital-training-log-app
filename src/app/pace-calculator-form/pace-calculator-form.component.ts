@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { InputCustomEvent, SelectCustomEvent } from '@ionic/angular';
+import { Component } from '@angular/core';
+import { SelectCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-pace-calculator-form',
@@ -7,10 +7,9 @@ import { InputCustomEvent, SelectCustomEvent } from '@ionic/angular';
   styleUrls: ['./pace-calculator-form.component.scss'],
 })
 export class PaceCalculatorFormComponent {
-  private paceMin: number = 0;
-  private paceSec: number = 0;
+  protected pace: string | null = null;
   private paceUnits = 'min/mi';
-  paceSet = Boolean(this.paceMin && this.paceSec);
+  paceSet = Boolean(this.pace);
   trainingPercentages = [
     '70',
     '80',
@@ -26,22 +25,9 @@ export class PaceCalculatorFormComponent {
     '110',
   ];
 
-  onMinInput(e: InputCustomEvent | null) {
-    if (e?.detail.value) {
-      this.paceMin = parseInt(e?.detail.value as string);
-    } else {
-      this.paceMin = 0;
-    }
-    this.paceSet = Boolean(this.paceMin && this.paceSec);
-  }
-
-  onSecInput(e: InputCustomEvent | null) {
-    if (e?.detail.value) {
-      this.paceSec = parseInt(e?.detail.value as string);
-    } else {
-      this.paceSec = 0;
-    }
-    this.paceSet = Boolean(this.paceMin && this.paceSec);
+  onPaceChange(pace: string) {
+    this.pace = pace;
+    this.paceSet = Boolean(this.pace);
   }
 
   onUnitsSelect(e: SelectCustomEvent | null) {
