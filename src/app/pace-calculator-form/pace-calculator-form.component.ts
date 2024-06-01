@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { SelectCustomEvent } from '@ionic/angular';
+import {
+  IonToggle,
+  SelectCustomEvent,
+  ToggleCustomEvent,
+} from '@ionic/angular';
 
 @Component({
   selector: 'app-pace-calculator-form',
@@ -9,6 +13,7 @@ import { SelectCustomEvent } from '@ionic/angular';
 export class PaceCalculatorFormComponent {
   protected pace: string | null = null;
   private paceUnits = 'min/mi';
+  private selectedPercentages: number[] = [];
   paceSet = Boolean(this.pace);
   trainingPercentages = [
     '70',
@@ -35,4 +40,17 @@ export class PaceCalculatorFormComponent {
       this.paceUnits = e?.detail.value;
     }
   }
+
+  onToggle = (e: ToggleCustomEvent) => {
+    const toggledPercentage = parseInt(e?.detail.value);
+    if (e?.detail.checked) {
+      this.selectedPercentages.push(toggledPercentage);
+    } else {
+      const indexToSplice = this.selectedPercentages.indexOf(toggledPercentage);
+      this.selectedPercentages.splice(indexToSplice, 1);
+    }
+    console.log(this.selectedPercentages);
+  };
+
+  onCalculate = () => {};
 }

@@ -25,7 +25,9 @@
 <ion-list [inset]="true">
   @for (percentage of trainingPercentages; track percentage) {
   <ion-item>
-    <ion-toggle> {{ percentage }} </ion-toggle>
+    <ion-toggle (ionChange)="onToggle($event)" value="{{ percentage }}">
+      {{ percentage }}
+    </ion-toggle>
   </ion-item>
   }
 </ion-list>
