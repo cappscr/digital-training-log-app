@@ -4,13 +4,15 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class PaceService {
-  private min: number;
-  private sec: number;
-  private units: string;
+  private min: number = 0;
+  private sec: number = 0;
+  private units: string = 'min/mi';
 
-  constructor(min: number | string, sec: number | string, units: string) {
-    this.min = typeof min === 'number' ? min : parseInt(min);
-    this.sec = typeof sec === 'number' ? sec : parseInt(sec);
+  set(pace: string, units: string) {
+    const min = pace.split(':')[0];
+    const sec = pace.split(':')[1];
+    this.min = parseInt(min);
+    this.sec = parseInt(sec);
     this.units = units;
   }
 
@@ -24,12 +26,13 @@ export class PaceService {
     return this.min + this.sec / 60;
   };
 
-  calcPercentage = (percent: number) => {
+  calcPercentage(percent: number): PaceService {
     const newPaceInMin = (this.inMin() / 100) * (100 - percent) + this.inMin();
-    return new PaceService(
-      Math.floor(newPaceInMin),
-      (newPaceInMin * 60) % 60,
+    const newPace = new PaceService();
+    newPace.set(
+      `${Math.floor(newPaceInMin)}:${(newPaceInMin * 60) % 60}`,
       this.units
     );
-  };
+    return newPace;
+  }
 }

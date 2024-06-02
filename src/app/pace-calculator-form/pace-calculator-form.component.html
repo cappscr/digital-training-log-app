@@ -37,4 +37,6 @@
   (paceValue)="onPaceChange($event)"
 ></app-pace-picker>
 
-<ion-button class="ion-margin" [disabled]="!paceSet">Calculate</ion-button>
+<ion-button class="ion-margin" [disabled]="!paceSet" (click)="onCalculate()"
+  >Calculate</ion-button
+>
