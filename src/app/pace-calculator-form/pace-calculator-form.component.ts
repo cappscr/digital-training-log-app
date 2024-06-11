@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { SelectCustomEvent, ToggleCustomEvent } from '@ionic/angular';
 import { PaceService } from '../services/pace-service.service';
 
@@ -26,7 +27,7 @@ export class PaceCalculatorFormComponent {
     '108',
     '110',
   ];
-  constructor(private paceSerivce: PaceService) {}
+  constructor(private paceSerivce: PaceService, private router: Router) {}
 
   onPaceChange(pace: string) {
     this.pace = pace;
@@ -59,7 +60,9 @@ export class PaceCalculatorFormComponent {
         pace: this.paceSerivce.calcPercentage(percentage),
       });
     });
-    return calculatedTrainingPaces;
+    // route to new component passing calculatedTrainingPaces as @input
+    this.router.navigate(['tabs/training-paces']);
+    //return calculatedTrainingPaces;
   };
 }
 

@@ -32,6 +32,14 @@ const routes: Routes = [
         title: 'Digital Training Log App | Pace Caculator',
       },
       {
+        path: 'training-paces',
+        loadChildren: () =>
+          import(
+            '../training-paces-display/training-paces-display.module'
+          ).then((m) => m.TrainingPacesDisplayPageModule),
+        title: 'Digital Training Log App | Calculated Training Paces',
+      },
+      {
         path: '',
         redirectTo: '/tabs/dashboard',
         pathMatch: 'full',
