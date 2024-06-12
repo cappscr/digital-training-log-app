@@ -3,14 +3,20 @@ import { ForgotPasswordForm } from '../components/ForgotPasswordForm';
 import { Layout } from '../components/Layout';
 import { ResetPasswordForm } from '../components/ResetPasswordForm';
 import { useState, useEffect } from 'react';
+import { getAnalytics, logEvent } from 'firebase/analytics';
 
 export const ForgotPasswordPage = () => {
+  const forgotPasswordPageName = 'Digital Training Log App | Forgot Password';
+  const resetPasswordPageName = 'Digital Training Log App | Reset Password';
+  const analytics = getAnalytics();
+
   const [resetCodeSent, setResetCodeSent] = useState(false);
   const [username, setUsername] = useState('');
 
   useEffect(() => {
-    document.title = (resetCodeSent) ? 'Digital Training Log App | Reset Password' : 'Digital Training Log App | Forgot Password';
-  }, [resetCodeSent]);
+    document.title = (resetCodeSent) ? resetPasswordPageName : forgotPasswordPageName;
+    if (resetCodeSent) logEvent(analytics, 'page_view', { page_title: forgotPasswordPageName, page_location: document.location.href})
+  }, [resetCodeSent, analytics]);
 
   return (
     <Layout>
