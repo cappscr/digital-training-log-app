@@ -12,6 +12,10 @@ export const ForgotPasswordPage = () => {
   const [resetCodeSent, setResetCodeSent] = useState(false);
   const [username, setUsername] = useState('');
 
+  useEffect(() => {
+    document.title = (resetCodeSent) ? 'Digital Training Log App | Reset Password' : 'Digital Training Log App | Forgot Password';
+  }, [resetCodeSent]);
+
   return (
     <Layout>
       <Container className="my-3 d-flex justify-content-center">
