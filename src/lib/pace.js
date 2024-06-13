@@ -5,7 +5,7 @@ class Pace {
     this.units = units;
   }
   display = () => {
-    return `${this.min}:${this.sec.toString().padStart(2, '0')} min/${
+    return `${this.min}:${this.sec.toString().padStart(2, "0")} min/${
       this.units
     }`;
   };

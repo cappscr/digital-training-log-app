@@ -1,6 +1,6 @@
-import Table from 'react-bootstrap/Table';
+import Table from "react-bootstrap/Table";
 
-import { trainingPercentages } from '../lib/constants';
+import { trainingPercentages } from "../lib/constants";
 
 export const PacesTable = ({ trainingPaces }) => {
   const percentagesToRender = [];
@@ -30,4 +30,4 @@ export const PacesTable = ({ trainingPaces }) => {
       <tbody>{paceRows}</tbody>
     </Table>
   );
-}
+};

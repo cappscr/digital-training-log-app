@@ -1,8 +1,8 @@
-import { Routes } from './Routes';
+import { Routes } from "./Routes";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 function App() {
   const firebaseConfig = {
@@ -16,7 +16,7 @@ function App() {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
-  
+
   return (
     <div className="App">
       <Routes />

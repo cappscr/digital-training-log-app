@@ -1,13 +1,13 @@
-import Container from 'react-bootstrap/Container';
-import { Layout } from '../components/Layout';
-import { PaceCalculator } from '../components/PaceCalculator';
-import { useEffect } from 'react';
+import Container from "react-bootstrap/Container";
+import { Layout } from "../components/Layout";
+import { PaceCalculator } from "../components/PaceCalculator";
+import { useEffect } from "react";
 
 export const PaceCalculatorPage = () => {
   useEffect(() => {
-    document.title = 'Digital Training Log App | Pace Calculator';
+    document.title = "Digital Training Log App | Pace Calculator";
   });
-  
+
   return (
     <Layout>
       <Container className="d-flex justify-content-center">
@@ -21,4 +21,4 @@ export const PaceCalculatorPage = () => {
       </Container>
     </Layout>
   );
-}
+};

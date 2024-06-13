@@ -1,11 +1,11 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment } from "react";
 
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
 
-import { PacesTable } from '../components/PacesTable';
-import { PaceCalculatorForm } from '../components/PaceCalculatorForm';
-import { getAnalytics, logEvent } from 'firebase/analytics';
+import { PacesTable } from "../components/PacesTable";
+import { PaceCalculatorForm } from "../components/PaceCalculatorForm";
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 export const PaceCalculator = () => {
   const analytics = getAnalytics();
@@ -19,7 +19,7 @@ export const PaceCalculator = () => {
           <Button
             variant="primary"
             onClick={() => {
-              logEvent(analytics, 'pace_calculator_reset', {});
+              logEvent(analytics, "pace_calculator_reset", {});
               setPaces(null);
             }}
           >
@@ -31,4 +31,4 @@ export const PaceCalculator = () => {
       )}
     </Fragment>
   );
-}
+};

@@ -1,5 +1,5 @@
-import Form from 'react-bootstrap/Form';
-import { trainingPercentages } from '../lib/constants';
+import Form from "react-bootstrap/Form";
+import { trainingPercentages } from "../lib/constants";
 
 export const PacePercentagesSelection = ({ selectedPercentages, onToggle }) => {
   const formSwitches = trainingPercentages.map((percent) => (
@@ -9,8 +9,10 @@ export const PacePercentagesSelection = ({ selectedPercentages, onToggle }) => {
         name={percent}
         id={percent}
         label={percent}
-        onChange={e => {
-          e.target.checked ? selectedPercentages[percent] = true : selectedPercentages[percent] = false;
+        onChange={(e) => {
+          e.target.checked
+            ? (selectedPercentages[percent] = true)
+            : (selectedPercentages[percent] = false);
           onToggle(selectedPercentages);
         }}
       />
@@ -23,4 +25,4 @@ export const PacePercentagesSelection = ({ selectedPercentages, onToggle }) => {
       {formSwitches}
     </div>
   );
-}
+};

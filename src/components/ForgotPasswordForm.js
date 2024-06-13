@@ -1,11 +1,11 @@
-import axios from 'axios';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
+import axios from "axios";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Row from "react-bootstrap/Row";
+import { Formik } from "formik";
+import * as Yup from "yup";
 
 export const ForgotPasswordForm = ({ setResetCodeSent, setUsername }) => {
   const baseUrl = process.env.REACT_APP_API_URI;
@@ -13,8 +13,8 @@ export const ForgotPasswordForm = ({ setResetCodeSent, setUsername }) => {
   return (
     <Formik
       initialValues={{
-        email: '',
-        username: '',
+        email: "",
+        username: "",
       }}
       onSubmit={async (values) => {
         setUsername(values.username);
@@ -27,14 +27,32 @@ export const ForgotPasswordForm = ({ setResetCodeSent, setUsername }) => {
         // else if handle error
       }}
       validationSchema={Yup.object({
-        email: Yup.string().email('Invalid email address').required('Email address is required to reset password'),
-        username: Yup.string().required('Username is required to reset password')
+        email: Yup.string()
+          .email("Invalid email address")
+          .required("Email address is required to reset password"),
+        username: Yup.string().required(
+          "Username is required to reset password",
+        ),
       })}
     >
-      {({ handleSubmit, handleChange, handleBlur, isSubmitting, values, touched, errors }) => (
+      {({
+        handleSubmit,
+        handleChange,
+        handleBlur,
+        isSubmitting,
+        values,
+        touched,
+        errors,
+      }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Row>
-          <Form.Group as={Col} md="6" lg="4" controlId="username" className="mb-3">
+            <Form.Group
+              as={Col}
+              md="6"
+              lg="4"
+              controlId="username"
+              className="mb-3"
+            >
               <Form.Label>Username</Form.Label>
               <InputGroup hasValidation>
                 <InputGroup.Text id="usernamePrepend">@</InputGroup.Text>
@@ -71,10 +89,12 @@ export const ForgotPasswordForm = ({ setResetCodeSent, setUsername }) => {
               </Form.Control.Feedback>
             </Form.Group>
           </Row>
-          
-          <Button type="submit" disabled={isSubmitting}>Get Reset Code</Button>
+
+          <Button type="submit" disabled={isSubmitting}>
+            Get Reset Code
+          </Button>
         </Form>
       )}
     </Formik>
   );
-}
+};

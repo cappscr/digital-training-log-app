@@ -1,11 +1,11 @@
-import Container from 'react-bootstrap/Container';
+import Container from "react-bootstrap/Container";
 import { Layout } from "../components/Layout";
 import { SignUpForm } from "../components/SignUpForm";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export const SignUpPage = () => {
   useEffect(() => {
-    document.title = 'Digital Training Log App | Sign Up';
+    document.title = "Digital Training Log App | Sign Up";
   });
 
   return (
@@ -21,4 +21,4 @@ export const SignUpPage = () => {
       </Container>
     </Layout>
   );
-}
+};

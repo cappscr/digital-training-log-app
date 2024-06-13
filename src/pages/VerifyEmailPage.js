@@ -1,11 +1,11 @@
-import Container from 'react-bootstrap/Container';
+import Container from "react-bootstrap/Container";
 import { Layout } from "../components/Layout";
 import { VerifyEmailForm } from "../components/VerifyEmailForm";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export const VerifyEmailPage = () => {
   useEffect(() => {
-    document.title = 'Digital Training Log App | Verify Email';
+    document.title = "Digital Training Log App | Verify Email";
   });
 
   return (
@@ -21,4 +21,4 @@ export const VerifyEmailPage = () => {
       </Container>
     </Layout>
   );
-}
+};
