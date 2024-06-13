@@ -1,5 +1,5 @@
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
+import Form from 'react-bootstrap/Form'
+import InputGroup from 'react-bootstrap/InputGroup'
 
 export const PaceInput = ({
   paceMin,
@@ -40,5 +40,5 @@ export const PaceInput = ({
         </Form.Select>
       </InputGroup>
     </>
-  );
-};
+  )
+}

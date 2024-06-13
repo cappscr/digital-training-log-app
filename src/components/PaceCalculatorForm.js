@@ -1,18 +1,18 @@
-import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { useState } from 'react'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 
-import { PaceInput } from "../components/PaceInput";
-import { PacePercentagesSelection } from "../components/PacePercentagesSelection";
-import { Pace } from "../lib/pace";
-import { getAnalytics, logEvent } from "firebase/analytics";
+import { PaceInput } from '../components/PaceInput'
+import { PacePercentagesSelection } from '../components/PacePercentagesSelection'
+import { Pace } from '../lib/pace'
+import { getAnalytics, logEvent } from 'firebase/analytics'
 
 export const PaceCalculatorForm = ({ onSubmit }) => {
-  const [inputPaceMin, setInputPaceMin] = useState("");
-  const [inputPaceSec, setInputPaceSec] = useState("");
-  const [paceUnits, setPaceUnits] = useState("mi");
-  const [selectedPercentages, setSelectedPercentages] = useState({});
-  const analytics = getAnalytics();
+  const [inputPaceMin, setInputPaceMin] = useState('')
+  const [inputPaceSec, setInputPaceSec] = useState('')
+  const [paceUnits, setPaceUnits] = useState('mi')
+  const [selectedPercentages, setSelectedPercentages] = useState({})
+  const analytics = getAnalytics()
 
   return (
     <Form className="mx-3">
@@ -32,19 +32,19 @@ export const PaceCalculatorForm = ({ onSubmit }) => {
         type="submit"
         variant="primary"
         onClick={(e) => {
-          e.preventDefault();
-          logEvent(analytics, "calculate_paces", {
+          e.preventDefault()
+          logEvent(analytics, 'calculate_paces', {
             input_pace: `${inputPaceMin}:${inputPaceSec} min/${paceUnits}`,
-            selected_percentages: Object.keys(selectedPercentages).join(","),
-          });
+            selected_percentages: Object.keys(selectedPercentages).join(','),
+          })
           onSubmit({
             pace: new Pace(inputPaceMin || 0, inputPaceSec || 0, paceUnits),
             percentages: selectedPercentages,
-          });
+          })
         }}
       >
         Calculate
       </Button>
     </Form>
-  );
-};
+  )
+}

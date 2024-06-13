@@ -1,60 +1,60 @@
-import axios from "axios";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Row from "react-bootstrap/Row";
-import { Formik } from "formik";
-import { useNavigate } from "react-router";
-import * as Yup from "yup";
+import axios from 'axios'
+import Button from 'react-bootstrap/Button'
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form'
+import InputGroup from 'react-bootstrap/InputGroup'
+import Row from 'react-bootstrap/Row'
+import { Formik } from 'formik'
+import { useNavigate } from 'react-router'
+import * as Yup from 'yup'
 
 export const SignUpForm = () => {
-  const baseUrl = process.env.REACT_APP_API_URI;
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const navigate = useNavigate();
+  const baseUrl = process.env.REACT_APP_API_URI
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+  const navigate = useNavigate()
 
   return (
     <Formik
       initialValues={{
-        birthdate: "",
-        email: "",
-        firstName: "",
-        gender: "male",
-        lastName: "",
-        password: "",
-        username: "",
+        birthdate: '',
+        email: '',
+        firstName: '',
+        gender: 'male',
+        lastName: '',
+        password: '',
+        username: '',
       }}
       onSubmit={async (values, { resetForm }) => {
-        const { email, username } = values;
+        const { email, username } = values
         const response = await axios.post(`${baseUrl}/api/signup`, {
           ...values,
           zoneinfo: timezone,
-        });
+        })
         if (response.status === 200) {
-          resetForm();
+          resetForm()
           navigate(
-            `/verify-email?email=${encodeURIComponent(email)}&user=${username}`,
-          );
+            `/verify-email?email=${encodeURIComponent(email)}&user=${username}`
+          )
         }
         // TODO: Better error handling for the future
       }}
       validationSchema={Yup.object({
         birthdate: Yup.date(),
-        email: Yup.string().email("Invalid email address").required("Required"),
-        firstName: Yup.string().required("First name is required"),
+        email: Yup.string().email('Invalid email address').required('Required'),
+        firstName: Yup.string().required('First name is required'),
         gender: Yup.string().matches(/male|female|non-binary/),
-        lastName: Yup.string().required("Last name is required"),
+        lastName: Yup.string().required('Last name is required'),
         password: Yup.string()
-          .min(8, "Password must be at least 8 characters")
-          .matches(/[A-Z]/, "Password must contain an uppercase letter")
-          .matches(/[a-z]/, "Password must contain a lowercase letter")
-          .matches(/[0-9]/, "Password must contain a digit between 0 and 9")
+          .min(8, 'Password must be at least 8 characters')
+          .matches(/[A-Z]/, 'Password must contain an uppercase letter')
+          .matches(/[a-z]/, 'Password must contain a lowercase letter')
+          .matches(/[0-9]/, 'Password must contain a digit between 0 and 9')
           .matches(
             /[\^$*.[\]{}()?\-"!@#%&\\,><':;|_~`+=]/,
-            "Password must contain a special character",
+            'Password must contain a special character'
           )
-          .required("Required"),
-        username: Yup.string().required("Username is required"),
+          .required('Required'),
+        username: Yup.string().required('Username is required'),
       })}
     >
       {({
@@ -200,5 +200,5 @@ export const SignUpForm = () => {
         </Form>
       )}
     </Formik>
-  );
-};
+  )
+}

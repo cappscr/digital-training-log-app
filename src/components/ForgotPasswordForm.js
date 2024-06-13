@@ -1,37 +1,37 @@
-import axios from "axios";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Row from "react-bootstrap/Row";
-import { Formik } from "formik";
-import * as Yup from "yup";
+import axios from 'axios'
+import Button from 'react-bootstrap/Button'
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form'
+import InputGroup from 'react-bootstrap/InputGroup'
+import Row from 'react-bootstrap/Row'
+import { Formik } from 'formik'
+import * as Yup from 'yup'
 
 export const ForgotPasswordForm = ({ setResetCodeSent, setUsername }) => {
-  const baseUrl = process.env.REACT_APP_API_URI;
+  const baseUrl = process.env.REACT_APP_API_URI
 
   return (
     <Formik
       initialValues={{
-        email: "",
-        username: "",
+        email: '',
+        username: '',
       }}
       onSubmit={async (values) => {
-        setUsername(values.username);
+        setUsername(values.username)
         const response = await axios.put(`${baseUrl}/api/forgot-password`, {
           ...values,
-        });
+        })
         if (response.status === 200) {
-          setResetCodeSent(true);
+          setResetCodeSent(true)
         }
         // else if handle error
       }}
       validationSchema={Yup.object({
         email: Yup.string()
-          .email("Invalid email address")
-          .required("Email address is required to reset password"),
+          .email('Invalid email address')
+          .required('Email address is required to reset password'),
         username: Yup.string().required(
-          "Username is required to reset password",
+          'Username is required to reset password'
         ),
       })}
     >
@@ -96,5 +96,5 @@ export const ForgotPasswordForm = ({ setResetCodeSent, setUsername }) => {
         </Form>
       )}
     </Formik>
-  );
-};
+  )
+}

@@ -1,21 +1,21 @@
-import axios from "axios";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import { Formik } from "formik";
-import { useNavigate } from "react-router-dom";
-import * as Yup from "yup";
+import axios from 'axios'
+import Button from 'react-bootstrap/Button'
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form'
+import Row from 'react-bootstrap/Row'
+import { Formik } from 'formik'
+import { useNavigate } from 'react-router-dom'
+import * as Yup from 'yup'
 
 export const ResetPasswordForm = ({ username }) => {
-  const baseUrl = process.env.REACT_APP_API_URI;
-  const navigate = useNavigate();
+  const baseUrl = process.env.REACT_APP_API_URI
+  const navigate = useNavigate()
 
   return (
     <Formik
       initialValues={{
-        newPassword: "",
-        resetCode: "",
+        newPassword: '',
+        resetCode: '',
         username: username,
       }}
       onSubmit={async (values, { resetForm }) => {
@@ -23,27 +23,27 @@ export const ResetPasswordForm = ({ username }) => {
           `${baseUrl}/api/users/reset-password`,
           {
             ...values,
-          },
-        );
+          }
+        )
         if (response.status === 200) {
-          resetForm();
+          resetForm()
           // login user and redirect to dashboard
-          navigate("/");
+          navigate('/')
         }
         // else if handle error
       }}
       validationSchema={Yup.object({
         newPassword: Yup.string()
-          .min(8, "Password must be at least 8 characters")
-          .matches(/[A-Z]/, "Password must contain an uppercase letter")
-          .matches(/[a-z]/, "Password must contain a lowercase letter")
-          .matches(/[0-9]/, "Password must contain a digit between 0 and 9")
+          .min(8, 'Password must be at least 8 characters')
+          .matches(/[A-Z]/, 'Password must contain an uppercase letter')
+          .matches(/[a-z]/, 'Password must contain a lowercase letter')
+          .matches(/[0-9]/, 'Password must contain a digit between 0 and 9')
           .matches(
             /[\^$*.[\]{}()?\-"!@#%&\\,><':;|_~`+=]/,
-            "Password must contain a special character",
+            'Password must contain a special character'
           )
-          .required("Required"),
-        resetCode: Yup.string().length(6, "Reset codes are 6 characters"),
+          .required('Required'),
+        resetCode: Yup.string().length(6, 'Reset codes are 6 characters'),
       })}
     >
       {({
@@ -108,5 +108,5 @@ export const ResetPasswordForm = ({ username }) => {
         </Form>
       )}
     </Formik>
-  );
-};
+  )
+}
