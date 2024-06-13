@@ -11,7 +11,7 @@ const months = [
   'October',
   'November',
   'December',
-];
+]
 
 const trainingPercentages = [
   '70',
@@ -26,6 +26,6 @@ const trainingPercentages = [
   '105',
   '108',
   '110',
-];
+]
 
-export { trainingPercentages, months };
+export { trainingPercentages, months }

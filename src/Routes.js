@@ -1,9 +1,9 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
-import { PaceCalculatorPage } from './pages/PaceCalculatorPage';
-import { SignUpPage } from './pages/SignUpPage';
-import { VerifyEmailPage } from './pages/VerifyEmailPage';
+import { ForgotPasswordPage } from './pages/ForgotPasswordPage'
+import { PaceCalculatorPage } from './pages/PaceCalculatorPage'
+import { SignUpPage } from './pages/SignUpPage'
+import { VerifyEmailPage } from './pages/VerifyEmailPage'
 
 export const Routes = () => {
   const router = createBrowserRouter([
@@ -22,10 +22,8 @@ export const Routes = () => {
     {
       path: '/forgot-password',
       element: <ForgotPasswordPage />,
-    }
-  ]);
+    },
+  ])
 
-  return (
-    <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />
 }
