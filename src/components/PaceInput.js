@@ -1,8 +1,14 @@
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form'
+import InputGroup from 'react-bootstrap/InputGroup'
 
-export const PaceInput = ({ paceMin, paceSec, units, setPaceMin, setPaceSec, setUnits }) => {
-
+export const PaceInput = ({
+  paceMin,
+  paceSec,
+  units,
+  setPaceMin,
+  setPaceSec,
+  setUnits,
+}) => {
   return (
     <>
       <Form.Label htmlFor="pace">Pace</Form.Label>
@@ -12,7 +18,7 @@ export const PaceInput = ({ paceMin, paceSec, units, setPaceMin, setPaceSec, set
           id="pace-min"
           type="number"
           value={paceMin}
-          onChange={e => setPaceMin(e.target.value)}
+          onChange={(e) => setPaceMin(e.target.value)}
         />
         <InputGroup.Text htmlFor="pace-min">Min</InputGroup.Text>
         <Form.Control
@@ -20,19 +26,19 @@ export const PaceInput = ({ paceMin, paceSec, units, setPaceMin, setPaceSec, set
           id="pace-sec"
           type="number"
           value={paceSec}
-          onChange={e => setPaceSec(e.target.value)}
+          onChange={(e) => setPaceSec(e.target.value)}
         />
         <InputGroup.Text htmlFor="pace-sec">Sec</InputGroup.Text>
         <Form.Select
           name="pace-units"
           id="pace-units"
           value={units}
-          onChange={e => setUnits(e.target.value)}
+          onChange={(e) => setUnits(e.target.value)}
         >
           <option value="mi">min/mi</option>
           <option value="km">min/km</option>
         </Form.Select>
       </InputGroup>
     </>
-  );
+  )
 }

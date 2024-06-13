@@ -1,25 +1,25 @@
 class Pace {
   constructor(min, sec, units) {
-    this.min = parseInt(min);
-    this.sec = parseInt(sec);
-    this.units = units;
+    this.min = parseInt(min)
+    this.sec = parseInt(sec)
+    this.units = units
   }
   display = () => {
     return `${this.min}:${this.sec.toString().padStart(2, '0')} min/${
       this.units
-    }`;
-  };
+    }`
+  }
   inMin = () => {
-    return this.min + this.sec / 60;
-  };
+    return this.min + this.sec / 60
+  }
   calcPercentage = (percent) => {
-    const newPaceInMin = (this.inMin() / 100) * (100 - percent) + this.inMin();
+    const newPaceInMin = (this.inMin() / 100) * (100 - percent) + this.inMin()
     return new Pace(
       Math.floor(newPaceInMin),
       (newPaceInMin * 60) % 60,
-      this.units,
-    );
-  };
+      this.units
+    )
+  }
 }
 
-export { Pace };
+export { Pace }
