@@ -2,8 +2,8 @@ import Table from 'react-bootstrap/Table'
 
 import { trainingPercentages } from '../lib/constants'
 
-export const PacesTable = ({ trainingPaces }) => {
-  const percentagesToRender = []
+export const PacesTable = ({ trainingPaces }: any) => {
+  const percentagesToRender: number[] = []
 
   trainingPercentages.forEach((percentage) => {
     if (trainingPaces.percentages[percentage])

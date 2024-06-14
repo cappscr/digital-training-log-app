@@ -7,7 +7,11 @@ import { Formik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
-export const ResetPasswordForm = ({ username }) => {
+interface ResetPasswordFormProps {
+  username: string
+}
+
+export const ResetPasswordForm = ({ username }: ResetPasswordFormProps) => {
   const baseUrl = process.env.REACT_APP_API_URI
   const navigate = useNavigate()
 

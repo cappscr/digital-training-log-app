@@ -1,7 +1,19 @@
 import Form from 'react-bootstrap/Form'
 import { trainingPercentages } from '../lib/constants'
 
-export const PacePercentagesSelection = ({ selectedPercentages, onToggle }) => {
+type SelectedPercentages = {
+  [key: string]: boolean
+}
+
+interface PacePercentagesSelectionProps {
+  selectedPercentages: SelectedPercentages
+  onToggle: any
+}
+
+export const PacePercentagesSelection = ({
+  selectedPercentages,
+  onToggle,
+}: PacePercentagesSelectionProps) => {
   const formSwitches = trainingPercentages.map((percent) => (
     <div key={percent}>
       <Form.Check
