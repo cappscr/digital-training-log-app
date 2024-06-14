@@ -1,6 +1,15 @@
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 
+interface Props {
+  paceMin: number | string
+  paceSec: number | string
+  units: string
+  setPaceMin(min: string): void
+  setPaceSec(sec: string): void
+  setUnits(units: string): void
+}
+
 export const PaceInput = ({
   paceMin,
   paceSec,
@@ -8,7 +17,7 @@ export const PaceInput = ({
   setPaceMin,
   setPaceSec,
   setUnits,
-}) => {
+}: Props) => {
   return (
     <>
       <Form.Label htmlFor="pace">Pace</Form.Label>
@@ -20,7 +29,7 @@ export const PaceInput = ({
           value={paceMin}
           onChange={(e) => setPaceMin(e.target.value)}
         />
-        <InputGroup.Text htmlFor="pace-min">Min</InputGroup.Text>
+        <InputGroup.Text>Min</InputGroup.Text>
         <Form.Control
           name="pace-sec"
           id="pace-sec"
@@ -28,7 +37,7 @@ export const PaceInput = ({
           value={paceSec}
           onChange={(e) => setPaceSec(e.target.value)}
         />
-        <InputGroup.Text htmlFor="pace-sec">Sec</InputGroup.Text>
+        <InputGroup.Text>Sec</InputGroup.Text>
         <Form.Select
           name="pace-units"
           id="pace-units"
