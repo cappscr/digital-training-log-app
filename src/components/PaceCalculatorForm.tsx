@@ -2,12 +2,12 @@ import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
-import { PaceInput } from '../components/PaceInput'
-import { PacePercentagesSelection } from '../components/PacePercentagesSelection'
+import { PaceInput } from './PaceInput'
+import { PacePercentagesSelection } from './PacePercentagesSelection'
 import { Pace } from '../lib/pace'
 import { getAnalytics, logEvent } from 'firebase/analytics'
 
-export const PaceCalculatorForm = ({ onSubmit }) => {
+export const PaceCalculatorForm = ({ onSubmit }: any) => {
   const [inputPaceMin, setInputPaceMin] = useState('')
   const [inputPaceSec, setInputPaceSec] = useState('')
   const [paceUnits, setPaceUnits] = useState('mi')

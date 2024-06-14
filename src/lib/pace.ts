@@ -8,9 +8,9 @@ class Pace implements TrainingPace {
   private _min: number
   private _sec: number
   private _units: string
-  constructor(min: string, sec: string, units: string) {
-    this._min = parseInt(min)
-    this._sec = parseInt(sec)
+  constructor(min: string | number, sec: string | number, units: string) {
+    this._min = typeof min === 'string' ? parseInt(min) : min
+    this._sec = typeof sec === 'string' ? parseInt(sec) : sec
     this._units = units
   }
   display = () => {

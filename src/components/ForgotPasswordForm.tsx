@@ -7,7 +7,15 @@ import Row from 'react-bootstrap/Row'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 
-export const ForgotPasswordForm = ({ setResetCodeSent, setUsername }) => {
+interface ForgotPasswordFormProps {
+  setResetCodeSent(arg0: boolean): void
+  setUsername(arg0: string): void
+}
+
+export const ForgotPasswordForm = ({
+  setResetCodeSent,
+  setUsername,
+}: ForgotPasswordFormProps) => {
   const baseUrl = process.env.REACT_APP_API_URI
 
   return (
