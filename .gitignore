@@ -1,2 +1,9 @@
-/node_modules
+website/.pnp.*
+website/.yarn/*
+!website/.yarn/releases
+
+website/node_modules
+
+website/.next
+
 .DS_Store
