@@ -1,6 +1,5 @@
 'use client';
 
-import {useState} from 'react';
 import {
   Button,
   Center,
@@ -15,13 +14,6 @@ import {
 import { useForm } from "@mantine/form";
 
 export default function HomePage() {
-  interface paceCalculatorState {
-    pace: string,
-    percentage: number
-  }
-
-  const [inputPace, setInputPace] = useState(null);
-
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
