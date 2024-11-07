@@ -5,6 +5,15 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/pace-calculator',
+        permanent: false,
+      }
+    ];
+  },
 };
 
 export default nextConfig;
