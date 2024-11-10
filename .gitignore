@@ -6,4 +6,10 @@ website/node_modules
 
 website/.next
 
+# terraform
+terraform/.terraform/*
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/terraform.tfvars
+
 .DS_Store
