@@ -109,10 +109,13 @@ resource "aws_route53_zone" "primary" {
 resource "aws_route53_record" "website" {
   zone_id = aws_route53_zone.primary.zone_id
   name    = "${var.env}.example.com" # Will create dev.example.com, staging.example.com, etc.
-  type    = "CNAME"
-  ttl     = 300
+  type    = "A"
 
-  records = [aws_cloudfront_distribution.website.domain_name]
+  alias {
+    name                   = aws_cloudfront_distribution.website.domain_name
+    zone_id                = aws_cloudfront_distribution.website.hosted_zone_id
+    evaluate_target_health = false
+  }
 
   depends_on = [aws_cloudfront_distribution.website]
 }
