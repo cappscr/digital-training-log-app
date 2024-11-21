@@ -7,9 +7,13 @@ website/node_modules
 website/.next
 
 # terraform
-terraform/.terraform/*
-terraform/*.tfstate
-terraform/*.tfstate.*
-terraform/terraform.tfvars
+terraform/dev/.terraform/*
+terraform/dev/*.tfstate
+terraform/dev/*.tfstate.*
+terraform/dev/terraform.tfvars
+terraform/prod/.terraform/*
+terraform/prod/*.tfstate
+terraform/prod/*.tfstate.*
+terraform/prod/terraform.tfvars
 
 .DS_Store
