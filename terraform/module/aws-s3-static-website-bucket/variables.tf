@@ -20,3 +20,9 @@ variable "error" {
   type        = string
   default     = "error.html"
 }
+
+variable "public_access_enabled" {
+  description = "Boolean that indicates whether to allow public read access to objects in the bucket"
+  type        = bool
+  default     = false
+}

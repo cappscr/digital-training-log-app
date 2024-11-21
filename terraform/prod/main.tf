@@ -1,34 +1,3 @@
-resource "aws_s3_bucket" "static_website" {
-  bucket = "digital-training-log-web-${var.env}" # Replace with a globally unique name
-
-  tags = {
-    Name        = "StaticWebsite-${var.env}"
-    Environment = var.env
-  }
-}
-
-resource "aws_s3_bucket_public_access_block" "site" {
-  bucket = aws_s3_bucket.static_website.id
-
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
-}
-
-# Enable website configuration for the S3 bucket
-resource "aws_s3_bucket_website_configuration" "site" {
-  bucket = aws_s3_bucket.static_website.id
-
-  index_document {
-    suffix = var.index
-  }
-
-  error_document {
-    key = var.error
-  }
-}
-
 resource "aws_acm_certificate" "cert" {
   domain_name       = "${var.env}.${var.domain}"
   validation_method = "DNS"
@@ -100,22 +69,4 @@ resource "aws_cloudfront_distribution" "website" {
     Name        = "CloudFrontStaticWebsite-${var.env}"
     Environment = var.env
   }
-}
-
-resource "aws_route53_zone" "primary" {
-  name = "digitaltraininglog.com"
-}
-
-resource "aws_route53_record" "website" {
-  zone_id = aws_route53_zone.primary.zone_id
-  name    = "${var.env}.example.com" # Will create dev.example.com, staging.example.com, etc.
-  type    = "A"
-
-  alias {
-    name                   = aws_cloudfront_distribution.website.domain_name
-    zone_id                = aws_cloudfront_distribution.website.hosted_zone_id
-    evaluate_target_health = false
-  }
-
-  depends_on = [aws_cloudfront_distribution.website]
 }
