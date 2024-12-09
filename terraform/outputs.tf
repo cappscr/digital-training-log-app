@@ -12,3 +12,8 @@ output "cert_arn" {
   description = "The arn of the SSL certification issued by Amazon Certificate Manager (ACM)"
   value       = aws_acm_certificate.cert.arn
 }
+
+output "oac_id" {
+  description = "The id of the OAC created for the CloudFront distribution"
+  value       = aws_cloudfront_origin_access_control.site.id
+}
