@@ -11,6 +11,15 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      env:
+        description: 'Environment to upload build files to'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - prod
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -26,13 +35,15 @@ concurrency:
 
 env:
   ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
-  BUCKET_NAME: "${{ env.ENVIRONMENT }}.digitaltraininglog.com"
+  BUCKET_NAME: "${{ inputs.env && ${{ inputs.env }}.digitaltraininglog.com || ${{ env.ENVIRONMENT }}.digitaltraininglog.com }}"
 
 jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Log
+        run: echo $env.BUCKET_NAME
       - name: Checkout
         uses: actions/checkout@v4
       - name: Change to website directory
