@@ -25,12 +25,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Log
-        run: echo "Bucket Name - ${{ env.BUCKET_NAME }} Branch Name - ${{ github.ref_name }}"
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Change to website directory
-        run: cd website
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -65,7 +61,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        run: cd website && ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Configure AWS Credentials
