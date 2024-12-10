@@ -1,5 +1,4 @@
 name: Deploy Next.js site to S3
-
 on:
   # Runs on pushes targeting the default branch or develop branch
   push:
@@ -16,11 +15,6 @@ on:
         options:
           - dev
           - prod
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  id-token: write
 
 env:
   ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
