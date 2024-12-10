@@ -18,7 +18,7 @@ on:
 
 env:
   ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
-  BUCKET_NAME: ${{ inputs.env }}.digitaltraininglog.com }}
+  BUCKET_NAME: "${{ inputs.env }}.digitaltraininglog.com"
 
 jobs:
   # Build job
