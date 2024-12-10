@@ -30,7 +30,7 @@ concurrency:
 
 env:
   ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
-  BUCKET_NAME: "${{ inputs.env && ${{ inputs.env }}.digitaltraininglog.com || ${{ env.ENVIRONMENT }}.digitaltraininglog.com }}"
+  BUCKET_NAME: ${{ inputs.env }}.digitaltraininglog.com }}
 
 jobs:
   # Build job
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Log
-        run: echo $env.BUCKET_NAME
+        run: echo "Bucket Name - ${{ env.BUCKET_NAME }} Branch Name - ${{ github.ref_name }}"
       - name: Checkout
         uses: actions/checkout@v4
       - name: Change to website directory
