@@ -71,4 +71,4 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
       - name: Upload artifacts
-        run: aws s3 cp out/ s3://${{ env.BUCKET_NAME }}/ --recursive
+        run: cd website && aws s3 cp out/ s3://${{ env.BUCKET_NAME }}/ --recursive
