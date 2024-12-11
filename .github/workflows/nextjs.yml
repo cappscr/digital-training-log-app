@@ -18,28 +18,24 @@ on:
 
 env:
   ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
-  BUCKET_NAME: ${{ inputs.env }}.digitaltraininglog.com }}
+  BUCKET_NAME: "${{ inputs.env }}.digitaltraininglog.com"
 
 jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Log
-        run: echo "Bucket Name - ${{ env.BUCKET_NAME }} Branch Name - ${{ github.ref_name }}"
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Change to website directory
-        run: cd website
       - name: Detect package manager
         id: detect-package-manager
         run: |
-          if [ -f "${{ github.workspace }}/yarn.lock" ]; then
+          if [ -f "${{ github.workspace }}/website/yarn.lock" ]; then
             echo "manager=yarn" >> $GITHUB_OUTPUT
             echo "command=install" >> $GITHUB_OUTPUT
             echo "runner=yarn" >> $GITHUB_OUTPUT
             exit 0
-          elif [ -f "${{ github.workspace }}/package.json" ]; then
+          elif [ -f "${{ github.workspace }}/website/package.json" ]; then
             echo "manager=npm" >> $GITHUB_OUTPUT
             echo "command=ci" >> $GITHUB_OUTPUT
             echo "runner=npx --no-install" >> $GITHUB_OUTPUT
@@ -53,6 +49,7 @@ jobs:
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
+          cache-dependency-path: "${{ github.workspace }}/website/yarn.lock"
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -64,9 +61,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        run: cd website && ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        run: cd website && ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -74,4 +71,4 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
       - name: Upload artifacts
-        run: aws s3 cp out/ s3://${{ env.BUCKET_NAME }}/ --recursive
+        run: cd website && aws s3 cp out/ s3://${{ env.BUCKET_NAME }}/ --recursive
