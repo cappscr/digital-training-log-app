@@ -17,14 +17,16 @@ on:
           - prod
 
 env:
-  ENVIRONMENT: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
-  BUCKET_NAME: "${{ inputs.env }}.digitaltraininglog.com"
+  BUCKET_NAME: ${{ github.ref_name == 'main' && 'prod.digitaltraininglog.com' || 'dev.digitaltraininglog.com' }}
 
 jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Set the correct environment variables
+        if: ${{ inputs.env }}
+        run: echo "BUCKET_NAME='${{ inputs.env }}.digitaltraininglog.com'" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v4
       - name: Detect package manager
