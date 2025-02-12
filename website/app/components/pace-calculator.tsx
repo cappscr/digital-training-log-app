@@ -13,6 +13,12 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
+declare global {
+  interface Window {
+    gtag: Function | undefined;
+  }
+} 
+
 export default function PaceCalculator() {
   const form = useForm({
     mode: "uncontrolled",
@@ -32,11 +38,17 @@ export default function PaceCalculator() {
         Pace Calculator
       </Title>
       <form
-        onSubmit={form.onSubmit((values) =>
+        onSubmit={form.onSubmit((values) => {
+          if (window && window.gtag && typeof window.gtag === 'function') {
+            window.gtag('event', 'calculate_pace', {
+              'pace': `${values["pace-min"]}:${values["pace-sec"]} ${values["pace-units"]}`,
+              'percentage': values.percentage 
+            });
+          }
           router.push(
             `/pace-results?min=${values["pace-min"]}&sec=${values["pace-sec"]}&units=${encodeURIComponent(`${values["pace-units"]}`)}&percent=${values.percentage}`,
-          ),
-        )}
+          );
+        })}
       >
         <Group>
           <NumberInput
