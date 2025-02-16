@@ -1,0 +1,1 @@
+console.log("Hello, Digital Training Log App");

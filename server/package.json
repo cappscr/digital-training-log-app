@@ -1,0 +1,24 @@
+{
+  "name": "digital-training-log-app-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "watch": "tsc-watch --noClear --onsuccess \"node dist/server.js\"",
+    "start": "nodemon --exec npm run watch"
+  },
+  "nodemonConfig": {
+    "ext": "js,handlebars,json",
+    "ignore": ["dist/**", "node_modules/**"]
+  },
+  "keywords": [],
+  "author": "Christopher Capps",
+  "license": "ISC",
+  "description": "Node.js web server  code for the digital training log app",
+  "devDependencies": {
+    "@tsconfig/node-lts": "^22.0.1",
+    "@types/node": "^22.13.4",
+    "nodemon": "^3.1.9",
+    "tsc-watch": "^6.2.1",
+    "typescript": "^5.7.3"
+  }
+}
