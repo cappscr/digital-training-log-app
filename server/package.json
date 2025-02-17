@@ -8,7 +8,10 @@
   },
   "nodemonConfig": {
     "ext": "js,handlebars,json",
-    "ignore": ["dist/**", "node_modules/**"]
+    "ignore": [
+      "dist/**",
+      "node_modules/**"
+    ]
   },
   "keywords": [],
   "author": "Christopher Capps",
@@ -16,9 +19,14 @@
   "description": "Node.js web server  code for the digital training log app",
   "devDependencies": {
     "@tsconfig/node-lts": "^22.0.1",
+    "@types/express": "^5.0.0",
     "@types/node": "^22.13.4",
     "nodemon": "^3.1.9",
     "tsc-watch": "^6.2.1",
     "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "helmet": "^8.0.0"
   }
 }
