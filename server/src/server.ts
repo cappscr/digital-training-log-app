@@ -2,6 +2,9 @@ import { createServer } from "http";
 import express, { Express, urlencoded } from "express";
 import helmet from "helmet";
 import { getConfig } from "./config";
+import { createRoutes } from "./routes";
+import { createTemplates } from "./helpers";
+import { createErrorHandlers } from "./errors";
 
 const port = getConfig("http:port", 5000);
 
@@ -11,9 +14,11 @@ expressApp.use(helmet());
 expressApp.use(express.json());
 expressApp.use(urlencoded({ extended: true }));
 
-expressApp.get("/", (req, resp) => {
-  resp.send("Hello, Digital Training Log App");
-});
+expressApp.use(express.static("node_modules/bootstrap/dist"));
+createTemplates(expressApp);
+
+createRoutes(expressApp);
+createErrorHandlers(expressApp);
 
 const server = createServer(expressApp);
 
