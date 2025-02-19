@@ -1,5 +1,5 @@
-import { UUID } from "crypto";
-import { Model, CreationOptional, ForeignKey, InferAttributes, InferCreationAttributes } from "sequelize";
+import { Model, ForeignKey, InferAttributes, InferCreationAttributes } from "sequelize";
+import { UserModel } from "./user_models";
 
 export class DailyVitalsModel extends Model<InferAttributes<DailyVitalsModel>, InferCreationAttributes<DailyVitalsModel>> {
 
@@ -14,14 +14,4 @@ export class DailyVitalsModel extends Model<InferAttributes<DailyVitalsModel>, I
   declare hrv?: number;
   declare weight?: number;
   declare bodyFat?: number;
-}
-
-export class UserModel extends Model<InferAttributes<UserModel>, InferCreationAttributes<UserModel>> {
-
-  declare id?: CreationOptional<UUID>;
-
-  declare username: string;
-  declare name: string;
-
-  declare dailyVitals?: InferAttributes<DailyVitalsModel>[];
 }

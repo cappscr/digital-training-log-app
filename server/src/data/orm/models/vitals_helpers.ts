@@ -1,17 +1,12 @@
 import { DataTypes, Sequelize } from "sequelize";
-import { UserModel, DailyVitalsModel } from "./vitals_models";
+import { DailyVitalsModel } from "./vitals_models";
+import { UserModel } from "./user_models";
 
 const primaryKey = {
   id: { type: DataTypes.UUIDV4, primaryKey: true }
 }
 
-export const initializeCatalogModels = (sequelize: Sequelize) => {
-
-  UserModel.init({
-    ...primaryKey,
-    name: { type: DataTypes.STRING },
-    username: { type: DataTypes.STRING }
-  }, { sequelize });
+export const initializeVitalsModels = (sequelize: Sequelize) => {
 
   DailyVitalsModel.init({
     date: { type: DataTypes.DATEONLY },
@@ -27,5 +22,3 @@ export const initializeCatalogModels = (sequelize: Sequelize) => {
 DailyVitalsModel.belongsTo(UserModel, {
   foreignKey: "userId", as: "user"
 });
-
-UserModel.hasMany(DailyVitalsModel);
