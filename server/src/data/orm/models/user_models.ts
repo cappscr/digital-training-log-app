@@ -1,5 +1,5 @@
 import { UUID } from "crypto";
-import { Model, CreationOptional, ForeignKey, InferAttributes, InferCreationAttributes } from "sequelize";
+import { Model, InferAttributes, InferCreationAttributes } from "sequelize";
 import { DailyVitalsModel } from "./vitals_models";
 
 export class UserModel extends Model<InferAttributes<UserModel>, InferCreationAttributes<UserModel>> {
