@@ -5,5 +5,5 @@ export interface DailyVitalsRepository {
 
   getDailyVitals(user: User): Promise<DailyVitals[]>;
 
-  storeDailyVitals(user: User): Promise<DailyVitals>;
+  storeDailyVitals(vitals: DailyVitals): Promise<DailyVitals>;
 }

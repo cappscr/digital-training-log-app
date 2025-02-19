@@ -4,7 +4,7 @@ import { DailyVitalsModel } from "./vitals_models";
 
 export class UserModel extends Model<InferAttributes<UserModel>, InferCreationAttributes<UserModel>> {
 
-  declare id?: CreationOptional<UUID>;
+  declare id?: UUID;
 
   declare username: string;
   declare name: string;

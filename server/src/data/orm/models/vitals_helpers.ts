@@ -17,8 +17,8 @@ export const initializeVitalsModels = (sequelize: Sequelize) => {
     weight: { type: DataTypes.DECIMAL(10, 1) },
     bodyFat: { type: DataTypes.DECIMAL(10, 1) }
   }, { sequelize });
-}
 
-DailyVitalsModel.belongsTo(UserModel, {
-  foreignKey: "userId", as: "user"
-});
+  DailyVitalsModel.belongsTo(UserModel, {
+    foreignKey: "userId", as: "user"
+  });
+}
