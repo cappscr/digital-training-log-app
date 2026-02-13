@@ -1,0 +1,23 @@
+# Use the official Ruby 4.0.1 image
+image: ruby:4.0.1
+
+# Define stages for the pipeline
+stages:
+  - ci
+
+# This is your main test job
+backend_ci:
+  stage: ci
+  variables:
+    RAILS_ENV: test
+  rules:
+    - changes:
+        - backend/**/*
+  before_script:
+    - apt-get update -qq && apt-get install -y libsqlite3-dev
+    - cd backend
+    - bundle install
+    - bin/rails db:test:prepare
+
+  script:
+    - bin/ci
