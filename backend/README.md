@@ -1,24 +1,41 @@
-# README
+# Digital Training Log API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the backend API application for the [Digital Training Log Application](https://app.digitaltraininglog.com) by [Christopher Capps](https://www.christophercapps.com).
 
-Things you may want to cover:
+## Getting Started
 
-* Ruby version
+To get started with the app, clone the repo and then install the needed gems:
 
-* System dependencies
+```
+gem install bundler
+bundle config set --local without 'production'
+bundle install
+```
 
-* Configuration
+Next, migrate the database:
 
-* Database creation
+```
+rails db:migrate
+```
 
-* Database initialization
+Finally, run the test suite to verify that everything is working correctly:
 
-* How to run the test suite
+```
+rails test
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+If the test suite passes, you'll be ready to run the app in a local server:
 
-* Deployment instructions
+```
+rails server
+```
 
-* ...
+## Running Tests in Watch Mode
+
+The app also uses Guard to run the tests in watch mode:
+
+```
+bundle exec guard
+```
+
+Modify the `Guardfile` in the project root to configure the watchers.
