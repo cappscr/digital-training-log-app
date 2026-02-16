@@ -22,4 +22,4 @@ The following data model validations should be applied
 - `email` addresses should contain at least one word character (plus hyphen, dot, or plus), a literal @, at least one letter, digit, hyphen, or dot, a literal ., and at least one word character at the end
 - `email` addresses should be unique
 - `password` should be non-blank
-- `password` should be at least 6 characters
+- `password` should be at least 8 characters
