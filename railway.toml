@@ -1,0 +1,11 @@
+[build]
+builder = "railpack"
+# This ensures Railway only builds when files in /backend change
+watchPatterns = ["backend/**"]
+
+[deploy]
+# Standard Rails start command
+startCommand = "bundle exec rails server -b 0.0.0.0"
+# Highly recommended: Railway will wait for this to return 200 before switching traffic
+healthcheckPath = "/up" 
+healthcheckTimeout = 300

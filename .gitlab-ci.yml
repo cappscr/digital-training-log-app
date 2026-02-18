@@ -21,3 +21,12 @@ backend_ci:
 
   script:
     - bin/ci
+
+deploy:
+  stage: deploy
+  image: ubuntu:latest
+  script:
+    - curl -fsSL https://railway.app/install.sh | sh
+    - railway up --service digital-training-log-api -t $RAILWAY_TOKEN
+  only:
+    - main
