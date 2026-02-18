@@ -23,7 +23,7 @@ backend_ci:
   script:
     - bin/ci
 
-deploy:
+backend_deploy:
   stage: deploy
   image: ubuntu:latest
   rules:
