@@ -12,22 +12,22 @@ backend_ci:
   variables:
     RAILS_ENV: test
   rules:
-    - changes:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
         - backend/**/*
   before_script:
     - apt-get update -qq && apt-get install -y libsqlite3-dev
     - cd backend
     - bundle install
     - bin/rails db:test:prepare
-
   script:
     - bin/ci
 
 deploy:
   stage: deploy
   image: ubuntu:latest
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   script:
     - curl -fsSL https://railway.app/install.sh | sh
-    - railway up --service digital-training-log-api -t $RAILWAY_TOKEN
-  only:
-    - main
+    - railway up --service digital-training-log-api -t $RAILWAY_TOKEN --ci
