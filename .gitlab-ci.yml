@@ -4,6 +4,7 @@ image: ruby:4.0.1
 # Define stages for the pipeline
 stages:
   - ci
+  - deploy
 
 # This is your main test job
 backend_ci:
