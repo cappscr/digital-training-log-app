@@ -10,7 +10,7 @@ const viteConfig = defineConfig({
 const vitestConfig = defineViteConfig({
   test: {
     environment: 'jsdom',
-    setupFiles: './src/setupTests.ts',
+    setupFiles: './src/vitest.setup.tsx',
   },
 });
 
