@@ -5,10 +5,10 @@ watchPatterns = ["backend/**"]
 
 [deploy]
 # This runs BEFORE the new container starts
-preDeployCommand = "cd backend && bin/rails db:prepare"
+preDeployCommand = "bin/rails db:prepare"
 
 # This is ONLY for starting the server
-startCommand = "cd backend && bin/rails server -b 0.0.0.0"
+startCommand = "bin/rails server -b 0.0.0.0"
 
 # Highly recommended: Railway will wait for this to return 200 before switching traffic
 healthcheckPath = "/up" 
