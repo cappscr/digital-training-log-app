@@ -5,7 +5,7 @@ watchPatterns = ["backend/**"]
 
 [deploy]
 # Standard Rails start command
-startCommand = "bundle exec rails server -b 0.0.0.0"
+startCommand = "bin/rails db:prepare && bin/rails server -b ::"
 # Highly recommended: Railway will wait for this to return 200 before switching traffic
 healthcheckPath = "/up" 
 healthcheckTimeout = 300
