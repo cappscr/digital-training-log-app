@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useField } from 'formik';
+import FormHelperText from '@mui/material/FormHelperText';
 
 export function NumberField({
   id: idProp,
@@ -45,58 +46,75 @@ export function NumberField({
     >
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <BaseNumberField.Input
-        render={(props, state) => (
-          <OutlinedInput
-            id={id}
-            label={label}
-            inputRef={props.ref}
-            error={hasError}
-            value={state.inputValue}
-            onBlur={() => helpers.setTouched(true)}
-            onChange={props.onChange}
-            onKeyUp={props.onKeyUp}
-            onKeyDown={props.onKeyDown}
-            onFocus={props.onFocus}
-            endAdornment={
-              <InputAdornment
-                position="end"
-                sx={{
-                  flexDirection: 'column',
-                  maxHeight: 'unset',
-                  alignSelf: 'stretch',
-                  borderLeft: '1px solid',
-                  borderColor: 'divider',
-                  ml: 0,
-                  '& button': {
-                    py: 0,
-                    flex: 1,
-                    borderRadius: 0.5,
-                  },
-                }}
-              >
-                <BaseNumberField.Increment
-                  render={<IconButton size={size} aria-label="Increase" />}
-                >
-                  <KeyboardArrowUpIcon
-                    fontSize={size}
-                    sx={{ transform: 'translateY(2px)' }}
-                  />
-                </BaseNumberField.Increment>
+        render={(props, state) => {
+          const displayValue = state.focused
+            ? state.inputValue
+            : (field.value ?? '0');
 
-                <BaseNumberField.Decrement
-                  render={<IconButton size={size} aria-label="Decrease" />}
+          return (
+            <OutlinedInput
+              id={id}
+              label={label}
+              inputRef={props.ref}
+              error={hasError}
+              value={displayValue}
+              onBlur={(e) => {
+                props.onBlur?.(e);
+                helpers.setTouched(true);
+              }}
+              onChange={props.onChange}
+              onKeyUp={props.onKeyUp}
+              onKeyDown={props.onKeyDown}
+              onFocus={props.onFocus}
+              slotProps={{
+                input: props,
+              }}
+              endAdornment={
+                <InputAdornment
+                  position="end"
+                  sx={{
+                    flexDirection: 'column',
+                    maxHeight: 'unset',
+                    alignSelf: 'stretch',
+                    borderLeft: '1px solid',
+                    borderColor: 'divider',
+                    ml: 0,
+                    '& button': {
+                      py: 0,
+                      flex: 1,
+                      borderRadius: 0.5,
+                    },
+                  }}
                 >
-                  <KeyboardArrowDownIcon
-                    fontSize={size}
-                    sx={{ transform: 'translateY(-2px)' }}
-                  />
-                </BaseNumberField.Decrement>
-              </InputAdornment>
-            }
-            sx={{ pr: 0 }}
-          />
-        )}
+                  <BaseNumberField.Increment
+                    render={<IconButton size={size} aria-label="Increase" />}
+                  >
+                    <KeyboardArrowUpIcon
+                      fontSize={size}
+                      sx={{ transform: 'translateY(2px)' }}
+                    />
+                  </BaseNumberField.Increment>
+
+                  <BaseNumberField.Decrement
+                    render={<IconButton size={size} aria-label="Decrease" />}
+                  >
+                    <KeyboardArrowDownIcon
+                      fontSize={size}
+                      sx={{ transform: 'translateY(-2px)' }}
+                    />
+                  </BaseNumberField.Decrement>
+                </InputAdornment>
+              }
+              sx={{ pr: 0 }}
+            />
+          );
+        }}
       />
+      {hasError && (
+        <FormHelperText sx={{ ml: 0, '&:empty': { mt: 0 } }}>
+          {meta.error}
+        </FormHelperText>
+      )}
     </BaseNumberField.Root>
   );
 }
