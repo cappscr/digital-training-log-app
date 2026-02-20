@@ -36,7 +36,7 @@ export function PaceCalculatorPage() {
         validationSchema={validationSchema}
         onSubmit={(values) => console.log(values)}
       >
-        {({ values, handleChange }) => (
+        {({ values, handleChange, isValid }) => (
           <Form>
             <Stack spacing={4} alignItems="center">
               <Stack direction="row" spacing={4} justifyContent="center">
@@ -69,7 +69,7 @@ export function PaceCalculatorPage() {
                   <MenuItem value={'km'}>min/km</MenuItem>
                 </Select>
               </FormControl>
-              <Button type="submit" variant="contained">
+              <Button type="submit" variant="contained" disabled={!isValid}>
                 Calculate
               </Button>
             </Stack>
