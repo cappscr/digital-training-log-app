@@ -1,6 +1,8 @@
 import CSSBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material';
 import { HelmetProvider } from 'react-helmet-async';
+import { SWRConfig } from 'swr';
+import { fetcher } from './fetcher';
 import { theme } from './theme';
 import { AppRoutes } from './Routes';
 import '@fontsource/roboto/300.css';
@@ -13,7 +15,14 @@ function App() {
     <ThemeProvider theme={theme}>
       <CSSBaseline />
       <HelmetProvider>
-        <AppRoutes />
+        <SWRConfig
+          value={{
+            fetcher,
+            revalidateOnFocus: false,
+          }}
+        >
+          <AppRoutes />
+        </SWRConfig>
       </HelmetProvider>
     </ThemeProvider>
   );

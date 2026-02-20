@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router';
 import { AppLayout } from './layouts/AppLayout';
 import Typography from '@mui/material/Typography';
+import { UserProfilePage } from './pages/UserProfile';
 
 export function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export function AppRoutes() {
             </Typography>
           }
         />
+        <Route path="/users/:id" element={<UserProfilePage />} />
       </Route>
     </Routes>
   );
