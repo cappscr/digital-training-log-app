@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router';
 import { AppLayout } from './layouts/AppLayout';
 import Typography from '@mui/material/Typography';
 import { UserProfilePage } from './pages/UserProfile';
+import { PaceCalculatorPage } from './pages/PaceCalculator';
 
 export function AppRoutes() {
   return (
@@ -16,6 +17,7 @@ export function AppRoutes() {
             </Typography>
           }
         />
+        <Route path="/pace-calculator" element={<PaceCalculatorPage />} />
         <Route path="/users/:id" element={<UserProfilePage />} />
       </Route>
     </Routes>
