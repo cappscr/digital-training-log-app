@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   namespace :api do
+    namespace :v1 do
+      resources :pace_calculator, only: [ :create ], path: "pace-calculator"
+    end
     resources :users, only: [ :show ]
   end
 end

@@ -45,7 +45,7 @@ class Pace
     return nil unless pace_as_decimal
     min = pace_as_decimal.floor
     sec = ((pace_as_decimal - min) * 60).round
-    format("%d:%02d", min, sec)
+    format("%d:%02d #{short_unit}", min, sec)
   end
 
   def format_time

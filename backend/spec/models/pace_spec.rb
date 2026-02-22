@@ -55,11 +55,11 @@ RSpec.describe Pace, type: :model do
 
   describe "#percentage" do
     it "returns a slower pace for a percentage under 100" do
-      expect(subject.percentage(80)).to eq("7:34")
+      expect(subject.percentage(80)).to eq("7:34 min/mi")
     end
 
     it "returns a faster pace for a percentage over 100" do
-      expect(subject.percentage(110)).to eq("5:40")
+      expect(subject.percentage(110)).to eq("5:40 min/mi")
     end
 
     it "returns nil if the record is invalid" do
