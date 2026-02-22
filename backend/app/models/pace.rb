@@ -21,11 +21,25 @@ class Pace
     "#{format_time} #{short_unit}"
   end
 
+  def percentage(percent)
+    return nil unless valid?
+    difference = decimal_minutes * (( 100 - percent ).abs / 100.0)
+    new_decimal_pace = percent > 100 ? decimal_minutes - difference : decimal_minutes + difference
+    decimal_to_s(new_decimal_pace)
+  end
+
   private
 
   def decimal_minutes
     return nil unless valid?
     minutes + (seconds / 60.0)
+  end
+
+  def decimal_to_s(decimal_minutes)
+    return nil unless decimal_minutes
+    min = decimal_minutes.floor
+    sec = ((decimal_minutes - min) * 60).round
+    format('%d:%02d', min, sec)
   end
 
   def format_time
