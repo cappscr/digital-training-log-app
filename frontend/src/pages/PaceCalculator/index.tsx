@@ -14,18 +14,21 @@ export function PaceCalculatorPage() {
     min: 5,
     sec: 0,
     units: 'mi',
+    percentage: 80,
   };
 
   const validationSchema = object({
     min: number()
       .required('Minutes are required')
-      .min(2, 'Minimum pace is 2 minutes per mile')
-      .max(20, 'Maximum pace is 20 minutes per mile'),
+      .min(2, 'Minimum pace is 2 minutes per mile'),
     sec: number()
       .required('Seconds are required')
       .min(0, 'Seconds must be between 0 and 59')
       .max(59, 'Seconds must be between 0 and 59'),
     units: string().required('Units are required').oneOf(['mi', 'km']),
+    percentage: number()
+      .required('Percentage is required')
+      .min(1, 'Percentage must be greater than or equal to 1'),
   });
 
   return (
@@ -43,7 +46,6 @@ export function PaceCalculatorPage() {
                 <NumberField
                   label="min"
                   min={2}
-                  max={20}
                   name="min"
                   value={values.min}
                 />
@@ -54,21 +56,27 @@ export function PaceCalculatorPage() {
                   name="sec"
                   value={values.sec}
                 />
+                <FormControl>
+                  <InputLabel id="pace-units-select-label">Units</InputLabel>
+                  <Select
+                    labelId="pace-units-select-label"
+                    id="pace-units-select"
+                    label="Units"
+                    name="units"
+                    value={values.units}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={'mi'}>min/mi</MenuItem>
+                    <MenuItem value={'km'}>min/km</MenuItem>
+                  </Select>
+                </FormControl>
               </Stack>
-              <FormControl>
-                <InputLabel id="pace-units-select-label">Units</InputLabel>
-                <Select
-                  labelId="pace-units-select-label"
-                  id="pace-units-select"
-                  label="Units"
-                  name="units"
-                  value={values.units}
-                  onChange={handleChange}
-                >
-                  <MenuItem value={'mi'}>min/mi</MenuItem>
-                  <MenuItem value={'km'}>min/km</MenuItem>
-                </Select>
-              </FormControl>
+              <NumberField
+                label="Pecentage"
+                min={1}
+                name="percentage"
+                value={values.percentage}
+              />
               <Button type="submit" variant="contained" disabled={!isValid}>
                 Calculate
               </Button>
