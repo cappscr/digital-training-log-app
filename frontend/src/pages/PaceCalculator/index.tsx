@@ -6,30 +6,52 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Formik, Form } from 'formik';
+import { Formik, Form, type FormikHelpers } from 'formik';
 import { object, number, string } from 'yup';
+import {
+  usePaceCalculator,
+  type PaceCalculatorFormValues,
+} from '../../hooks/usePaceCalculator';
 
 export function PaceCalculatorPage() {
-  const initialValues = {
-    min: 5,
-    sec: 0,
-    units: 'mi',
+  const { calculate, result, error, isCalculating } = usePaceCalculator();
+
+  const initialValues: PaceCalculatorFormValues = {
+    minutes: 5,
+    seconds: 0,
+    units: 'min_per_mile',
     percentage: 80,
   };
 
   const validationSchema = object({
-    min: number()
+    minutes: number()
       .required('Minutes are required')
       .min(2, 'Minimum pace is 2 minutes per mile'),
-    sec: number()
+    seconds: number()
       .required('Seconds are required')
       .min(0, 'Seconds must be between 0 and 59')
       .max(59, 'Seconds must be between 0 and 59'),
-    units: string().required('Units are required').oneOf(['mi', 'km']),
+    units: string()
+      .required('Units are required')
+      .oneOf(['min_per_mile', 'min_per_km']),
     percentage: number()
       .required('Percentage is required')
       .min(1, 'Percentage must be greater than or equal to 1'),
   });
+
+  const handleSubmit = async (
+    values: PaceCalculatorFormValues,
+    { setStatus, setSubmitting }: FormikHelpers<PaceCalculatorFormValues>,
+  ) => {
+    try {
+      setStatus(null);
+      await calculate(values);
+    } catch (apiError) {
+      setStatus(apiError);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <Stack spacing={4}>
@@ -37,7 +59,7 @@ export function PaceCalculatorPage() {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
       >
         {({ values, handleChange, isValid }) => (
           <Form>
@@ -46,15 +68,15 @@ export function PaceCalculatorPage() {
                 <NumberField
                   label="min"
                   min={2}
-                  name="min"
-                  value={values.min}
+                  name="minutes"
+                  value={values.minutes}
                 />
                 <NumberField
                   label="sec"
                   min={0}
                   max={59}
-                  name="sec"
-                  value={values.sec}
+                  name="seconds"
+                  value={values.seconds}
                 />
                 <FormControl>
                   <InputLabel id="pace-units-select-label">Units</InputLabel>
@@ -66,8 +88,8 @@ export function PaceCalculatorPage() {
                     value={values.units}
                     onChange={handleChange}
                   >
-                    <MenuItem value={'mi'}>min/mi</MenuItem>
-                    <MenuItem value={'km'}>min/km</MenuItem>
+                    <MenuItem value={'min_per_mile'}>min/mi</MenuItem>
+                    <MenuItem value={'min_per_km'}>min/km</MenuItem>
                   </Select>
                 </FormControl>
               </Stack>
