@@ -3,7 +3,7 @@ class Pace
 
   UNIT_MIN_PER_MILE = :min_per_mile
   UNIT_MIN_PER_KM = :min_per_km
-  VALID_UNITS = [UNIT_MIN_PER_MILE, UNIT_MIN_PER_KM].freeze
+  VALID_UNITS = [ UNIT_MIN_PER_MILE, UNIT_MIN_PER_KM ].freeze
 
   attr_accessor :minutes, :seconds, :units
 
@@ -23,11 +23,11 @@ class Pace
   end
 
   def percentage(percent)
-    # Calculates a new pace that is the given percentage faster or slower than the current pace. 
+    # Calculates a new pace that is the given percentage faster or slower than the current pace.
     # For example, if the current pace is 6:18 min/mi, percentage(80) would return "7:34" (20% slower),
     # while percentage(110) would return "5:40" (10% faster).
     return nil unless valid?
-    difference = decimal_minutes * (( 100 - percent ).abs / 100.0)
+    difference = decimal_minutes * ((100 - percent).abs / 100.0)
     new_decimal_pace = percent > 100 ? decimal_minutes - difference : decimal_minutes + difference
     decimal_to_s(new_decimal_pace)
   end
@@ -40,20 +40,20 @@ class Pace
     minutes + (seconds / 60.0)
   end
 
-  def decimal_to_s(decimal_minutes)
+  def decimal_to_s(pace_as_decimal)
     # Converts a decimal pace representation back to a string format, e.g. "6:18" for 6.3 decimal minutes.
-    return nil unless decimal_minutes
-    min = decimal_minutes.floor
-    sec = ((decimal_minutes - min) * 60).round
-    format('%d:%02d', min, sec)
+    return nil unless pace_as_decimal
+    min = pace_as_decimal.floor
+    sec = ((pace_as_decimal - min) * 60).round
+    format("%d:%02d", min, sec)
   end
 
   def format_time
     # Formats the minutes and seconds into a string, e.g. "6:18".
-    format('%d:%02d', minutes, seconds)
+    format("%d:%02d", minutes, seconds)
   end
 
   def short_unit
-    { UNIT_MIN_PER_MILE => 'min/mi', UNIT_MIN_PER_KM => 'min/km' }[units]
+    { UNIT_MIN_PER_MILE => "min/mi", UNIT_MIN_PER_KM => "min/km" }[units]
   end
 end

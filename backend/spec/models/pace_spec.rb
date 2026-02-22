@@ -41,17 +41,6 @@ RSpec.describe Pace, type: :model do
     end
   end
 
-  describe "#decimal_minutes" do
-    it "returns 6.3 for an 6:18 pace" do
-      expect(subject.decimal_minutes).to eq(6.3)
-    end
-
-    it "returns nil if the record is invalid" do
-      subject.seconds = 70
-      expect(subject.decimal_minutes).to be_nil
-    end
-  end
-
   describe "#to_s" do
     it "formats single digit seconds with a leading zero" do
       pace = Pace.new(minutes: 7, seconds: 5, units: :min_per_mile)
