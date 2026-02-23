@@ -9,12 +9,19 @@ import Select from '@mui/material/Select';
 import { Formik, Form, type FormikHelpers } from 'formik';
 import { object, number, string } from 'yup';
 import {
+  type PaceCalculationResult,
   usePaceCalculator,
   type PaceCalculatorFormValues,
 } from '../../hooks/usePaceCalculator';
+import { PaceResultTable } from './components/PaceResultTable';
+import useSWR from 'swr';
 
 export function PaceCalculatorPage() {
-  const { calculate, result, error, isCalculating } = usePaceCalculator();
+  const { data: result } = useSWR<PaceCalculationResult>(
+    '/api/v1/pace-calculator',
+  );
+  const { calculate, isCalculating } = usePaceCalculator();
+  console.log('From the component :', result);
 
   const initialValues: PaceCalculatorFormValues = {
     minutes: 5,
@@ -45,7 +52,7 @@ export function PaceCalculatorPage() {
   ) => {
     try {
       setStatus(null);
-      await calculate(values);
+      await calculate(values, { populateCache: true });
     } catch (apiError) {
       setStatus(apiError);
     } finally {
@@ -56,56 +63,64 @@ export function PaceCalculatorPage() {
   return (
     <Stack spacing={4}>
       <Typography variant="h4">Pace Calculator</Typography>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ values, handleChange, isValid }) => (
-          <Form>
-            <Stack spacing={4} alignItems="center">
-              <Stack direction="row" spacing={4} justifyContent="center">
+      {result ? (
+        <PaceResultTable />
+      ) : (
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ values, handleChange, isValid }) => (
+            <Form>
+              <Stack spacing={4} alignItems="center">
+                <Stack direction="row" spacing={4} justifyContent="center">
+                  <NumberField
+                    label="min"
+                    min={2}
+                    name="minutes"
+                    value={values.minutes}
+                  />
+                  <NumberField
+                    label="sec"
+                    min={0}
+                    max={59}
+                    name="seconds"
+                    value={values.seconds}
+                  />
+                  <FormControl>
+                    <InputLabel id="pace-units-select-label">Units</InputLabel>
+                    <Select
+                      labelId="pace-units-select-label"
+                      id="pace-units-select"
+                      label="Units"
+                      name="units"
+                      value={values.units}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={'min_per_mile'}>min/mi</MenuItem>
+                      <MenuItem value={'min_per_km'}>min/km</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Stack>
                 <NumberField
-                  label="min"
-                  min={2}
-                  name="minutes"
-                  value={values.minutes}
+                  label="Pecentage"
+                  min={1}
+                  name="percentage"
+                  value={values.percentage}
                 />
-                <NumberField
-                  label="sec"
-                  min={0}
-                  max={59}
-                  name="seconds"
-                  value={values.seconds}
-                />
-                <FormControl>
-                  <InputLabel id="pace-units-select-label">Units</InputLabel>
-                  <Select
-                    labelId="pace-units-select-label"
-                    id="pace-units-select"
-                    label="Units"
-                    name="units"
-                    value={values.units}
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={'min_per_mile'}>min/mi</MenuItem>
-                    <MenuItem value={'min_per_km'}>min/km</MenuItem>
-                  </Select>
-                </FormControl>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={!isValid || isCalculating}
+                >
+                  Calculate
+                </Button>
               </Stack>
-              <NumberField
-                label="Pecentage"
-                min={1}
-                name="percentage"
-                value={values.percentage}
-              />
-              <Button type="submit" variant="contained" disabled={!isValid}>
-                Calculate
-              </Button>
-            </Stack>
-          </Form>
-        )}
-      </Formik>
+            </Form>
+          )}
+        </Formik>
+      )}
     </Stack>
   );
 }

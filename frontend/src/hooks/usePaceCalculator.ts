@@ -29,7 +29,10 @@ export function usePaceCalculator() {
     AxiosError<{ errors: string[] }>,
     string,
     PaceCalculatorFormValues
-  >('/api/v1/pace-calculator', sendPaceRequest);
+  >('/api/v1/pace-calculator', sendPaceRequest, {
+    populateCache: true,
+    // revalidate: false,
+  });
 
   return {
     calculate: trigger,
