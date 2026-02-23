@@ -25,12 +25,15 @@ export function PaceResultTable() {
               <TableCell>Pace</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell></TableCell>
+              <TableCell>
+                {/* TODO: update backend to pull this value */}
+              </TableCell>
               <TableCell>{result?.calculated_pace}</TableCell>
             </TableRow>
           </TableHead>
         </Table>
       </TableContainer>
+      {/* TODO: update the color on the typography to a grey */}
       <Typography variant="body2">
         Calculated paces based on {result?.original_pace}
       </Typography>

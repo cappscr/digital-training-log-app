@@ -21,7 +21,6 @@ export function PaceCalculatorPage() {
     '/api/v1/pace-calculator',
   );
   const { calculate, isCalculating } = usePaceCalculator();
-  console.log('From the component :', result);
 
   const initialValues: PaceCalculatorFormValues = {
     minutes: 5,
@@ -66,6 +65,7 @@ export function PaceCalculatorPage() {
       {result ? (
         <PaceResultTable />
       ) : (
+        // TODO: move into a sub-component
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
