@@ -1,9 +1,11 @@
+import useSWR, { useSWRConfig } from 'swr';
 import useSWRMutation from 'swr/mutation';
 import axios, { type AxiosError } from 'axios';
 
 export interface PaceCalculationResult {
   original_pace: string;
   calculated_pace: string;
+  percentage: number;
 }
 
 export interface PaceCalculatorFormValues {
@@ -17,10 +19,23 @@ async function sendPaceRequest(
   url: string,
   { arg }: { arg: PaceCalculatorFormValues },
 ): Promise<PaceCalculationResult> {
-  const response = await axios.post<PaceCalculationResult>(url, {
+  const response = await axios.post<PaceCalculationResult>(`/api/v1${url}`, {
     pace_calculation: arg,
   });
   return response.data;
+}
+
+export function usePaceResult() {
+  return useSWR(
+    '/pace-calculator',
+    (() => undefined) as () => PaceCalculationResult | undefined,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnMount: false,
+      revalidateOnReconnect: false,
+    },
+  );
 }
 
 export function usePaceCalculator() {
@@ -29,15 +44,19 @@ export function usePaceCalculator() {
     AxiosError<{ errors: string[] }>,
     string,
     PaceCalculatorFormValues
-  >('/api/v1/pace-calculator', sendPaceRequest, {
+  >('/pace-calculator', sendPaceRequest, {
     populateCache: true,
-    // revalidate: false,
+    revalidate: false,
   });
+  const { mutate } = useSWRConfig();
+
+  const reset = () => mutate('/pace-calculator', null, false);
 
   return {
     calculate: trigger,
     result: data,
     error,
     isCalculating: isMutating,
+    reset,
   };
 }

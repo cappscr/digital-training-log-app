@@ -6,18 +6,18 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
-import useSWR, { useSWRConfig } from 'swr';
-import { type PaceCalculationResult } from '../../../hooks/usePaceCalculator';
+import {
+  usePaceResult,
+  usePaceCalculator,
+} from '../../../hooks/usePaceCalculator';
 
 export function PaceResultTable() {
-  const { data: result } = useSWR<PaceCalculationResult>(
-    '/api/v1/pace-calculator',
-  );
-  const { mutate } = useSWRConfig();
+  const { data: result } = usePaceResult();
+  const { reset } = usePaceCalculator();
 
   return (
-    <Stack spacing={2}>
-      <TableContainer>
+    <Stack spacing={2} alignItems="center">
+      <TableContainer sx={{ maxWidth: 600 }}>
         <Table>
           <TableHead>
             <TableRow>
@@ -25,22 +25,20 @@ export function PaceResultTable() {
               <TableCell>Pace</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>
-                {/* TODO: update backend to pull this value */}
-              </TableCell>
+              <TableCell>{`${result?.percentage ?? 0}%`}</TableCell>
               <TableCell>{result?.calculated_pace}</TableCell>
             </TableRow>
           </TableHead>
         </Table>
       </TableContainer>
       {/* TODO: update the color on the typography to a grey */}
-      <Typography variant="body2">
+      <Typography
+        variant="body2"
+        sx={{ color: 'text.secondary', fontWeight: 'fontWeightLight' }}
+      >
         Calculated paces based on {result?.original_pace}
       </Typography>
-      <Button
-        onClick={() => mutate('/api/v1/pace-calculator', null, false)}
-        variant="contained"
-      >
+      <Button onClick={reset} variant="contained">
         Reset
       </Button>
     </Stack>

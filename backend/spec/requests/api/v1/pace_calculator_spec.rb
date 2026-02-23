@@ -23,6 +23,7 @@ RSpec.describe "Api::V1::PaceCalculators", type: :request do
         # 8:00 - 10% = 7:12
         expect(json_response["calculated_pace"]).to eq("7:12 min/mi")
         expect(json_response["original_pace"]).to eq("8:00 min/mi")
+        expect(json_response["percentage"]).to eq(110)
       end
     end
 

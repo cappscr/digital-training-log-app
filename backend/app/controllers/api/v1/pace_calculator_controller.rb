@@ -3,7 +3,7 @@ class Api::V1::PaceCalculatorController < ApplicationController
     pace = Pace.new(pace_calculator_params.except(:percentage))
 
     if pace.valid?
-      render json: { original_pace: pace.to_s, calculated_pace: pace.percentage(pace_calculator_params[:percentage]) }
+      render json: { percentage: pace_calculator_params[:percentage], original_pace: pace.to_s, calculated_pace: pace.percentage(pace_calculator_params[:percentage]) }
     else
       render json: { errors: pace.errors.full_messages }, status: :unprocessable_content
     end
