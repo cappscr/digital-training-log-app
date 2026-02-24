@@ -31,6 +31,8 @@ module Backend
 
     config.generators do |g|
       g.test_framework :rspec
+      g.integration_tool :rspec
+      g.system_tests :rspec
     end
   end
 end

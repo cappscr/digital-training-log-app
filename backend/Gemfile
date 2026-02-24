@@ -43,11 +43,8 @@ group :development, :test do
 end
 
 group :test do
-  gem "minitest"
-  gem "minitest-reporters"
   gem "rspec-rails"
   gem "guard"
-  gem "guard-minitest"
   gem "guard-rspec"
 end
 
