@@ -53,6 +53,6 @@ frontend_deploy:
     - corepack prepare yarn@4.12.0 --activate
     - npm install -g netlify-cli
     - cd frontend
-    - yarn install --immutable
-    - yarn build
+    - corepack yarn install --immutable
+    - corepack yarn build
     - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod --dir=dist
