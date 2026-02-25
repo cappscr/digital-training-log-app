@@ -37,7 +37,7 @@ backend_deploy:
 
 frontend_deploy:
   stage: deploy
-  image: node:latest
+  image: node:22-alpine
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       changes:
@@ -47,7 +47,7 @@ frontend_deploy:
   variables:
     COREPACK_HOME: ".corepack"
   script:
-    - npm install -g corepack
+    - apk add --no-cache libc6-compat
     - corepack enable
     - corepack prepare yarn@4.12.0 --activate
     - npm install -g netlify-cli
