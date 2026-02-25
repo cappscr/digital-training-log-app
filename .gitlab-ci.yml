@@ -36,9 +36,13 @@ frontend_deploy:
   image: node:latest
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  variables:
+    COREPACK_HOME: ".corepack"
   script:
+    - corepack enable
+    - corepack prepare yarn@4.12.0 --activate
     - npm install -g netlify-cli
     - cd frontend
-    - yarn install
+    - yarn install --immutable
     - yarn build
     - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod --dir=dist
