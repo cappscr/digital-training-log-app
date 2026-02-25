@@ -45,7 +45,6 @@ frontend_deploy:
         - .gitlab-ci.yml
         - netlify.toml
   variables:
-    NODE_OPTIONS: "--no-warnings --loader=internal/deps/cjs/loader.js"
     COREPACK_HOME: "${CI_PROJECT_DIR}/.corepack"
   script:
     - apk add --no-cache libc6-compat
@@ -58,5 +57,5 @@ frontend_deploy:
     - cd frontend
     - corepack yarn install --immutable
     - corepack yarn build
-    
+
     - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod --dir=dist
