@@ -30,3 +30,15 @@ backend_deploy:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   script:
     - railway up --service digital-training-log-api --ci
+
+frontend_deploy:
+  stage: deploy
+  image: node:latest
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - npm install -g netlify-cli
+    - cd frontend
+    - yarn install
+    - yarn build
+    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod --dir=dist
