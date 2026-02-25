@@ -28,6 +28,8 @@ backend_deploy:
   image: ghcr.io/railwayapp/cli:latest
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      changes:
+        - backend/**/*
   script:
     - railway up --service digital-training-log-api --ci
 
@@ -36,9 +38,12 @@ frontend_deploy:
   image: node:latest
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      changes:
+        - frontend/**/*
   variables:
     COREPACK_HOME: ".corepack"
   script:
+    - npm install -g corepack
     - corepack enable
     - corepack prepare yarn@4.12.0 --activate
     - npm install -g netlify-cli
