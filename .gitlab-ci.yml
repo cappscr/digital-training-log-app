@@ -26,6 +26,7 @@ backend_ci:
 # Frontend CI
 frontend_ci:
   stage: ci
+  image: node:22-alpine
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       changes:
