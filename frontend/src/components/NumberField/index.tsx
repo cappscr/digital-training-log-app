@@ -15,11 +15,13 @@ export function NumberField({
   label,
   name,
   size = 'medium',
+  fullWidth = false,
   ...other
 }: BaseNumberField.Root.Props & {
   label?: React.ReactNode;
   name: string;
   size?: 'small' | 'medium';
+  fullWidth?: boolean;
 }) {
   const [field, meta, helpers] = useField(name);
   const generatedId = useId();
@@ -39,6 +41,7 @@ export function NumberField({
           required={state.required}
           error={hasError}
           variant="outlined"
+          fullWidth={fullWidth}
         >
           {props.children}
         </FormControl>

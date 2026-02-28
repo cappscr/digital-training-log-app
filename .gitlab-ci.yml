@@ -42,13 +42,10 @@ frontend_ci:
     - cd frontend
     - yarn install --immutable
 
-    - echo "***** Running linter *****"
     - yarn lint
     - echo "***** Linting passed *****"
-    - echo "***** Running type checker *****"
     - yarn types
     - echo "***** Type check passed *****"
-    - echo "***** Running unit tests *****"
     - yarn test --run
     - echo "***** Unit tests passed *****"
 

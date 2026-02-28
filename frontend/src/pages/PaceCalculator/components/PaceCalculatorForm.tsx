@@ -61,7 +61,7 @@ export function PaceCalculatorForm() {
       {({ values, handleChange, isValid }) => (
         <Form>
           <Stack spacing={4} alignItems="center">
-            <Stack direction="row" spacing={4} justifyContent="center">
+            <Stack direction="row" spacing={2} justifyContent="center">
               <NumberField
                 label="min"
                 min={2}
@@ -95,11 +95,13 @@ export function PaceCalculatorForm() {
               min={1}
               name="percentage"
               value={values.percentage}
+              fullWidth
             />
             <Button
               type="submit"
               variant="contained"
               disabled={!isValid || isCalculating}
+              fullWidth
             >
               Calculate
             </Button>
