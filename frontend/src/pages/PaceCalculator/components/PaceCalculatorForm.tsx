@@ -24,18 +24,18 @@ export function PaceCalculatorForm() {
 
   const validationSchema = object({
     minutes: number()
-      .required('Minutes are required')
-      .min(2, 'Minimum pace is 2 minutes per mile'),
+      .required('Enter minutes')
+      .min(1, 'Enter at least 1 minute'),
     seconds: number()
-      .required('Seconds are required')
-      .min(0, 'Seconds must be between 0 and 59')
-      .max(59, 'Seconds must be between 0 and 59'),
+      .required('Enter seconds')
+      .min(0, 'Enter seconds between 0 and 59')
+      .max(59, 'Enter seconds between 0 and 59'),
     units: string()
-      .required('Units are required')
+      .required('Select units')
       .oneOf(['min_per_mile', 'min_per_km']),
     percentage: number()
-      .required('Percentage is required')
-      .min(1, 'Percentage must be greater than or equal to 1'),
+      .required('Enter percentage')
+      .min(1, 'Enter a percentage of at least 1'),
   });
 
   const handleSubmit = async (
@@ -66,14 +66,18 @@ export function PaceCalculatorForm() {
                 label="min"
                 min={2}
                 name="minutes"
+                size="small"
                 value={values.minutes}
+                maxWidth={80}
               />
               <NumberField
                 label="sec"
                 min={0}
                 max={59}
                 name="seconds"
+                size="small"
                 value={values.seconds}
+                maxWidth={80}
               />
               <FormControl>
                 <InputLabel id="pace-units-select-label">Units</InputLabel>
@@ -82,11 +86,12 @@ export function PaceCalculatorForm() {
                   id="pace-units-select"
                   label="Units"
                   name="units"
+                  size="small"
                   value={values.units}
                   onChange={handleChange}
                 >
-                  <MenuItem value={'min_per_mile'}>min/mi</MenuItem>
-                  <MenuItem value={'min_per_km'}>min/km</MenuItem>
+                  <MenuItem value={'min_per_mile'}>per mi</MenuItem>
+                  <MenuItem value={'min_per_km'}>per km</MenuItem>
                 </Select>
               </FormControl>
             </Stack>
@@ -94,6 +99,7 @@ export function PaceCalculatorForm() {
               label="Pecentage"
               min={1}
               name="percentage"
+              size="small"
               value={values.percentage}
               fullWidth
             />

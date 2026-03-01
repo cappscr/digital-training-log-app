@@ -16,12 +16,14 @@ export function NumberField({
   name,
   size = 'medium',
   fullWidth = false,
+  maxWidth,
   ...other
 }: BaseNumberField.Root.Props & {
   label?: React.ReactNode;
   name: string;
   size?: 'small' | 'medium';
   fullWidth?: boolean;
+  maxWidth?: number;
 }) {
   const [field, meta, helpers] = useField(name);
   const generatedId = useId();
@@ -108,7 +110,7 @@ export function NumberField({
                   </BaseNumberField.Decrement>
                 </InputAdornment>
               }
-              sx={{ pr: 0 }}
+              sx={{ pr: 0, ...(maxWidth && !fullWidth ? { maxWidth } : {}) }}
             />
           );
         }}
