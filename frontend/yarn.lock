@@ -822,6 +822,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource/lora@npm:^5.2.8":
+  version: 5.2.8
+  resolution: "@fontsource/lora@npm:5.2.8"
+  checksum: 10c0/2c6d98d3584348694291ceca9abb785e16b95834a6a8abfda808786bcf6652b61873834134d1449ee9af842ce0647fc6dc0a6be2618d6e7c2400d87e1e09fb6c
+  languageName: node
+  linkType: hard
+
 "@fontsource/roboto@npm:^5.2.9":
   version: 5.2.9
   resolution: "@fontsource/roboto@npm:5.2.9"
@@ -2180,6 +2187,7 @@ __metadata:
     "@emotion/react": "npm:^11.14.0"
     "@emotion/styled": "npm:^11.14.1"
     "@eslint/js": "npm:^9.39.1"
+    "@fontsource/lora": "npm:^5.2.8"
     "@fontsource/roboto": "npm:^5.2.9"
     "@mui/icons-material": "npm:^7.3.7"
     "@mui/material": "npm:^7.3.7"
