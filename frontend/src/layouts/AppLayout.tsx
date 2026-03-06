@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { Outlet } from 'react-router';
 import Box from '@mui/material/Box';
-// import Container from '@mui/material/Container';
 import { AppBar } from '../components/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { NavDrawer } from '../components/NavDrawer';
@@ -21,7 +20,7 @@ export function AppLayout() {
       sx={{
         display: 'flex',
         minHeight: '100vh',
-        bgcolor: 'background.default',
+        bgcolor: 'background.paper',
       }}
     >
       <AppBar isMobile={isMobile} handleDrawerToggle={handleDrawerToggle} />

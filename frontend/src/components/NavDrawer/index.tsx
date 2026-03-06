@@ -1,6 +1,14 @@
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Toolbar from '@mui/material/Toolbar';
+import CalculateRounded from '@mui/icons-material/CalculateRounded';
+import { useNavigate } from 'react-router';
 
 interface NavDrawerProps {
   isMobile: boolean;
@@ -13,7 +21,37 @@ export const NavDrawer = ({
   mobileMenuOpen,
   setMobileMenuOpen,
 }: NavDrawerProps) => {
+  const navigate = useNavigate();
   const theme = useTheme();
+  const menuItems = [
+    {
+      text: 'Calculators',
+      icon: <CalculateRounded />,
+      path: '/pace-calculator',
+    },
+  ];
+
+  const drawerContent = (
+    <Box>
+      <Toolbar />
+      <List>
+        {menuItems.map((item) => (
+          <ListItem key={item.text} disablePadding sx={{ mb: 1 }}>
+            <ListItemButton
+              onClick={() => {
+                navigate(item.path);
+                if (isMobile) setMobileMenuOpen(false);
+              }}
+              sx={{ borderRadius: 1 }}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText sx={{ ml: 1 }}>{item.text}</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
   return (
     <Box component="nav" sx={{ width: { md: 240 }, flexShrink: { md: 0 } }}>
@@ -29,7 +67,9 @@ export const NavDrawer = ({
             borderRight: `1px solid ${theme.palette.divider}`,
           },
         }}
-      ></Drawer>
+      >
+        {drawerContent}
+      </Drawer>
     </Box>
   );
 };
