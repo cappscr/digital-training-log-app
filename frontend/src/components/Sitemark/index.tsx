@@ -5,14 +5,15 @@ export const Sitemark = () => {
   return (
     <Stack direction="row" spacing={1.5}>
       <img
-        src="/menu_book_rounded.svg"
+        src="/menu_book_rounded_offwhite.svg"
         alt="Sitemark Icon"
-        width={32}
-        height={32}
+        width={40}
+        height={40}
       />
       <Typography
         variant="h5"
         component="span"
+        color="inherit"
         sx={{ letterSpacing: '-0.5px' }}
       >
         Digital Training Log

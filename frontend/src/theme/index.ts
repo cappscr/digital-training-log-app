@@ -8,6 +8,7 @@ export const academicArchiveTheme = createTheme({
     },
     primary: {
       main: '#3C4043', // The Graphite/Slate primary
+      contrastText: '#FFFDF0',
     },
     secondary: {
       main: '#4A69BD', // The "Faded Ink" Blue
