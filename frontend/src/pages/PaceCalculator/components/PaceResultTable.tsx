@@ -16,7 +16,7 @@ export function PaceResultTable() {
   const { reset } = usePaceCalculator();
 
   return (
-    <Stack spacing={2} alignItems="center">
+    <Stack spacing={2} alignItems="flex-start">
       <TableContainer sx={{ maxWidth: 600 }}>
         <Table>
           <TableHead>
