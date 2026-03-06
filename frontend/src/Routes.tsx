@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router';
 import { AppLayout } from './layouts/AppLayout';
-import Typography from '@mui/material/Typography';
+import { HomePage } from './pages/Home';
 import { UserProfilePage } from './pages/UserProfile';
 import { PaceCalculatorPage } from './pages/PaceCalculator';
 
@@ -8,15 +8,7 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route element={<AppLayout />}>
-        <Route
-          index
-          path="/"
-          element={
-            <Typography variant="h2" component="h1">
-              Digital Training Log App
-            </Typography>
-          }
-        />
+        <Route index path="/" element={<HomePage />} />
         <Route path="/users/:id" element={<UserProfilePage />} />
         <Route path="/pace-calculator" element={<PaceCalculatorPage />} />
       </Route>
