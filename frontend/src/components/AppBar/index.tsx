@@ -1,19 +1,17 @@
-import { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { Sitemark } from '../Sitemark';
-import { useTheme, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material';
 
-export const AppBar = () => {
+interface AppBarProps {
+  isMobile: boolean;
+  handleDrawerToggle: () => void;
+}
+
+export const AppBar = ({ isMobile, handleDrawerToggle }: AppBarProps) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
 
   return (
     <MuiAppBar
