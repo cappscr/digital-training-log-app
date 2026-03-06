@@ -31,7 +31,14 @@ export function AppLayout() {
       />
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: { xs: 2, sm: 3 }, width: '100%' }}
+        sx={{
+          flexGrow: 1,
+          px: { xs: 2, sm: 4, lg: 25 },
+          maxWidth: { sm: '100%', md: 840, lg: '100%', xl: 1040 },
+          width: '100%',
+          mx: 'auto',
+          pt: 4,
+        }}
       >
         <Toolbar />
         <Outlet />

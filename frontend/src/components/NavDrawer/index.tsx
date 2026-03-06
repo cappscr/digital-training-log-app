@@ -8,6 +8,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import CalculateRounded from '@mui/icons-material/CalculateRounded';
+import HomeRounded from '@mui/icons-material/HomeRounded';
 import { useNavigate } from 'react-router';
 
 interface NavDrawerProps {
@@ -24,6 +25,11 @@ export const NavDrawer = ({
   const navigate = useNavigate();
   const theme = useTheme();
   const menuItems = [
+    {
+      text: 'Home',
+      icon: <HomeRounded />,
+      path: '/',
+    },
     {
       text: 'Calculators',
       icon: <CalculateRounded />,
