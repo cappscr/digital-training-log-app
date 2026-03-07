@@ -8,7 +8,7 @@ export function PaceCalculatorPage() {
   const { data: result } = usePaceResult();
 
   return (
-    <Stack spacing={4} alignItems="center">
+    <Stack spacing={4}>
       <Typography variant="h4">Pace Calculator</Typography>
       {result ? <PaceResultTable /> : <PaceCalculatorForm />}
     </Stack>
