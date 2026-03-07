@@ -110,7 +110,11 @@ export function NumberField({
                   </BaseNumberField.Decrement>
                 </InputAdornment>
               }
-              sx={{ pr: 0, ...(maxWidth && !fullWidth ? { maxWidth } : {}) }}
+              sx={{
+                borderRadius: 6,
+                pr: 0,
+                ...(maxWidth && !fullWidth ? { maxWidth } : {}),
+              }}
             />
           );
         }}
