@@ -3,7 +3,7 @@ import { type ReactNode } from 'react';
 import { BrowserRouter } from 'react-router';
 import { ThemeProvider } from '@mui/material';
 import { HelmetProvider } from 'react-helmet-async';
-import { theme } from './theme';
+import { academicArchiveTheme } from './theme';
 import {
   render as rtlRender,
   type RenderOptions,
@@ -15,7 +15,7 @@ HelmetProvider.canUseDOM = false;
 function Wrapper({ children }: { children: ReactNode }) {
   return (
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={academicArchiveTheme}>
         <HelmetProvider>{children}</HelmetProvider>
       </ThemeProvider>
     </BrowserRouter>
