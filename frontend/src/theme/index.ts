@@ -12,6 +12,15 @@ export const academicArchiveTheme = createTheme({
     },
     secondary: {
       main: '#4A69BD', // The "Faded Ink" Blue
+      50: '#e6e9f5',
+      100: '#c0c9e8',
+      200: '#97a6d8',
+      300: '#6c84c8',
+      500: '#1f4fb2',
+      600: '#1747a8',
+      700: '#043e9d',
+      800: '#003491',
+      900: '#00237c',
     },
     text: {
       primary: '#2F3542', // Deep, readable Navy-Grey
