@@ -1,21 +1,19 @@
 import { createTheme } from '@mui/material/styles';
 
 const baseColors = {
-  agedParchment: '#FAF7E6',
-  paper: '#FDFCF5',
-  primary: '#3C4043',
-  secondary: {
-    main: '#4A69BD',
-    50: '#e6e9f5',
-    100: '#c0c9e8',
-    200: '#97a6d8',
-    300: '#6c84c8',
-    500: '#1f4fb2',
-    600: '#1747a8',
-    700: '#043e9d',
-    800: '#003491',
-    900: '#00237c',
+  backgroundColor: '#FFFDF7',
+  paper: '#EDE7DC',
+  primary: {
+    main: '#297651',
+    light: '#86c2a8',
+    dark: '#114024',
   },
+  secondary: {
+    main: '#b44774',
+    light: '#e3bdd3',
+    dark: '#8e3f64',
+  },
+  whiteText: '#FFFAFA',
   navyGrey: '#2F3542',
   mutedGrey: '#57606F',
 };
@@ -23,24 +21,21 @@ const baseColors = {
 export const academicArchiveTheme = createTheme({
   palette: {
     background: {
-      default: baseColors.agedParchment, // The "Aged Parchment" desk surface
+      default: baseColors.backgroundColor,
       paper: baseColors.paper, // A slightly lighter "fresh page" for Cards
     },
+    common: {
+      white: baseColors.whiteText,
+    },
     primary: {
-      main: baseColors.primary, // The Graphite/Slate primary
-      contrastText: '#FFFDF0',
+      main: baseColors.primary.main,
+      light: baseColors.primary.light,
+      dark: baseColors.primary.dark,
     },
     secondary: {
-      main: baseColors.secondary.main, // The "Faded Ink" Blue
-      50: baseColors.secondary[50],
-      100: baseColors.secondary[100],
-      200: baseColors.secondary[200],
-      300: baseColors.secondary[300],
-      500: baseColors.secondary[500],
-      600: baseColors.secondary[600],
-      700: baseColors.secondary[700],
-      800: baseColors.secondary[800],
-      900: baseColors.secondary[900],
+      main: baseColors.secondary.main,
+      light: baseColors.secondary.light,
+      dark: baseColors.secondary.dark,
     },
     text: {
       primary: baseColors.navyGrey, // Deep, readable Navy-Grey
@@ -53,35 +48,39 @@ export const academicArchiveTheme = createTheme({
     h1: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 700,
-      color: baseColors.secondary[500],
+      color: baseColors.primary.main,
     },
     h2: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 700,
-      color: baseColors.secondary[500],
+      color: baseColors.primary.main,
     },
     h3: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 600,
-      color: baseColors.secondary[500],
+      color: baseColors.primary.main,
     },
     h4: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 600,
-      color: baseColors.secondary[500],
+      color: baseColors.primary.main,
     },
     h5: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 500,
-      color: baseColors.secondary[500],
+      color: baseColors.primary.main,
     },
     h6: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 500,
       letterSpacing: '0.5px',
-      color: baseColors.secondary[500],
+      color: baseColors.primary.main,
     },
-    button: { textTransform: 'none', fontWeight: 600 }, // Less "yelling" than all-caps
+    button: {
+      textTransform: 'none',
+      fontWeight: 600,
+      color: baseColors.whiteText,
+    },
     subtitle1: {
       fontFamily: '"Lora", "serif"',
       fontStyle: 'italic',
@@ -96,6 +95,7 @@ export const academicArchiveTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 18,
+          backgroundColor: baseColors.secondary.main,
         },
       },
     },

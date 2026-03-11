@@ -20,7 +20,6 @@ export function AppLayout() {
       sx={{
         display: 'flex',
         minHeight: '100vh',
-        bgcolor: 'background.paper',
       }}
     >
       <AppBar isMobile={isMobile} handleDrawerToggle={handleDrawerToggle} />

@@ -51,7 +51,7 @@ export const NavDrawer = ({
               sx={{
                 borderRadius: 6,
                 mx: 1,
-                '&.active': { color: 'secondary.600' },
+                '&.active': { color: 'primary.dark' },
                 '&.active .MuiListItemText-primary': {
                   fontWeight: 700,
                 },
@@ -76,7 +76,6 @@ export const NavDrawer = ({
         sx={{
           '& .MuiDrawer-paper': {
             width: 256,
-            bgcolor: 'background.default',
             borderRight: `1px solid ${theme.palette.divider}`,
           },
         }}
