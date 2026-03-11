@@ -9,7 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import CalculateRounded from '@mui/icons-material/CalculateRounded';
 import HomeRounded from '@mui/icons-material/HomeRounded';
-import { useNavigate } from 'react-router';
+import { NavLink } from 'react-router';
 
 interface NavDrawerProps {
   isMobile: boolean;
@@ -22,7 +22,6 @@ export const NavDrawer = ({
   mobileMenuOpen,
   setMobileMenuOpen,
 }: NavDrawerProps) => {
-  const navigate = useNavigate();
   const theme = useTheme();
   const menuItems = [
     {
@@ -44,13 +43,21 @@ export const NavDrawer = ({
         {menuItems.map((item) => (
           <ListItem key={item.text} disablePadding sx={{ mb: 1 }}>
             <ListItemButton
+              component={NavLink}
+              to={item.path}
               onClick={() => {
-                navigate(item.path);
                 if (isMobile) setMobileMenuOpen(false);
               }}
-              sx={{ borderRadius: 1 }}
+              sx={{
+                borderRadius: 6,
+                mx: 1,
+                '&.active': { color: 'secondary.600' },
+                '&.active .MuiListItemText-primary': {
+                  fontWeight: 700,
+                },
+              }}
             >
-              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemIcon sx={{ color: 'inherit' }}>{item.icon}</ListItemIcon>
               <ListItemText sx={{ ml: 1 }}>{item.text}</ListItemText>
             </ListItemButton>
           </ListItem>
@@ -68,7 +75,7 @@ export const NavDrawer = ({
         ModalProps={{ keepMounted: true }} // Better open performance on mobile.
         sx={{
           '& .MuiDrawer-paper': {
-            width: 240,
+            width: 256,
             bgcolor: 'background.default',
             borderRight: `1px solid ${theme.palette.divider}`,
           },

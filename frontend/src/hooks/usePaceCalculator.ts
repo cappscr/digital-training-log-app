@@ -1,17 +1,11 @@
 import useSWR, { useSWRConfig } from 'swr';
 import useSWRMutation from 'swr/mutation';
 import axios, { type AxiosError } from 'axios';
+import { type PaceCalculatorFormValues } from '@/forms/PaceCalculator';
 
 export interface PaceCalculationResult {
   original_pace: string;
   calculated_pace: string;
-  percentage: number;
-}
-
-export interface PaceCalculatorFormValues {
-  minutes: number;
-  seconds: number;
-  units: 'min_per_mile' | 'min_per_km';
   percentage: number;
 }
 

@@ -1,4 +1,4 @@
-import { NumberField } from '../../../components/NumberField';
+import { NumberField } from '@/components/NumberField';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -6,37 +6,15 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import { Formik, Form, type FormikHelpers } from 'formik';
-import { object, number, string } from 'yup';
+import { usePaceCalculator } from '@/hooks/usePaceCalculator';
 import {
-  usePaceCalculator,
+  initialValues,
+  validationSchema,
   type PaceCalculatorFormValues,
-} from '../../../hooks/usePaceCalculator';
+} from '@/forms/PaceCalculator';
 
 export function PaceCalculatorForm() {
   const { calculate, isCalculating } = usePaceCalculator();
-
-  const initialValues: PaceCalculatorFormValues = {
-    minutes: 5,
-    seconds: 0,
-    units: 'min_per_mile',
-    percentage: 80,
-  };
-
-  const validationSchema = object({
-    minutes: number()
-      .required('Enter minutes')
-      .min(1, 'Enter at least 1 minute'),
-    seconds: number()
-      .required('Enter seconds')
-      .min(0, 'Enter seconds between 0 and 59')
-      .max(59, 'Enter seconds between 0 and 59'),
-    units: string()
-      .required('Select units')
-      .oneOf(['min_per_mile', 'min_per_km']),
-    percentage: number()
-      .required('Enter percentage')
-      .min(1, 'Enter a percentage of at least 1'),
-  });
 
   const handleSubmit = async (
     values: PaceCalculatorFormValues,
