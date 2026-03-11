@@ -51,7 +51,7 @@ export const NavDrawer = ({
               sx={{
                 borderRadius: 6,
                 mx: 1,
-                '&.active': { color: 'primary.dark' },
+                '&.active': { color: 'secondary.dark' },
                 '&.active .MuiListItemText-primary': {
                   fontWeight: 700,
                 },

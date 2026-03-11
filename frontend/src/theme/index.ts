@@ -4,14 +4,14 @@ const baseColors = {
   backgroundColor: '#FFFDF7',
   paper: '#EDE7DC',
   primary: {
-    main: '#297651',
-    light: '#86c2a8',
+    main: '#2A7A54',
+    light: '#86C2A8',
     dark: '#114024',
   },
   secondary: {
-    main: '#b44774',
-    light: '#e3bdd3',
-    dark: '#8e3f64',
+    main: '#97576E', // '#b44774'
+    light: '#CC98AA', // '#e3bdd3'
+    dark: '#40112D', // '#8e3f64'
   },
   whiteText: '#FFFAFA',
   navyGrey: '#2F3542',
@@ -22,7 +22,7 @@ export const academicArchiveTheme = createTheme({
   palette: {
     background: {
       default: baseColors.backgroundColor,
-      paper: baseColors.paper, // A slightly lighter "fresh page" for Cards
+      paper: baseColors.paper,
     },
     common: {
       white: baseColors.whiteText,
