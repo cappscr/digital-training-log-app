@@ -67,7 +67,6 @@ export function PaceCalculatorForm() {
                   size="small"
                   value={values.units}
                   onChange={handleChange}
-                  sx={{ borderRadius: 6 }}
                 >
                   <MenuItem value={'min_per_mile'}>per mi</MenuItem>
                   <MenuItem value={'min_per_km'}>per km</MenuItem>
@@ -85,7 +84,6 @@ export function PaceCalculatorForm() {
               type="submit"
               variant="contained"
               disabled={!isValid || isCalculating}
-              sx={{ borderRadius: 6 }}
             >
               Calculate
             </Button>

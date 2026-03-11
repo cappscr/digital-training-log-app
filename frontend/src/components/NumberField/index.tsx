@@ -111,7 +111,6 @@ export function NumberField({
                 </InputAdornment>
               }
               sx={{
-                borderRadius: 6,
                 pr: 0,
                 ...(maxWidth && !fullWidth ? { maxWidth } : {}),
               }}
