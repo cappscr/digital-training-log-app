@@ -89,9 +89,17 @@ export const academicArchiveTheme = createTheme({
     },
   },
   shape: {
-    borderRadius: 2, // Sharper corners feel more like a bound book
+    borderRadius: 6, // Sharper corners feel more like a bound book
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: '18px',
+          textTransform: 'none',
+        },
+      },
+    },
     MuiCard: {
       defaultProps: {
         variant: 'outlined', // Outlines > Shadows for this aesthetic
