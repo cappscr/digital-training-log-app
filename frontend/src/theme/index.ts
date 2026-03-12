@@ -4,15 +4,17 @@ const baseColors = {
   backgroundColor: '#FFFDF7',
   paper: '#EDE7DC',
   primary: {
-    main: '#2A7A54',
-    light: '#86C2A8',
-    dark: '#114024',
+    main: '#A1B09A',
+    dark: '#2B471B',
+    contrastText: '#1B2418',
   },
   secondary: {
-    main: '#97576E', // '#b44774'
-    light: '#CC98AA', // '#e3bdd3'
-    dark: '#40112D', // '#8e3f64'
+    main: '#C57C57',
+    dark: '#9A5836',
+    light: '#E7CCC1',
+    contrastText: '#2B1B14',
   },
+  rose: '#E3A5A1',
   whiteText: '#FFFAFA',
   navyGrey: '#2F3542',
   mutedGrey: '#57606F',
@@ -29,12 +31,11 @@ export const academicArchiveTheme = createTheme({
     },
     primary: {
       main: baseColors.primary.main,
-      light: baseColors.primary.light,
       dark: baseColors.primary.dark,
+      contrastText: baseColors.primary.contrastText,
     },
     secondary: {
       main: baseColors.secondary.main,
-      light: baseColors.secondary.light,
       dark: baseColors.secondary.dark,
     },
     text: {
@@ -58,12 +59,12 @@ export const academicArchiveTheme = createTheme({
     h3: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 600,
-      color: baseColors.primary.main,
+      color: baseColors.primary.dark,
     },
     h4: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 600,
-      color: baseColors.primary.main,
+      color: baseColors.primary.dark,
     },
     h5: {
       fontFamily: '"Lora", "serif"',
@@ -78,8 +79,7 @@ export const academicArchiveTheme = createTheme({
     },
     button: {
       textTransform: 'none',
-      fontWeight: 600,
-      color: baseColors.whiteText,
+      fontWeight: 700,
     },
     subtitle1: {
       fontFamily: '"Lora", "serif"',
@@ -96,6 +96,10 @@ export const academicArchiveTheme = createTheme({
         root: {
           borderRadius: 18,
           backgroundColor: baseColors.secondary.main,
+          '&:hover': {
+            backgroundColor: baseColors.secondary.dark,
+            color: baseColors.whiteText,
+          },
         },
       },
     },

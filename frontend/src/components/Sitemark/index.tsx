@@ -21,7 +21,7 @@ export const Sitemark = () => {
       <Typography
         variant="h5"
         component="span"
-        color="primary.light"
+        color="primary.main"
         sx={{ letterSpacing: '-0.5px' }}
       >
         Digital Training Log
