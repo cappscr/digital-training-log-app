@@ -2,30 +2,41 @@ import { Formik, Form, type FormikHelpers } from 'formik';
 import {
   initialValues,
   validationSchema,
+  UNEXPECTED_ERROR_MESSAGE,
   type SignupFormValues,
 } from './helpers';
+import { apiClient } from '@/fetcher';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
 export function SignupForm() {
+  const navigate = useNavigate();
+
   const handleSubmit = async (
     values: SignupFormValues,
     { setStatus, setSubmitting }: FormikHelpers<SignupFormValues>,
   ) => {
-    setStatus(undefined);
-    setSubmitting(true);
     try {
-      console.log(values);
+      setStatus(null);
+      const response = await apiClient.post('/signup', {
+        user: {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          password_confirmation: values.confirmPassword,
+        },
+      });
+      navigate(`/users/${response.data.id}?message=welcome`);
     } catch (apiError) {
       if (axios.isAxiosError(apiError) && apiError.response?.status === 422) {
-        setStatus(
-          apiError.response?.data.message ||
-            'Validation error. Please check your input and try again.',
-        );
+        setStatus(apiError.response?.data.errors || [UNEXPECTED_ERROR_MESSAGE]);
       } else {
-        setStatus('An unexpected error occurred. Please try again later.');
+        setStatus([UNEXPECTED_ERROR_MESSAGE]);
       }
     } finally {
       setSubmitting(false);
@@ -42,6 +53,7 @@ export function SignupForm() {
         errors,
         touched,
         values,
+        status,
         handleChange,
         handleBlur,
         isValid,
@@ -49,6 +61,15 @@ export function SignupForm() {
       }) => (
         <Form>
           <Stack spacing={4} alignItems="flex-start">
+            {status && (
+              <Box sx={{ color: 'error.main', mb: 2 }}>
+                {status.map((msg: string, index: number) => (
+                  <Alert severity="error" key={index} sx={{ mb: 1 }}>
+                    {msg}
+                  </Alert>
+                ))}
+              </Box>
+            )}
             <TextField
               type="text"
               id="name"

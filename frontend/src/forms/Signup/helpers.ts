@@ -7,6 +7,9 @@ export interface SignupFormValues {
   confirmPassword: string;
 }
 
+export const UNEXPECTED_ERROR_MESSAGE =
+  'An unexpected error occurred. Please try again later.';
+
 export const initialValues = {
   name: '',
   email: '',
