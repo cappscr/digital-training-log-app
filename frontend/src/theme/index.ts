@@ -1,46 +1,41 @@
 import { createTheme } from '@mui/material/styles';
 
 const baseColors = {
-  backgroundColor: '#FFFDF7',
-  paper: '#EDE7DC',
-  primary: {
-    main: '#A1B09A',
-    dark: '#2B471B',
-    contrastText: '#1B2418',
-  },
-  secondary: {
-    main: '#C57C57',
-    dark: '#9A5836',
-    light: '#E7CCC1',
-    contrastText: '#2B1B14',
-  },
+  warmIvory: '#FFFDF7',
+  beige: '#EDE7DC',
+  olive: '#A1B09A',
+  darkOlive: '#2B471B',
+  nightMoss: '#1B2418',
+  terracotta: '#C57B57',
+  rust: '#9A5836',
+  roastedCoffee: '#2B1B14',
   rose: '#E3A5A1',
-  whiteText: '#FFFAFA',
-  navyGrey: '#2F3542',
-  mutedGrey: '#57606F',
+  snow: '#FFFAFA',
+  mountainMist: '#5A6058',
 };
 
 export const academicArchiveTheme = createTheme({
   palette: {
     background: {
-      default: baseColors.backgroundColor,
-      paper: baseColors.paper,
+      default: baseColors.warmIvory,
+      paper: baseColors.beige,
     },
     common: {
-      white: baseColors.whiteText,
+      white: baseColors.snow,
     },
     primary: {
-      main: baseColors.primary.main,
-      dark: baseColors.primary.dark,
-      contrastText: baseColors.primary.contrastText,
+      main: baseColors.olive,
+      dark: baseColors.darkOlive,
+      contrastText: baseColors.nightMoss,
     },
     secondary: {
-      main: baseColors.secondary.main,
-      dark: baseColors.secondary.dark,
+      main: baseColors.terracotta,
+      dark: baseColors.rust,
+      contrastText: baseColors.roastedCoffee,
     },
     text: {
-      primary: baseColors.navyGrey, // Deep, readable Navy-Grey
-      secondary: baseColors.mutedGrey, // Muted grey for labels and captions
+      primary: baseColors.darkOlive,
+      secondary: baseColors.mountainMist,
     },
     divider: 'rgba(47, 53, 66, 0.12)', // Subtle lines that look like notebook rules
   },
@@ -49,33 +44,33 @@ export const academicArchiveTheme = createTheme({
     h1: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 700,
-      color: baseColors.primary.main,
+      color: baseColors.darkOlive,
     },
     h2: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 700,
-      color: baseColors.primary.main,
+      color: baseColors.darkOlive,
     },
     h3: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 600,
-      color: baseColors.primary.dark,
+      color: baseColors.darkOlive,
     },
     h4: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 600,
-      color: baseColors.primary.dark,
+      color: baseColors.darkOlive,
     },
     h5: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 500,
-      color: baseColors.primary.main,
+      color: baseColors.darkOlive,
     },
     h6: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 500,
       letterSpacing: '0.5px',
-      color: baseColors.primary.main,
+      color: baseColors.darkOlive,
     },
     button: {
       textTransform: 'none',
@@ -84,7 +79,7 @@ export const academicArchiveTheme = createTheme({
     subtitle1: {
       fontFamily: '"Lora", "serif"',
       fontStyle: 'italic',
-      color: '#57606F', // Muted Navy-Grey
+      color: baseColors.mountainMist,
     },
   },
   shape: {
@@ -95,10 +90,10 @@ export const academicArchiveTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 18,
-          backgroundColor: baseColors.secondary.main,
+          backgroundColor: baseColors.terracotta,
           '&:hover': {
-            backgroundColor: baseColors.secondary.dark,
-            color: baseColors.whiteText,
+            backgroundColor: baseColors.rust,
+            color: baseColors.snow,
           },
         },
       },
