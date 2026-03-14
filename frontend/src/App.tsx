@@ -1,6 +1,5 @@
 import CSSBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material';
-import { HelmetProvider } from 'react-helmet-async';
 import { SWRConfig } from 'swr';
 import { fetcher } from './fetcher';
 import { academicArchiveTheme } from './theme';
@@ -20,16 +19,14 @@ function App() {
   return (
     <ThemeProvider theme={academicArchiveTheme}>
       <CSSBaseline />
-      <HelmetProvider>
-        <SWRConfig
-          value={{
-            fetcher,
-            revalidateOnFocus: false,
-          }}
-        >
-          <AppRoutes />
-        </SWRConfig>
-      </HelmetProvider>
+      <SWRConfig
+        value={{
+          fetcher,
+          revalidateOnFocus: false,
+        }}
+      >
+        <AppRoutes />
+      </SWRConfig>
     </ThemeProvider>
   );
 }

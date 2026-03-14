@@ -1,40 +1,56 @@
-import { createTheme } from '@mui/material/styles';
+import { alpha, createTheme } from '@mui/material/styles';
 
 const baseColors = {
   warmIvory: '#FFFDF7',
-  beige: '#EDE7DC',
-  olive: '#A1B09A',
+  whisperWhite: '#F9FAFB',
+  beige: '#EDE7DC', // #F1EADF
+  lightOlive: '#A1B09A',
+  olive: '#8B9B77',
   darkOlive: '#2B471B',
   nightMoss: '#1B2418',
   terracotta: '#C57B57',
   rust: '#9A5836',
-  roastedCoffee: '#2B1B14',
+  nearBlackRed: '#2A1D1C',
   rose: '#E3A5A1',
   snow: '#FFFAFA',
   mountainMist: '#5A6058',
+  lavenderGray: '#A9A0BE',
+  midnightPurple: '#371B47',
+  darkGrey: '#111827',
+  lightTeal: '#80CBC4',
+  teal: '#00796B',
+  darkTeal: '#004D40',
+  evenDarkerTeal: '#003932',
+  lightGrey: '#E5E7EB',
+  raspberry: '#D81B60',
+  youthfulPink: '#F06292',
+  deepPink: '#880E4F',
+  blue: '#2563EB',
 };
 
 export const academicArchiveTheme = createTheme({
   palette: {
     background: {
-      default: baseColors.warmIvory,
-      paper: baseColors.beige,
+      default: baseColors.whisperWhite,
+      paper: baseColors.lightGrey,
     },
     common: {
       white: baseColors.snow,
     },
     primary: {
-      main: baseColors.olive,
-      dark: baseColors.darkOlive,
-      contrastText: baseColors.nightMoss,
+      main: baseColors.teal,
+      light: baseColors.lightTeal,
+      dark: baseColors.darkTeal,
+      contrastText: baseColors.snow,
     },
     secondary: {
-      main: baseColors.terracotta,
-      dark: baseColors.rust,
-      contrastText: baseColors.roastedCoffee,
+      main: baseColors.raspberry,
+      light: baseColors.youthfulPink,
+      dark: baseColors.deepPink,
+      contrastText: baseColors.snow,
     },
     text: {
-      primary: baseColors.darkOlive,
+      primary: baseColors.evenDarkerTeal,
       secondary: baseColors.mountainMist,
     },
     divider: 'rgba(47, 53, 66, 0.12)', // Subtle lines that look like notebook rules
@@ -44,33 +60,33 @@ export const academicArchiveTheme = createTheme({
     h1: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 700,
-      color: baseColors.darkOlive,
+      color: baseColors.darkTeal,
     },
     h2: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 700,
-      color: baseColors.darkOlive,
+      color: baseColors.darkTeal,
     },
     h3: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 600,
-      color: baseColors.darkOlive,
+      color: baseColors.darkTeal,
     },
     h4: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 600,
-      color: baseColors.darkOlive,
+      color: baseColors.darkTeal,
     },
     h5: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 500,
-      color: baseColors.darkOlive,
+      color: baseColors.darkTeal,
     },
     h6: {
       fontFamily: '"Lora", "serif"',
       fontWeight: 500,
       letterSpacing: '0.5px',
-      color: baseColors.darkOlive,
+      color: baseColors.darkTeal,
     },
     button: {
       textTransform: 'none',
@@ -88,14 +104,39 @@ export const academicArchiveTheme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
-        root: {
+        root: ({ ownerState }) => ({
           borderRadius: 18,
-          backgroundColor: baseColors.terracotta,
-          '&:hover': {
-            backgroundColor: baseColors.rust,
+          ...(ownerState.variant === 'contained' && {
+            backgroundColor: baseColors.darkTeal,
             color: baseColors.snow,
-          },
-        },
+            '&:hover': {
+              backgroundColor: alpha(baseColors.darkTeal, 0.8),
+            },
+          }),
+          ...(ownerState.variant === 'outlined' && {
+            borderColor: baseColors.darkTeal,
+            color: baseColors.darkTeal,
+            '&:hover': {
+              backgroundColor: alpha(baseColors.teal, 0.15),
+            },
+          }),
+          ...(ownerState.color === 'secondary' &&
+            ownerState.variant === 'contained' && {
+              backgroundColor: baseColors.raspberry,
+              color: baseColors.snow,
+              '&:hover': {
+                backgroundColor: alpha(baseColors.raspberry, 0.8),
+              },
+            }),
+          ...(ownerState.color === 'secondary' &&
+            ownerState.variant === 'outlined' && {
+              borderColor: baseColors.deepPink,
+              color: baseColors.deepPink,
+              '&:hover': {
+                backgroundColor: alpha(baseColors.deepPink, 0.2),
+              },
+            }),
+        }),
       },
     },
     MuiCard: {

@@ -13,7 +13,7 @@ export const Sitemark = () => {
       sx={{ cursor: 'pointer' }}
     >
       <img
-        src="/menu_book_rounded_offwhite.svg"
+        src="/menu_book_rounded_secondary_light.svg"
         alt="Sitemark Icon"
         width={40}
         height={40}
@@ -21,7 +21,7 @@ export const Sitemark = () => {
       <Typography
         variant="h5"
         component="span"
-        color="primary.main"
+        color="primary.light"
         sx={{ letterSpacing: '-0.5px' }}
       >
         Digital Training Log
