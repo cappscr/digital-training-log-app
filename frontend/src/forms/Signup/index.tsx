@@ -1,4 +1,5 @@
 import { Formik, Form, type FormikHelpers } from 'formik';
+import { useTheme, useMediaQuery } from '@mui/material';
 import {
   initialValues,
   validationSchema,
@@ -15,7 +16,9 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
 export function SignupForm() {
+  const theme = useTheme();
   const navigate = useNavigate();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleSubmit = async (
     values: SignupFormValues,
@@ -79,6 +82,7 @@ export function SignupForm() {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.name}
+              size={isMobile ? 'medium' : 'small'}
               required
               sx={{ width: { xs: '100%', sm: '60%', md: '50%' } }}
             />
@@ -91,6 +95,7 @@ export function SignupForm() {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.email}
+              size={isMobile ? 'medium' : 'small'}
               required
               sx={{ width: { xs: '100%', sm: '60%', md: '50%' } }}
             />
@@ -105,6 +110,7 @@ export function SignupForm() {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
+              size={isMobile ? 'medium' : 'small'}
               required
               sx={{ width: { xs: '100%', sm: '60%', md: '50%' } }}
             />
@@ -121,12 +127,14 @@ export function SignupForm() {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.confirmPassword}
+              size={isMobile ? 'medium' : 'small'}
               required
               sx={{ width: { xs: '100%', sm: '60%', md: '50%' } }}
             />
             <Button
               type="submit"
               variant="contained"
+              size={isMobile ? 'large' : 'small'}
               sx={{ mt: 2 }}
               disabled={!isValid || isSubmitting}
             >

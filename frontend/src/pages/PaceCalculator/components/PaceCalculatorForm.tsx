@@ -12,8 +12,11 @@ import {
   validationSchema,
   type PaceCalculatorFormValues,
 } from '@/forms/PaceCalculator';
+import { useTheme, useMediaQuery } from '@mui/material';
 
 export function PaceCalculatorForm() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { calculate, isCalculating } = usePaceCalculator();
 
   const handleSubmit = async (
@@ -44,7 +47,7 @@ export function PaceCalculatorForm() {
                 label="min"
                 min={2}
                 name="minutes"
-                size="small"
+                size={isMobile ? 'medium' : 'small'}
                 value={values.minutes}
                 maxWidth={80}
               />
@@ -53,7 +56,7 @@ export function PaceCalculatorForm() {
                 min={0}
                 max={59}
                 name="seconds"
-                size="small"
+                size={isMobile ? 'medium' : 'small'}
                 value={values.seconds}
                 maxWidth={80}
               />
@@ -64,7 +67,7 @@ export function PaceCalculatorForm() {
                   id="pace-units-select"
                   label="Units"
                   name="units"
-                  size="small"
+                  size={isMobile ? 'medium' : 'small'}
                   value={values.units}
                   onChange={handleChange}
                 >
@@ -77,12 +80,13 @@ export function PaceCalculatorForm() {
               label="Pecentage"
               min={1}
               name="percentage"
-              size="small"
+              size={isMobile ? 'medium' : 'small'}
               value={values.percentage}
             />
             <Button
               type="submit"
               variant="contained"
+              size={isMobile ? 'large' : 'small'}
               disabled={!isValid || isCalculating}
             >
               Calculate
