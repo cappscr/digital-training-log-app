@@ -1,9 +1,8 @@
 import CSSBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material';
-import { HelmetProvider } from 'react-helmet-async';
 import { SWRConfig } from 'swr';
 import { fetcher } from './fetcher';
-import { academicArchiveTheme } from './theme';
+import { glacierFloraTheme } from './theme';
 import { AppRoutes } from './Routes';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -18,18 +17,16 @@ import '@fontsource/lora/700.css';
 
 function App() {
   return (
-    <ThemeProvider theme={academicArchiveTheme}>
+    <ThemeProvider theme={glacierFloraTheme}>
       <CSSBaseline />
-      <HelmetProvider>
-        <SWRConfig
-          value={{
-            fetcher,
-            revalidateOnFocus: false,
-          }}
-        >
-          <AppRoutes />
-        </SWRConfig>
-      </HelmetProvider>
+      <SWRConfig
+        value={{
+          fetcher,
+          revalidateOnFocus: false,
+        }}
+      >
+        <AppRoutes />
+      </SWRConfig>
     </ThemeProvider>
   );
 }

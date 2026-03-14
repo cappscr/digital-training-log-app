@@ -28,10 +28,9 @@ export const AppBar = ({ isMobile, handleDrawerToggle }: AppBarProps) => {
           <IconButton
             size="large"
             edge="start"
-            color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2 }}
+            sx={{ color: 'primary.light', mr: 2 }}
           >
             <MenuIcon />
           </IconButton>

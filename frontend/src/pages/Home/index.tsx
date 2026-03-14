@@ -9,14 +9,33 @@ export const HomePage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <Stack>
+    <Stack spacing={4} alignItems="flex-start">
       <Typography variant={isMobile ? 'h4' : 'h3'} component="h1">
         Digital Training Log App
       </Typography>
       <Typography variant="body1" sx={{ mt: 2 }}>
         Coming soon...
       </Typography>
-      <Button component={Link} variant="contained" sx={{ mt: 4 }} to="/signup">
+      <Button component={Link} variant="contained" to="/signup">
+        Sign Up
+      </Button>
+      <Button component={Link} variant="outlined" to="/signup">
+        Sign Up
+      </Button>
+      <Button
+        component={Link}
+        variant="contained"
+        color="secondary"
+        to="/signup"
+      >
+        Sign Up
+      </Button>
+      <Button
+        component={Link}
+        variant="outlined"
+        color="secondary"
+        to="/signup"
+      >
         Sign Up
       </Button>
     </Stack>
