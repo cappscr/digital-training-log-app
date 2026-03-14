@@ -1,34 +1,20 @@
 import { alpha, createTheme } from '@mui/material/styles';
 
 const baseColors = {
-  warmIvory: '#FFFDF7',
   whisperWhite: '#F9FAFB',
-  beige: '#EDE7DC', // #F1EADF
-  lightOlive: '#A1B09A',
-  olive: '#8B9B77',
-  darkOlive: '#2B471B',
-  nightMoss: '#1B2418',
-  terracotta: '#C57B57',
-  rust: '#9A5836',
-  nearBlackRed: '#2A1D1C',
-  rose: '#E3A5A1',
+  lightGrey: '#E5E7EB',
   snow: '#FFFAFA',
   mountainMist: '#5A6058',
-  lavenderGray: '#A9A0BE',
-  midnightPurple: '#371B47',
-  darkGrey: '#111827',
   lightTeal: '#80CBC4',
   teal: '#00796B',
   darkTeal: '#004D40',
   evenDarkerTeal: '#003932',
-  lightGrey: '#E5E7EB',
   raspberry: '#D81B60',
   youthfulPink: '#F06292',
   deepPink: '#880E4F',
-  blue: '#2563EB',
 };
 
-export const academicArchiveTheme = createTheme({
+export const glacierFloraTheme = createTheme({
   palette: {
     background: {
       default: baseColors.whisperWhite,
