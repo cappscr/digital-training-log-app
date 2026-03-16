@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/vitest';
 import { type ReactNode } from 'react';
 import { BrowserRouter } from 'react-router';
 import { ThemeProvider } from '@mui/material';
-import { glacierFloraTheme } from './theme';
+import { blueGrayTheme } from './theme';
 import {
   render as rtlRender,
   type RenderOptions,
@@ -12,7 +12,7 @@ import {
 function Wrapper({ children }: { children: ReactNode }) {
   return (
     <BrowserRouter>
-      <ThemeProvider theme={glacierFloraTheme}>{children}</ThemeProvider>
+      <ThemeProvider theme={blueGrayTheme}>{children}</ThemeProvider>
     </BrowserRouter>
   );
 }

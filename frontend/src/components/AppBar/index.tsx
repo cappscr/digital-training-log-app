@@ -18,7 +18,6 @@ export const AppBar = ({ isMobile, handleDrawerToggle }: AppBarProps) => {
       position="fixed"
       elevation={0}
       sx={{
-        bgcolor: 'primary.dark',
         zIndex: (theme) => theme.zIndex.drawer + 1,
         borderBottom: `1px solid ${theme.palette.divider}`,
       }}

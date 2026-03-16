@@ -4,11 +4,11 @@ import { blueGrey } from '@mui/material/colors';
 const baseColors = {
   lightGreyOffWhite: '#fafafa',
   snow: '#fffafa',
-  deepMossTeal: '#45645e',
-  stormySlate: '#454b64',
+  sageTeal: '#608b84',
+  slateBlueGrey: '#60678b',
 };
 
-export const glacierFloraTheme = createTheme({
+export const blueGrayTheme = createTheme({
   palette: {
     background: {
       default: blueGrey['50'],
@@ -19,13 +19,13 @@ export const glacierFloraTheme = createTheme({
       black: blueGrey['900'],
     },
     primary: {
-      main: blueGrey['700'],
+      main: blueGrey['500'],
       light: blueGrey['100'],
       dark: blueGrey['800'],
       contrastText: baseColors.snow,
     },
     secondary: {
-      main: baseColors.deepMossTeal,
+      main: baseColors.sageTeal,
     },
     text: {
       primary: blueGrey['900'],
@@ -110,6 +110,7 @@ export const glacierFloraTheme = createTheme({
       styleOverrides: {
         root: {
           borderColor: 'rgba(60, 64, 67, 0.2)',
+          borderRadius: 18,
         },
       },
     },

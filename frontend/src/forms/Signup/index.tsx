@@ -84,7 +84,7 @@ export function SignupForm() {
               value={values.name}
               size={isMobile ? 'medium' : 'small'}
               required
-              sx={{ width: { xs: '100%', sm: '60%', md: '50%' } }}
+              fullWidth
             />
             <TextField
               type="email"
@@ -97,7 +97,7 @@ export function SignupForm() {
               value={values.email}
               size={isMobile ? 'medium' : 'small'}
               required
-              sx={{ width: { xs: '100%', sm: '60%', md: '50%' } }}
+              fullWidth
             />
             <TextField
               type="password"
@@ -112,7 +112,7 @@ export function SignupForm() {
               value={values.password}
               size={isMobile ? 'medium' : 'small'}
               required
-              sx={{ width: { xs: '100%', sm: '60%', md: '50%' } }}
+              fullWidth
             />
             <TextField
               type="password"
@@ -129,12 +129,12 @@ export function SignupForm() {
               value={values.confirmPassword}
               size={isMobile ? 'medium' : 'small'}
               required
-              sx={{ width: { xs: '100%', sm: '60%', md: '50%' } }}
+              fullWidth
             />
             <Button
               type="submit"
               variant="contained"
-              size={isMobile ? 'large' : 'small'}
+              size={isMobile ? 'large' : 'medium'}
               sx={{ mt: 2 }}
               disabled={!isValid || isSubmitting}
             >
