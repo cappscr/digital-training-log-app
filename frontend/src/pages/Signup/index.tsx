@@ -11,7 +11,11 @@ export const SignupPage = () => {
     <>
       <PageTitle pageName="Sign Up" />
       <Card
-        sx={{ p: 2, width: { xs: '100%', sm: '60%', md: '50%' }, mx: 'auto' }}
+        sx={{
+          p: { xs: 1, md: 2, lg: 3 },
+          width: { xs: '100%', sm: '90%', md: '75%' },
+          mx: 'auto',
+        }}
       >
         <CardActionArea>
           <CardHeader

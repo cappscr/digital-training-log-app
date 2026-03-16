@@ -134,7 +134,7 @@ export function SignupForm() {
             <Button
               type="submit"
               variant="contained"
-              size={isMobile ? 'large' : 'small'}
+              size={isMobile ? 'large' : 'medium'}
               sx={{ mt: 2 }}
               disabled={!isValid || isSubmitting}
             >

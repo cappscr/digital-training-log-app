@@ -8,7 +8,7 @@ const baseColors = {
   slateBlueGrey: '#60678b',
 };
 
-export const glacierFloraTheme = createTheme({
+export const blueGrayTheme = createTheme({
   palette: {
     background: {
       default: blueGrey['50'],
@@ -110,6 +110,7 @@ export const glacierFloraTheme = createTheme({
       styleOverrides: {
         root: {
           borderColor: 'rgba(60, 64, 67, 0.2)',
+          borderRadius: 18,
         },
       },
     },
