@@ -77,6 +77,7 @@ export const NavDrawer = ({
           '& .MuiDrawer-paper': {
             width: 256,
             borderRight: `1px solid ${theme.palette.divider}`,
+            bgcolor: 'primary.light',
           },
         }}
       >
