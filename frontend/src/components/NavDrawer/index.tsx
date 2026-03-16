@@ -67,7 +67,7 @@ export const NavDrawer = ({
   );
 
   return (
-    <Box component="nav" sx={{ width: { md: 240 }, flexShrink: { md: 0 } }}>
+    <Box component="nav" sx={{ width: { md: 256 }, flexShrink: { md: 0 } }}>
       <Drawer
         variant={isMobile ? 'temporary' : 'permanent'}
         open={isMobile ? mobileMenuOpen : true}
