@@ -1,13 +1,14 @@
 import { defineConfig, mergeConfig } from 'vite';
 import { defineConfig as defineViteConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 
 // https://vite.dev/config/
 const viteConfig = defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      '@': '/src',
+      '@': './src',
     },
   },
   server: {
