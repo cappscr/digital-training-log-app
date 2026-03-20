@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/vitest';
 import { type ReactNode } from 'react';
 import { BrowserRouter } from 'react-router';
 import { ThemeProvider } from '@mui/material';
-import { blueGrayTheme } from './theme';
+import { blueGrayTheme } from '../src/theme';
 import {
   render as rtlRender,
   type RenderOptions,

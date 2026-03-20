@@ -4,8 +4,8 @@ import { useUser } from '../../hooks/useUser';
 import Alert from '@mui/material/Alert';
 import Typography from '@mui/material/Typography';
 import Snackbar from '@mui/material/Snackbar';
-import { PageTitle } from '../../components/PageTitle';
-import { UserSidebar } from '../../components/UserSidebar';
+import { PageTitle } from '@/components/PageTitle';
+import { UserSidebar } from '@/components/UserSidebar';
 
 export function UserProfilePage() {
   const [searchParams] = useSearchParams();

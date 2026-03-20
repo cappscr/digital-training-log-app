@@ -8,7 +8,7 @@ const viteConfig = defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      '@': './src',
+      '@': '/src',
     },
   },
   server: {
@@ -25,7 +25,8 @@ const viteConfig = defineConfig({
 const vitestConfig = defineViteConfig({
   test: {
     environment: 'jsdom',
-    setupFiles: './src/vitest.setup.tsx',
+    include: ['tests/**/*.test.tsx', 'tests/**/*.test.ts'],
+    setupFiles: './tests/vitest.setup.tsx',
   },
 });
 
