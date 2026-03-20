@@ -1,7 +1,7 @@
 import useSWR, { useSWRConfig } from 'swr';
 import useSWRMutation from 'swr/mutation';
 import axios, { type AxiosError } from 'axios';
-import { type PaceCalculatorFormValues } from '@/forms/PaceCalculator';
+import { type PaceCalculatorFormValues } from '@/forms/paceCalculator';
 
 export interface PaceCalculationResult {
   original_pace: string;
