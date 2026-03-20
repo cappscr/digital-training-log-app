@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest';
 import { render } from '../../vitest.setup';
 import { waitFor } from '@testing-library/dom';
-import { PageTitle } from './';
+import { PageTitle } from '../PageTitle';
 
 test('should set the title to the default when no pageName prop is passed', () => {
   render(<PageTitle />);
