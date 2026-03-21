@@ -51,10 +51,23 @@ The primary audience is dedicated, high-level athletes. Coaches are a secondary 
 
 ---
 
-## Project structure
+## Monorepo structure
+
+The repository is organized as a monorepo with three top-level directories:
 
 ```
 /
+├── frontend/              # React PWA (Vite + TypeScript)
+├── backend/               # Rails API-only application
+└── features/              # Markdown files describing feature intent
+```
+
+The `features/` directory is the source of truth for what the app is meant to do and why. Before implementing anything non-trivial, check whether a relevant feature document exists there. These documents describe intent and scope — they are not technical specs.
+
+### frontend/
+
+```
+frontend/
 ├── src/
 │   ├── components/        # Shared UI components (flat, no single-file directories)
 │   │   └── ui/            # shadcn generated components — do not edit manually
@@ -71,12 +84,28 @@ The primary audience is dedicated, high-level athletes. Coaches are a secondary 
 ├── tsconfig.app.json      # App compilation
 ├── tsconfig.node.json     # Vite config compilation
 ├── tsconfig.test.json     # Test compilation
-└── vite.config.ts         # Vite + Vitest config (imports from vitest/config only)
+├── vite.config.ts         # Vite + Vitest config (imports from vitest/config only)
+└── package.json
 ```
+
+### backend/
+
+Standard Rails API-only layout. Key conventions:
+- SQLite in development and test environments
+- PostgreSQL (Supabase) in production
+- All routes are namespaced under `/api/`
+
+### features/
+
+Markdown files describing feature intent, scope, and constraints. Not technical specs — they capture the *why* and *what* before implementation begins. Consult these before making significant product decisions.
 
 ---
 
 ## Key conventions
+
+### Package manager
+
+The frontend uses **yarn**. Never use `npm` for frontend dependency management — it will create a `package-lock.json` and conflict with `yarn.lock`. All frontend commands should be run from the `frontend/` directory.
 
 ### TypeScript and imports
 
@@ -158,31 +187,37 @@ The app icon is a split open-journal mark: left page is a calendar grid (plannin
 ## Running the project
 
 ```bash
-# Install dependencies
-npm install
+# Install frontend dependencies (run from frontend/)
+yarn install
 
-# Start dev server (frontend)
-npm run dev
+# Start dev server
+yarn dev
 
 # Type check
-npx tsc --noEmit
+yarn tsc --noEmit
 
 # Run tests
-npm run test
+yarn test
 
 # Build for production
-npm run build
+yarn build
 ```
 
-The Rails API must be running separately on port 3000 for API calls to work in development.
+The Rails API must be running separately on port 3000 for API calls to work in development. From `backend/`:
+
+```bash
+bundle install
+rails server
+```
 
 ---
 
 ## Deployment
 
-- **Frontend:** Netlify — deploys automatically on push to `main`
-- **Backend:** Railway — deploys automatically on push to `main`
+- **Frontend:** Netlify — deploys automatically on push to `main`, build root set to `frontend/`
+- **Backend:** Railway — deploys automatically on push to `main`, build root set to `backend/`
 - **Environment variables:** Set in Netlify and Railway dashboards respectively — never commit `.env` files
 - **DNS:** Managed via Cloudflare — `digitaltraininglog.com`
+- **Package manager:** yarn — Netlify is configured to use yarn, not npm
 
-Build errors on Netlify that pass locally are almost always TypeScript config issues — run `npm run build` locally before pushing to catch them early.
+Build errors on Netlify that pass locally are almost always TypeScript config issues — run `yarn build` from `frontend/` locally before pushing to catch them early.
