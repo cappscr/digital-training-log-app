@@ -1,5 +1,4 @@
-import { defineConfig, mergeConfig } from 'vite';
-import { defineConfig as defineViteConfig } from 'vitest/config';
+import { defineConfig, mergeConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
@@ -22,7 +21,7 @@ const viteConfig = defineConfig({
   },
 });
 
-const vitestConfig = defineViteConfig({
+const vitestConfig = defineConfig({
   test: {
     environment: 'jsdom',
     include: ['tests/**/*.test.tsx', 'tests/**/*.test.ts'],
