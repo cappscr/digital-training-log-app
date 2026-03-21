@@ -17,13 +17,13 @@ export const HomePage = () => {
         </Button>
       </nav>
 
-      <main className="bg-cream min-h-screen color-ink font-body leading-[1.6]">
+      <main className="bg-cream min-h-screen color-ink font-body leading-[1.6] antialiased">
         <section className="max-w-215 mx-auto my-0 pt-20 px-8 pb-16">
-          <span className="text-xs font-medium letter-spacing-[0.18em] uppercase text-accent mb-6 block">
+          <span className="text-xs font-medium tracking-[0.18em] uppercase text-accent mb-6 block">
             Your training journal, digitized
           </span>
-          <h1 className="font-display font-normal text-[clamp(2.5rem,6vw,4rem)] leading-[1.15em] text-ink mb-6 max-w-180">
-            Built for athletes who are serious about their training -{' '}
+          <h1 className="font-display font-normal text-[clamp(2.5rem,6vw,4rem)] leading-[1.15] text-ink mb-6 max-w-180">
+            Built for athletes who are serious about their training —{' '}
             <em className="text-accent italic">not their data.</em>
           </h1>
           <p className="font-light max-w-135 text-[1.05rem] text-ink-muted leading-[1.7] mb-10">
