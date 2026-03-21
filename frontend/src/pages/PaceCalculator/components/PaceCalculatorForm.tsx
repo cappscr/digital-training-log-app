@@ -11,7 +11,7 @@ import {
   initialValues,
   validationSchema,
   type PaceCalculatorFormValues,
-} from '@/forms/PaceCalculator';
+} from '@/forms/paceCalculator';
 import { useTheme, useMediaQuery } from '@mui/material';
 
 export function PaceCalculatorForm() {

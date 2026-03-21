@@ -1,10 +1,11 @@
 import { defineConfig, mergeConfig } from 'vite';
 import { defineConfig as defineViteConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 
 // https://vite.dev/config/
 const viteConfig = defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       '@': '/src',
@@ -24,7 +25,8 @@ const viteConfig = defineConfig({
 const vitestConfig = defineViteConfig({
   test: {
     environment: 'jsdom',
-    setupFiles: './src/vitest.setup.tsx',
+    include: ['tests/**/*.test.tsx', 'tests/**/*.test.ts'],
+    setupFiles: './tests/vitest.setup.tsx',
   },
 });
 
