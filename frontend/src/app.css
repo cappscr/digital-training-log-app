@@ -30,6 +30,9 @@
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
   --color-cream: var(--cream);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
@@ -72,6 +75,8 @@
   --border: rgba(26, 24, 20, 0.12);
   --input: oklch(0.922 0 0);
   --ink: #1a1814;
+  --ink-muted: #6b6760;
+  --ink-faint: #a8a49e;
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
