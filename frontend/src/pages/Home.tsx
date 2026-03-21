@@ -1,43 +1,21 @@
-import { useTheme, useMediaQuery } from '@mui/material';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import { Button } from '@/components/ui/button';
 import { Link } from 'react-router';
 
 export const HomePage = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
   return (
-    <Stack spacing={4} alignItems="flex-start">
-      <Typography variant={isMobile ? 'h4' : 'h3'} component="h1">
-        Digital Training Log App
-      </Typography>
-      <Typography variant="body1" sx={{ mt: 2 }}>
-        Coming soon...
-      </Typography>
-      <Button component={Link} variant="contained" to="/signup">
-        Sign Up
-      </Button>
-      <Button component={Link} variant="outlined" to="/signup">
-        Sign Up
-      </Button>
-      <Button
-        component={Link}
-        variant="contained"
-        color="secondary"
-        to="/signup"
-      >
-        Sign Up
-      </Button>
-      <Button
-        component={Link}
-        variant="outlined"
-        color="secondary"
-        to="/signup"
-      >
-        Sign Up
-      </Button>
-    </Stack>
+    <body className="bg-cream min-h-screen color-ink font-body leading-[1.6]">
+      <nav className="flex items-center justify-between px-8 py-5 border-b border-border bg-cream sticky top-0 z-[100]">
+        <Link
+          to="/"
+          className="font-display color-ink text-[1.1em] font-normal tracking-[0.01em]"
+        >
+          Digital<span className="color-accent">.</span>Training
+          <span className="color-accent">.</span>Log
+        </Link>
+        <Button size="lg" render={<Link to="/signup" />}>
+          Start for free
+        </Button>
+      </nav>
+    </body>
   );
 };
