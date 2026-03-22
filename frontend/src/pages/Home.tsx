@@ -12,7 +12,7 @@ export const HomePage = () => {
           Digital<span className="text-accent">.</span>Training
           <span className="text-accent">.</span>Log
         </Link>
-        <Button size="lg" render={<Link to="/signup" />}>
+        <Button uppercase radius="xs" render={<Link to="/signup" />}>
           Start for free
         </Button>
       </nav>
@@ -32,7 +32,12 @@ export const HomePage = () => {
             No GPS required.
           </p>
           <div className="flex items-center gap-6 flex-nowrap">
-            <Button size="lg" render={<Link to="/signup" />}>
+            <Button
+              size="xl"
+              radius="none"
+              uppercase
+              render={<Link to="/signup" />}
+            >
               Create your free account
             </Button>
             <span className="text-[0.8rem] text-ink-faint tracking-[0.02em]">
