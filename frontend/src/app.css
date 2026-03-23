@@ -47,6 +47,7 @@
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
   --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
   --color-ink-muted: var(--ink-muted);
   --color-ink-faint: var(--ink-faint);
   --color-cream: var(--cream);
@@ -93,6 +94,7 @@
   --border: rgba(26, 24, 20, 0.12);
   --input: oklch(0.922 0 0);
   --ink: oklch(0.2098 0.0083 84.59);
+  --ink-foreground: oklch(0.9913 0.0029 84.56 / 65%);
   --ink-muted: oklch(0.5152 0.0119 81.78);
   --ink-faint: oklch(0.7203 0.0097 78.27);
   --ring: oklch(0.708 0 0);

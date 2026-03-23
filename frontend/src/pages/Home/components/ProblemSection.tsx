@@ -1,3 +1,5 @@
+import { SectionLabel } from './SectionLabel';
+
 const ProblemSectionText = ({
   text,
   applyTopMargin = false,
@@ -43,9 +45,7 @@ const FeatureCard = ({
 export const ProblemSection = () => {
   return (
     <section className="max-w-215 mx-auto my-0 py-20 px-8">
-      <span className="text-[0.7rem] font-medium tracking-[0.2em] uppercase text-accent mb-4 block">
-        The problem
-      </span>
+      <SectionLabel label="The problem" />
       <h2 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2] text-ink mb-6">
         You already know
         <br />

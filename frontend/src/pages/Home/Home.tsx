@@ -2,6 +2,7 @@ import { Hero } from './components/Hero';
 import { PrimaryNav } from '@/components/PrimaryNav';
 import { Tagline } from './components/Tagline';
 import { ProblemSection } from './components/ProblemSection';
+import { MobileCallout } from './components/MobileCallout';
 
 export const HomePage = () => {
   return (
@@ -11,6 +12,7 @@ export const HomePage = () => {
         <Hero />
         <Tagline />
         <ProblemSection />
+        <MobileCallout />
       </main>
     </>
   );
