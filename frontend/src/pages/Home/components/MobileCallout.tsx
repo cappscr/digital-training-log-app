@@ -24,10 +24,18 @@ const PhoneStat = ({ label, value }: { label: string; value: string }) => {
   );
 };
 
+const PhoneDay = ({ day }: { day: string }) => {
+  return (
+    <div className="text-center text-[0.4375rem] text-ink-faint pb-0.75">
+      {day}
+    </div>
+  );
+};
+
 export const MobileCallout = () => {
   return (
     <div className="bg-ink text-white py-20 px-8">
-      <div className="max-w-215 my-0 mx-auto grid grid-cols-[1fr,1fr] gap-16 items-center">
+      <div className="max-w-215 my-0 mx-auto grid grid-cols-2 gap-16 items-center">
         <div>
           <SectionLabel label="Mobile-first" />
           <h2 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2] text-white mb-5">
@@ -45,18 +53,21 @@ export const MobileCallout = () => {
             a laptop.
           </p>
         </div>
-        <div className="phone-wrap">
-          <div className="phone">
-            <div className="phone-screen">
-              <div className="phone-header"></div>
-              <div className="phone-week">
-                <div className="phone-day">M</div>
-                <div className="phone-day">T</div>
-                <div className="phone-day">W</div>
-                <div className="phone-day">T</div>
-                <div className="phone-day">F</div>
-                <div className="phone-day">S</div>
-                <div className="phone-day">S</div>
+        <div className="flex justify-center">
+          <div className="w-[180px] bg-[#2A2820] rounded-3xl p-3 border-2 border-solid border-[rgba(255,255,255,0.1)]">
+            <div className="w-[60px] h-[8px] bg-[#1A1814] rounded-xs mx-auto mt-0 mb-2.5"></div>
+            <div className="bg-cream rounded-md py-3.5 px-3 min-h-[280px]">
+              <div className="font-body text-[0.5625rem] font-medium text-ink-faint tracking-widest uppercase mb-2.5">
+                Your Training Log
+              </div>
+              <div className="grid grid-cols-[repeat(7,1fr)] gap-0.5 mb-2.5">
+                <PhoneDay day="M" />
+                <PhoneDay day="T" />
+                <PhoneDay day="W" />
+                <PhoneDay day="T" />
+                <PhoneDay day="F" />
+                <PhoneDay day="S" />
+                <PhoneDay day="S" />
               </div>
               <PhoneEntry label="Easy run" entry="8 mi · 62 min · Z2" />
               <PhoneEntry label="Tempo intervals" entry="6 mi · 48 min" />
