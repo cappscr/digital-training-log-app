@@ -1,6 +1,7 @@
 import { Hero } from './components/Hero';
 import { PrimaryNav } from '@/components/PrimaryNav';
 import { Tagline } from './components/Tagline';
+import { ProblemSection } from './components/ProblemSection';
 
 export const HomePage = () => {
   return (
@@ -9,6 +10,7 @@ export const HomePage = () => {
       <main className="bg-cream min-h-screen color-ink font-body leading-[1.6] antialiased">
         <Hero />
         <Tagline />
+        <ProblemSection />
       </main>
     </>
   );
