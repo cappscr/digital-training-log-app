@@ -5,6 +5,7 @@ import { ProblemSection } from './components/ProblemSection';
 import { MobileCallout } from './components/MobileCallout';
 import { PhilosophySection } from './components/PhilosophySection';
 import { FooterCta } from './components/FooterCta';
+import { Footer } from '@/components/Footer';
 
 export const HomePage = () => {
   return (
@@ -18,6 +19,7 @@ export const HomePage = () => {
         <PhilosophySection />
         <FooterCta />
       </main>
+      <Footer />
     </>
   );
 };
