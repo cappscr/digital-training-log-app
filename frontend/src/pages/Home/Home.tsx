@@ -3,6 +3,7 @@ import { PrimaryNav } from '@/components/PrimaryNav';
 import { Tagline } from './components/Tagline';
 import { ProblemSection } from './components/ProblemSection';
 import { MobileCallout } from './components/MobileCallout';
+import { PhilosophySection } from './components/PhilosophySection';
 
 export const HomePage = () => {
   return (
@@ -13,6 +14,7 @@ export const HomePage = () => {
         <Tagline />
         <ProblemSection />
         <MobileCallout />
+        <PhilosophySection />
       </main>
     </>
   );
