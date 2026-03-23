@@ -12,8 +12,8 @@ export const PrimaryNav = () => {
           Digital<span className="text-accent">.</span>Training
           <span className="text-accent">.</span>Log
         </Link>
-        <Button uppercase radius="xs" render={<Link to="/signup" />}>
-          Start for free
+        <Button uppercase disabled radius="xs" render={<Link to="/signup" />}>
+          Coming soon
         </Button>
       </nav>
     </header>

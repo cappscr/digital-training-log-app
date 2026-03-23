@@ -24,7 +24,7 @@ export const Hero = () => {
           disabled
           render={<Link to="/signup" />}
         >
-          Create your free account
+          Coming soon
         </Button>
         <span className="text-[0.8rem] text-ink-faint tracking-[0.02em]">
           Free to use &nbsp;·&nbsp;No credit card

@@ -10,8 +10,14 @@ export const FooterCta = () => {
       <p className="text-[0.9rem] font-light text-ink-muted mb-8">
         Free to us. No credit card required.
       </p>
-      <Button size="xl" radius="none" uppercase render={<Link to="/signup" />}>
-        Create your free account
+      <Button
+        size="xl"
+        radius="none"
+        uppercase
+        disabled
+        render={<Link to="/signup" />}
+      >
+        Coming soon
       </Button>
     </div>
   );
