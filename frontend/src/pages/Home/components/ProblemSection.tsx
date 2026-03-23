@@ -20,17 +20,13 @@ const FeatureCard = ({
   num,
   title,
   body,
-  hasRightBorder = true,
 }: {
   num: string;
   title: string;
   body: string;
-  hasRightBorder?: boolean;
 }) => {
   return (
-    <div
-      className={`py-8 px-7 ${hasRightBorder ? 'border-r border-border border-solid' : ''}`}
-    >
+    <div className="py-8 px-7 border-r-0 border-b border-border last:border-b-0 sm:border-r sm:last:border-r-0">
       <span className="font-display text-[2.5rem] font-normal text-accent-light leading-none mb-3 block">
         {num}
       </span>
@@ -44,7 +40,7 @@ const FeatureCard = ({
 
 export const ProblemSection = () => {
   return (
-    <section className="max-w-215 mx-auto my-0 py-20 px-8">
+    <section className="max-w-215 mx-auto my-0 py-14 px-5 sm:py-20 sm:px-8">
       <SectionLabel label="The problem" />
       <h2 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2] text-ink mb-6">
         You already know
@@ -58,7 +54,7 @@ export const ProblemSection = () => {
         Log is structured enough to keep you consistent, and flexbile enough to
         stay out of your way."
       />
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-0 border border-border border-solid rounded-xs overflow-hidden mt-12 bg-white">
+      <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-0 border border-border border-solid rounded-xs overflow-hidden mt-12 bg-white">
         <FeatureCard
           num="01"
           title="Plan"
@@ -78,7 +74,6 @@ export const ProblemSection = () => {
           num="04"
           title="Share"
           body="Share your log with your coach when it's useful. Keep it to yourself when it isn't. Your training, your terms."
-          hasRightBorder={false}
         />
       </div>
     </section>

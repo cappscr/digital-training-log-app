@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 export const Hero = () => {
   return (
-    <section className="max-w-215 mx-auto my-0 pt-20 px-8 pb-16">
+    <section className="max-w-215 mx-auto my-0 pt-12 px-5 pb-10 sm:pt-20 sm:px-8 sm:pb-16">
       <span className="text-xs font-medium tracking-[0.18em] uppercase text-accent mb-6 block">
         Your training journal, digitized
       </span>

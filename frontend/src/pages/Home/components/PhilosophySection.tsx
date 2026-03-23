@@ -19,8 +19,8 @@ const PhilosophyItem = ({
 
 export const PhilosophySection = () => {
   return (
-    <section className="max-w-215 my-0 mx-auto py-20 px-8 grid grid-cols-[1fr_2fr] gap-16 items-start">
-      <div className="font-display text-[1.25rem] italic text-ink-muted leading-[1.4] sticky top-20">
+    <section className="max-w-215 my-0 mx-auto py-20 px-8 grid grid-cols-1 gap-8 sm:grid-cols-[1fr_2fr] sm:gap-16 items-start">
+      <div className="font-display text-[1.25rem] italic text-ink-muted leading-[1.4] static sm:sticky top-20">
         No opinions.
         <br />
         No prescriptions.
