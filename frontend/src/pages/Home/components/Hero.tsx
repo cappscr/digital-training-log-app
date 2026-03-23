@@ -16,11 +16,12 @@ export const Hero = () => {
         and track your volume over time. No algorithms. No social feed. No GPS
         required.
       </p>
-      <div className="flex items-center gap-6 flex-nowrap">
+      <div className="flex items-center gap-6 flex-wrap">
         <Button
           size="xl"
           radius="none"
           uppercase
+          disabled
           render={<Link to="/signup" />}
         >
           Create your free account
