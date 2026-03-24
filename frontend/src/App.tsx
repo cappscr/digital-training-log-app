@@ -1,4 +1,3 @@
-import CSSBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material';
 import { SWRConfig } from 'swr';
 import { fetcher } from './fetcher';
@@ -19,7 +18,6 @@ import '@fontsource/lora/700.css';
 function App() {
   return (
     <ThemeProvider theme={blueGrayTheme}>
-      <CSSBaseline />
       <SWRConfig
         value={{
           fetcher,

@@ -1021,10 +1021,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource-variable/dm-sans@npm:^5.2.8":
+  version: 5.2.8
+  resolution: "@fontsource-variable/dm-sans@npm:5.2.8"
+  checksum: 10c0/99971f181c343a81f72ab6d8d1354ca38bc138054e352e922a12c2be52083598446436a584b67e6e505a3e2ffdc65933c3faa290fbdb425b4768a5f4e90e12db
+  languageName: node
+  linkType: hard
+
 "@fontsource-variable/geist@npm:^5.2.8":
   version: 5.2.8
   resolution: "@fontsource-variable/geist@npm:5.2.8"
   checksum: 10c0/be455d4498ab0323b45d8bb37698dca810ae761643e85583605e18fc4175dec9b5ca518193673544b32a096cb3073fec0df0ef5cec92ce6ab0f58b29cd7ba596
+  languageName: node
+  linkType: hard
+
+"@fontsource-variable/playfair-display@npm:^5.2.8":
+  version: 5.2.8
+  resolution: "@fontsource-variable/playfair-display@npm:5.2.8"
+  checksum: 10c0/9649dad541211983ae32dd8c8eccbe1e1bc0e63690efffb08781f73368d4df8dfe784e5218c7a372509f773b8f3b830b5cbb0c1ede14103fa9d208c645554dd1
   languageName: node
   linkType: hard
 
@@ -3134,7 +3148,9 @@ __metadata:
     "@emotion/react": "npm:^11.14.0"
     "@emotion/styled": "npm:^11.14.1"
     "@eslint/js": "npm:^9.39.1"
+    "@fontsource-variable/dm-sans": "npm:^5.2.8"
     "@fontsource-variable/geist": "npm:^5.2.8"
+    "@fontsource-variable/playfair-display": "npm:^5.2.8"
     "@fontsource/lora": "npm:^5.2.8"
     "@fontsource/roboto": "npm:^5.2.9"
     "@mui/icons-material": "npm:^7.3.7"

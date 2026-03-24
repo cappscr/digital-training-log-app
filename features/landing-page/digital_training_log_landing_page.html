@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Training Log — Your training journal, digitized</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F2EC;
+    --ink: #1A1814;
+    --ink-muted: #6B6760;
+    --ink-faint: #A8A49E;
+    --accent: #C4622D;
+    --accent-light: #F0E4DA;
+    --white: #FDFCFA;
+    --border: rgba(26,24,20,0.12);
+    --ff-display: 'Playfair Display', Georgia, serif;
+    --ff-body: 'DM Sans', system-ui, sans-serif;
+  }
+
+  body {
+    font-family: var(--ff-body);
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--cream);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-family: var(--ff-display);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-cta {
+    font-family: var(--ff-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--white);
+    background: var(--ink);
+    border: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 2px;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    transition: background 0.15s;
+  }
+
+  .nav-cta:hover { background: var(--accent); }
+
+  /* HERO */
+  .hero {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 5rem 2rem 4rem;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--ff-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .hero h1 {
+    font-family: var(--ff-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    max-width: 720px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--ink-muted);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: var(--ff-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--ink);
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--accent); }
+
+  .hero-note {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+  }
+
+  /* TAGLINE BAND */
+  .tagline-band {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: var(--white);
+  }
+
+  .tagline-band .beat {
+    font-family: var(--ff-display);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+  }
+
+  .tagline-band .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* SECTIONS */
+  .section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .section h2 {
+    font-family: var(--ff-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .section h2 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .section p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--ink-muted);
+    line-height: 1.8;
+    max-width: 560px;
+  }
+
+  .section p + p { margin-top: 1rem; }
+
+  .divider {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* FEATURES GRID */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 3rem;
+    background: var(--white);
+  }
+
+  .feature-card {
+    padding: 2rem 1.75rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .feature-card:last-child { border-right: none; }
+
+  .feature-num {
+    font-family: var(--ff-display);
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: var(--accent-light);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .feature-title {
+    font-family: var(--ff-display);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-body {
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+
+  /* MOBILE CALLOUT */
+  .mobile-callout {
+    background: var(--ink);
+    color: var(--white);
+    padding: 5rem 2rem;
+  }
+
+  .mobile-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .mobile-callout .section-label { color: var(--accent); }
+
+  .mobile-callout h2 {
+    font-family: var(--ff-display);
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--white);
+    margin-bottom: 1.25rem;
+  }
+
+  .mobile-callout h2 em {
+    font-style: italic;
+    color: var(--accent);
+    opacity: 0.9;
+  }
+
+  .mobile-callout p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: rgba(253,252,250,0.65);
+    line-height: 1.8;
+  }
+
+  /* PHONE MOCKUP */
+  .phone-wrap { display: flex; justify-content: center; }
+
+  .phone {
+    width: 180px;
+    background: #2A2820;
+    border-radius: 28px;
+    padding: 12px;
+    border: 1.5px solid rgba(255,255,255,0.1);
+  }
+
+  .phone-notch {
+    width: 60px;
+    height: 8px;
+    background: #1A1814;
+    border-radius: 4px;
+    margin: 0 auto 10px;
+  }
+
+  .phone-screen {
+    background: var(--cream);
+    border-radius: 18px;
+    padding: 14px 12px;
+    min-height: 280px;
+  }
+
+  .phone-header {
+    font-family: var(--ff-body);
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .phone-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 10px;
+  }
+
+  .phone-day {
+    text-align: center;
+    font-size: 7px;
+    font-weight: 400;
+    color: var(--ink-faint);
+    padding-bottom: 3px;
+  }
+
+  .phone-entry {
+    background: var(--white);
+    border-radius: 4px;
+    padding: 6px 8px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-left: 2px solid var(--accent);
+  }
+
+  .phone-entry-text {
+    font-size: 8px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .phone-entry-meta {
+    font-size: 7px;
+    color: var(--ink-faint);
+    margin-top: 1px;
+  }
+
+  .phone-stat-row {
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  .phone-stat {
+    flex: 1;
+    background: var(--accent-light);
+    border-radius: 4px;
+    padding: 5px 4px;
+    text-align: center;
+  }
+
+  .phone-stat-num {
+    font-family: var(--ff-display);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--accent);
+    display: block;
+  }
+
+  .phone-stat-label {
+    font-size: 6px;
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* PHILOSOPHY */
+  .philosophy {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .philosophy-label {
+    font-family: var(--ff-display);
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-muted);
+    line-height: 1.4;
+    position: sticky;
+    top: 5rem;
+  }
+
+  .philosophy-items { display: flex; flex-direction: column; gap: 2rem; }
+
+  .philosophy-item {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .philosophy-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .philosophy-item h3 {
+    font-family: var(--ff-display);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .philosophy-item p {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--ink-muted);
+    line-height: 1.75;
+  }
+
+  /* FOOTER CTA */
+  .footer-cta {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 5rem 2rem;
+    background: var(--white);
+  }
+
+  .footer-cta h2 {
+    font-family: var(--ff-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-cta p {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--ink-faint);
+    margin-bottom: 2rem;
+  }
+
+  .footer {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .footer p {
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .mobile-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    .feature-card { border-right: none; border-bottom: 1px solid var(--border); }
+    .feature-card:last-child { border-bottom: none; }
+    .philosophy { grid-template-columns: 1fr; gap: 2rem; }
+    .philosophy-label { position: static; }
+    .hero { padding: 3rem 1.25rem 2.5rem; }
+    .section { padding: 3.5rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Digital<span>.</span>Training<span>.</span>Log</a>
+  <button class="nav-cta">Start for free</button>
+</nav>
+
+<section class="hero">
+  <span class="hero-eyebrow">Your training journal, digitized</span>
+  <h1>Built for athletes who are serious about their training — <em>not their data.</em></h1>
+  <p class="hero-sub">A flexible, private space to plan your sessions, record your workouts, and track your volume over time. No algorithms. No social feed. No GPS required.</p>
+  <div class="hero-actions">
+    <button class="btn-primary">Create your free account</button>
+    <span class="hero-note">Free to use &nbsp;·&nbsp; No credit card</span>
+  </div>
+</section>
+
+<div class="tagline-band">
+  <span class="beat">Plan</span>
+  <span class="dot"></span>
+  <span class="beat">Train</span>
+  <span class="dot"></span>
+  <span class="beat">Log</span>
+  <span class="dot"></span>
+  <span class="beat" style="color: var(--accent);">All in one place.</span>
+</div>
+
+<section class="section">
+  <span class="section-label">The problem</span>
+  <h2>You already know<br>you need a log.</h2>
+  <p>Serious athletes have kept training journals for decades. The problem has never been whether to log — it's been the friction of doing it well.</p>
+  <p>Paper gets messy. Spreadsheets get complicated. And most apps are either too simple to be useful or too complex to actually use. Digital Training Log is structured enough to keep you consistent, and flexible enough to stay out of your way.</p>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-num">01</span>
+      <div class="feature-title">Plan</div>
+      <p class="feature-body">Map out your training before it happens. Move sessions, adjust your week, and keep the ease of a paper calendar — without the white-out.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-num">02</span>
+      <div class="feature-title">Log</div>
+      <p class="feature-body">Record what matters to you, not just what a GPS can measure. Running, lifting, cycling — your log works the way you train.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-num">03</span>
+      <div class="feature-title">Reflect</div>
+      <p class="feature-body">Weekly, monthly, and yearly volume calculated automatically. See how your training builds without ever touching a formula.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-num">04</span>
+      <div class="feature-title">Share</div>
+      <p class="feature-body">Share your log with your coach when it's useful. Keep it to yourself when it isn't. Your training, your terms.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<div class="mobile-callout">
+  <div class="mobile-inner">
+    <div>
+      <span class="section-label">Mobile-first</span>
+      <h2>Log a session<br><em>at the track.</em><br>Plan your week<br>from the couch.</h2>
+      <p>Digital Training Log is built to work as well on your phone as your desktop. Your training journal is wherever you are — not tethered to a laptop.</p>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-header">This week</div>
+          <div class="phone-week">
+            <div class="phone-day">M</div>
+            <div class="phone-day">T</div>
+            <div class="phone-day">W</div>
+            <div class="phone-day">T</div>
+            <div class="phone-day">F</div>
+            <div class="phone-day">S</div>
+            <div class="phone-day">S</div>
+          </div>
+          <div class="phone-entry">
+            <div>
+              <div class="phone-entry-text">Easy run</div>
+              <div class="phone-entry-meta">8 mi · 62 min · Z2</div>
+            </div>
+          </div>
+          <div class="phone-entry">
+            <div>
+              <div class="phone-entry-text">Tempo intervals</div>
+              <div class="phone-entry-meta">6 mi · 48 min</div>
+            </div>
+          </div>
+          <div class="phone-entry">
+            <div>
+              <div class="phone-entry-text">Long run</div>
+              <div class="phone-entry-meta">16 mi · 2h 14min</div>
+            </div>
+          </div>
+          <div class="phone-stat-row">
+            <div class="phone-stat">
+              <span class="phone-stat-num">38</span>
+              <span class="phone-stat-label">mi / wk</span>
+            </div>
+            <div class="phone-stat">
+              <span class="phone-stat-num">142</span>
+              <span class="phone-stat-label">mi / mo</span>
+            </div>
+            <div class="phone-stat">
+              <span class="phone-stat-num">1,840</span>
+              <span class="phone-stat-label">mi / yr</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="philosophy">
+  <div class="philosophy-label">No opinions.<br>No prescriptions.<br>No noise.</div>
+  <div class="philosophy-items">
+    <div class="philosophy-item">
+      <h3>Not a coaching platform</h3>
+      <p>Digital Training Log won't tell you to run more, rest more, or push harder. It doesn't know your goals and it doesn't pretend to. It's a tool for athletes who already know what they're doing — and just need a better place to put it.</p>
+    </div>
+    <div class="philosophy-item">
+      <h3>Not a social network</h3>
+      <p>No followers. No feeds. No performance theater. Your training is yours. The only person who sees it is you — and whoever you choose to share it with.</p>
+    </div>
+    <div class="philosophy-item">
+      <h3>Hardware agnostic</h3>
+      <p>No GPS trace required. No watch integration to set up. Whether you train with a Garmin, a Casio, or no watch at all — Digital Training Log works exactly the same.</p>
+    </div>
+    <div class="philosophy-item">
+      <h3>Built for the long haul</h3>
+      <p>Templates enforce consistency without rigidity. Your data is structured so calculations happen automatically — but the log never prescribes what to do with them.</p>
+    </div>
+  </div>
+</section>
+
+<div class="footer-cta">
+  <h2>Your training deserves a real log.</h2>
+  <p>Free to use. No credit card required.</p>
+  <button class="btn-primary">Create your free account</button>
+</div>
+
+<footer class="footer">
+  <p>© 2025 digitaltraininglog.com &nbsp;·&nbsp; Built for athletes, by an athlete</p>
+</footer>
+
+</body>
+</html>

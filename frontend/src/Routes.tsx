@@ -8,8 +8,8 @@ import { PaceCalculatorPage } from './pages/PaceCalculator';
 export function AppRoutes() {
   return (
     <Routes>
+      <Route index path="/" element={<HomePage />} />
       <Route element={<AppLayout />}>
-        <Route index path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/users/:id" element={<UserProfilePage />} />
         <Route path="/pace-calculator" element={<PaceCalculatorPage />} />
