@@ -132,7 +132,7 @@ Every tsconfig file referenced from the root must include `target`, `skipLibChec
 - Tailwind v4 — configuration is CSS-first via `@theme` in `app.css`, not `tailwind.config.js`
 - Custom design tokens (colors, fonts) are defined as CSS variables in `@theme`
 - `--font-playfair` is the display/heading font (Playfair Display, self-hosted in `public/fonts/`)
-- `--color-accent` maps to `#C4622D` — the primary brand color
+- `--color-accent` maps to `oklch(0.6045 0.1414 46.33)` — the primary brand color
 - Spacing scale uses the default `--spacing: 0.25rem` base
 
 ### shadcn/ui
@@ -175,9 +175,9 @@ These principles should inform every feature and UI decision:
 
 - **Display font:** Playfair Display (variable, self-hosted)
 - **Body font:** DM Sans
-- **Primary accent:** `#C4622D` (burnt terracotta)
-- **Background:** `#F5F2EC` (warm cream)
-- **Ink:** `#1A1814` (near-black)
+- **Primary accent:** `oklch(0.6045 0.1414 46.33)` (burnt terracotta)
+- **Background:** `oklch(0.9618 0.0086 84.57)` (warm cream)
+- **Ink:** `oklch(0.2098 0.0083 84.59)` (near-black)
 - **Design language:** Editorial minimalism — warm, serious, personal. Not a fitness startup aesthetic.
 
 The app icon is a split open-journal mark: left page is a calendar grid (planning), right page is ruled lines with entry bars (logging). The favicon is a minimal 3×3 grid of cells at varying opacity. Both use the accent color on a dark ground.
