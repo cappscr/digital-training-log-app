@@ -40,9 +40,12 @@ export const CtaSection = () => {
             <span className="coming-soon-badge">Soon</span>
           </button>
         </div>
-        <div className="terms-note">
+        <div className="mt-8 pt-8 border-t border-[oklch(0.32_0.01_84.59)] text-[0.82rem] text-[oklch(0.52_0.01_84.59)]">
           By using Digital Training Log you agree to our{' '}
-          <a href="/terms" className="terms-link">
+          <a
+            href="/terms"
+            className="text-[oklch(0.72_0.03_60)] underline hover:text-[oklch(0.85_0.03_60)] underline-offset-2"
+          >
             Terms of Use
           </a>
           .
