@@ -42,6 +42,7 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: oklch(var(--border) / 0.12);
+  --color-body-text: oklch(var(--body-text));
   --color-destructive: var(--destructive);
   --color-accent-foreground: oklch(var(--accent-foreground));
   --color-accent: oklch(var(--accent));
@@ -51,8 +52,9 @@
   --color-ink-muted: oklch(var(--ink-muted));
   --color-ink-faint: oklch(var(--ink-faint));
   --color-cream: oklch(var(--cream));
+  --color-rule: oklch(var(--rule));
   --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
+  --color-muted: oklch(var(--muted));
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: oklch(var(--primary-foreground));
@@ -71,6 +73,18 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --animate-fade-up: fadeUp 0.7s ease both;
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 :root {
@@ -85,19 +99,21 @@
   --primary-foreground: 0.985 0 0;
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
+  --muted: 0.52 0.02 84.59;
   --muted-foreground: oklch(0.556 0 0);
   --accent: 0.6045 0.1414 46.33;
   --accent-light: 0.9257 0.0188 62.44;
   --accent-foreground: 0.205 0 0;
   --destructive: oklch(0.577 0.245 27.325);
   --border: 0.2098 0.0083 84.59;
+  --body-text: 0.34 0.01 84.59;
   --input: oklch(0.922 0 0);
   --ink: 0.2098 0.0083 84.59;
   --ink-foreground: oklch(0.9913 0.0029 84.56 / 65%);
   --ink-muted: 0.5152 0.0119 81.78;
   --ink-faint: 0.7203 0.0097 78.27;
   --ring: oklch(0.708 0 0);
+  --rule: 0.82 0.01 84.59;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
