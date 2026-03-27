@@ -1,5 +1,6 @@
 import { type CSSProperties } from 'react';
 import { Button } from '@/components/ui/button';
+import { ComingSoonBadge } from '@/components/ComingSoonBadge';
 
 export const CtaSection = () => {
   return (
@@ -31,14 +32,17 @@ export const CtaSection = () => {
           >
             Send a message
           </Button>
-          <button
-            className="btn btn-secondary"
+          <Button
+            variant="ghost"
             disabled
+            size="xl"
+            radius="xs"
+            className="border border-[oklch(0.38_0.01_84.59)] border-solid gap-2 data-[disabled]:opacity-100 text-[oklch(0.72_0.01_84.59)]"
             aria-label="Contribution link coming soon"
           >
             Support the project
-            <span className="coming-soon-badge">Soon</span>
-          </button>
+            <ComingSoonBadge />
+          </Button>
         </div>
         <div className="mt-8 pt-8 border-t border-[oklch(0.32_0.01_84.59)] text-[0.82rem] text-[oklch(0.52_0.01_84.59)]">
           By using Digital Training Log you agree to our{' '}
