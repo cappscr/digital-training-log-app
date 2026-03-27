@@ -1,0 +1,260 @@
+    <div className="terms-page">
+
+      <div className="terms-header">
+        <p className="eyebrow">Legal</p>
+        <h1>Terms of Use</h1>
+        <p className="meta">Effective {EFFECTIVE_DATE}</p>
+        <p className="intro">
+          Digital Training Log is a personal project operated by Christopher Capps,
+          an individual. It is not a registered business. These terms are written in
+          plain English. Please read them — they are short.
+        </p>
+      </div>
+
+      <div className="terms-rule" aria-hidden="true"></div>
+
+      <div className="terms-body">
+
+        <section className="term-section">
+          <h2>1. What this service is</h2>
+          <p>
+            Digital Training Log is a web application for planning and logging athletic
+            training. It is provided free of charge, as-is, by a single developer as a
+            hobby project. There is no company, no support team, and no service level
+            agreement.
+          </p>
+        </section>
+
+        <section className="term-section">
+          <h2>2. No warranty</h2>
+          <p>
+            This service is provided <strong>"as is"</strong> without any warranty of
+            any kind — express or implied. That includes warranties of merchantability,
+            fitness for a particular purpose, and non-infringement. Use it at your own
+            risk.
+          </p>
+          <p>
+            In plain terms: the app may go down, lose data, or stop working. I will do
+            my best to prevent that, but I cannot guarantee it won't happen.
+          </p>
+        </section>
+
+        <section className="term-section">
+          <h2>3. Your data</h2>
+          <p>
+            Your training data belongs to you. I do not sell it, share it with third
+            parties, or use it for advertising.
+          </p>
+          <p>
+            I collect only what is necessary to operate the service: your email address
+            and the training data you choose to enter. I use standard security practices
+            to protect it, but I cannot guarantee absolute security.
+          </p>
+          <p>
+            You can request a full export of your data or deletion of your account at
+            any time by emailing{' '}
+            <a href="hello@digitaltraininglog.com" className="inline-link">hello@digitaltraininglog.com</a>.
+          </p>
+        </section>
+
+        <section className="term-section">
+          <h2>4. Acceptable use</h2>
+          <p>
+            You may use Digital Training Log for personal athletic training purposes.
+            You may not use it to scrape data, attempt to compromise the service, or
+            do anything illegal. That's the whole list.
+          </p>
+        </section>
+
+        <section className="term-section">
+          <h2>5. Intellectual property</h2>
+          <p>
+            The source code, design, and all other materials that make up Digital
+            Training Log are the intellectual property of Christopher Capps. The
+            service is not open source. Nothing in these terms grants you a license
+            to the underlying software.
+          </p>
+          <p>
+            Your training data is yours. My software is mine.
+          </p>
+        </section>
+
+        <section className="term-section">
+          <h2>6. Availability and discontinuation</h2>
+          <p>
+            I reserve the right to modify, suspend, or discontinue the service at any
+            time. If I decide to shut it down permanently, I will give at least
+            30 days' notice via the app and by email so you have time to export your
+            data.
+          </p>
+        </section>
+
+        <section className="term-section">
+          <h2>7. Limitation of liability</h2>
+          <p>
+            To the fullest extent permitted by law, Christopher Capps shall not be
+            liable for any indirect, incidental, special, consequential, or punitive
+            damages arising out of your use of — or inability to use — this service.
+          </p>
+        </section>
+
+        <section className="term-section">
+          <h2>8. Changes to these terms</h2>
+          <p>
+            I may update these terms from time to time. When I do, I'll update the
+            effective date at the top of this page. Continued use of the service after
+            changes are posted constitutes your acceptance of the updated terms.
+          </p>
+        </section>
+
+        <section className="term-section">
+          <h2>9. Contact</h2>
+          <p>
+            Questions about these terms? Email{' '}
+            <a href="hello@digitaltraininglog.com" className="inline-link">hello@digitaltraininglog.com</a>.
+          </p>
+        </section>
+
+      </div>
+
+      <div className="terms-footer">
+        <Link to="/about" className="back-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M19 12H5M5 12l7 7M5 12l7-7" />
+          </svg>
+          Back to About
+        </Link>
+      </div>
+
+      <style>
+        .terms-page {
+          --ink: oklch(0.2098 0.0083 84.59);
+          --bg: oklch(0.9618 0.0086 84.57);
+          --accent: oklch(0.6045 0.1414 46.33);
+          --muted: oklch(0.52 0.02 84.59);
+          --rule: oklch(0.82 0.01 84.59);
+          --body-text: oklch(0.34 0.01 84.59);
+          --font-display: 'Playfair Display', Georgia, serif;
+          --font-body: 'DM Sans', system-ui, sans-serif;
+
+          background: var(--bg);
+          color: var(--ink);
+          font-family: var(--font-body);
+          font-size: 1rem;
+          line-height: 1.75;
+          overflow-x: hidden;
+        }
+
+        .terms-page * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* Header */
+        .terms-header {
+          max-width: 680px;
+          margin: 0 auto;
+          padding: 7rem 2rem 0;
+          animation: fadeUp 0.6s ease both;
+        }
+        .eyebrow {
+          font-size: 0.78rem;
+          font-weight: 600;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: var(--accent);
+          margin-bottom: 1.5rem;
+        }
+        .terms-header h1 {
+          font-family: var(--font-display);
+          font-size: clamp(2rem, 4.5vw, 3rem);
+          font-weight: 700;
+          line-height: 1.12;
+          letter-spacing: -0.02em;
+          margin-bottom: 0.75rem;
+        }
+        .meta {
+          font-size: 0.82rem;
+          color: var(--muted);
+          margin-bottom: 1.75rem;
+        }
+        .intro {
+          font-size: 1.05rem;
+          line-height: 1.7;
+          color: var(--muted);
+        }
+
+        .terms-rule {
+          max-width: 680px;
+          margin: 3.5rem auto 0;
+          height: 1px;
+          background: var(--rule);
+        }
+
+        /* Body */
+        .terms-body {
+          max-width: 680px;
+          margin: 0 auto;
+          padding: 0 2rem 5rem;
+          animation: fadeUp 0.6s 0.1s ease both;
+        }
+
+        .term-section {
+          padding: 2.75rem 0;
+          border-bottom: 1px solid var(--rule);
+        }
+        .term-section:last-child { border-bottom: none; }
+
+        .term-section h2 {
+          font-family: var(--font-display);
+          font-size: 1.2rem;
+          font-weight: 700;
+          letter-spacing: -0.01em;
+          margin-bottom: 1rem;
+          color: var(--ink);
+        }
+        .term-section p {
+          font-size: 0.97rem;
+          color: var(--body-text);
+          margin-bottom: 1rem;
+        }
+        .term-section p:last-child { margin-bottom: 0; }
+        .term-section strong { color: var(--ink); font-weight: 600; }
+
+        .inline-link {
+          color: var(--accent);
+          text-decoration: underline;
+          text-underline-offset: 2px;
+        }
+        .inline-link:hover { opacity: 0.75; }
+
+        /* Footer */
+        .terms-footer {
+          max-width: 680px;
+          margin: 0 auto;
+          padding: 0 2rem 8rem;
+        }
+        .back-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: 0.88rem;
+          font-weight: 600;
+          color: var(--muted);
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+        .back-link:hover { color: var(--ink); }
+
+        /* Animation */
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(16px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+          .terms-header { padding: 4rem 1.25rem 0; }
+          .terms-body   { padding: 0 1.25rem 4rem; }
+          .terms-footer { padding: 0 1.25rem 6rem; }
+          .term-section { padding: 2rem 0; }
+        }
+      </style>
+    </div>

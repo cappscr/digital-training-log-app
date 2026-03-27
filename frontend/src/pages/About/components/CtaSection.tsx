@@ -1,6 +1,7 @@
 import { type CSSProperties } from 'react';
 import { Button } from '@/components/ui/button';
 import { ComingSoonBadge } from '@/components/ComingSoonBadge';
+import { Link } from 'react-router';
 
 export const CtaSection = () => {
   return (
@@ -46,12 +47,12 @@ export const CtaSection = () => {
         </div>
         <div className="mt-8 pt-8 border-t border-[oklch(0.32_0.01_84.59)] text-[0.82rem] text-[oklch(0.52_0.01_84.59)]">
           By using Digital Training Log you agree to our{' '}
-          <a
-            href="/terms"
+          <Link
+            to="/terms"
             className="text-[oklch(0.72_0.03_60)] underline hover:text-[oklch(0.85_0.03_60)] underline-offset-2"
           >
             Terms of Use
-          </a>
+          </Link>
           .
         </div>
       </div>

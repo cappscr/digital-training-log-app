@@ -5,7 +5,7 @@ import { SignupPage } from './pages/Signup';
 import { UserProfilePage } from './pages/UserProfile';
 import { PaceCalculatorPage } from './pages/PaceCalculator';
 import { AboutPage } from './pages/About';
-import About from './components/About';
+import { TermsPage } from './pages/TermsOfUse';
 import { Layout } from './layouts/Layout';
 
 export function AppRoutes() {
@@ -14,7 +14,7 @@ export function AppRoutes() {
       <Route element={<Layout />}>
         <Route index path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/claude-about" element={<About />} />
+        <Route path="/terms" element={<TermsPage />} />
       </Route>
       <Route element={<AppLayout />}>
         <Route path="/signup" element={<SignupPage />} />
