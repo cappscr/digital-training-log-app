@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router';
+import { Link, NavLink } from 'react-router';
 
 export const PrimaryNav = () => {
   return (
@@ -12,9 +12,21 @@ export const PrimaryNav = () => {
           Digital<span className="text-accent">.</span>Training
           <span className="text-accent">.</span>Log
         </Link>
-        <Button uppercase disabled radius="xs" render={<Link to="/signup" />}>
-          Coming soon
-        </Button>
+        <div className="flex items-center gap-6">
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              `text-sm font-medium transition-colors duration-200 ${
+                isActive ? 'text-ink' : 'text-muted hover:text-ink'
+              }`
+            }
+          >
+            About
+          </NavLink>
+          <Button uppercase disabled radius="xs" render={<Link to="/signup" />}>
+            Coming soon
+          </Button>
+        </div>
       </nav>
     </header>
   );
