@@ -49,7 +49,7 @@ export const CtaSection = () => {
           By using Digital Training Log you agree to our{' '}
           <Link
             to="/terms"
-            className="text-[oklch(0.72_0.03_60)] underline hover:text-[oklch(0.85_0.03_60)] underline-offset-2"
+            className="whitespace-nowrap text-[oklch(0.72_0.03_60)] underline hover:text-[oklch(0.85_0.03_60)] underline-offset-2"
           >
             Terms of Use
           </Link>
