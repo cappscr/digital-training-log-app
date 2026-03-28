@@ -37,7 +37,13 @@ export const PrimaryNav = () => {
               {link.name}
             </NavLink>
           ))}
-          <Button uppercase disabled radius="xs" render={<Link to="/signup" />}>
+          <Button
+            uppercase
+            disabled
+            radius="xs"
+            nativeButton={false}
+            render={<Link to="/signup" />}
+          >
             Coming soon
           </Button>
         </div>
@@ -72,6 +78,7 @@ export const PrimaryNav = () => {
               uppercase
               disabled
               radius="xs"
+              nativeButton={false}
               render={<Link to="/signup" />}
             >
               Coming soon

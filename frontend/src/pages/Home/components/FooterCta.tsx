@@ -15,6 +15,7 @@ export const FooterCta = () => {
         radius="none"
         uppercase
         disabled
+        nativeButton={false}
         render={<Link to="/signup" />}
       >
         Coming soon

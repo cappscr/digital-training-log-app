@@ -23,6 +23,7 @@ export const CtaSection = () => {
             variant="accent"
             radius="xs"
             size="xl"
+            nativeButton={false}
             render={
               <a
                 href="mailto:capps.christopher@gmail.com"

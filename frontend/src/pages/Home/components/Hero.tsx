@@ -22,6 +22,7 @@ export const Hero = () => {
           radius="none"
           uppercase
           disabled
+          nativeButton={false}
           render={<Link to="/signup" />}
         >
           Coming soon
