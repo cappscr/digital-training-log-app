@@ -46,7 +46,7 @@ export const CtaSection = () => {
             <ComingSoonBadge />
           </Button>
         </div>
-        <div className="mt-8 pt-8 border-t border-[oklch(0.32_0.01_84.59)] text-[0.82rem] text-[oklch(0.52_0.01_84.59)]">
+        <div className="mt-8 pt-8 border-t border-[oklch(0.32_0.01_84.59)] text-sm text-[oklch(0.52_0.01_84.59)]">
           By using Digital Training Log you agree to our{' '}
           <Link
             to="/terms"

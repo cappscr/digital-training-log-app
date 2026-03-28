@@ -26,7 +26,7 @@ export const PrimaryNav = () => {
         <Link
           to="/"
           onClick={() => setMenuOpen(false)}
-          className="font-display color-ink text-[1.1em] font-normal tracking-[0.01em] antialiased"
+          className="font-display color-ink text-lg font-normal tracking-wide antialiased"
         >
           Digital<span className="text-accent">.</span>Training
           <span className="text-accent">.</span>Log

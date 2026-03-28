@@ -11,7 +11,7 @@ export const Hero = () => {
         Built for athletes who are serious about their training —{' '}
         <em className="text-accent italic">not their data.</em>
       </h1>
-      <p className="font-light max-w-135 text-[1.05rem] text-ink-muted leading-[1.7] mb-10">
+      <p className="font-light max-w-135 text-base/[1.7] text-ink-muted mb-10">
         A flexible, private space to plan your sessions, record your workouts,
         and track your volume over time. No algorithms. No social feed. No GPS
         required.
@@ -27,7 +27,7 @@ export const Hero = () => {
         >
           Coming soon
         </Button>
-        <span className="text-[0.8rem] text-ink-faint tracking-[0.02em]">
+        <span className="text-sm text-ink-faint tracking-wide">
           Free to use &nbsp;·&nbsp;No credit card
         </span>
       </div>

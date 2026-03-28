@@ -7,8 +7,8 @@ export const FooterCta = () => {
       <h2 className="font-display text-[clamp(1.75rem,_4vw,_2.5rem)] text-ink mb-2">
         Your training deserves a real log.
       </h2>
-      <p className="text-[0.9rem] font-light text-ink-muted mb-8">
-        Free to us. No credit card required.
+      <p className="text-sm font-light text-ink-muted mb-8">
+        Free to use. No credit card required.
       </p>
       <Button
         size="xl"
