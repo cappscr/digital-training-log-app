@@ -5,7 +5,7 @@ export const Hero = () => {
         <p className="text-sm font-semibold tracking-widest uppercase text-accent mb-6">
           About
         </p>
-        <h1 className="font-display text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.12] tracking-tight mb-7">
+        <h1 className="font-display text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-tight tracking-tight mb-7">
           A training log built by a runner,
           <br />
           <em className="italic text-accent">for runners.</em>

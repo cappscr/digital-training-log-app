@@ -7,7 +7,7 @@ export const Hero = () => {
       <span className="text-xs font-medium tracking-[0.18em] uppercase text-accent mb-6 block">
         Your training journal, digitized
       </span>
-      <h1 className="font-display font-normal text-[clamp(2.5rem,6vw,4rem)] leading-[1.15] text-ink mb-6 max-w-180">
+      <h1 className="font-display font-normal text-[clamp(2.5rem,6vw,4rem)] leading-tight text-ink mb-6 max-w-180">
         Built for athletes who are serious about their training —{' '}
         <em className="text-accent italic">not their data.</em>
       </h1>

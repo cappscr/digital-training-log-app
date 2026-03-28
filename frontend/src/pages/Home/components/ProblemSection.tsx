@@ -42,7 +42,7 @@ export const ProblemSection = () => {
   return (
     <section className="max-w-215 mx-auto my-0 py-14 px-5 sm:py-20 sm:px-8">
       <SectionLabel label="The problem" />
-      <h2 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2] text-ink mb-6">
+      <h2 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] leading-tight text-ink mb-6">
         You already know
         <br />
         you need a log.

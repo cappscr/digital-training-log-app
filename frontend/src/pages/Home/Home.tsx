@@ -7,7 +7,7 @@ import { FooterCta } from './components/FooterCta';
 
 export const HomePage = () => {
   return (
-    <main className="bg-cream min-h-screen color-ink font-body leading-[1.6] antialiased">
+    <main className="bg-cream min-h-screen color-ink font-body leading-relaxed antialiased">
       <Hero />
       <Tagline />
       <ProblemSection />
