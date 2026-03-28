@@ -47,7 +47,7 @@ export const MobileCallout = () => {
             <br />
             from the couch.
           </h2>
-          <p className="text-[0.95rem] font-light text-ink-foreground leading-[1.8]">
+          <p className="text-base/[1.8] font-light text-ink-foreground">
             Digital Training Log is built to work as well on your phone as your
             desktop. Your training journal is wherever you are — not tethered to
             a laptop.

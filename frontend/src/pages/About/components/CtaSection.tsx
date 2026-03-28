@@ -10,10 +10,10 @@ export const CtaSection = () => {
       style={{ '--animation-delay': '0.35s' } as CSSProperties}
     >
       <div className="py-9 px-6 sm:p-12 bg-ink text-cream rounded-sm">
-        <h2 className="font-display text-[clamp(1.5rem,3vw,2rem)] font-bold tracking-[-0.015em] leading-[1.2] mb-4 text-cream">
+        <h2 className="font-display text-[clamp(1.5rem,3vw,2rem)] font-bold tracking-tight leading-[1.2] mb-4 text-cream">
           Get in touch or support the work
         </h2>
-        <p className="text-[1rem] leading-[1.7] text-[oklch(0.72_0.01_84.59)] max-w-135 mb-9">
+        <p className="text-base/[1.7] text-[oklch(0.72_0.01_84.59)] max-w-135 mb-9">
           Have a question, found a bug, or just want to say something? I read
           every message. If you find Digital Training Log valuable and want to
           support its continued development, contributions are always welcome.

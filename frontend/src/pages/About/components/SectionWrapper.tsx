@@ -17,13 +17,13 @@ export const SectionWrapper = ({
       style={{ '--animation-delay': animationDelay } as CSSProperties}
     >
       <div className="grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-4 sm:gap-12 items-start">
-        <div className="pt-[0.35rem]">
-          <span className="text-[0.72rem] font-semibold tracking-[0.14em] uppercase text-muted block static sm:sticky top-[2rem]">
+        <div className="pt-1">
+          <span className="text-xs font-semibold tracking-widest uppercase text-muted block static sm:sticky top-[2rem]">
             {label}
           </span>
         </div>
         <div className="section-body">
-          <h2 className="font-display text-[clamp(1.6rem,3vw,2.25rem)] font-bold leading-[1.2] tracking-[-0.015em] mb-6">
+          <h2 className="font-display text-[clamp(1.6rem,3vw,2.25rem)] font-bold leading-[1.2] tracking-tight mb-6">
             {heading}
           </h2>
           {children}

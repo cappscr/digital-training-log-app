@@ -7,10 +7,10 @@ const PhilosophyItem = ({
 }) => {
   return (
     <div className="border-b border-b-solid border-b-border pb-8 last:pb-0 last:border-b-0">
-      <h3 className="font-display text-[1.1rem] font-medium text-ink mb-2">
+      <h3 className="font-display text-lg font-medium text-ink mb-2">
         {label}
       </h3>
-      <p className="text-[0.9rem] font-light text-ink-muted leading-[1.75]">
+      <p className="text-base/[1.75] font-light text-ink-muted">
         {description}
       </p>
     </div>
@@ -20,7 +20,7 @@ const PhilosophyItem = ({
 export const PhilosophySection = () => {
   return (
     <section className="max-w-215 my-0 mx-auto py-20 px-8 grid grid-cols-1 gap-8 sm:grid-cols-[1fr_2fr] sm:gap-16 items-start">
-      <div className="font-display text-[1.25rem] italic text-ink-muted leading-[1.4] static sm:sticky top-20">
+      <div className="font-display text-xl italic text-ink-muted static sm:sticky top-20">
         No opinions.
         <br />
         No prescriptions.
