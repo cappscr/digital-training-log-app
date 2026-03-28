@@ -6,12 +6,12 @@ import { CtaSection } from './components/CtaSection';
 
 export default function About() {
   return (
-    <main className="bg-cream text-ink font-body text-base/[1.75] overflow-x-hidden">
+    <>
       <Hero />
       <OriginSection />
       <PhilosophySection />
       <BuilderSection />
       <CtaSection />
-    </main>
+    </>
   );
 }

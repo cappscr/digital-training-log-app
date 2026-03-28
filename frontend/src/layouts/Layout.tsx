@@ -6,7 +6,9 @@ export const Layout = () => {
   return (
     <>
       <PrimaryNav />
-      <Outlet />
+      <main className="bg-cream text-ink font-body min-h-screen overflow-x-hidden leading-relaxed antialiased">
+        <Outlet />
+      </main>
       <Footer />
     </>
   );
