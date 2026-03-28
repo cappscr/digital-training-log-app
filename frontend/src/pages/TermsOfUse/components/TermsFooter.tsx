@@ -5,7 +5,7 @@ export const TermsFooter = () => {
     <div className="max-w-170 my-0 mx-auto pt-0 px-5 sm:px-8 pb-24 sm:pb-32">
       <Link
         to="/about"
-        className="inline-flex items-center gap-[0.4rem] text-[0.88rem] font-semibold text-muted hover:text-ink"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-ink"
       >
         <svg
           width="14"

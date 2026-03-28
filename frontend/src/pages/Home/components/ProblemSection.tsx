@@ -9,7 +9,7 @@ const ProblemSectionText = ({
 }) => {
   return (
     <p
-      className={`text-[1rem] font-light text-ink-muted leading-[1.8] max-w-140 ${applyTopMargin ? 'mt-4' : ''}`}
+      className={`text-base/[1.8] font-light text-ink-muted max-w-140 ${applyTopMargin ? 'mt-4' : ''}`}
     >
       {text}
     </p>
@@ -27,13 +27,13 @@ const FeatureCard = ({
 }) => {
   return (
     <div className="py-8 px-7 border-r-0 border-b border-border last:border-b-0 sm:border-r sm:last:border-r-0">
-      <span className="font-display text-[2.5rem] font-normal text-accent-light leading-none mb-3 block">
+      <span className="font-display text-4xl font-normal text-accent-light leading-none mb-3 block">
         {num}
       </span>
-      <div className="font-display text-[1.1rem] font-medium text-ink mb-3">
+      <div className="font-display text-lg font-medium text-ink mb-3">
         {title}
       </div>
-      <p className="font-light leading-[1.7] text-ink-muted">{body}</p>
+      <p className="font-light text-base/[1.7] text-ink-muted">{body}</p>
     </div>
   );
 };
@@ -42,7 +42,7 @@ export const ProblemSection = () => {
   return (
     <section className="max-w-215 mx-auto my-0 py-14 px-5 sm:py-20 sm:px-8">
       <SectionLabel label="The problem" />
-      <h2 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2] text-ink mb-6">
+      <h2 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] leading-tight text-ink mb-6">
         You already know
         <br />
         you need a log.

@@ -11,12 +11,8 @@ const Principle = ({
 }) => {
   return (
     <div className="border-t-2 border-accent pt-5">
-      <h3 className="font-display text-[1.05rem] font-bold tracking-[-0.01em] mb-[0.6rem]">
-        {title}
-      </h3>
-      <p className="text-[0.94rem] leading-[1.65] text-muted mb-0">
-        {children}
-      </p>
+      <h3 className="font-display text-base font-bold mb-2">{title}</h3>
+      <p className="text-base/[1.65] text-muted mb-0">{children}</p>
     </div>
   );
 };
