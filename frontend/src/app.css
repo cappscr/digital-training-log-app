@@ -46,15 +46,15 @@
   --color-border: oklch(var(--border) / 0.12);
   --color-primary: oklch(var(--primary));
   --color-primary-foreground: oklch(var(--primary-foreground));
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: oklch(var(--secondary));
+  --color-secondary-foreground: oklch(var(--secondary-foreground));
   --color-accent: oklch(var(--accent));
   --color-accent-light: oklch(var(--accent-light));
   --color-accent-foreground: oklch(var(--accent-foreground));
   --color-muted: oklch(var(--muted));
-  --color-muted-foreground: var(--muted-foreground);
+  --color-muted-foreground: oklch(var(--muted-foreground));
   --color-rule: oklch(var(--rule));
-  --color-destructive: var(--destructive);
+  --color-destructive: oklch(var(--destructive));
 
   /* component specific semantic tokens */
   --color-card: var(--card);
@@ -114,6 +114,8 @@
   --ink-muted: 0.5152 0.0119 81.78;
   --ink-faint: 0.7203 0.0097 78.27;
   --near-white: 0.95 0.01 80;
+  --pale-sand: 0.9257 0.0188 62.44;
+  --destructive-red: 0.577 0.245 27.325;
 
   /* semantic tokens */
   --background: var(--cream);
@@ -124,12 +126,11 @@
   --secondary: var(--warm-stone);
   --secondary-foreground: var(--ink);
   --accent: var(--burnt-terracotta);
-  --accent-light: 0.9257 0.0188 62.44;
+  --accent-light: var(--pale-sand);
   --accent-foreground: var(--ink);
   --muted: var(--ink-muted);
   --muted-foreground: var(--near-white);
-  --rule: 0.82 0.01 84.59;
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: var(--destructive-red);
 
   /* component specific semantic tokens */
   --card: oklch(1 0 0);

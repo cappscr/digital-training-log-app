@@ -16,7 +16,7 @@ export const Hero = () => {
           I wanted to exist — so I built it.
         </p>
       </div>
-      <div className="mt-20 h-px bg-rule" aria-hidden="true" />
+      <div className="mt-20 h-px bg-border" aria-hidden="true" />
     </section>
   );
 };

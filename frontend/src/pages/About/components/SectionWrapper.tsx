@@ -13,7 +13,7 @@ export const SectionWrapper = ({
 }) => {
   return (
     <section
-      className="py-14 px-5 sm:py-20 sm:px-8 max-w-225 my-0 mx-auto border-b border-rule animate-fade-up [animation-delay:var(--animation-delay)]"
+      className="py-14 px-5 sm:py-20 sm:px-8 max-w-225 my-0 mx-auto border-b border-border animate-fade-up [animation-delay:var(--animation-delay)]"
       style={{ '--animation-delay': animationDelay } as CSSProperties}
     >
       <div className="grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-4 sm:gap-12 items-start">
