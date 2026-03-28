@@ -119,7 +119,7 @@
 
   /* semantic tokens */
   --background: var(--cream);
-  --foreground: var(--deep-espresso);
+  --foreground: var(--ink);
   --border: var(--ink);
   --primary: var(--ink);
   --primary-foreground: var(--ink-foreground);
