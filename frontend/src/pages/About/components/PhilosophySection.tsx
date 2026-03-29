@@ -10,9 +10,9 @@ const Principle = ({
   children: ReactNode;
 }) => {
   return (
-    <div className="border-t-2 border-accent pt-5">
-      <h3 className="font-display text-base font-bold mb-2">{title}</h3>
-      <p className="text-base/[1.65] text-muted mb-0">{children}</p>
+    <div className="border-primary border-t-2 pt-5">
+      <h3 className="font-display mb-2 text-base font-bold">{title}</h3>
+      <p className="text-muted-foreground mb-0 text-base/[1.65]">{children}</p>
     </div>
   );
 };
@@ -30,7 +30,7 @@ export const PhilosophySection = () => {
         idea.
       </SectionTypography>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-y-10 sm:gap-x-10 mt-10">
+      <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-10">
         <Principle title="Not a coaching platform">
           The app calculates volume and surfaces trends. It does not tell you
           what to do with them. Coaching is a human relationship. This is a

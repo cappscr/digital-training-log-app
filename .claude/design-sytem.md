@@ -4,6 +4,29 @@ This file provides a skill for Claude Code when working in this repository.
 
 ---
 
+## Project overview
+
+**Digital Training Log** is a progressive web app (PWA) for planning, logging, and analyzing athletic training. It is a digital analog to a paper-based training journal — not a coaching platform, not a social network, and not a GPS data aggregator.
+
+The app is rooted in long-distance running but treats all sports, including strength training, as first-class citizens. The core philosophy is flexibility: athletes should be able to log what matters to them, not just what a watch can measure. The app calculates volume and trends automatically but never prescribes behavior or offers algorithmic coaching.
+
+The primary audience is dedicated, high-level athletes. Coaches are a secondary audience; athletes can share their logs with coaches when needed.
+
+**Live URL:** digitaltraininglog.com  
+**Tagline:** Plan. Train. Log.
+
+## App ethos — important for feature decisions
+
+These principles should inform every feature and UI decision:
+
+- **No algorithmic coaching.** The app calculates volume and trends but never suggests what to do with them.
+- **Hardware agnostic.** No GPS trace integration. Manual entry only. Works the same regardless of what watch or device the athlete uses.
+- **Not a social network.** No feeds, followers, or public profiles. Training is private by default.
+- **Flexibility over prescription.** Athletes can log what matters to them. Templates enforce consistency without rigidity.
+- **Paper analog.** The planning experience should feel as fluid as a paper calendar. Sessions can be moved, copied, deleted easily.
+- **Mobile-first.** The app should be as usable at the track on a phone as at a desk on a laptop. PWA installability is a priority.
+- **Coach sharing is supported but secondary.** Athletes own their data and choose what to share and with whom.
+
 ## Brand and design
 
 - **Display font:** Playfair Display (variable, self-hosted)

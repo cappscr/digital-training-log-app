@@ -7,7 +7,7 @@ const NAV_LINKS = [{ name: 'About', to: '/about' }];
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `text-sm font-medium transition-colors duration-200 ${
-    isActive ? 'text-ink' : 'text-muted hover:text-ink'
+    isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
   }`;
 
 export const PrimaryNav = () => {
@@ -22,16 +22,16 @@ export const PrimaryNav = () => {
 
   return (
     <header className="sticky top-0 z-[100]">
-      <nav className="flex items-center justify-between px-8 py-5 border-b border-border bg-cream">
+      <nav className="border-border bg-cream flex items-center justify-between border-b px-8 py-5">
         <Link
           to="/"
           onClick={() => setMenuOpen(false)}
-          className="font-display color-ink text-lg font-normal tracking-wide antialiased"
+          className="font-display text-foreground text-lg font-normal tracking-wide antialiased"
         >
-          Digital<span className="text-accent">.</span>Training
-          <span className="text-accent">.</span>Log
+          Digital<span className="text-primary">.</span>Training
+          <span className="text-primary">.</span>Log
         </Link>
-        <div className="hidden sm:flex items-center gap-6">
+        <div className="hidden items-center gap-6 sm:flex">
           {NAV_LINKS.map((link) => (
             <NavLink key={link.to} to={link.to} className={navLinkClass}>
               {link.name}
@@ -48,7 +48,7 @@ export const PrimaryNav = () => {
           </Button>
         </div>
         <button
-          className="sm:hidden flex items-center justify-center w-8 h-8 cursor-pointer bg-transparent border-none p-0 text-ink"
+          className="text-ink flex h-8 w-8 cursor-pointer items-center justify-center border-none bg-transparent p-0 sm:hidden"
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
@@ -57,13 +57,13 @@ export const PrimaryNav = () => {
         </button>
       </nav>
       <div
-        className={`sm:hidden grid transition-all duration-300 ease-in-out bg-cream border-b border-border ${
+        className={`bg-cream border-border grid border-b transition-all duration-300 ease-in-out sm:hidden ${
           menuOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
         }`}
         aria-hidden={!menuOpen}
       >
         <div className="overflow-hidden">
-          <div className="flex flex-col px-8 py-6 gap-6">
+          <div className="flex flex-col gap-6 px-8 py-6">
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.to}
@@ -90,7 +90,7 @@ export const PrimaryNav = () => {
       {/* Backdrop */}
       {menuOpen && (
         <div
-          className="sm:hidden fixed inset-0 top-[73px] bg-ink/20 z-[-1]"
+          className="bg-ink/20 fixed inset-0 top-[73px] z-[-1] sm:hidden"
           onClick={() => setMenuOpen(false)}
           aria-hidden="true"
         />
