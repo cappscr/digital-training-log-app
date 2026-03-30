@@ -5,7 +5,9 @@ const PhoneEntry = ({ label, entry }: { label: string; entry: string }) => {
     <div className="border-l-solid border-l-primary mb-1 flex items-center gap-1.5 rounded-sm border-l-2 bg-white px-2 py-1.5">
       <div>
         <div className="text-ink text-[0.5rem] leading-[1.4]">{label}</div>
-        <div className="text-ink-faint mt-0.25 text-[0.4375rem]">{entry}</div>
+        <div className="text-muted-foreground mt-0.25 text-[0.4375rem]">
+          {entry}
+        </div>
       </div>
     </div>
   );
@@ -17,7 +19,7 @@ const PhoneStat = ({ label, value }: { label: string; value: string }) => {
       <span className="font-display text-primary block text-[0.625rem] font-medium tracking-wider">
         {value}
       </span>
-      <span className="text-ink-faint text-[0.375rem] tracking-wider uppercase">
+      <span className="text-muted-foreground text-[0.375rem] tracking-wider uppercase">
         {label}
       </span>
     </div>
@@ -26,7 +28,7 @@ const PhoneStat = ({ label, value }: { label: string; value: string }) => {
 
 const PhoneDay = ({ day }: { day: string }) => {
   return (
-    <div className="text-ink-faint pb-0.75 text-center text-[0.4375rem]">
+    <div className="text-muted-foreground pb-0.75 text-center text-[0.4375rem]">
       {day}
     </div>
   );
@@ -38,7 +40,7 @@ export const MobileCallout = () => {
       <div className="mx-auto my-0 grid max-w-215 grid-cols-2 items-center gap-16">
         <div>
           <SectionLabel label="Mobile-first" />
-          <h2 className="font-display text-near-white mb-5 text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2]">
+          <h2 className="font-display text-emphasis-heading mb-5 text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2]">
             Log a session
             <br />
             <em className="text-primary italic opacity-90">at the track.</em>
@@ -47,7 +49,7 @@ export const MobileCallout = () => {
             <br />
             from the couch.
           </h2>
-          <p className="text-ink-foreground text-base/[1.8] font-light">
+          <p className="text-emphasis-foreground text-base/[1.8] font-light">
             Digital Training Log is built to work as well on your phone as your
             desktop. Your training journal is wherever you are — not tethered to
             a laptop.
@@ -57,7 +59,7 @@ export const MobileCallout = () => {
           <div className="w-[180px] rounded-3xl border-2 border-solid border-[rgba(255,255,255,0.1)] bg-[#2A2820] p-3">
             <div className="mx-auto mt-0 mb-2.5 h-[8px] w-[60px] rounded-xs bg-[#1A1814]"></div>
             <div className="bg-cream min-h-[280px] rounded-md px-3 py-3.5">
-              <div className="font-body text-ink-faint mb-2.5 text-[0.5625rem] font-medium tracking-widest uppercase">
+              <div className="font-body text-muted-foreground mb-2.5 text-[0.5625rem] font-medium tracking-widest uppercase">
                 Your Training Log
               </div>
               <div className="mb-2.5 grid grid-cols-[repeat(7,1fr)] gap-0.5">

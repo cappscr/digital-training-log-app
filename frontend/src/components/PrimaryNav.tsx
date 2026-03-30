@@ -22,7 +22,7 @@ export const PrimaryNav = () => {
 
   return (
     <header className="sticky top-0 z-[100]">
-      <nav className="border-border bg-cream flex items-center justify-between border-b px-8 py-5">
+      <nav className="border-border bg-background flex items-center justify-between border-b px-8 py-5">
         <Link
           to="/"
           onClick={() => setMenuOpen(false)}
@@ -57,7 +57,7 @@ export const PrimaryNav = () => {
         </button>
       </nav>
       <div
-        className={`bg-cream border-border grid border-b transition-all duration-300 ease-in-out sm:hidden ${
+        className={`bg-background border-border grid border-b transition-all duration-300 ease-in-out sm:hidden ${
           menuOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
         }`}
         aria-hidden={!menuOpen}

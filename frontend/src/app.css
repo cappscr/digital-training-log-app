@@ -29,16 +29,12 @@
   --font-display: 'Playfair Display', Georgia, serif;
 
   /* raw color tokens */
-  --color-cream: oklch(var(--cream));
-  --color-warm-stone: oklch(var(--warm-stone));
+  --color-cream: var(--cream);
   --color-earthy-ash: oklch(var(--earthy-ash));
   --color-deep-espresso: oklch(var(--deep-espresso));
   --color-taupe: oklch(var(--taupe));
   --color-dusty-beige: oklch(var(--dusty-beige));
   --color-ink: oklch(var(--ink));
-  --color-ink-foreground: oklch(var(--ink-foreground) / 0.65);
-  --color-ink-muted: oklch(var(--ink-muted));
-  --color-ink-faint: oklch(var(--ink-faint));
 
   /* semantic color tokens */
   --color-background: var(--background);
@@ -52,6 +48,9 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-emphasis: var(--emphasis);
+  --color-emphasis-foreground: var(--emphasis-foreground);
+  --color-emphasis-heading: var(--emphasis-heading);
   --color-rule: var(--rule);
   --color-destructive: var(--destructive);
 
@@ -104,13 +103,13 @@
 
 :root {
   /* raw tokens */
-  --cream: 0.9618 0.0086 84.57;
+  --cream: oklch(0.9618 0.0086 84.57);
   --warm-stone: 0.72 0.01 84.59;
   --burnt-terracotta: 0.6045 0.1414 46.33;
   --earthy-ash: 0.38 0.01 84.59;
   --deep-espresso: 0.32 0.01 84.59;
   --dusty-beige: 0.85 0.03 60;
-  --pale-sand: 0.9257 0.0188 62.44;
+  --pale-sand: oklch(0.9257 0.0188 62.44);
   --destructive-red: 0.577 0.245 27.325;
   --deep-warm-charcoal: 0.16 0.008 84.59;
   --dark-stone: 0.24 0.009 84.59;
@@ -118,20 +117,18 @@
   /* raw typography tokens */
   --black: 0 0 0;
   --ink: 0.2098 0.0083 84.59;
-  --ink-muted: 0.5152 0.0119 81.78;
-  --ink-faint: 0.7203 0.0097 78.27;
-  --near-cream: 0.91 0.0008 84.57;
+  --ink-muted: oklch(0.5152 0.0119 81.78);
+  --ink-faint: oklch(0.7203 0.0097 78.27);
+  --near-cream: oklch(0.91 0.0008 84.57);
   --near-white: 0.95 0.01 80;
   --creamy-white: 0.9913 0.0029 84.56;
   --taupe: 0.72 0.03 60;
 
-  /* semnatic typography tokens */
-  --text-primary: oklch(var(--ink));
-  --text-secondary: oklch(var(--ink-muted));
-  --text-tertiary: oklch(var(--ink-faint));
+  /* semantic typography tokens */
+  --emphasis-heading: var(var(--near-cream));
 
   /* semantic tokens */
-  --background: oklch(var(--cream));
+  --background: var(--cream);
   --foreground: oklch(var(--ink));
   --border: oklch(var(--ink) / 0.1);
   --primary: oklch(var(--burnt-terracotta));
@@ -141,7 +138,9 @@
   --accent: oklch(var(--dusty-beige));
   --accent-foreground: oklch(var(--ink));
   --muted: oklch(var(--pale-sand));
-  --muted-foreground: oklch(var(--ink-muted));
+  --muted-foreground: var(--ink-muted);
+  --emphasis: oklch(var(--ink));
+  --emphasis-foreground: var(--ink-faint);
   --destructive: oklch(var(--destructive-red));
 
   /* component specific semantic tokens */
@@ -178,31 +177,29 @@
 
   /* semantic tokens */
   --background: oklch(var(--deep-warm-charcoal));
-  --foreground: oklch(var(--near-cream));
+  --foreground: var(--near-cream);
   --border: oklch(var(--foreground) / 0.1);
 
   --primary: oklch(0.65 0.1414 46.33);
   --primary-foreground: oklch(var(--black));
 
   --secondary: oklch(var(--dark-stone));
-  --secondary-foreground: oklch(var(--near-cream));
+  --secondary-foreground: var(--near-cream);
 
   --muted: oklch(var(--dark-warm-hover));
   --muted-foreground: oklch(var(--taupe));
 
   --accent: oklch(var(--dark-stone) / 0.6);
-  --accent-foreground: oklch(var(--near-cream));
+  --accent-foreground: var(--near-cream);
 
   --destructive: oklch(0.704 0.191 22.216);
 
   --card: oklch(0.205 0 0);
-  --card-foreground: oklch(var(--near-cream));
+  --card-foreground: var(--near-cream);
   --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(var(--near-cream));
+  --popover-foreground: var(--near-cream);
 
   /* typography tokens */
-  --text-primary: oklch(var(--near-cream));
-  --text-secondary: oklch(var(--taupe));
   --text-tertiary: oklch(var(--ink-faint));
 
   --input: oklch(1 0 0 / 15%);

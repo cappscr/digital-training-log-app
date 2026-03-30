@@ -7,7 +7,7 @@ export const Hero = () => {
       <span className="text-primary mb-6 block text-xs font-medium tracking-[0.18em] uppercase">
         Your training journal, digitized
       </span>
-      <h1 className="font-display text-ink mb-6 max-w-180 text-[clamp(2.5rem,6vw,4rem)] leading-tight font-normal">
+      <h1 className="font-display text-primary-foreground mb-6 max-w-180 text-[clamp(2.5rem,6vw,4rem)] leading-tight font-normal">
         Built for athletes who are serious about their training —{' '}
         <em className="text-primary italic">not their data.</em>
       </h1>
@@ -27,7 +27,7 @@ export const Hero = () => {
         >
           Coming soon
         </Button>
-        <span className="text-ink-faint text-sm tracking-wide">
+        <span className="text-muted-foreground text-sm tracking-wide">
           Free to use &nbsp;·&nbsp;No credit card
         </span>
       </div>
