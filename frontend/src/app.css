@@ -29,8 +29,6 @@
   --font-display: 'Playfair Display', Georgia, serif;
 
   /* raw color tokens */
-  --color-cream: var(--cream);
-  --color-earthy-ash: oklch(var(--earthy-ash));
   --color-deep-espresso: oklch(var(--deep-espresso));
   --color-taupe: oklch(var(--taupe));
   --color-dusty-beige: oklch(var(--dusty-beige));
@@ -40,6 +38,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-border: var(--border);
+  --color-border-emphasis: var(--border-emphasis);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
@@ -106,7 +105,6 @@
   --cream: oklch(0.9618 0.0086 84.57);
   --warm-stone: 0.72 0.01 84.59;
   --burnt-terracotta: 0.6045 0.1414 46.33;
-  --earthy-ash: 0.38 0.01 84.59;
   --deep-espresso: 0.32 0.01 84.59;
   --dusty-beige: 0.85 0.03 60;
   --pale-sand: oklch(0.9257 0.0188 62.44);
@@ -119,18 +117,19 @@
   --ink: 0.2098 0.0083 84.59;
   --ink-muted: oklch(0.5152 0.0119 81.78);
   --ink-faint: oklch(0.7203 0.0097 78.27);
-  --near-cream: oklch(0.91 0.0008 84.57);
+  --near-cream: 0.91 0.0008 84.57;
   --near-white: 0.95 0.01 80;
   --creamy-white: 0.9913 0.0029 84.56;
   --taupe: 0.72 0.03 60;
 
   /* semantic typography tokens */
-  --emphasis-heading: var(var(--near-cream));
+  --emphasis-heading: oklch(var(--near-cream));
 
   /* semantic tokens */
   --background: var(--cream);
   --foreground: oklch(var(--ink));
   --border: oklch(var(--ink) / 0.1);
+  --border-emphasis: oklch(var(var(--near-cream)) / 0.1);
   --primary: oklch(var(--burnt-terracotta));
   --primary-foreground: oklch(var(--black));
   --secondary: oklch(var(--warm-stone));
@@ -177,8 +176,8 @@
 
   /* semantic tokens */
   --background: oklch(var(--deep-warm-charcoal));
-  --foreground: var(--near-cream);
-  --border: oklch(var(--foreground) / 0.1);
+  --foreground: oklch(var(--near-cream));
+  --border: oklch(var(--near-cream) / 0.1);
 
   --primary: oklch(0.65 0.1414 46.33);
   --primary-foreground: oklch(var(--black));

@@ -58,7 +58,7 @@ export const MobileCallout = () => {
         <div className="flex justify-center">
           <div className="w-[180px] rounded-3xl border-2 border-solid border-[rgba(255,255,255,0.1)] bg-[#2A2820] p-3">
             <div className="mx-auto mt-0 mb-2.5 h-[8px] w-[60px] rounded-xs bg-[#1A1814]"></div>
-            <div className="bg-cream min-h-[280px] rounded-md px-3 py-3.5">
+            <div className="bg-background min-h-[280px] rounded-md px-3 py-3.5">
               <div className="font-body text-muted-foreground mb-2.5 text-[0.5625rem] font-medium tracking-widest uppercase">
                 Your Training Log
               </div>
