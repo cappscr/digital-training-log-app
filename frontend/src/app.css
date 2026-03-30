@@ -41,29 +41,28 @@
   --color-ink-faint: oklch(var(--ink-faint));
 
   /* semantic color tokens */
-  --color-background: oklch(var(--background));
-  --color-foreground: oklch(var(--foreground));
-  --color-border: oklch(var(--border) / 0.12);
-  --color-primary: oklch(var(--primary));
-  --color-primary-foreground: oklch(var(--primary-foreground));
-  --color-secondary: oklch(var(--secondary));
-  --color-secondary-foreground: oklch(var(--secondary-foreground));
-  --color-accent: oklch(var(--accent));
-  --color-accent-light: oklch(var(--accent-light));
-  --color-accent-foreground: oklch(var(--accent-foreground));
-  --color-muted: oklch(var(--muted));
-  --color-muted-foreground: oklch(var(--muted-foreground));
-  --color-rule: oklch(var(--rule));
-  --color-destructive: oklch(var(--destructive));
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-rule: var(--rule);
+  --color-destructive: var(--destructive);
 
   /* component specific semantic tokens */
-  --color-input: oklch(var(--input) / 0.18);
-  --color-ring: oklch(var(--ring));
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
-  --color-card: oklch(var(--card));
-  --color-card-foreground: oklch(var(--card-foreground));
-  --color-popover-foreground: oklch(var(--popover-foreground));
-  --color-popover: oklch(var(--popover));
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
 
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
@@ -110,40 +109,50 @@
   --burnt-terracotta: 0.6045 0.1414 46.33;
   --earthy-ash: 0.38 0.01 84.59;
   --deep-espresso: 0.32 0.01 84.59;
-  --taupe: 0.72 0.03 60;
   --dusty-beige: 0.85 0.03 60;
-  --ink: 0.2098 0.0083 84.59;
-  --ink-foreground: 0.9913 0.0029 84.56;
-  --ink-muted: 0.5152 0.0119 81.78;
-  --ink-faint: 0.7203 0.0097 78.27;
-  --near-white: 0.95 0.01 80;
   --pale-sand: 0.9257 0.0188 62.44;
   --destructive-red: 0.577 0.245 27.325;
+  --deep-warm-charcoal: 0.16 0.008 84.59;
+  --dark-stone: 0.24 0.009 84.59;
+
+  /* raw typography tokens */
+  --black: 0 0 0;
+  --ink: 0.2098 0.0083 84.59;
+  --ink-muted: 0.5152 0.0119 81.78;
+  --ink-faint: 0.7203 0.0097 78.27;
+  --near-cream: 0.91 0.0008 84.57;
+  --near-white: 0.95 0.01 80;
+  --creamy-white: 0.9913 0.0029 84.56;
+  --taupe: 0.72 0.03 60;
+
+  /* semnatic typography tokens */
+  --text-primary: oklch(var(--ink));
+  --text-secondary: oklch(var(--ink-muted));
+  --text-tertiary: oklch(var(--ink-faint));
 
   /* semantic tokens */
-  --background: var(--cream);
-  --foreground: var(--ink);
-  --border: var(--ink);
-  --primary: var(--burnt-terracotta);
-  --primary-foreground: var(--ink-foreground);
-  --secondary: var(--warm-stone);
-  --secondary-foreground: var(--ink);
-  --accent: var(--dusty-beige);
-  --accent-light: var(--pale-sand);
-  --accent-foreground: var(--ink);
-  --muted: var(--pale-sand);
-  --muted-foreground: var(--ink-muted);
-  --destructive: var(--destructive-red);
+  --background: oklch(var(--cream));
+  --foreground: oklch(var(--ink));
+  --border: oklch(var(--ink) / 0.1);
+  --primary: oklch(var(--burnt-terracotta));
+  --primary-foreground: oklch(var(--black));
+  --secondary: oklch(var(--warm-stone));
+  --secondary-foreground: oklch(var(--ink));
+  --accent: oklch(var(--dusty-beige));
+  --accent-foreground: oklch(var(--ink));
+  --muted: oklch(var(--pale-sand));
+  --muted-foreground: oklch(var(--ink-muted));
+  --destructive: oklch(var(--destructive-red));
 
   /* component specific semantic tokens */
-  --input: var(--ink);
-  --ring: var(--burnt-terracotta);
+  --input: oklch(var(--ink) / 0.18);
+  --ring: oklch(var(--burnt-terracotta));
 
-  --card: var(--near-white);
-  --card-foreground: var(--ink);
+  --card: oklch(var(--near-white));
+  --card-foreground: oklch(var(--ink));
 
-  --popover: var(--near-white);
-  --popover-foreground: var(--ink);
+  --popover: oklch(var(--near-white));
+  --popover-foreground: oklch(var(--ink));
 
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
@@ -165,22 +174,37 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --dark-warm-hover: 0.2 0.008 84.59;
+
+  /* semantic tokens */
+  --background: oklch(var(--deep-warm-charcoal));
+  --foreground: oklch(var(--near-cream));
+  --border: oklch(var(--foreground) / 0.1);
+
+  --primary: oklch(0.65 0.1414 46.33);
+  --primary-foreground: oklch(var(--black));
+
+  --secondary: oklch(var(--dark-stone));
+  --secondary-foreground: oklch(var(--near-cream));
+
+  --muted: oklch(var(--dark-warm-hover));
+  --muted-foreground: oklch(var(--taupe));
+
+  --accent: oklch(var(--dark-stone) / 0.6);
+  --accent-foreground: oklch(var(--near-cream));
+
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
+
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(var(--near-cream));
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(var(--near-cream));
+
+  /* typography tokens */
+  --text-primary: oklch(var(--near-cream));
+  --text-secondary: oklch(var(--taupe));
+  --text-tertiary: oklch(var(--ink-faint));
+
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.87 0 0);
