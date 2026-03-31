@@ -7,7 +7,7 @@ const PhilosophyItem = ({
 }) => {
   return (
     <div className="border-b-solid border-b-border border-b pb-8 last:border-b-0 last:pb-0">
-      <h3 className="font-display text-ink mb-2 text-lg font-medium">
+      <h3 className="font-display text-foreground mb-2 text-lg font-medium">
         {label}
       </h3>
       <p className="text-muted-foreground text-base/[1.75] font-light">

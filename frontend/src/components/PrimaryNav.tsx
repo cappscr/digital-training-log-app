@@ -26,7 +26,7 @@ export const PrimaryNav = () => {
         <Link
           to="/"
           onClick={() => setMenuOpen(false)}
-          className="font-display text-foreground text-lg font-normal tracking-wide antialiased"
+          className="font-display text-foreground hover:bg-muted p-2 text-lg font-normal tracking-wide antialiased"
         >
           Digital<span className="text-primary">.</span>Training
           <span className="text-primary">.</span>Log
@@ -48,7 +48,7 @@ export const PrimaryNav = () => {
           </Button>
         </div>
         <button
-          className="text-ink flex h-8 w-8 cursor-pointer items-center justify-center border-none bg-transparent p-0 sm:hidden"
+          className="text-foreground flex h-8 w-8 cursor-pointer items-center justify-center border-none bg-transparent p-0 sm:hidden"
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
@@ -90,7 +90,7 @@ export const PrimaryNav = () => {
       {/* Backdrop */}
       {menuOpen && (
         <div
-          className="bg-ink/20 fixed inset-0 top-[73px] z-[-1] sm:hidden"
+          className="bg-foreground/20 fixed inset-0 top-[73px] z-[-1] sm:hidden"
           onClick={() => setMenuOpen(false)}
           aria-hidden="true"
         />

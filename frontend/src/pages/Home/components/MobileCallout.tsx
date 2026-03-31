@@ -4,7 +4,9 @@ const PhoneEntry = ({ label, entry }: { label: string; entry: string }) => {
   return (
     <div className="border-l-solid border-l-primary mb-1 flex items-center gap-1.5 rounded-sm border-l-2 bg-white px-2 py-1.5">
       <div>
-        <div className="text-ink text-[0.5rem] leading-[1.4]">{label}</div>
+        <div className="text-foreground text-[0.5rem] leading-[1.4]">
+          {label}
+        </div>
         <div className="text-muted-foreground mt-0.25 text-[0.4375rem]">
           {entry}
         </div>
@@ -36,7 +38,7 @@ const PhoneDay = ({ day }: { day: string }) => {
 
 export const MobileCallout = () => {
   return (
-    <div className="bg-ink px-8 py-20 text-white">
+    <div className="bg-emphasis px-8 py-20 text-white">
       <div className="mx-auto my-0 grid max-w-215 grid-cols-2 items-center gap-16">
         <div>
           <SectionLabel label="Mobile-first" />

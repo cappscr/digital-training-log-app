@@ -28,9 +28,6 @@
   --font-body: var(--font-sans);
   --font-display: 'Playfair Display', Georgia, serif;
 
-  /* raw color tokens */
-  --color-ink: oklch(var(--ink));
-
   /* semantic color tokens */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -99,24 +96,21 @@
 
 :root {
   /* raw tokens */
-  --cream: oklch(0.9618 0.0086 84.57);
-  --warm-stone: oklch(0.72 0.01 84.59);
-  --burnt-terracotta: oklch(0.6045 0.1414 46.33);
-  --dusty-beige: oklch(0.85 0.03 60);
-  --pale-sand: oklch(0.9257 0.0188 62.44);
-  --destructive-red: oklch(0.577 0.245 27.325);
-  --deep-warm-charcoal: oklch(0.16 0.008 84.59);
-  --dark-stone: 0.24 0.009 84.59;
-
-  /* raw typography tokens */
   --black: oklch(0 0 0);
+  --burnt-terracotta: oklch(0.6045 0.1414 46.33);
+  --cream: oklch(0.9618 0.0086 84.57);
+  --dark-stone: 0.24 0.009 84.59;
+  --deep-warm-charcoal: oklch(0.16 0.008 84.59);
+  --destructive-red: oklch(0.577 0.245 27.325);
+  --dusty-beige: oklch(0.85 0.03 60);
   --ink: 0.2098 0.0083 84.59;
-  --ink-muted: oklch(0.5152 0.0119 81.78);
   --ink-faint: oklch(0.7203 0.0097 78.27);
+  --ink-muted: oklch(0.5152 0.0119 81.78);
   --near-cream: 0.91 0.0008 84.57;
-  --near-white: 0.95 0.01 80;
-  --creamy-white: 0.9913 0.0029 84.56;
-  --taupe: 0.72 0.03 60;
+  --near-white: oklch(0.95 0.01 80);
+  --pale-sand: oklch(0.9257 0.0188 62.44);
+  --taupe: oklch(0.72 0.03 60);
+  --warm-stone: oklch(0.72 0.01 84.59);
 
   /* semantic typography tokens */
   --emphasis-heading: oklch(var(--near-cream));
@@ -142,10 +136,10 @@
   --input: oklch(var(--ink) / 0.18);
   --ring: var(--burnt-terracotta);
 
-  --card: oklch(var(--near-white));
+  --card: var(--near-white);
   --card-foreground: oklch(var(--ink));
 
-  --popover: oklch(var(--near-white));
+  --popover: var(--near-white);
   --popover-foreground: oklch(var(--ink));
 
   --chart-1: oklch(0.87 0 0);
@@ -168,7 +162,7 @@
 }
 
 .dark {
-  --dark-warm-hover: 0.2 0.008 84.59;
+  --dark-warm-hover: oklch(0.2 0.008 84.59);
 
   /* semantic tokens */
   --background: var(--deep-warm-charcoal);
@@ -181,8 +175,8 @@
   --secondary: oklch(var(--dark-stone));
   --secondary-foreground: var(--near-cream);
 
-  --muted: oklch(var(--dark-warm-hover));
-  --muted-foreground: oklch(var(--taupe));
+  --muted: var(--dark-warm-hover);
+  --muted-foreground: var(--taupe);
 
   --accent: oklch(var(--dark-stone) / 0.6);
   --accent-foreground: var(--near-cream);

@@ -8,8 +8,10 @@ export const TermsSection = ({
   children: ReactNode;
 }) => {
   return (
-    <section className="py-8 sm:py-11 px-0 border-b border-border last:border-b-0">
-      <h2 className="font-display text-xl font-bold mb-4 text-ink">{title}</h2>
+    <section className="border-border border-b px-0 py-8 last:border-b-0 sm:py-11">
+      <h2 className="font-display text-foreground mb-4 text-xl font-bold">
+        {title}
+      </h2>
       {children}
     </section>
   );

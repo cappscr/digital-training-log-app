@@ -4,7 +4,7 @@ import { ContactLink } from './ContactLink';
 
 export const TermsBody = ({ contactEmail }: { contactEmail: string }) => {
   return (
-    <div className=" max-w-170 my-0 mx-auto pt-0 px-5 sm:px-8 pb-16 sm:pb-20 animate-fade-up">
+    <div className="animate-fade-up mx-auto my-0 max-w-170 px-5 pt-0 pb-16 sm:px-8 sm:pb-20">
       <TermsSection title="1. What this service is">
         <TermsTypography>
           Digital Training Log is a web application for planning and logging
@@ -16,8 +16,8 @@ export const TermsBody = ({ contactEmail }: { contactEmail: string }) => {
       <TermsSection title="2. No warranty">
         <TermsTypography>
           This service is provided{' '}
-          <strong className="text-ink font-semibold">"as is"</strong> without
-          any warranty of any kind — express or implied. That includes
+          <strong className="text-foreground font-semibold">"as is"</strong>{' '}
+          without any warranty of any kind — express or implied. That includes
           warranties of merchantability, fitness for a particular purpose, and
           non-infringement. Use it at your own risk.
         </TermsTypography>
