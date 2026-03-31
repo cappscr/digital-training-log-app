@@ -40,36 +40,25 @@ The app icon is a split open-journal mark: left page is a calendar grid (plannin
 
 ## Color Theming
 
-The app uses a CSS variable based Tailwind theme.
+The app uses semantic CSS variables to theme shadcn components.
 
-Raw color tokens
-- **cream:** `oklch(0.9618 0.0086 84.57)`
-- **warm-stone:** `oklch(0.72 0.01 84.59)`
-- **burnt-terracotta:** `oklch(0.6045 0.1414 46.33)`
-- **earthy-ash:** `oklch(0.38 0.01 84.59)`
-- **deep-espresso:** `oklch(0.32 0.01 84.59)`
-- **taupe:** `oklch(0.72 0.03 60)`
-- **pale-sand:** `oklch(0.9257 0.0188 62.44)`
-- **dusty-beige**: `oklch(0.85 0.03 60)`
-- **ink:** `oklch(0.2098 0.0083 84.59)`
-- **ink-foreground:** `oklch(0.9913 0.0029 84.56)`
-- **ink-muted:** `oklch(0.5152 0.0119 81.78)`
-- **ink-faint:** `oklch(0.7203 0.0097 78.2)`
-- **near-white:** `oklch(0.95 0.01 80)`
-- **destructive-red:** `oklch(0.577 0.245 27.325)`
+|Token|Description|Light Mode Value|Dark Mode Value|
+|---|---|---|---|
+|background|The default app background color|**cream:** `oklch(0.9618 0.0086 84.57)`|**deep-warm-charcoal:** `oklch(0.16 0.008 84.59)`|
+|foreground|The default app text color|**ink:** `oklch(0.2098 0.0083 84.59)`|**near-cream:** `oklch(0.91 0.0008 84.57)`|
+|primary|High-emphasis actions and brand surfaces|**burnt-terracotta:** `oklch(0.6045 0.1414 46.33)`|**burnt-terracotta:** `oklch(0.6045 0.1414 46.33)`|
+|secondary|Lower-emphasis filled actions and supporting surfaces|**warm-stone:** `oklch(0.72 0.01 84.59)`|**dark stone:** `oklch(0.24 0.009 84.59)`|
+|muted|Subtle surfaces and lower-emphasis content|**pale-sand:** `oklch(0.9257 0.0188 62.44)`|**dark-warm-hover:** `oklch(0.2 0.008 84.59)`|
+|muted-foreground|Text color for lower-emphasis|**ink-muted:** `oklch(0.5152 0.0119 81.78)`|**taupe:** `oklch(0.72 0.03 60)`|
+|accent|Interactive hover, focus, and active surfaces|**dusty-beige**: `oklch(0.85 0.03 60)`|**dark stone / 60%:** `oklch(0.24 0.009 84.59 / 0.6)`|
+|emphasis|High constrast surfaces|**ink:** `oklch(0.2098 0.0083 84.59)`|**near-black:** `oklch(0.10 0.006 84.59)`|
+|emphasis-foreground|Text on high contrast surfaces|**ink-faint:** `oklch(0.7203 0.0097 78.2)`|
+|destructive|Destructive actions and error emphasis|**destructive-red:** `oklch(0.577 0.245 27.325)`|`oklch(0.704 0.191 22.216)`|
+|border|Default borders and separators|`oklch(0.2098 0.0083 84.59 / 0.1)`|`oklch(0.91 0.0008 84.57 / 0.1)`|
+|input|Form control borders and input surface treatment|`oklch(0.2098 0.0083 84.59 / 0.18)`|
+|ring|Focus rings and outlines|**burnt-terracotta:** `oklch(0.6045 0.1414 46.33)`|
 
-There are CSS vars, and Tailwind utility classes for each of the raw color tokens except for burnt-terracotta (which is used as the semantic accent) and destructive-red (which is used semantically as destructive)
-
-There are semantic color tokens as well:
-- **background:** maps to cream
-- **foreground:** maps to ink
-- **primary:** maps to ink
-- **secondary:** maps to warm-stone
-- **muted:** maps to ink-muted
-- **accent:** maps to burnt-terracotta
-- **accent-light** maps to pale-sand
-- **border:** maps to ink with a 12% opacity applied
-- **destructive:** maps to destructive-red
+See the [shadcn theming docs](https://ui.shadcn.com/docs/theming) for more details on the semantic theme tokens.
 
 ## Typography Theming
 
