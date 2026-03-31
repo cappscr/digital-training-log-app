@@ -49,7 +49,7 @@ export const CtaSection = () => {
           By using Digital Training Log you agree to our{' '}
           <Link
             to="/terms"
-            className="text-taupe hover:text-accent whitespace-nowrap underline underline-offset-2"
+            className="text-accent hover:text-muted whitespace-nowrap underline underline-offset-2"
           >
             Terms of Use
           </Link>

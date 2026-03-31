@@ -29,8 +29,6 @@
   --font-display: 'Playfair Display', Georgia, serif;
 
   /* raw color tokens */
-  --color-taupe: oklch(var(--taupe));
-  --color-dusty-beige: oklch(var(--dusty-beige));
   --color-ink: oklch(var(--ink));
 
   /* semantic color tokens */
@@ -102,16 +100,16 @@
 :root {
   /* raw tokens */
   --cream: oklch(0.9618 0.0086 84.57);
-  --warm-stone: 0.72 0.01 84.59;
-  --burnt-terracotta: 0.6045 0.1414 46.33;
-  --dusty-beige: 0.85 0.03 60;
+  --warm-stone: oklch(0.72 0.01 84.59);
+  --burnt-terracotta: oklch(0.6045 0.1414 46.33);
+  --dusty-beige: oklch(0.85 0.03 60);
   --pale-sand: oklch(0.9257 0.0188 62.44);
-  --destructive-red: 0.577 0.245 27.325;
-  --deep-warm-charcoal: 0.16 0.008 84.59;
+  --destructive-red: oklch(0.577 0.245 27.325);
+  --deep-warm-charcoal: oklch(0.16 0.008 84.59);
   --dark-stone: 0.24 0.009 84.59;
 
   /* raw typography tokens */
-  --black: 0 0 0;
+  --black: oklch(0 0 0);
   --ink: 0.2098 0.0083 84.59;
   --ink-muted: oklch(0.5152 0.0119 81.78);
   --ink-faint: oklch(0.7203 0.0097 78.27);
@@ -128,21 +126,21 @@
   --foreground: oklch(var(--ink));
   --border: oklch(var(--ink) / 0.1);
   --border-emphasis: oklch(var(--near-cream) / 0.2);
-  --primary: oklch(var(--burnt-terracotta));
-  --primary-foreground: oklch(var(--black));
-  --secondary: oklch(var(--warm-stone));
+  --primary: var(--burnt-terracotta);
+  --primary-foreground: var(--black);
+  --secondary: var(--warm-stone);
   --secondary-foreground: oklch(var(--ink));
-  --accent: oklch(var(--dusty-beige));
+  --accent: var(--dusty-beige);
   --accent-foreground: oklch(var(--ink));
-  --muted: oklch(var(--pale-sand));
+  --muted: var(--pale-sand);
   --muted-foreground: var(--ink-muted);
   --emphasis: oklch(var(--ink));
   --emphasis-foreground: var(--ink-faint);
-  --destructive: oklch(var(--destructive-red));
+  --destructive: var(--destructive-red);
 
   /* component specific semantic tokens */
   --input: oklch(var(--ink) / 0.18);
-  --ring: oklch(var(--burnt-terracotta));
+  --ring: var(--burnt-terracotta);
 
   --card: oklch(var(--near-white));
   --card-foreground: oklch(var(--ink));
@@ -173,12 +171,12 @@
   --dark-warm-hover: 0.2 0.008 84.59;
 
   /* semantic tokens */
-  --background: oklch(var(--deep-warm-charcoal));
+  --background: var(--deep-warm-charcoal);
   --foreground: oklch(var(--near-cream));
   --border: oklch(var(--near-cream) / 0.1);
 
   --primary: oklch(0.65 0.1414 46.33);
-  --primary-foreground: oklch(var(--black));
+  --primary-foreground: var(--black);
 
   --secondary: oklch(var(--dark-stone));
   --secondary-foreground: var(--near-cream);
