@@ -27,7 +27,7 @@ const FeatureCard = ({
 }) => {
   return (
     <div className="border-border border-r-0 border-b px-7 py-8 last:border-b-0 sm:border-r sm:last:border-r-0">
-      <span className="font-display text-muted mb-3 block text-4xl leading-none font-normal">
+      <span className="font-display text-muted-foreground mb-3 block text-4xl leading-none font-normal">
         {num}
       </span>
       <div className="font-display text-foreground mb-3 text-lg font-medium">
@@ -54,7 +54,7 @@ export const ProblemSection = () => {
         Log is structured enough to keep you consistent, and flexbile enough to
         stay out of your way."
       />
-      <div className="border-border mt-12 grid grid-cols-1 gap-0 overflow-hidden rounded-xs border border-solid bg-white sm:grid-cols-[repeat(auto-fit,minmax(180px,1fr))]">
+      <div className="border-border bg-accent mt-12 grid grid-cols-1 gap-0 overflow-hidden rounded-xs border border-solid sm:grid-cols-[repeat(auto-fit,minmax(180px,1fr))]">
         <FeatureCard
           num="01"
           title="Plan"

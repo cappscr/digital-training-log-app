@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { ModeToggle } from '@/components/ModeToggle';
 import { Link, NavLink } from 'react-router';
 import { Menu, X } from 'lucide-react';
 
@@ -37,6 +38,7 @@ export const PrimaryNav = () => {
               {link.name}
             </NavLink>
           ))}
+          <ModeToggle />
           <Button
             uppercase
             disabled
@@ -74,6 +76,7 @@ export const PrimaryNav = () => {
                 {link.name}
               </NavLink>
             ))}
+            <ModeToggle />
             <Button
               uppercase
               disabled

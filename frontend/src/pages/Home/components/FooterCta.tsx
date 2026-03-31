@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 export const FooterCta = () => {
   return (
-    <div className="border-t-solid border-t-border border-t bg-white px-8 py-20 text-center">
+    <div className="border-t-solid border-t-border bg-accent border-t px-8 py-20 text-center">
       <h2 className="font-display text-foreground mb-2 text-[clamp(1.75rem,_4vw,_2.5rem)]">
         Your training deserves a real log.
       </h2>

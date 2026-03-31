@@ -13,7 +13,7 @@ export const CtaSection = () => {
         <h2 className="font-display text-emphasis-heading mb-4 text-[clamp(1.5rem,3vw,2rem)] leading-tight font-bold tracking-tight">
           Get in touch or support the work
         </h2>
-        <p className="text-secondary mb-9 max-w-135 text-base/[1.7]">
+        <p className="text-muted-foreground mb-9 max-w-135 text-base/[1.7]">
           Have a question, found a bug, or just want to say something? I read
           every message. If you find Digital Training Log valuable and want to
           support its continued development, contributions are always welcome.
@@ -38,7 +38,7 @@ export const CtaSection = () => {
             disabled
             size="xl"
             radius="xs"
-            className="border-border-emphasis text-secondary gap-2 border border-solid data-[disabled]:opacity-100"
+            className="border-border-emphasis text-muted-foreground gap-2 border border-solid data-[disabled]:opacity-100"
             aria-label="Contribution link coming soon"
           >
             Support the project

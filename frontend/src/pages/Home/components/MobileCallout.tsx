@@ -2,7 +2,7 @@ import { SectionLabel } from './SectionLabel';
 
 const PhoneEntry = ({ label, entry }: { label: string; entry: string }) => {
   return (
-    <div className="border-l-solid border-l-primary mb-1 flex items-center gap-1.5 rounded-sm border-l-2 bg-white px-2 py-1.5">
+    <div className="border-l-solid border-l-primary bg-accent mb-1 flex items-center gap-1.5 rounded-sm border-l-2 px-2 py-1.5">
       <div>
         <div className="text-foreground text-[0.5rem] leading-[1.4]">
           {label}
