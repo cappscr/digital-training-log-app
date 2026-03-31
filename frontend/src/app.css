@@ -29,7 +29,6 @@
   --font-display: 'Playfair Display', Georgia, serif;
 
   /* raw color tokens */
-  --color-deep-espresso: oklch(var(--deep-espresso));
   --color-taupe: oklch(var(--taupe));
   --color-dusty-beige: oklch(var(--dusty-beige));
   --color-ink: oklch(var(--ink));
@@ -105,7 +104,6 @@
   --cream: oklch(0.9618 0.0086 84.57);
   --warm-stone: 0.72 0.01 84.59;
   --burnt-terracotta: 0.6045 0.1414 46.33;
-  --deep-espresso: 0.32 0.01 84.59;
   --dusty-beige: 0.85 0.03 60;
   --pale-sand: oklch(0.9257 0.0188 62.44);
   --destructive-red: 0.577 0.245 27.325;
@@ -129,7 +127,7 @@
   --background: var(--cream);
   --foreground: oklch(var(--ink));
   --border: oklch(var(--ink) / 0.1);
-  --border-emphasis: oklch(var(var(--near-cream)) / 0.1);
+  --border-emphasis: oklch(var(--near-cream) / 0.2);
   --primary: oklch(var(--burnt-terracotta));
   --primary-foreground: oklch(var(--black));
   --secondary: oklch(var(--warm-stone));
