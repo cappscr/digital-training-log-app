@@ -38,6 +38,8 @@ These principles should inform every feature and UI decision:
 
 The app icon is a split open-journal mark: left page is a calendar grid (planning), right page is ruled lines with entry bars (logging). The favicon is a minimal 3×3 grid of cells at varying opacity. Both use the accent color on a dark ground.
 
+The app uses the shadcn component library with the Nova style and Base UI variant.
+
 ## Color Theming
 
 The app uses semantic CSS variables to theme shadcn components.
