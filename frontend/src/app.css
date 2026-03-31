@@ -107,10 +107,10 @@
   --ink-faint: oklch(0.7203 0.0097 78.27);
   --ink-muted: oklch(0.5152 0.0119 81.78);
   --near-cream: 0.91 0.0008 84.57;
-  --near-white: oklch(0.95 0.01 80);
   --pale-sand: oklch(0.9257 0.0188 62.44);
   --taupe: oklch(0.72 0.03 60);
   --warm-stone: oklch(0.72 0.01 84.59);
+  --warm-white: oklch(0.9939 0.0082 91.48);
 
   /* semantic typography tokens */
   --emphasis-heading: oklch(var(--near-cream));
@@ -136,10 +136,10 @@
   --input: oklch(var(--ink) / 0.18);
   --ring: var(--burnt-terracotta);
 
-  --card: var(--near-white);
+  --card: var(--warm-white);
   --card-foreground: oklch(var(--ink));
 
-  --popover: var(--near-white);
+  --popover: var(--warm-white);
   --popover-foreground: oklch(var(--ink));
 
   --chart-1: oklch(0.87 0 0);
