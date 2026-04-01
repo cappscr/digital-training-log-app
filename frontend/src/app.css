@@ -100,22 +100,21 @@
   --blush-rose: 0.7794 0.0741 23.07; /* #e3a5a1 */
   --burnt-terracotta: 0.6045 0.1414 46.33; /* #c4622d */
   --cream: 0.9618 0.0086 84.57; /* #f5f2ec */
-
-  --dark-stone: 0.24 0.009 84.59;
-  --deep-warm-charcoal: oklch(0.16 0.008 84.59);
+  --dark-black: 0.1 0.006 84.59; /* #040302 */
+  --dark-stone: 0.24 0.009 84.59; /* #211f1a */
+  --dark-warm-hover: 0.2 0.008 84.59; /* #181612 */
+  --deep-warm-charcoal: 0.16 0.008 84.59; /* #0f0d09 */
   --destructive-red: 0.577 0.245 27.325; /* #e7000b */
-  --dusty-beige: oklch(0.85 0.03 60);
   --ink: 0.2098 0.0083 84.59; /* #1a1814 */
   --ink-faint: 0.7203 0.0097 78.27; /* #a8a49e */
   --ink-muted: 0.5152 0.0119 81.78; /* #6b6760 */
   --light-beige: 0.9395 0.0165 79.35; /* #f1eadf */
   --light-olive: 0.7392 0.0353 135.59; /* #a1b09a */
+  --lighter-red: 0.704 0.191 22.216; /* #ff6467 */
   --near-cream: 0.91 0.0008 84.57; /* #e1e1e1 */
   --olive: 0.667 0.0545 127.31; /* #8b9b77 */
-  --pale-sand: oklch(0.9257 0.0188 62.44);
-  --taupe: oklch(0.72 0.03 60);
+  --taupe: 0.72 0.03 60; /* #b3a192 */
   --terracotta: 0.6535 0.1054 46.31; /* #c57b57 */
-  --warm-stone: oklch(0.72 0.01 84.59);
   --warm-white: 0.9939 0.0082 91.48; /* #fffdf7 */
 
   /* semantic typography tokens */
@@ -168,18 +167,16 @@
 }
 
 .dark {
-  --dark-warm-hover: oklch(0.2 0.008 84.59);
-
   /* semantic tokens */
   --background: var(--deep-warm-charcoal);
-  --foreground: oklch(var(--near-cream));
-  --border: oklch(var(--near-cream) / 0.1);
+  --foreground: var(--near-cream);
+  --border: var(--near-cream);
 
-  --primary: oklch(0.65 0.1414 46.33);
-  --primary-foreground: var(--black);
+  --primary: var(--terracotta);
+  --primary-foreground: var(--ink);
 
-  --secondary: oklch(var(--dark-stone));
-  --secondary-foreground: var(--near-cream);
+  --secondary: var(--olive);
+  --secondary-foreground: var(--black);
 
   --muted: var(--dark-warm-hover);
   --muted-foreground: var(--taupe);
@@ -187,9 +184,9 @@
   --accent: oklch(var(--dark-stone) / 0.6);
   --accent-foreground: var(--near-cream);
 
-  --emphasis: oklch(0.1 0.006 84.59);
+  --emphasis: var(--dark-black);
 
-  --destructive: oklch(0.704 0.191 22.216);
+  --destructive: var(--lighter-red);
 
   --card: oklch(0.205 0 0);
   --card-foreground: var(--near-cream);
