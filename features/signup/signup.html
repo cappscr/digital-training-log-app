@@ -9,24 +9,57 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --cream: #F5F2EC;
-    --ink: #1A1814;
-    --ink-muted: #6B6760;
-    --ink-faint: #A8A49E;
-    --accent: #C4622D;
-    --accent-light: #F0E4DA;
-    --white: #FDFCFA;
-    --border: rgba(26,24,20,0.12);
-    --border-focus: rgba(196,98,45,0.5);
-    --destructive: oklch(0.577 0.245 27.325);
+    /* raw channel tokens (OKLCH) */
+    --ch-cream:            0.9618 0.0086 84.57;
+    --ch-warm-white:       0.9939 0.0082 91.48;
+    --ch-light-beige:      0.9395 0.0165 79.35;
+    --ch-ink:              0.2098 0.0083 84.59;
+    --ch-ink-muted:        0.5152 0.0119 81.78;
+    --ch-ink-faint:        0.7203 0.0097 78.27;
+    --ch-burnt-terracotta: 0.6045 0.1414 46.33;
+    --ch-destructive:      0.577  0.245  27.325;
+
+    /* semantic resolved colors */
+    --background:    oklch(var(--ch-cream));
+    --foreground:    oklch(var(--ch-ink));
+    --card:          oklch(var(--ch-warm-white));
+    --muted:         oklch(var(--ch-light-beige));
+    --accent-hover:  oklch(var(--ch-light-beige));   /* hover/active surface */
+    --primary:       oklch(var(--ch-burnt-terracotta));
+    --ink-muted:     oklch(var(--ch-ink-muted));
+    --ink-faint:     oklch(var(--ch-ink-faint));
+    --destructive:   oklch(var(--ch-destructive));
+
+    /* border tokens — alpha baked in so .dark can override cleanly */
+    --border:        oklch(var(--ch-ink) / 0.12);
+    --border-strong: oklch(var(--ch-ink) / 0.20);
+    --input-border:  oklch(var(--ch-ink) / 0.18);    /* interactive elements */
+    --ring:          oklch(var(--ch-burnt-terracotta) / 0.5);
+
     --ff-display: 'Playfair Display', Georgia, serif;
     --ff-body: 'DM Sans', system-ui, sans-serif;
   }
 
+  .dark {
+    --background:    oklch(var(--ch-ink));
+    --foreground:    oklch(0.91 0.0008 84.57);
+    --card:          oklch(0.18 0.007 84.59);
+    --muted:         oklch(0.26 0.008 84.59);
+    --accent-hover:  oklch(0.26 0.008 84.59);
+    --primary:       oklch(var(--ch-burnt-terracotta));
+    --ink-muted:     oklch(0.72 0.03 60);
+    --ink-faint:     oklch(var(--ch-ink-faint));
+
+    --border:        oklch(0.91 0.0008 84.57 / 0.18);
+    --border-strong: oklch(0.91 0.0008 84.57 / 0.25);
+    --input-border:  oklch(0.91 0.0008 84.57 / 0.25);
+    --ring:          oklch(var(--ch-burnt-terracotta) / 0.6);
+  }
+
   body {
     font-family: var(--ff-body);
-    background: var(--cream);
-    color: var(--ink);
+    background: var(--background);
+    color: var(--foreground);
     font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -42,7 +75,7 @@
     justify-content: space-between;
     padding: 1.25rem 2rem;
     border-bottom: 1px solid var(--border);
-    background: var(--cream);
+    background: var(--background);
   }
 
   .nav-logo {
@@ -50,11 +83,11 @@
     font-size: 1.1rem;
     font-weight: 400;
     letter-spacing: 0.01em;
-    color: var(--ink);
+    color: var(--foreground);
     text-decoration: none;
   }
 
-  .nav-logo span { color: var(--accent); }
+  .nav-logo span { color: var(--primary); }
 
   .nav-link {
     font-family: var(--ff-body);
@@ -66,7 +99,7 @@
     transition: color 0.15s;
   }
 
-  .nav-link:hover { color: var(--ink); }
+  .nav-link:hover { color: var(--foreground); }
 
   /* PAGE LAYOUT */
   main {
@@ -93,7 +126,7 @@
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--primary);
     display: block;
     margin-bottom: 0.875rem;
   }
@@ -103,13 +136,13 @@
     font-size: 2rem;
     font-weight: 400;
     line-height: 1.2;
-    color: var(--ink);
+    color: var(--foreground);
     margin-bottom: 0.625rem;
   }
 
   .signup-header h1 em {
     font-style: italic;
-    color: var(--accent);
+    color: var(--primary);
   }
 
   .signup-header p {
@@ -151,9 +184,9 @@
     font-family: var(--ff-body);
     font-size: 0.9375rem;
     font-weight: 400;
-    color: var(--ink);
-    background: var(--white);
-    border: 1px solid var(--border);
+    color: var(--foreground);
+    background: var(--card);
+    border: 1px solid var(--input-border);
     border-radius: 2px;
     padding: 0.6875rem 0.875rem;
     width: 100%;
@@ -168,13 +201,13 @@
   }
 
   .field input:focus {
-    border-color: var(--border-focus);
-    box-shadow: 0 0 0 3px rgba(196,98,45,0.08);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--ring);
   }
 
   .field input.error {
-    border-color: rgba(196,98,45,0.5);
-    background: #fdf8f6;
+    border-color: var(--destructive);
+    background: var(--card);
   }
 
   .field-hint {
@@ -187,16 +220,16 @@
   .field-error {
     font-size: 0.75rem;
     font-weight: 400;
-    color: var(--accent);
+    color: var(--destructive);
     line-height: 1.5;
     display: none;
   }
 
   /* ERROR ALERT */
   .alert-errors {
-    background: #fdf8f6;
-    border: 1px solid rgba(196,98,45,0.25);
-    border-left: 3px solid var(--accent);
+    background: var(--muted);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--destructive);
     border-radius: 2px;
     padding: 0.875rem 1rem;
     display: none;
@@ -209,13 +242,13 @@
   .alert-errors p {
     font-size: 0.8125rem;
     font-weight: 400;
-    color: var(--ink);
+    color: var(--foreground);
     line-height: 1.5;
   }
 
   .alert-errors p::before {
     content: "— ";
-    color: var(--accent);
+    color: var(--destructive);
   }
 
   /* SUBMIT */
@@ -232,8 +265,8 @@
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--white);
-    background: var(--ink);
+    color: oklch(var(--ch-warm-white));
+    background: var(--foreground);
     border: none;
     padding: 0.875rem 2rem;
     border-radius: 2px;
@@ -242,7 +275,7 @@
     transition: background 0.15s;
   }
 
-  .btn-submit:hover:not(:disabled) { background: var(--accent); }
+  .btn-submit:hover:not(:disabled) { background: var(--primary); }
 
   .btn-submit:disabled {
     opacity: 0.45;
@@ -267,7 +300,7 @@
   }
 
   .signup-footer a {
-    color: var(--ink);
+    color: var(--foreground);
     text-decoration: underline;
     text-decoration-color: var(--border);
     text-underline-offset: 2px;
@@ -275,8 +308,8 @@
   }
 
   .signup-footer a:hover {
-    color: var(--accent);
-    text-decoration-color: var(--accent);
+    color: var(--primary);
+    text-decoration-color: var(--primary);
   }
 
   .signin-note {
@@ -286,7 +319,7 @@
   }
 
   .signin-note a {
-    color: var(--ink);
+    color: var(--foreground);
     font-weight: 400;
     text-decoration: underline;
     text-decoration-color: var(--border);
@@ -295,11 +328,10 @@
   }
 
   .signin-note a:hover {
-    color: var(--accent);
-    text-decoration-color: var(--accent);
+    color: var(--primary);
+    text-decoration-color: var(--primary);
   }
 
-  /* PAGE FOOTER */
   .page-footer {
     padding: 1.25rem 2rem;
     border-top: 1px solid var(--border);
