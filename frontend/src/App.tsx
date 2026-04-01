@@ -1,7 +1,6 @@
-import { ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@/components/ThemeProvider';
 import { SWRConfig } from 'swr';
 import { fetcher } from './fetcher';
-import { blueGrayTheme } from './theme';
 import { AppRoutes } from './Routes';
 import './app.css';
 import '@fontsource/roboto/300.css';
@@ -17,7 +16,7 @@ import '@fontsource/lora/700.css';
 
 function App() {
   return (
-    <ThemeProvider theme={blueGrayTheme}>
+    <ThemeProvider defaultTheme="system" storageKey="dtl-ui-theme">
       <SWRConfig
         value={{
           fetcher,

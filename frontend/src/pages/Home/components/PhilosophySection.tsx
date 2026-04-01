@@ -6,11 +6,11 @@ const PhilosophyItem = ({
   description: string;
 }) => {
   return (
-    <div className="border-b border-b-solid border-b-border pb-8 last:pb-0 last:border-b-0">
-      <h3 className="font-display text-lg font-medium text-ink mb-2">
+    <div className="border-b-solid border-b-border border-b pb-8 last:border-b-0 last:pb-0">
+      <h3 className="font-display text-foreground mb-2 text-lg font-medium">
         {label}
       </h3>
-      <p className="text-base/[1.75] font-light text-ink-muted">
+      <p className="text-muted-foreground text-base/[1.75] font-light">
         {description}
       </p>
     </div>
@@ -19,8 +19,8 @@ const PhilosophyItem = ({
 
 export const PhilosophySection = () => {
   return (
-    <section className="max-w-215 my-0 mx-auto py-20 px-8 grid grid-cols-1 gap-8 sm:grid-cols-[1fr_2fr] sm:gap-16 items-start">
-      <div className="font-display text-xl italic text-ink-muted static sm:sticky top-20">
+    <section className="mx-auto my-0 grid max-w-215 grid-cols-1 items-start gap-8 px-8 py-20 sm:grid-cols-[1fr_2fr] sm:gap-16">
+      <div className="font-display text-muted-foreground static top-20 text-xl italic sm:sticky">
         No opinions.
         <br />
         No prescriptions.

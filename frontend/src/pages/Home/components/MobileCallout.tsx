@@ -2,10 +2,14 @@ import { SectionLabel } from './SectionLabel';
 
 const PhoneEntry = ({ label, entry }: { label: string; entry: string }) => {
   return (
-    <div className="bg-white rounded-sm py-1.5 px-2 mb-1 flex items-center gap-1.5 border-l-2 border-l-solid border-l-accent">
+    <div className="border-l-solid border-l-primary bg-card mb-1 flex items-center gap-1.5 rounded-sm border-l-2 px-2 py-1.5">
       <div>
-        <div className="text-[0.5rem] text-ink leading-[1.4]">{label}</div>
-        <div className="text-[0.4375rem] mt-0.25 text-ink-faint">{entry}</div>
+        <div className="text-foreground text-[0.5rem] leading-[1.4]">
+          {label}
+        </div>
+        <div className="text-muted-foreground mt-0.25 text-[0.4375rem]">
+          {entry}
+        </div>
       </div>
     </div>
   );
@@ -13,11 +17,11 @@ const PhoneEntry = ({ label, entry }: { label: string; entry: string }) => {
 
 const PhoneStat = ({ label, value }: { label: string; value: string }) => {
   return (
-    <div className="flex-1 bg-accent-light rounded-sm py-1.25 px-1 text-center">
-      <span className="font-display text-[0.625rem] font-medium text-accent tracking-wider block">
+    <div className="bg-muted flex-1 rounded-sm px-1 py-1.25 text-center">
+      <span className="font-display text-primary block text-[0.625rem] font-medium tracking-wider">
         {value}
       </span>
-      <span className="text-[0.375rem] text-ink-faint tracking-wider uppercase">
+      <span className="text-muted-foreground text-[0.375rem] tracking-wider uppercase">
         {label}
       </span>
     </div>
@@ -26,7 +30,7 @@ const PhoneStat = ({ label, value }: { label: string; value: string }) => {
 
 const PhoneDay = ({ day }: { day: string }) => {
   return (
-    <div className="text-center text-[0.4375rem] text-ink-faint pb-0.75">
+    <div className="text-muted-foreground pb-0.75 text-center text-[0.4375rem]">
       {day}
     </div>
   );
@@ -34,33 +38,33 @@ const PhoneDay = ({ day }: { day: string }) => {
 
 export const MobileCallout = () => {
   return (
-    <div className="bg-ink text-white py-20 px-8">
-      <div className="max-w-215 my-0 mx-auto grid grid-cols-2 gap-16 items-center">
+    <div className="bg-emphasis px-8 py-20 text-white">
+      <div className="mx-auto my-0 grid max-w-215 grid-cols-2 items-center gap-16">
         <div>
           <SectionLabel label="Mobile-first" />
-          <h2 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2] text-white mb-5">
+          <h2 className="font-display text-emphasis-heading mb-5 text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2]">
             Log a session
             <br />
-            <em className="italic text-accent opacity-90">at the track.</em>
+            <em className="text-primary italic opacity-90">at the track.</em>
             <br />
             Plan your week
             <br />
             from the couch.
           </h2>
-          <p className="text-base/[1.8] font-light text-ink-foreground">
+          <p className="text-emphasis-foreground text-base/[1.8] font-light">
             Digital Training Log is built to work as well on your phone as your
             desktop. Your training journal is wherever you are — not tethered to
             a laptop.
           </p>
         </div>
         <div className="flex justify-center">
-          <div className="w-[180px] bg-[#2A2820] rounded-3xl p-3 border-2 border-solid border-[rgba(255,255,255,0.1)]">
-            <div className="w-[60px] h-[8px] bg-[#1A1814] rounded-xs mx-auto mt-0 mb-2.5"></div>
-            <div className="bg-cream rounded-md py-3.5 px-3 min-h-[280px]">
-              <div className="font-body text-[0.5625rem] font-medium text-ink-faint tracking-widest uppercase mb-2.5">
+          <div className="w-[180px] rounded-3xl border-2 border-solid border-[rgba(255,255,255,0.1)] bg-[#2A2820] p-3">
+            <div className="mx-auto mt-0 mb-2.5 h-[8px] w-[60px] rounded-xs bg-[#1A1814]"></div>
+            <div className="bg-background min-h-[280px] rounded-md px-3 py-3.5">
+              <div className="font-body text-muted-foreground mb-2.5 text-[0.5625rem] font-medium tracking-widest uppercase">
                 Your Training Log
               </div>
-              <div className="grid grid-cols-[repeat(7,1fr)] gap-0.5 mb-2.5">
+              <div className="mb-2.5 grid grid-cols-[repeat(7,1fr)] gap-0.5">
                 <PhoneDay day="M" />
                 <PhoneDay day="T" />
                 <PhoneDay day="W" />
@@ -72,7 +76,7 @@ export const MobileCallout = () => {
               <PhoneEntry label="Easy run" entry="8 mi · 62 min · Z2" />
               <PhoneEntry label="Tempo intervals" entry="6 mi · 48 min" />
               <PhoneEntry label="Long run" entry="16 mi · 2 hr 14 min" />
-              <div className="flex gap-1 mt-2">
+              <div className="mt-2 flex gap-1">
                 <PhoneStat label="mi / wk" value="38" />
                 <PhoneStat label="mi / mo" value="142" />
                 <PhoneStat label="mi / yr" value="1,840" />

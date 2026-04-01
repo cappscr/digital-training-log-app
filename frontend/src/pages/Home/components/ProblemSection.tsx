@@ -9,7 +9,7 @@ const ProblemSectionText = ({
 }) => {
   return (
     <p
-      className={`text-base/[1.8] font-light text-ink-muted max-w-140 ${applyTopMargin ? 'mt-4' : ''}`}
+      className={`text-muted-foreground max-w-140 text-base/[1.8] font-light ${applyTopMargin ? 'mt-4' : ''}`}
     >
       {text}
     </p>
@@ -26,23 +26,23 @@ const FeatureCard = ({
   body: string;
 }) => {
   return (
-    <div className="py-8 px-7 border-r-0 border-b border-border last:border-b-0 sm:border-r sm:last:border-r-0">
-      <span className="font-display text-4xl font-normal text-accent-light leading-none mb-3 block">
+    <div className="border-border border-r-0 border-b px-7 py-8 last:border-b-0 sm:border-r sm:last:border-r-0">
+      <span className="font-display text-primary mb-3 block text-4xl leading-none font-normal">
         {num}
       </span>
-      <div className="font-display text-lg font-medium text-ink mb-3">
+      <div className="font-display text-foreground mb-3 text-lg font-medium">
         {title}
       </div>
-      <p className="font-light text-base/[1.7] text-ink-muted">{body}</p>
+      <p className="text-muted-foreground text-base/[1.7] font-light">{body}</p>
     </div>
   );
 };
 
 export const ProblemSection = () => {
   return (
-    <section className="max-w-215 mx-auto my-0 py-14 px-5 sm:py-20 sm:px-8">
+    <section className="mx-auto my-0 max-w-215 px-5 py-14 sm:px-8 sm:py-20">
       <SectionLabel label="The problem" />
-      <h2 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] leading-tight text-ink mb-6">
+      <h2 className="font-display text-foreground mb-6 text-[clamp(1.75rem,4vw,2.5rem)] leading-tight">
         You already know
         <br />
         you need a log.
@@ -54,7 +54,7 @@ export const ProblemSection = () => {
         Log is structured enough to keep you consistent, and flexbile enough to
         stay out of your way."
       />
-      <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-0 border border-border border-solid rounded-xs overflow-hidden mt-12 bg-white">
+      <div className="border-border bg-card mt-12 grid grid-cols-1 gap-0 overflow-hidden rounded-xs border border-solid sm:grid-cols-[repeat(auto-fit,minmax(180px,1fr))]">
         <FeatureCard
           num="01"
           title="Plan"

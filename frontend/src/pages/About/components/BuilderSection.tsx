@@ -40,7 +40,7 @@ export const BuilderSection = () => {
         href="https://christophercapps.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 text-accent font-semibold border-b border-accent-light pb-1 mt-7 transition-[border-color,opacity] duration-200 hover:opacity-75 hover:border-accent"
+        className="text-primary border-accent hover:border-secondary mt-7 inline-flex items-center gap-2 border-b pb-1 font-semibold transition-[border-color,opacity] duration-200 hover:opacity-75"
       >
         christophercapps.com
         <svg

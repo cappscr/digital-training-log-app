@@ -2,10 +2,10 @@ import { Link } from 'react-router';
 
 export const TermsFooter = () => {
   return (
-    <div className="max-w-170 my-0 mx-auto pt-0 px-5 sm:px-8 pb-24 sm:pb-32">
+    <div className="mx-auto my-0 max-w-170 px-5 pt-0 pb-24 sm:px-8 sm:pb-32">
       <Link
         to="/about"
-        className="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-ink"
+        className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm font-semibold"
       >
         <svg
           width="14"

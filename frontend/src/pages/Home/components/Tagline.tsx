@@ -1,19 +1,19 @@
 export const Tagline = () => {
   return (
-    <div className="border-y py-6 px-8 flex items-center justify-center gap-4 bg-background">
-      <span className="font-display font-medium text-ink tracking-widest">
+    <div className="bg-background flex items-center justify-center gap-4 border-y px-8 py-6">
+      <span className="font-display text-foreground font-medium tracking-widest">
         Plan
       </span>
-      <span className="bg-accent w-1 h-1 rounded-[50%] shrink-0"></span>
-      <span className="font-display font-medium text-ink tracking-widest">
+      <span className="bg-primary h-1 w-1 shrink-0 rounded-[50%]"></span>
+      <span className="font-display text-foreground font-medium tracking-widest">
         Train
       </span>
-      <span className="bg-accent w-1 h-1 rounded-[50%] shrink-0"></span>
-      <span className="font-display font-medium text-ink tracking-widest">
+      <span className="bg-primary h-1 w-1 shrink-0 rounded-[50%]"></span>
+      <span className="font-display text-foreground font-medium tracking-widest">
         Log
       </span>
-      <span className="bg-accent w-1 h-1 rounded-[50%] shrink-0"></span>
-      <span className="font-display font-medium text-accent tracking-widest">
+      <span className="bg-primary h-1 w-1 shrink-0 rounded-[50%]"></span>
+      <span className="font-display text-primary font-medium tracking-widest">
         All in one place.
       </span>
     </div>
