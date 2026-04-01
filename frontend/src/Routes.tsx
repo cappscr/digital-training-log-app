@@ -15,9 +15,9 @@ export function AppRoutes() {
         <Route index path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/terms" element={<TermsPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Route>
       <Route element={<AppLayout />}>
-        <Route path="/signup" element={<SignupPage />} />
         <Route path="/users/:id" element={<UserProfilePage />} />
         <Route path="/pace-calculator" element={<PaceCalculatorPage />} />
       </Route>
