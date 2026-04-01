@@ -190,9 +190,6 @@
   --popover: oklch(0.205 0 0);
   --popover-foreground: var(--near-cream);
 
-  /* typography tokens */
-  --text-tertiary: oklch(var(--ink-faint));
-
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.87 0 0);
