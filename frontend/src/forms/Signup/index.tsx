@@ -1,5 +1,4 @@
 import { Formik, Form, type FormikHelpers } from 'formik';
-import { useTheme, useMediaQuery } from '@mui/material';
 import {
   initialValues,
   validationSchema,
@@ -9,16 +8,13 @@ import {
 import { apiClient } from '@/fetcher';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
-import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
+import { AlertDestructive } from '@/components/DestructiveAlert';
+import { Button } from '@/components/ui/button';
+import { Field, FieldLabel, FieldError } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
 
 export function SignupForm() {
-  const theme = useTheme();
   const navigate = useNavigate();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleSubmit = async (
     values: SignupFormValues,
@@ -63,84 +59,93 @@ export function SignupForm() {
         isSubmitting,
       }) => (
         <Form>
-          <Stack spacing={4} alignItems="flex-start">
+          <div className="flex-start flex w-full flex-col gap-8">
             {status && (
-              <Box sx={{ color: 'error.main', mb: 2 }}>
+              <div className="mb-4">
                 {status.map((msg: string, index: number) => (
-                  <Alert severity="error" key={index} sx={{ mb: 1 }}>
-                    {msg}
-                  </Alert>
+                  <AlertDestructive
+                    title="Error"
+                    description={msg}
+                    key={index}
+                  />
                 ))}
-              </Box>
+              </div>
             )}
-            <TextField
-              type="text"
-              id="name"
-              label="Name"
-              helperText={touched.name && errors.name ? errors.name : null}
-              error={touched.name && !!errors.name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.name}
-              size={isMobile ? 'medium' : 'small'}
-              required
-              fullWidth
-            />
-            <TextField
-              type="email"
-              id="email"
-              label="Email"
-              helperText={touched.email && errors.email ? errors.email : null}
-              error={touched.email && !!errors.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.email}
-              size={isMobile ? 'medium' : 'small'}
-              required
-              fullWidth
-            />
-            <TextField
-              type="password"
-              id="password"
-              label="Password"
-              helperText={
-                touched.password && errors.password ? errors.password : null
-              }
-              error={touched.password && !!errors.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.password}
-              size={isMobile ? 'medium' : 'small'}
-              required
-              fullWidth
-            />
-            <TextField
-              type="password"
-              id="confirmPassword"
-              label="Confirm Password"
-              helperText={
-                touched.confirmPassword && errors.confirmPassword
-                  ? errors.confirmPassword
-                  : null
-              }
-              error={touched.confirmPassword && !!errors.confirmPassword}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.confirmPassword}
-              size={isMobile ? 'medium' : 'small'}
-              required
-              fullWidth
-            />
+            <Field data-invalid={touched.name && !!errors.name}>
+              <FieldLabel htmlFor="name">Name</FieldLabel>
+              <Input
+                type="text"
+                id="name"
+                aria-invalid={touched.name && !!errors.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.name}
+                required
+              />
+              {touched.name && errors.name && (
+                <FieldError>{errors.name}</FieldError>
+              )}
+            </Field>
+            <Field data-invalid={touched.email && !!errors.email}>
+              <FieldLabel htmlFor="email">Email</FieldLabel>
+              <Input
+                type="email"
+                id="email"
+                aria-invalid={touched.email && !!errors.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                required
+              />
+              {touched.email && errors.email && (
+                <FieldError>{errors.email}</FieldError>
+              )}
+            </Field>
+            <Field data-invalid={touched.password && !!errors.password}>
+              <FieldLabel htmlFor="password">Password</FieldLabel>
+              <Input
+                type="password"
+                id="password"
+                aria-invalid={touched.password && !!errors.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+                required
+              />
+            </Field>
+            <Field
+              data-invalid={touched.confirmPassword && !!errors.confirmPassword}
+            >
+              <FieldLabel htmlFor="confirmPassword">
+                Confirm Password
+              </FieldLabel>
+              <Input
+                type="password"
+                id="confirmPassword"
+                aria-invalid={
+                  touched.confirmPassword && !!errors.confirmPassword
+                }
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.confirmPassword}
+                required
+              />
+              {touched.confirmPassword && errors.confirmPassword && (
+                <FieldError>{errors.confirmPassword}</FieldError>
+              )}
+            </Field>
+
             <Button
               type="submit"
-              variant="contained"
-              size={isMobile ? 'large' : 'medium'}
-              sx={{ mt: 2 }}
+              size="lg"
+              radius="none"
+              uppercase
               disabled={!isValid || isSubmitting}
+              className="w-full"
             >
               Create account
             </Button>
-          </Stack>
+          </div>
         </Form>
       )}
     </Formik>
