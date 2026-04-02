@@ -8,7 +8,7 @@ import {
 import { apiClient } from '@/fetcher';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
-import { AlertDestructive } from '@/components/DestructiveAlert';
+import { AlertError } from '@/components/DestructiveAlert';
 import { Button } from '@/components/ui/button';
 import { Field, FieldLabel, FieldError } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
@@ -63,11 +63,7 @@ export function SignupForm() {
             {status && (
               <div className="mb-4">
                 {status.map((msg: string, index: number) => (
-                  <AlertDestructive
-                    title="Error"
-                    description={msg}
-                    key={index}
-                  />
+                  <AlertError title="Error" description={msg} key={index} />
                 ))}
               </div>
             )}
