@@ -47,18 +47,16 @@ export function PaceCalculatorForm() {
                 label="min"
                 min={2}
                 name="minutes"
-                size={isMobile ? 'medium' : 'small'}
+                size="icon-xs"
                 value={values.minutes}
-                maxWidth={80}
               />
               <NumberField
                 label="sec"
                 min={0}
                 max={59}
                 name="seconds"
-                size={isMobile ? 'medium' : 'small'}
+                size="icon-xs"
                 value={values.seconds}
-                maxWidth={80}
               />
               <FormControl>
                 <InputLabel id="pace-units-select-label">Units</InputLabel>
@@ -80,7 +78,7 @@ export function PaceCalculatorForm() {
               label="Pecentage"
               min={1}
               name="percentage"
-              size={isMobile ? 'medium' : 'small'}
+              size="icon-xs"
               value={values.percentage}
             />
             <Button
