@@ -1,6 +1,6 @@
 export const Tagline = () => {
   return (
-    <div className="bg-background flex items-center justify-center gap-4 border-y px-8 py-6">
+    <div className="bg-card flex items-center justify-center gap-4 border-y px-8 py-6">
       <span className="font-display text-foreground font-medium tracking-widest">
         Plan
       </span>
