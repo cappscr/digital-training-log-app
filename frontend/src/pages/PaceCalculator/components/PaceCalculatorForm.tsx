@@ -47,7 +47,7 @@ export function PaceCalculatorForm() {
                 label="min"
                 min={2}
                 name="minutes"
-                size="icon-xs"
+                size="icon-sm"
                 value={values.minutes}
               />
               <NumberField
@@ -55,7 +55,7 @@ export function PaceCalculatorForm() {
                 min={0}
                 max={59}
                 name="seconds"
-                size="icon-xs"
+                size="icon-sm"
                 value={values.seconds}
               />
               <FormControl>

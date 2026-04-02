@@ -63,29 +63,33 @@ export function NumberField({
                 {...props}
               />
               <InputGroupAddon align="inline-end">
-                <BaseNumberField.Increment
-                  render={(props) => (
-                    <InputGroupButton
-                      {...props}
-                      size={size}
-                      aria-label="Increase"
-                    />
-                  )}
-                >
-                  <ChevronUp />
-                </BaseNumberField.Increment>
+                <div className="divide-border flex h-full flex-col divide-y">
+                  <BaseNumberField.Increment
+                    render={(props) => (
+                      <InputGroupButton
+                        {...props}
+                        size={size}
+                        aria-label="Increase"
+                        className="flex-1 rounded-none"
+                      />
+                    )}
+                  >
+                    <ChevronUp />
+                  </BaseNumberField.Increment>
 
-                <BaseNumberField.Decrement
-                  render={(props) => (
-                    <InputGroupButton
-                      {...props}
-                      size={size}
-                      aria-label="Decrease"
-                    />
-                  )}
-                >
-                  <ChevronDown />
-                </BaseNumberField.Decrement>
+                  <BaseNumberField.Decrement
+                    render={(props) => (
+                      <InputGroupButton
+                        {...props}
+                        size={size}
+                        aria-label="Decrease"
+                        className="flex-1 rounded-none"
+                      />
+                    )}
+                  >
+                    <ChevronDown />
+                  </BaseNumberField.Decrement>
+                </div>
               </InputGroupAddon>
             </InputGroup>
           );
