@@ -1,5 +1,3 @@
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
 import { PageTitle } from '@/components/PageTitle';
 import { usePaceResult } from '@/hooks/usePaceCalculator';
 import { PaceResultTable } from './components/PaceResultTable';
@@ -11,10 +9,10 @@ export function PaceCalculatorPage() {
   return (
     <>
       <PageTitle pageName="Pace Calculator" />
-      <Stack spacing={4}>
-        <Typography variant="h4">Pace Calculator</Typography>
+      <div className="mx-auto mt-8 flex max-w-2xl flex-col gap-8">
+        <h1 className="font-display text-primary text-3xl">Pace Calculator</h1>
         {result ? <PaceResultTable /> : <PaceCalculatorForm />}
-      </Stack>
+      </div>
     </>
   );
 }
