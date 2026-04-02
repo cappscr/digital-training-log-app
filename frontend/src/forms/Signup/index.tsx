@@ -74,6 +74,8 @@ export function SignupForm() {
             <Field data-invalid={touched.name && !!errors.name}>
               <FieldLabel htmlFor="name">Name</FieldLabel>
               <Input
+                autoComplete="name"
+                placeholder="Your name"
                 type="text"
                 id="name"
                 aria-invalid={touched.name && !!errors.name}
@@ -89,6 +91,8 @@ export function SignupForm() {
             <Field data-invalid={touched.email && !!errors.email}>
               <FieldLabel htmlFor="email">Email</FieldLabel>
               <Input
+                autoComplete="email"
+                placeholder="you@example.com"
                 type="email"
                 id="email"
                 aria-invalid={touched.email && !!errors.email}
@@ -104,6 +108,8 @@ export function SignupForm() {
             <Field data-invalid={touched.password && !!errors.password}>
               <FieldLabel htmlFor="password">Password</FieldLabel>
               <Input
+                autoComplete="new-password"
+                placeholder="8 characters minimum"
                 type="password"
                 id="password"
                 aria-invalid={touched.password && !!errors.password}
@@ -120,6 +126,8 @@ export function SignupForm() {
                 Confirm Password
               </FieldLabel>
               <Input
+                autoComplete="new-password"
+                placeholder="Re-enter your password"
                 type="password"
                 id="confirmPassword"
                 aria-invalid={
@@ -137,7 +145,7 @@ export function SignupForm() {
 
             <Button
               type="submit"
-              size="lg"
+              size="xl"
               radius="none"
               uppercase
               disabled={!isValid || isSubmitting}

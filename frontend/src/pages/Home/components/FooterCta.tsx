@@ -14,11 +14,10 @@ export const FooterCta = () => {
         size="xl"
         radius="none"
         uppercase
-        disabled
         nativeButton={false}
         render={<Link to="/signup" />}
       >
-        Coming soon
+        Create your free account
       </Button>
     </div>
   );
