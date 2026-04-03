@@ -2,6 +2,7 @@ import { PageTitle } from '@/components/PageTitle';
 import { usePaceResult } from '@/hooks/usePaceCalculator';
 import { PaceResultTable } from './components/PaceResultTable';
 import { PaceCalculatorForm } from './components/PaceCalculatorForm';
+import styles from './PaceCalculator.module.css';
 
 export function PaceCalculatorPage() {
   const { data: result } = usePaceResult();
@@ -9,8 +10,17 @@ export function PaceCalculatorPage() {
   return (
     <>
       <PageTitle pageName="Pace Calculator" />
-      <div className="mx-auto mt-8 flex max-w-2xl flex-col gap-8">
-        <h1 className="font-display text-primary text-3xl">Pace Calculator</h1>
+      <div className={styles.container}>
+        <header className={styles.pageHeader}>
+          <span className={styles.eyebrow}>Training Tools</span>
+          <h1 className={styles.pageTitle}>
+            Pace <em>Calculator</em>
+          </h1>
+          <p className={styles.pageDescription}>
+            Enter a target pace and percentage to find your adjusted trainging
+            pace — calculated in the Canvoa style.
+          </p>
+        </header>
         {result ? <PaceResultTable /> : <PaceCalculatorForm />}
       </div>
     </>
