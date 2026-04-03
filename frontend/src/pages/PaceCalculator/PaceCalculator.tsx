@@ -11,12 +11,12 @@ export function PaceCalculatorPage() {
     <>
       <PageTitle pageName="Pace Calculator" />
       <div className={styles.container}>
-        <header className={styles.pageHeader}>
-          <span className={styles.eyebrow}>Training Tools</span>
-          <h1 className={styles.pageTitle}>
+        <header className={styles.header}>
+          <span className={`primary ${styles.eyebrow}`}>Training Tools</span>
+          <h1 className={`fg ${styles.title}`}>
             Pace <em>Calculator</em>
           </h1>
-          <p className={styles.pageDescription}>
+          <p className={`fg-muted ${styles.description}`}>
             Enter a target pace and percentage to find your adjusted trainging
             pace — calculated in the Canvoa style.
           </p>

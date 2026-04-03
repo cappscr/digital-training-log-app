@@ -6,7 +6,7 @@
   padding: 4rem 1.5rem 6rem;
 }
 
-.pageHeader {
+.header {
   text-align: center;
   max-width: 480px;
   margin-bottom: 3rem;
@@ -14,27 +14,23 @@
 
 .eyebrow {
   display: inline-block;
-  font-family: var(--font-body);
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-primary);
   margin-bottom: 0.75rem;
 }
 
-.pageTitle {
+.title {
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 400;
   line-height: 1.15;
-  color: var(--color-foreground);
   margin-bottom: 0.875rem;
 }
 
-.pageDescription {
+.description {
   font-size: 0.875rem;
-  color: var(--color-muted-foreground);
   line-height: 1.65;
   max-width: 380px;
   margin: 0 auto;
