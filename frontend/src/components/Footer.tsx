@@ -19,6 +19,12 @@ export const Footer = () => {
             About
           </Link>
           <Link
+            to="/pace-calculator"
+            className="text-muted-foreground hover:text-foreground text-xs tracking-wider transition-colors duration-200"
+          >
+            Pace Calculator
+          </Link>
+          <Link
             to="/terms"
             className="text-muted-foreground hover:text-foreground text-xs tracking-wider transition-colors duration-200"
           >
