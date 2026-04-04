@@ -1,8 +1,15 @@
 import { NumberField } from '@/components/NumberField';
 import { Button } from '@/components/ui/button';
 import { Field, FieldLabel } from '@/components/ui/field';
-import MenuItem from '@mui/material/MenuItem';
-import { Select } from '@/components/ui/Select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectGroup,
+  SelectValue,
+} from '@/components/ui/select';
 import { Formik, Form, type FormikHelpers } from 'formik';
 import { usePaceCalculator } from '@/hooks/usePaceCalculator';
 import {
@@ -10,13 +17,20 @@ import {
   validationSchema,
   type PaceCalculatorFormValues,
 } from '@/forms/paceCalculator';
-import { useTheme, useMediaQuery } from '@mui/material';
 import styles from './PaceCalculatorForm.module.css';
 
 export function PaceCalculatorForm() {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { calculate, isCalculating } = usePaceCalculator();
+  const paceUnitOptions = [
+    {
+      label: 'per mi',
+      value: 'per_mile',
+    },
+    {
+      label: 'per km',
+      value: 'per_km',
+    },
+  ];
 
   const handleSubmit = async (
     values: PaceCalculatorFormValues,
@@ -38,7 +52,7 @@ export function PaceCalculatorForm() {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ values, handleChange, isValid }) => (
+      {({ values, setFieldValue, isValid }) => (
         <Form>
           <div className={styles.container}>
             <div className={styles.formRow}>
@@ -60,25 +74,26 @@ export function PaceCalculatorForm() {
               <Field>
                 <FieldLabel id="pace-units-select-label">Units</FieldLabel>
                 <Select
-                  showLabel={false}
-                  labelId="pace-units-select-label"
                   id="pace-units-select"
-                  label="Units"
                   name="units"
-                  size={isMobile ? 'medium' : 'small'}
                   value={values.units}
-                  onChange={handleChange}
-                  options={[
-                    {
-                      label: 'per mi',
-                      value: 'per_mile',
-                    },
-                    {
-                      label: 'per km',
-                      value: 'per_km',
-                    },
-                  ]}
-                />
+                  items={paceUnitOptions}
+                  onValueChange={(value) => setFieldValue('units', value)}
+                >
+                  <SelectTrigger className="w-full max-w-48">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Units</SelectLabel>
+                      {paceUnitOptions.map((item) => (
+                        <SelectItem key={item.value} value={item.value}>
+                          {item.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </Field>
             </div>
             <NumberField
