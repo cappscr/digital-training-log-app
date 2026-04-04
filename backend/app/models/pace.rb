@@ -56,6 +56,6 @@ class Pace
   end
 
   def short_unit
-    { UNIT_MIN_PER_MILE => "min/mi", UNIT_MIN_PER_KM => "min/km" }[units]
+    { UNIT_MIN_PER_MILE => "/ mi", UNIT_MIN_PER_KM => "/ km" }[units]
   end
 end

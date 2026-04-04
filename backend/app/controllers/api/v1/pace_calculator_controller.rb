@@ -6,7 +6,7 @@ class Api::V1::PaceCalculatorController < ApplicationController
 
     new_pace = pace.percentage(pace_calculator_params[:percentage].to_i)
 
-    render json: { percentage: pace_calculator_params[:percentage], original_pace: pace.to_s, calculated_pace: new_pace.to_s, units: pace_calculator_params[:units] }, status: :ok
+    render json: { percentage: pace_calculator_params[:percentage], original_pace: pace.to_s(include_units: true), calculated_pace: new_pace.to_s, units: pace_calculator_params[:units] }, status: :ok
   end
 
   private

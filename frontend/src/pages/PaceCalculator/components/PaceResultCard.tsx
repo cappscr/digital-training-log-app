@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { usePaceResult, usePaceCalculator } from '@/hooks/usePaceCalculator';
-import styles from './PaceResultTable.module.css';
+import styles from './PaceResultCard.module.css';
 
 export function PaceResultCard() {
   const { data: result } = usePaceResult();
@@ -31,8 +31,23 @@ export function PaceResultCard() {
 
       <div className={styles.divider} />
 
-      <p className={styles.caption}>
-        Calculated paces based on {result?.original_pace}
+      <div className={styles.metaRow}>
+        <div className={styles.metaItem}>
+          <div className={styles.metaLabel}>Base pace</div>
+          <div className={styles.metaValue}>{result?.original_pace}</div>
+        </div>
+        <div className={styles.metaItem} style={{ textAlign: 'right' }}>
+          <div className={styles.metaLabel}>Percentage</div>
+          <div className={styles.metaValue}>
+            <em>{result?.percentage}</em>%
+          </div>
+        </div>
+      </div>
+
+      <p className={styles.note}>
+        {Math.abs(100 - (result?.percentage ?? 0))}%{' '}
+        {(result?.percentage ?? 0) > 100 ? 'faster' : 'slower'} than your base
+        pace
       </p>
     </>
   );
