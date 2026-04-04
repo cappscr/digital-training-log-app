@@ -2,7 +2,7 @@ import { NumberField } from '@/components/NumberField';
 import { Button } from '@/components/ui/button';
 import { Field, FieldLabel } from '@/components/ui/field';
 import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import { Select } from '@/components/ui/Select';
 import { Formik, Form, type FormikHelpers } from 'formik';
 import { usePaceCalculator } from '@/hooks/usePaceCalculator';
 import {
@@ -60,6 +60,7 @@ export function PaceCalculatorForm() {
               <Field>
                 <FieldLabel id="pace-units-select-label">Units</FieldLabel>
                 <Select
+                  showLabel={false}
                   labelId="pace-units-select-label"
                   id="pace-units-select"
                   label="Units"
@@ -67,10 +68,17 @@ export function PaceCalculatorForm() {
                   size={isMobile ? 'medium' : 'small'}
                   value={values.units}
                   onChange={handleChange}
-                >
-                  <MenuItem value={'per_mile'}>per mi</MenuItem>
-                  <MenuItem value={'per_km'}>per km</MenuItem>
-                </Select>
+                  options={[
+                    {
+                      label: 'per mi',
+                      value: 'per_mile',
+                    },
+                    {
+                      label: 'per km',
+                      value: 'per_km',
+                    },
+                  ]}
+                />
               </Field>
             </div>
             <NumberField
