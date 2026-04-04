@@ -1,10 +1,8 @@
 import { NumberField } from '@/components/NumberField';
 import { Button } from '@/components/ui/button';
-import InputLabel from '@mui/material/InputLabel';
+import { Field, FieldLabel } from '@/components/ui/field';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Stack from '@mui/material/Stack';
 import { Formik, Form, type FormikHelpers } from 'formik';
 import { usePaceCalculator } from '@/hooks/usePaceCalculator';
 import {
@@ -13,6 +11,7 @@ import {
   type PaceCalculatorFormValues,
 } from '@/forms/paceCalculator';
 import { useTheme, useMediaQuery } from '@mui/material';
+import styles from './PaceCalculatorForm.module.css';
 
 export function PaceCalculatorForm() {
   const theme = useTheme();
@@ -41,8 +40,8 @@ export function PaceCalculatorForm() {
     >
       {({ values, handleChange, isValid }) => (
         <Form>
-          <Stack spacing={4} alignItems="flex-start">
-            <Stack direction="row" spacing={2} justifyContent="center">
+          <div className={styles.container}>
+            <div className={styles.formRow}>
               <NumberField
                 label="min"
                 min={2}
@@ -58,8 +57,8 @@ export function PaceCalculatorForm() {
                 size="icon-sm"
                 value={values.seconds}
               />
-              <FormControl>
-                <InputLabel id="pace-units-select-label">Units</InputLabel>
+              <Field>
+                <FieldLabel id="pace-units-select-label">Units</FieldLabel>
                 <Select
                   labelId="pace-units-select-label"
                   id="pace-units-select"
@@ -72,8 +71,8 @@ export function PaceCalculatorForm() {
                   <MenuItem value={'per_mile'}>per mi</MenuItem>
                   <MenuItem value={'per_km'}>per km</MenuItem>
                 </Select>
-              </FormControl>
-            </Stack>
+              </Field>
+            </div>
             <NumberField
               label="Pecentage"
               min={1}
@@ -86,10 +85,11 @@ export function PaceCalculatorForm() {
               size="xl"
               disabled={!isValid || isCalculating}
               radius="xs"
+              className={styles.submitBtn}
             >
               Calculate
             </Button>
-          </Stack>
+          </div>
         </Form>
       )}
     </Formik>
