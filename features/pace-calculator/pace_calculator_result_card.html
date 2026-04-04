@@ -1,0 +1,118 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+  .pace-card {
+    max-width: 420px;
+    margin: 2rem auto;
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+  }
+  .back-link:hover { color: var(--color-text-primary); }
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+  }
+  .result-pace {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+  }
+  .result-pace em {
+    font-style: italic;
+  }
+  .result-unit {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+  }
+  .divider {
+    height: 0.5px;
+    background: var(--color-border-tertiary);
+    margin-bottom: 1.25rem;
+  }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .meta-item {}
+  .meta-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 2px;
+  }
+  .meta-value {
+    font-size: 14px;
+    color: var(--color-text-primary);
+  }
+  .meta-value em {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 15px;
+  }
+  .note {
+    margin-top: 1.25rem;
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+</style>
+
+<div class="pace-card">
+  <button class="back-link">
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+      <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Recalculate
+  </button>
+
+  <div class="eyebrow">Adjusted pace</div>
+  <div class="result-pace"><em>7</em>:17</div>
+  <div class="result-unit">per mile</div>
+
+  <div class="divider"></div>
+
+  <div class="meta-row">
+    <div class="meta-item">
+      <div class="meta-label">Base pace</div>
+      <div class="meta-value"><em>6</em>:30 / mi</div>
+    </div>
+    <div class="meta-item" style="text-align: right;">
+      <div class="meta-label">Effort</div>
+      <div class="meta-value"><em>89</em>%</div>
+    </div>
+    <div class="meta-item" style="text-align: right;">
+      <div class="meta-label">Difference</div>
+      <div class="meta-value">+47 sec</div>
+    </div>
+  </div>
+
+  <div class="note">
+    11% slower than your base pace — a comfortable aerobic effort in the Canova model.
+  </div>
+</div>

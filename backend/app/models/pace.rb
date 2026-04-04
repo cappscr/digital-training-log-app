@@ -1,8 +1,8 @@
 class Pace
   include ActiveModel::Model
 
-  UNIT_MIN_PER_MILE = :min_per_mile
-  UNIT_MIN_PER_KM = :min_per_km
+  UNIT_MIN_PER_MILE = :per_mile
+  UNIT_MIN_PER_KM = :per_km
   VALID_UNITS = [ UNIT_MIN_PER_MILE, UNIT_MIN_PER_KM ].freeze
 
   attr_accessor :minutes, :seconds, :units
@@ -16,10 +16,10 @@ class Pace
     super(attributes)
   end
 
-  def to_s
+  def to_s(include_units: false)
     # Returns a string representation of the pace, e.g. "6:18 min/mi". Returns an empty string if the record is invalid.
     return "" unless valid?
-    "#{format_time} #{short_unit}"
+    "#{format_time}#{include_units ? " #{short_unit}" : ""}"
   end
 
   def percentage(percent)
@@ -29,7 +29,9 @@ class Pace
     return nil unless valid?
     difference = decimal_minutes * ((100 - percent).abs / 100.0)
     new_decimal_pace = percent > 100 ? decimal_minutes - difference : decimal_minutes + difference
-    decimal_to_s(new_decimal_pace)
+    min = new_decimal_pace.floor
+    sec = ((new_decimal_pace - min) * 60).round
+    new_pace = Pace.new({ minutes: min, seconds: sec, units: self.units })
   end
 
   private

@@ -1,5 +1,5 @@
 import { NumberField } from '@/components/NumberField';
-import Button from '@mui/material/Button';
+import { Button } from '@/components/ui/button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -69,8 +69,8 @@ export function PaceCalculatorForm() {
                   value={values.units}
                   onChange={handleChange}
                 >
-                  <MenuItem value={'min_per_mile'}>per mi</MenuItem>
-                  <MenuItem value={'min_per_km'}>per km</MenuItem>
+                  <MenuItem value={'per_mile'}>per mi</MenuItem>
+                  <MenuItem value={'per_km'}>per km</MenuItem>
                 </Select>
               </FormControl>
             </Stack>
@@ -83,9 +83,9 @@ export function PaceCalculatorForm() {
             />
             <Button
               type="submit"
-              variant="contained"
-              size={isMobile ? 'large' : 'small'}
+              size="xl"
               disabled={!isValid || isCalculating}
+              radius="xs"
             >
               Calculate
             </Button>

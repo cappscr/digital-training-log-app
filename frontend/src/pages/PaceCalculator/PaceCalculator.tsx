@@ -1,6 +1,7 @@
 import { PageTitle } from '@/components/PageTitle';
 import { usePaceResult } from '@/hooks/usePaceCalculator';
-import { PaceResultTable } from './components/PaceResultTable';
+import { Card } from '@/components/ui/Card';
+import { PaceResultCard } from './components/PaceResultCard';
 import { PaceCalculatorForm } from './components/PaceCalculatorForm';
 import styles from './PaceCalculator.module.css';
 
@@ -21,7 +22,7 @@ export function PaceCalculatorPage() {
             pace — calculated in the Canvoa style.
           </p>
         </header>
-        {result ? <PaceResultTable /> : <PaceCalculatorForm />}
+        <Card>{result ? <PaceResultCard /> : <PaceCalculatorForm />}</Card>
       </div>
     </>
   );
