@@ -1,1 +1,0 @@
-export { PaceCalculatorPage } from './PaceCalculator';
