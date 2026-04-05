@@ -16,10 +16,10 @@ export function AppRoutes() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/pace-calculator" element={<PaceCalculatorPage />} />
       </Route>
       <Route element={<AppLayout />}>
         <Route path="/users/:id" element={<UserProfilePage />} />
-        <Route path="/pace-calculator" element={<PaceCalculatorPage />} />
       </Route>
     </Routes>
   );

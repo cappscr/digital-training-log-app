@@ -1,10 +1,15 @@
 import { NumberField } from '@/components/NumberField';
-import Button from '@mui/material/Button';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Stack from '@mui/material/Stack';
+import { Button } from '@/components/ui/button';
+import { Field, FieldLabel } from '@/components/ui/field';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectGroup,
+  SelectValue,
+} from '@/components/ui/select';
 import { Formik, Form, type FormikHelpers } from 'formik';
 import { usePaceCalculator } from '@/hooks/usePaceCalculator';
 import {
@@ -12,12 +17,19 @@ import {
   validationSchema,
   type PaceCalculatorFormValues,
 } from '@/forms/paceCalculator';
-import { useTheme, useMediaQuery } from '@mui/material';
 
 export function PaceCalculatorForm() {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { calculate, isCalculating } = usePaceCalculator();
+  const paceUnitOptions = [
+    {
+      label: 'per mi',
+      value: 'per_mile',
+    },
+    {
+      label: 'per km',
+      value: 'per_km',
+    },
+  ];
 
   const handleSubmit = async (
     values: PaceCalculatorFormValues,
@@ -39,59 +51,67 @@ export function PaceCalculatorForm() {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ values, handleChange, isValid }) => (
+      {({ values, setFieldValue, isValid }) => (
         <Form>
-          <Stack spacing={4} alignItems="flex-start">
-            <Stack direction="row" spacing={2} justifyContent="center">
+          <div className="flex flex-col items-start gap-8">
+            <div className="flex flex-row justify-center gap-4">
               <NumberField
                 label="min"
                 min={2}
                 name="minutes"
-                size={isMobile ? 'medium' : 'small'}
+                size="icon-sm"
                 value={values.minutes}
-                maxWidth={80}
               />
               <NumberField
                 label="sec"
                 min={0}
                 max={59}
                 name="seconds"
-                size={isMobile ? 'medium' : 'small'}
+                size="icon-sm"
                 value={values.seconds}
-                maxWidth={80}
               />
-              <FormControl>
-                <InputLabel id="pace-units-select-label">Units</InputLabel>
+              <Field>
+                <FieldLabel id="pace-units-select-label">Units</FieldLabel>
                 <Select
-                  labelId="pace-units-select-label"
                   id="pace-units-select"
-                  label="Units"
                   name="units"
-                  size={isMobile ? 'medium' : 'small'}
                   value={values.units}
-                  onChange={handleChange}
+                  items={paceUnitOptions}
+                  onValueChange={(value) => setFieldValue('units', value)}
                 >
-                  <MenuItem value={'min_per_mile'}>per mi</MenuItem>
-                  <MenuItem value={'min_per_km'}>per km</MenuItem>
+                  <SelectTrigger className="w-full max-w-48">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Units</SelectLabel>
+                      {paceUnitOptions.map((item) => (
+                        <SelectItem key={item.value} value={item.value}>
+                          {item.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
                 </Select>
-              </FormControl>
-            </Stack>
+              </Field>
+            </div>
             <NumberField
               label="Pecentage"
               min={1}
               name="percentage"
-              size={isMobile ? 'medium' : 'small'}
+              size="icon-xs"
               value={values.percentage}
             />
             <Button
               type="submit"
-              variant="contained"
-              size={isMobile ? 'large' : 'small'}
+              size="xl"
               disabled={!isValid || isCalculating}
+              radius="xs"
+              className="self-stretch"
             >
               Calculate
             </Button>
-          </Stack>
+          </div>
         </Form>
       )}
     </Formik>

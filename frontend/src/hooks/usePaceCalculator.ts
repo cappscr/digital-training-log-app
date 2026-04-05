@@ -6,6 +6,7 @@ import { type PaceCalculatorFormValues } from '@/forms/paceCalculator';
 export interface PaceCalculationResult {
   original_pace: string;
   calculated_pace: string;
+  units: 'per_mile' | 'per_km';
   percentage: number;
 }
 

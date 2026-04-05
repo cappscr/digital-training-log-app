@@ -1,29 +1,25 @@
 import { useId } from 'react';
 import { NumberField as BaseNumberField } from '@base-ui/react/number-field';
-import IconButton from '@mui/material/IconButton';
-import FormControl from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { ChevronUp, ChevronDown } from 'lucide-react';
+import {
+  InputGroup,
+  InputGroupInput,
+  InputGroupAddon,
+  InputGroupButton,
+} from '@/components/ui/input-group';
+import { Field, FieldLabel, FieldError } from '@/components/ui/field';
 import { useField } from 'formik';
-import FormHelperText from '@mui/material/FormHelperText';
 
 export function NumberField({
   id: idProp,
   label,
   name,
-  size = 'medium',
-  fullWidth = false,
-  maxWidth,
+  size = 'icon-xs',
   ...other
 }: BaseNumberField.Root.Props & {
   label?: React.ReactNode;
   name: string;
-  size?: 'small' | 'medium';
-  fullWidth?: boolean;
-  maxWidth?: number;
+  size?: 'icon-xs' | 'icon-sm';
 }) {
   const [field, meta, helpers] = useField(name);
   const generatedId = useId();
@@ -35,21 +31,13 @@ export function NumberField({
       {...other}
       value={field.value}
       onValueChange={(val) => helpers.setValue(val)}
-      render={(props, state) => (
-        <FormControl
-          size={size}
-          ref={props.ref}
-          disabled={state.disabled}
-          required={state.required}
-          error={hasError}
-          variant="outlined"
-          fullWidth={fullWidth}
-        >
+      render={(props) => (
+        <Field ref={props.ref} data-invalid={hasError} {...props}>
           {props.children}
-        </FormControl>
+        </Field>
       )}
     >
-      <InputLabel htmlFor={id}>{label}</InputLabel>
+      <FieldLabel htmlFor={id}>{label}</FieldLabel>
       <BaseNumberField.Input
         render={(props, state) => {
           const displayValue = state.focused
@@ -57,72 +45,57 @@ export function NumberField({
             : (field.value ?? '0');
 
           return (
-            <OutlinedInput
-              id={id}
-              label={label}
-              inputRef={props.ref}
-              error={hasError}
-              value={displayValue}
-              onBlur={(e) => {
-                props.onBlur?.(e);
-                helpers.setTouched(true);
-              }}
-              onChange={props.onChange}
-              onKeyUp={props.onKeyUp}
-              onKeyDown={props.onKeyDown}
-              onFocus={props.onFocus}
-              slotProps={{
-                input: props,
-              }}
-              endAdornment={
-                <InputAdornment
-                  position="end"
-                  sx={{
-                    flexDirection: 'column',
-                    maxHeight: 'unset',
-                    alignSelf: 'stretch',
-                    borderLeft: '1px solid',
-                    borderColor: 'divider',
-                    ml: 0,
-                    '& button': {
-                      py: 0,
-                      flex: 1,
-                      borderRadius: 0.5,
-                    },
-                  }}
-                >
+            <InputGroup>
+              <InputGroupInput
+                id={id}
+                aria-invalid={hasError}
+                value={displayValue}
+                disabled={state.disabled}
+                required={state.required}
+                onBlur={(e) => {
+                  props.onBlur?.(e);
+                  helpers.setTouched(true);
+                }}
+                onChange={props.onChange}
+                onKeyUp={props.onKeyUp}
+                onKeyDown={props.onKeyDown}
+                onFocus={props.onFocus}
+                {...props}
+              />
+              <InputGroupAddon align="inline-end">
+                <div className="divide-border flex h-full flex-col divide-y">
                   <BaseNumberField.Increment
-                    render={<IconButton size={size} aria-label="Increase" />}
+                    render={(props) => (
+                      <InputGroupButton
+                        {...props}
+                        size={size}
+                        aria-label="Increase"
+                        className="flex-1 rounded-none"
+                      />
+                    )}
                   >
-                    <KeyboardArrowUpIcon
-                      fontSize={size}
-                      sx={{ transform: 'translateY(2px)' }}
-                    />
+                    <ChevronUp />
                   </BaseNumberField.Increment>
 
                   <BaseNumberField.Decrement
-                    render={<IconButton size={size} aria-label="Decrease" />}
+                    render={(props) => (
+                      <InputGroupButton
+                        {...props}
+                        size={size}
+                        aria-label="Decrease"
+                        className="flex-1 rounded-none"
+                      />
+                    )}
                   >
-                    <KeyboardArrowDownIcon
-                      fontSize={size}
-                      sx={{ transform: 'translateY(-2px)' }}
-                    />
+                    <ChevronDown />
                   </BaseNumberField.Decrement>
-                </InputAdornment>
-              }
-              sx={{
-                pr: 0,
-                ...(maxWidth && !fullWidth ? { maxWidth } : {}),
-              }}
-            />
+                </div>
+              </InputGroupAddon>
+            </InputGroup>
           );
         }}
       />
-      {hasError && (
-        <FormHelperText sx={{ ml: 0, '&:empty': { mt: 0 } }}>
-          {meta.error}
-        </FormHelperText>
-      )}
+      {hasError && <FieldError>{meta.error}</FieldError>}
     </BaseNumberField.Root>
   );
 }

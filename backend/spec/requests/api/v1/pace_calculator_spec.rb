@@ -7,7 +7,7 @@ RSpec.describe "Api::V1::PaceCalculators", type: :request do
         pace_calculation: {
           minutes: 8,
           seconds: 0,
-          units: "min_per_mile",
+          units: "per_mile",
           percentage: 110
         }
       }
@@ -21,15 +21,16 @@ RSpec.describe "Api::V1::PaceCalculators", type: :request do
 
         json_response = JSON.parse(response.body)
         # 8:00 - 10% = 7:12
-        expect(json_response["calculated_pace"]).to eq("7:12 min/mi")
-        expect(json_response["original_pace"]).to eq("8:00 min/mi")
+        expect(json_response["calculated_pace"]).to eq("7:12")
+        expect(json_response["units"]).to eq("per_mile")
+        expect(json_response["original_pace"]).to eq("8:00 / mi")
         expect(json_response["percentage"]).to eq(110)
       end
     end
 
     context "with invalid parameters" do
       it "returns bad request if pace_calculation is missing" do
-        invalid_params = { pace: { minutes: 8, seconds: 0, units: "min_per_mile", percentage: 80 } }
+        invalid_params = { pace: { minutes: 8, seconds: 0, units: "per_mile", percentage: 80 } }
 
         post api_v1_pace_calculator_index_path, params: invalid_params, as: :json
 
@@ -37,7 +38,7 @@ RSpec.describe "Api::V1::PaceCalculators", type: :request do
       end
 
       it "returns unprocessable entity for invalid seconds" do
-        invalid_params = { pace_calculation: { minutes: 8, seconds: 65, units: "min_per_mile", percentage: 100 } }
+        invalid_params = { pace_calculation: { minutes: 8, seconds: 65, units: "per_mile", percentage: 100 } }
 
         post api_v1_pace_calculator_index_path, params: invalid_params, as: :json
 

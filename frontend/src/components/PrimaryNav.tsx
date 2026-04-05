@@ -4,7 +4,10 @@ import { ModeToggle } from '@/components/ModeToggle';
 import { Link, NavLink } from 'react-router';
 import { Menu, X } from 'lucide-react';
 
-const NAV_LINKS = [{ name: 'About', to: '/about' }];
+const NAV_LINKS = [
+  { name: 'About', to: '/about' },
+  { name: 'Pace Calculator', to: '/pace-calculator' },
+];
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `text-sm font-medium transition-colors duration-200 ${
