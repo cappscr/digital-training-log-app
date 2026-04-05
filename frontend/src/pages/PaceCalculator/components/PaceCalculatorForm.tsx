@@ -17,7 +17,6 @@ import {
   validationSchema,
   type PaceCalculatorFormValues,
 } from '@/forms/paceCalculator';
-import styles from './PaceCalculatorForm.module.css';
 
 export function PaceCalculatorForm() {
   const { calculate, isCalculating } = usePaceCalculator();
@@ -54,8 +53,8 @@ export function PaceCalculatorForm() {
     >
       {({ values, setFieldValue, isValid }) => (
         <Form>
-          <div className={styles.container}>
-            <div className={styles.formRow}>
+          <div className="flex flex-col items-start gap-8">
+            <div className="flex flex-row justify-center gap-4">
               <NumberField
                 label="min"
                 min={2}
@@ -108,7 +107,7 @@ export function PaceCalculatorForm() {
               size="xl"
               disabled={!isValid || isCalculating}
               radius="xs"
-              className={styles.submitBtn}
+              className="self-stretch"
             >
               Calculate
             </Button>
