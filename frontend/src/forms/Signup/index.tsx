@@ -12,6 +12,7 @@ import { AlertError } from '@/components/AlertError';
 import { Button } from '@/components/ui/button';
 import { Field, FieldLabel, FieldError } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
+import { successToast } from '@/lib/toasts';
 
 export function SignupForm() {
   const navigate = useNavigate();
@@ -30,7 +31,8 @@ export function SignupForm() {
           password_confirmation: values.confirmPassword,
         },
       });
-      navigate(`/users/${response.data.id}?message=welcome`);
+      successToast('Welcome to the Digital Training Log!');
+      navigate(`/users/${response.data.id}`);
     } catch (apiError) {
       if (axios.isAxiosError(apiError) && apiError.response?.status === 422) {
         setStatus(apiError.response?.data.errors || [UNEXPECTED_ERROR_MESSAGE]);

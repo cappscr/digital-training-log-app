@@ -7,19 +7,22 @@ import { PaceCalculatorPage } from './pages/PaceCalculator';
 import { AboutPage } from './pages/About';
 import { TermsPage } from './pages/TermsOfUse';
 import { Layout } from './layouts/Layout';
+import { RootLayout } from './layouts/RootLayout';
 
 export function AppRoutes() {
   return (
     <Routes>
-      <Route element={<Layout />}>
-        <Route index path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/terms" element={<TermsPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/pace-calculator" element={<PaceCalculatorPage />} />
-      </Route>
-      <Route element={<AppLayout />}>
-        <Route path="/users/:id" element={<UserProfilePage />} />
+      <Route element={<RootLayout />}>
+        <Route element={<Layout />}>
+          <Route index path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/pace-calculator" element={<PaceCalculatorPage />} />
+        </Route>
+        <Route element={<AppLayout />}>
+          <Route path="/users/:id" element={<UserProfilePage />} />
+        </Route>
       </Route>
     </Routes>
   );
