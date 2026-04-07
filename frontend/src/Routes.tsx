@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router';
+import { createBrowserRouter } from 'react-router';
 import { AppLayout } from './layouts/AppLayout';
 import { HomePage } from './pages/Home';
 import { SignupPage } from './pages/Signup';
@@ -9,21 +9,44 @@ import { TermsPage } from './pages/TermsOfUse';
 import { Layout } from './layouts/Layout';
 import { RootLayout } from './layouts/RootLayout';
 
-export function AppRoutes() {
-  return (
-    <Routes>
-      <Route element={<RootLayout />}>
-        <Route element={<Layout />}>
-          <Route index path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/terms" element={<TermsPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/pace-calculator" element={<PaceCalculatorPage />} />
-        </Route>
-        <Route element={<AppLayout />}>
-          <Route path="/users/:id" element={<UserProfilePage />} />
-        </Route>
-      </Route>
-    </Routes>
-  );
-}
+export const router = createBrowserRouter([
+  {
+    Component: RootLayout,
+    children: [
+      {
+        Component: Layout,
+        children: [
+          {
+            Component: HomePage,
+            index: true,
+          },
+          {
+            Component: AboutPage,
+            path: '/about',
+          },
+          {
+            Component: TermsPage,
+            path: '/terms',
+          },
+          {
+            Component: SignupPage,
+            path: '/signup',
+          },
+          {
+            Component: PaceCalculatorPage,
+            path: '/pace-calculator',
+          },
+        ],
+      },
+      {
+        Component: AppLayout,
+        children: [
+          {
+            Component: UserProfilePage,
+            path: '/users/:id',
+          },
+        ],
+      },
+    ],
+  },
+]);
