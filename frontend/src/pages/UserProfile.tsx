@@ -1,5 +1,5 @@
 import { useParams } from 'react-router';
-import { useUser } from '../../hooks/useUser';
+import { useUser } from '../hooks/useUser';
 
 import { PageTitle } from '@/components/PageTitle';
 import { UserSidebar } from '@/components/UserSidebar';
