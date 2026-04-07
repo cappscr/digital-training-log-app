@@ -1,6 +1,5 @@
 import { useParams } from 'react-router';
 import { useUser } from '../../hooks/useUser';
-import Typography from '@mui/material/Typography';
 
 import { PageTitle } from '@/components/PageTitle';
 import { UserSidebar } from '@/components/UserSidebar';
@@ -16,8 +15,12 @@ export function UserProfilePage() {
   ) : (
     <>
       <PageTitle pageName={user?.name || 'User Profile'} />
-      <UserSidebar userId={id!} />
-      <Typography variant="h4">User Profile Page</Typography>
+      <div className="flex flex-row">
+        <UserSidebar userId={id!} />
+        <h1 className="font-display mt-10 px-8 text-5xl">
+          <em className="text-primary">User Profile</em> Page
+        </h1>
+      </div>
     </>
   );
 }
