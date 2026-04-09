@@ -1,7 +1,6 @@
 import { PrimaryNav } from '@/components/PrimaryNav';
 import { Outlet } from 'react-router';
 import { Footer } from '@/components/Footer';
-import { ScrollRestoration } from 'react-router';
 
 export const Layout = () => {
   return (
@@ -11,7 +10,6 @@ export const Layout = () => {
         <Outlet />
       </main>
       <Footer />
-      <ScrollRestoration />
     </>
   );
 };

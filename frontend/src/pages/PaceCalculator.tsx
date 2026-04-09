@@ -2,7 +2,7 @@ import { PageTitle } from '@/components/PageTitle';
 import { usePaceResult } from '@/hooks/usePaceCalculator';
 import { Card } from '@/components/ui/card';
 import { PaceResultCard } from '@/components/pace-calculator/PaceResultCard';
-import { PaceCalculatorForm } from '@/components/pace-calculator/PaceCalculatorForm';
+import { PaceCalculatorForm } from '@/forms/PaceCalculator';
 
 export function PaceCalculatorPage() {
   const { data: result } = usePaceResult();
