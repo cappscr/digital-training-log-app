@@ -8,29 +8,37 @@ import {
   InputGroupButton,
 } from '@/components/ui/input-group';
 import { Field, FieldLabel, FieldError } from '@/components/ui/field';
-import { useField } from 'formik';
+import {
+  useController,
+  type Control,
+  type FieldPath,
+  type FieldValues,
+} from 'react-hook-form';
 
-export function NumberField({
+export function NumberField<T extends FieldValues>({
   id: idProp,
   label,
   name,
+  control,
   size = 'icon-xs',
   ...other
 }: BaseNumberField.Root.Props & {
   label?: React.ReactNode;
-  name: string;
+  name: FieldPath<T>;
+  control: Control<T>;
   size?: 'icon-xs' | 'icon-sm';
 }) {
-  const [field, meta, helpers] = useField(name);
+  const { field, fieldState } = useController({ name, control });
   const generatedId = useId();
   const id = idProp ?? generatedId;
-  const hasError = meta.touched && Boolean(meta.error);
+  const hasError = fieldState.isTouched && Boolean(fieldState.error);
 
   return (
     <BaseNumberField.Root
       {...other}
       value={field.value}
-      onValueChange={(val) => helpers.setValue(val)}
+      onValueChange={(val) => field.onChange(val)}
+      onBlur={field.onBlur}
       render={(props) => (
         <Field ref={props.ref} data-invalid={hasError} {...props}>
           {props.children}
@@ -54,7 +62,7 @@ export function NumberField({
                 required={state.required}
                 onBlur={(e) => {
                   props.onBlur?.(e);
-                  helpers.setTouched(true);
+                  field.onBlur();
                 }}
                 onChange={props.onChange}
                 onKeyUp={props.onKeyUp}
@@ -95,7 +103,7 @@ export function NumberField({
           );
         }}
       />
-      {hasError && <FieldError>{meta.error}</FieldError>}
+      {hasError && <FieldError>{fieldState.error?.message}</FieldError>}
     </BaseNumberField.Root>
   );
 }
