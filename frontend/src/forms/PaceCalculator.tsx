@@ -148,6 +148,7 @@ export const PaceCalculatorForm = () => {
           <Button
             type="submit"
             form="pace-calculator-form"
+            variant="accent"
             size="xl"
             disabled={isCalculating || !form.formState.isValid}
             radius="xs"

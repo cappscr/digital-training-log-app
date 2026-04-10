@@ -19,7 +19,7 @@ export const Hero = () => {
       <div className="flex flex-wrap items-center gap-6">
         <Button
           size="xl"
-          radius="none"
+          variant="accent"
           uppercase
           disabled
           nativeButton={false}

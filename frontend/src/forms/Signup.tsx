@@ -166,7 +166,7 @@ export const SignupForm = () => {
         type="submit"
         form="signup-form"
         size="xl"
-        radius="none"
+        variant="accent"
         uppercase
         disabled={form.formState.isSubmitting || !form.formState.isValid}
         className="mt-8 w-full"

@@ -46,6 +46,7 @@ export const PrimaryNav = () => {
             uppercase
             disabled
             radius="xs"
+            variant="accent"
             nativeButton={false}
             render={<Link to="/signup" />}
           >
@@ -83,6 +84,7 @@ export const PrimaryNav = () => {
             <Button
               uppercase
               disabled
+              variant="accent"
               radius="xs"
               nativeButton={false}
               render={<Link to="/signup" />}

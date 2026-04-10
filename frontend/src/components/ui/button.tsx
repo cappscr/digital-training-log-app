@@ -8,11 +8,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-accent',
+        default: 'bg-primary text-primary-foreground hover:bg-primary/80',
         outline:
           'border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50',
         accent:
-          'bg-accent text-card hover:opacity-88 hover:-translate-y-px aria-expanded:bg-secondary aria-expanded:text-secondary-foreground',
+          'bg-foreground text-background hover:bg-foreground/80 hover:-translate-y-px aria-expanded:bg-secondary aria-expanded:text-secondary-foreground',
         ghost:
           'hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50',
         destructive:
@@ -36,7 +36,7 @@ const buttonVariants = cva(
       radius: {
         none: 'rounded-none',
         xs: 'rounded-xs',
-        default: 'rounded-lg',
+        sm: 'rounded-sm',
       },
       uppercase: {
         true: 'uppercase',
@@ -46,7 +46,7 @@ const buttonVariants = cva(
       variant: 'default',
       size: 'default',
       uppercase: false,
-      radius: 'default',
+      radius: 'none',
     },
   },
 );
@@ -56,7 +56,7 @@ function Button({
   variant = 'default',
   size = 'default',
   uppercase = false,
-  radius = 'default',
+  radius = 'none',
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
   return (

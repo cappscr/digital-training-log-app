@@ -12,7 +12,7 @@ export const FooterCta = () => {
       </p>
       <Button
         size="xl"
-        radius="none"
+        variant="accent"
         uppercase
         nativeButton={false}
         render={<Link to="/signup" />}
