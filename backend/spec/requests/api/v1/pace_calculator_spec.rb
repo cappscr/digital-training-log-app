@@ -46,7 +46,7 @@ RSpec.describe "Api::V1::PaceCalculators", type: :request do
         expect(response).to have_http_status(:unprocessable_content)
 
         json_response = JSON.parse(response.body)
-        expect(json_response["errors"]).to include("Seconds must be less than 60")
+        expect(json_response["api_error"]["errors"]).to include("Seconds must be less than 60")
       end
 
       it "returns unprocessable entity for missing units" do
