@@ -10,7 +10,8 @@ export type User = {
 };
 
 export function useUser(id: string) {
-  const { data: user, error, isLoading } = useSWR<User>(`/users/${id}`);
+  const { data, error, isLoading } = useSWR<{ user: User }>(`/users/${id}`);
+  const { user } = data ?? {};
 
   return {
     user,
