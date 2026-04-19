@@ -4,9 +4,14 @@ class Api::V1::PaceCalculatorController < ApplicationController
 
     return render json: { errors: pace.errors.full_messages }, status: :unprocessable_content unless pace.valid?
 
-    new_pace = pace.percentage(pace_calculator_params[:percentage].to_i)
+    calculation = PaceCalculation.new(
+      percentage: pace_calculator_params[:percentage],
+      original_pace: pace.to_s(include_units: true),
+      calculated_pace: pace.percentage(pace_calculator_params[:percentage].to_i).to_s,
+      units: pace_calculator_params[:units]
+    )
 
-    render json: { percentage: pace_calculator_params[:percentage], original_pace: pace.to_s(include_units: true), calculated_pace: new_pace.to_s, units: pace_calculator_params[:units] }, status: :ok
+    render json: calculation, status: :ok
   end
 
   private
