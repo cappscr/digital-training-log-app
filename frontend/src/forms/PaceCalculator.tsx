@@ -64,7 +64,8 @@ export const PaceCalculatorForm = () => {
       if (axios.isAxiosError(apiError) && apiError.response?.data) {
         form.setError('root', {
           message:
-            apiError.response?.data.errors[0] || UNEXPECTED_ERROR_MESSAGE,
+            apiError.response?.data.api_error.errors[0] ||
+            UNEXPECTED_ERROR_MESSAGE,
         });
       } else {
         form.setError('root', { message: UNEXPECTED_ERROR_MESSAGE });
