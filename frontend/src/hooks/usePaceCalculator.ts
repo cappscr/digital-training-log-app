@@ -20,10 +20,12 @@ async function sendPaceRequest(
   url: string,
   { arg }: { arg: PaceCalculatorFormValues },
 ): Promise<PaceCalculationResult> {
-  const response = await axios.post<PaceCalculationResult>(`/api/v1${url}`, {
+  const response = await axios.post<{
+    pace_calculation: PaceCalculationResult;
+  }>(`/api/v1${url}`, {
     pace_calculation: arg,
   });
-  return response.data;
+  return response.data?.pace_calculation;
 }
 
 export function usePaceResult() {

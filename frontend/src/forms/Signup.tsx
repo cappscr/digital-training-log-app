@@ -55,7 +55,7 @@ export const SignupForm = () => {
         },
       });
       successToast('Welcome to the Digital Training Log!');
-      navigate(`/users/${response.data.id}`);
+      navigate(`/users/${response.data?.user.id}`);
     } catch (apiError) {
       if (axios.isAxiosError(apiError) && apiError.response?.status === 422) {
         form.setError('root', {
