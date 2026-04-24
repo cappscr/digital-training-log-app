@@ -1,8 +1,8 @@
 class ApplicationError < StandardError
   attr_reader :detail, :instance, :status, :errors
 
-  def self.problem_type(leaf)
-    @type_uri = "https://api.digitaltraininglog.com/errors/#{leaf}"
+  def self.problem_type(problem)
+    @type_uri = "https://api.digitaltraininglog.com/errors/#{problem}"
   end
 
   def self.problem_title(title)

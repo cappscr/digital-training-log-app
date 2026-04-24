@@ -12,5 +12,7 @@ Rails.application.routes.draw do
       resources :users, only: [ :create ], path: "signup"
       resources :pace_calculator, only: [ :create ], path: "pace-calculator"
     end
+    
+    match "*path", to: "application#not_found", via: :all
   end
 end
