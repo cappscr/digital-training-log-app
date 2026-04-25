@@ -4,7 +4,7 @@ module Api
       def create
         pace = Pace.new(pace_calculator_params.except(:percentage))
 
-        return render_error(pace) unless pace.valid?
+        raise ActiveRecord::RecordInvalid.new(pace) unless pace.valid?
 
         calculation = PaceCalculation.new(
           percentage: pace_calculator_params[:percentage],
