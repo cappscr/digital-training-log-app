@@ -15,7 +15,7 @@ RSpec.describe "catch-all route", type: :request do
       )
     end
   end
-  
+
   describe "GET /api/nonexistent-path" do
     before { get "/api/nonexistent-path" }
 

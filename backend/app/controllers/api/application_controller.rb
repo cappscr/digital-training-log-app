@@ -23,7 +23,7 @@ module Api
              status: error.class.status_code,
              content_type: "application/problem+json"
       end
-    
+
       def render_not_found(error)
         not_found_error = NotFoundError.new(
           detail: error.message,
