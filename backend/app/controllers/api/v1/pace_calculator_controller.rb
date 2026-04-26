@@ -1,22 +1,26 @@
-class Api::V1::PaceCalculatorController < ApplicationController
-  def create
-    pace = Pace.new(pace_calculator_params.except(:percentage))
+module Api
+  module V1
+    class PaceCalculatorController < Api::ApplicationController
+      def create
+        pace = Pace.new(pace_calculator_params.except(:percentage))
 
-    return render_error(pace) unless pace.valid?
+        raise ActiveRecord::RecordInvalid.new(pace) unless pace.valid?
 
-    calculation = PaceCalculation.new(
-      percentage: pace_calculator_params[:percentage],
-      original_pace: pace.to_s(include_units: true),
-      calculated_pace: pace.percentage(pace_calculator_params[:percentage].to_i).to_s,
-      units: pace_calculator_params[:units]
-    )
+        calculation = PaceCalculation.new(
+          percentage: pace_calculator_params[:percentage],
+          original_pace: pace.to_s(include_units: true),
+          calculated_pace: pace.percentage(pace_calculator_params[:percentage].to_i).to_s,
+          units: pace_calculator_params[:units]
+        )
 
-    render json: calculation, status: :ok
-  end
+        render json: calculation, status: :ok
+      end
 
-  private
+      private
 
-  def pace_calculator_params
-    params.require(:pace_calculation).permit(:minutes, :seconds, :units, :percentage)
+      def pace_calculator_params
+        params.require(:pace_calculation).permit(:minutes, :seconds, :units, :percentage)
+      end
+    end
   end
 end

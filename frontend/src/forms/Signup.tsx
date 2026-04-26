@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { apiClient } from '@/fetcher';
 import { successToast } from '@/lib/toasts';
+import { toSentenceCase } from '@/lib/utils';
 
 const UNEXPECTED_ERROR_MESSAGE =
   'An unexpected error occurred. Please try again later.';
@@ -58,10 +59,13 @@ export const SignupForm = () => {
       navigate(`/users/${response.data?.user.id}`);
     } catch (apiError) {
       if (axios.isAxiosError(apiError) && apiError.response?.status === 422) {
+        const message = apiError.response?.data.errors[0]
+          ? toSentenceCase(
+              `${apiError.response?.data.errors[0].pointer.replace('#/user/', '')} ${apiError.response?.data.errors[0].detail}`,
+            )
+          : UNEXPECTED_ERROR_MESSAGE;
         form.setError('root', {
-          message:
-            apiError.response?.data.api_error.errors[0] ||
-            UNEXPECTED_ERROR_MESSAGE,
+          message,
         });
       } else {
         form.setError('root', { message: UNEXPECTED_ERROR_MESSAGE });
