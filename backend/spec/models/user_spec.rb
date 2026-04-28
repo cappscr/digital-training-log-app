@@ -1,18 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) do
-    User.new(
-      name: "Example User", email: "user@example.com",
-      password: "password", password_digest: "password"
-    )
-  end
+  let(:user) { build(:user) }
 
   it "is valid with valid attributes" do
     expect(user).to be_valid
   end
 
   describe "validations" do
+
     it "requires a name" do
       user.name = "   "
       expect(user).not_to be_valid
