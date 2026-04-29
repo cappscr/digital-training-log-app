@@ -2,7 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe Pace, type: :model do
-  # We use a hash here to match the new initialize method
   let(:test_pace) { build(:pace) }
 
   describe "initialization" do
