@@ -1,0 +1,99 @@
+name: CI/CD
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  backend_ci:
+    name: Backend CI
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    container:
+      image: ruby:4.0.1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies & prepare DB
+        working-directory: backend
+        env:
+          RAILS_ENV: test
+        run: |
+          apt-get update -qq && apt-get install -y libsqlite3-dev
+          bundle install
+          bin/rails db:test:prepare
+      - name: Run CI script
+        working-directory: backend
+        env:
+          RAILS_ENV: test
+        run: bin/ci
+
+  frontend_ci:
+    name: Frontend CI
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    container:
+      image: node:22-alpine
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        run: apk add --no-cache libc6-compat bash
+      - name: Enable Yarn
+        run: |
+          npm install -g corepack --force
+          corepack enable
+          corepack prepare yarn@4.12.0 --activate
+      - name: Install dependencies
+        working-directory: frontend
+        run: yarn install --immutable
+      - name: Lint
+        working-directory: frontend
+        run: yarn lint
+      - name: Type check
+        working-directory: frontend
+        run: yarn types
+      - name: Unit tests
+        working-directory: frontend
+        run: yarn test --run
+
+  backend_deploy:
+    name: Deploy Backend to Railway
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    container:
+      image: ghcr.io/railwayapp/cli:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Railway
+        run: railway up --service digital-training-log-api --ci
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+
+  frontend_deploy:
+    name: Deploy Frontend to Netlify
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    container:
+      image: node:22-alpine
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        run: apk add --no-cache libc6-compat bash
+      - name: Enable Yarn
+        run: |
+          npm install -g corepack --force
+          corepack enable
+          corepack prepare yarn@4.12.0 --activate
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+      - name: Install dependencies
+        working-directory: frontend
+        run: yarn install --immutable
+      - name: Deploy to Netlify
+        working-directory: frontend
+        run: netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+          --dir=dist
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
