@@ -20,7 +20,7 @@ jobs:
         run: |
           npm install -g corepack --force
           corepack enable
-          corepack prepare yarn@4.13.0 --activate
+          corepack prepare yarn@4.14.1 --activate
       - name: Install dependencies
         working-directory: frontend
         run: yarn install --immutable
