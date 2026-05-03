@@ -1,0 +1,29 @@
+name: Backend CI
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "backend/**"
+
+jobs:
+  backend_ci:
+    name: Backend CI
+    runs-on: ubuntu-latest
+    container:
+      image: ruby:4.0.1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies & prepare DB
+        working-directory: backend
+        env:
+          RAILS_ENV: test
+        run: |
+          apt-get update -qq && apt-get install -y libsqlite3-dev
+          bundle install
+          bin/rails db:test:prepare
+      - name: Run CI script
+        working-directory: backend
+        env:
+          RAILS_ENV: test
+        run: bin/ci

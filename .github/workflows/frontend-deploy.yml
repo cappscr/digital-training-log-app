@@ -1,0 +1,36 @@
+name: Frontend Deploy
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend-deploy.yml"
+      - "netlify.toml"
+
+jobs:
+  frontend_deploy:
+    name: Deploy Frontend to Netlify
+    runs-on: ubuntu-latest
+    container:
+      image: node:22-alpine
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        run: apk add --no-cache libc6-compat bash
+      - name: Enable Yarn
+        run: |
+          npm install -g corepack --force
+          corepack enable
+          corepack prepare yarn@4.12.0 --activate
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+      - name: Install dependencies
+        working-directory: frontend
+        run: yarn install --immutable
+      - name: Deploy to Netlify
+        run: netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+          --dir=frontend/dist
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
