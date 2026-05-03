@@ -91,9 +91,8 @@ jobs:
         working-directory: frontend
         run: yarn install --immutable
       - name: Deploy to Netlify
-        working-directory: frontend
         run: netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
-          --dir=dist
+          --dir=frontend/dist
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
