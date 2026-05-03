@@ -1,0 +1,35 @@
+name: CI/CD
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "frontend/**"
+
+jobs:
+  frontend_ci:
+    name: Frontend CI
+    runs-on: ubuntu-latest
+    container:
+      image: node:22-alpine
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        run: apk add --no-cache libc6-compat bash
+      - name: Enable Yarn
+        run: |
+          npm install -g corepack --force
+          corepack enable
+          corepack prepare yarn@4.13.0 --activate
+      - name: Install dependencies
+        working-directory: frontend
+        run: yarn install --immutable
+      - name: Lint
+        working-directory: frontend
+        run: yarn lint
+      - name: Type check
+        working-directory: frontend
+        run: yarn types
+      - name: Unit tests
+        working-directory: frontend
+        run: yarn test --run
