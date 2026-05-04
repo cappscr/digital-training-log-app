@@ -6,7 +6,7 @@ module Authentication extend ActiveSupport::Concern
         value: token,
         http_only: true,
         secure: Rails.env.production?,
-        same_site: :strict,
+        same_site: :strict
       }
     else
       false
