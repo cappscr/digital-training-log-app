@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [ :show ]
       resources :users, only: [ :create ], path: "signup"
+      post "/login", to: "sessions#create"
+      delete "/logout", to: "sessions#destroy"
       resources :pace_calculator, only: [ :create ], path: "pace-calculator"
     end
 

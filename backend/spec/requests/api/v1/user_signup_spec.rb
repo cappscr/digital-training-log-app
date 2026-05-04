@@ -39,6 +39,12 @@ RSpec.describe "User signup", type: :request do
                                                  password: "password",
                                                  password_confirmation: "password" } }
         }.to change(User, :count).by(1)
+
+        expect(response).to have_http_status(:created)
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body["user"]["name"]).to eq("Example User")
+        expect(parsed_body["user"]["email"]).to eq("example@user.com")
+        expect(response.cookies["auth_token"]).not_to be_nil
       end
     end
   end
