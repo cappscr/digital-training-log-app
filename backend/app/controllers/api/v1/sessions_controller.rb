@@ -12,7 +12,7 @@ module Api
           return render json: user, status: :ok
         end
 
-        raise AuthenticationError.new("Invalid credentials")
+        raise AuthenticationError.new(detail: "Invalid credentials")
       end
 
       def destroy
