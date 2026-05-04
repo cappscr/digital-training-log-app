@@ -1,14 +1,15 @@
 module Api
   class ApplicationController < ::ApplicationController
-    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
-    rescue_from ActiveRecord::RecordInvalid, with: :render_record_invalid
-    rescue_from ApplicationError, with: :render_problem_detail
-    rescue_from ActionController::ParameterMissing, with: :render_bad_request
     include ActionController::RequestForgeryProtection
     include ActionController::Cookies
     include Authentication
 
     protect_from_forgery with: :null_session
+
+    rescue_from ActiveRecord::RecordNotFound,       with: :render_not_found
+    rescue_from ActiveRecord::RecordInvalid,        with: :render_record_invalid
+    rescue_from ApplicationError,                   with: :render_problem_detail
+    rescue_from ActionController::ParameterMissing, with: :render_bad_request
 
     def not_found
       raise NotFoundError.new(
