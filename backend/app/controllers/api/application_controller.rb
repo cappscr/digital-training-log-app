@@ -5,6 +5,7 @@ module Api
     rescue_from ApplicationError, with: :render_problem_detail
     rescue_from ActionController::ParameterMissing, with: :render_bad_request
     include ActionController::RequestForgeryProtection
+    include ActionController::Cookies
     include Authentication
 
     protect_from_forgery with: :null_session

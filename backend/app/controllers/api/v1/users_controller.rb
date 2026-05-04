@@ -1,6 +1,6 @@
 module Api
   module V1
-    class UsersController < ApplicationController
+    class UsersController < Api::ApplicationController
       skip_before_action :verify_authenticity_token, only: [:create]
 
       def show

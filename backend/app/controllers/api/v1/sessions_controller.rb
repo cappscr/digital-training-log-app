@@ -1,6 +1,6 @@
 module Api
   module V1
-    class SessionsController < ApplicationController
+    class SessionsController < Api::ApplicationController
       skip_before_action :verify_authenticity_token, only: [:create, :destroy]
 
       def create

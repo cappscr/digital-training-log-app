@@ -1,4 +1,4 @@
-module Authentication extends ActiveSupport::Concern
+module Authentication extend ActiveSupport::Concern
   def log_in(user)
     token = SecureRandom.hex(32)
     if user.update_column(:token_digest, Digest::SHA256.hexdigest(token))
