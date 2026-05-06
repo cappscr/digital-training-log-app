@@ -6,6 +6,7 @@ import { UserProfilePage } from './pages/UserProfile';
 import { PaceCalculatorPage } from './pages/PaceCalculator';
 import { AboutPage } from './pages/About';
 import { TermsPage } from './pages/TermsOfUse';
+import { NotFoundPage } from './pages/NotFound';
 import { Layout } from './layouts/Layout';
 import { RootLayout } from './layouts/RootLayout';
 
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
             path: '/users/:id',
           },
         ],
+      },
+      {
+        Component: NotFoundPage,
+        path: '*',
       },
     ],
   },

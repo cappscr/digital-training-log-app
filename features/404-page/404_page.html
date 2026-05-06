@@ -1,0 +1,215 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap');
+
+  .page-404 {
+    min-height: 600px;
+    background: oklch(0.9618 0.0086 84.57);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .journal-mark {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 2.5rem;
+  }
+
+  .rule-top {
+    width: 100%;
+    max-width: 540px;
+    height: 1px;
+    background: oklch(0.2098 0.0083 84.59 / 0.15);
+    margin-bottom: 2rem;
+  }
+
+  .issue-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: oklch(0.6045 0.1414 46.33);
+    margin-bottom: 1rem;
+  }
+
+  .headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 12vw, 6rem);
+    font-weight: 400;
+    line-height: 1;
+    color: oklch(0.2098 0.0083 84.59);
+    margin: 0 0 0.25rem;
+    letter-spacing: -0.03em;
+  }
+
+  .subhead {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.125rem, 3vw, 1.5rem);
+    font-weight: 400;
+    font-style: italic;
+    color: oklch(0.5152 0.0119 81.78);
+    margin: 0 0 2rem;
+    line-height: 1.375;
+  }
+
+  .rule-mid {
+    width: 100%;
+    max-width: 540px;
+    height: 1px;
+    background: oklch(0.2098 0.0083 84.59 / 0.15);
+    margin-bottom: 2rem;
+  }
+
+  .body-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.625;
+    color: oklch(0.5152 0.0119 81.78);
+    max-width: 380px;
+    text-align: center;
+    margin: 0 0 2.5rem;
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    padding: 0.625rem 1.5rem;
+    background: oklch(0.2098 0.0083 84.59);
+    color: oklch(0.9618 0.0086 84.57);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.15s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+
+  .btn-ghost {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    padding: 0.625rem 1.5rem;
+    background: transparent;
+    color: oklch(0.5152 0.0119 81.78);
+    border: 1px solid oklch(0.2098 0.0083 84.59 / 0.2);
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .btn-ghost:hover {
+    border-color: oklch(0.2098 0.0083 84.59 / 0.4);
+    color: oklch(0.2098 0.0083 84.59);
+  }
+
+  .folio {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: oklch(0.2098 0.0083 84.59 / 0.3);
+    letter-spacing: 0.04em;
+  }
+
+  .ruled-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    opacity: 0.035;
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 540px;
+  }
+</style>
+
+<div class="page-404">
+
+  <svg class="ruled-lines" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="rules" x="0" y="0" width="100%" height="28" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="27.5" x2="100%" y2="27.5" stroke="oklch(0.2098 0.0083 84.59)" stroke-width="0.75"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#rules)"/>
+  </svg>
+
+  <div class="content">
+
+    <svg class="journal-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="8" width="28" height="48" rx="2" fill="none" stroke="oklch(0.6045 0.1414 46.33)" stroke-width="1.5"/>
+      <rect x="34" y="8" width="28" height="48" rx="2" fill="none" stroke="oklch(0.6045 0.1414 46.33)" stroke-width="1.5"/>
+      <line x1="30" y1="8" x2="34" y2="8" stroke="oklch(0.6045 0.1414 46.33)" stroke-width="1.5"/>
+      <line x1="30" y1="56" x2="34" y2="56" stroke="oklch(0.6045 0.1414 46.33)" stroke-width="1.5"/>
+      <rect x="8" y="16" width="4" height="4" rx="0.5" fill="oklch(0.6045 0.1414 46.33)" opacity="0.9"/>
+      <rect x="15" y="16" width="4" height="4" rx="0.5" fill="oklch(0.6045 0.1414 46.33)" opacity="0.7"/>
+      <rect x="22" y="16" width="4" height="4" rx="0.5" fill="oklch(0.6045 0.1414 46.33)" opacity="0.5"/>
+      <rect x="8" y="23" width="4" height="4" rx="0.5" fill="oklch(0.6045 0.1414 46.33)" opacity="0.6"/>
+      <rect x="15" y="23" width="4" height="4" rx="0.5" fill="oklch(0.6045 0.1414 46.33)" opacity="0.9"/>
+      <rect x="22" y="23" width="4" height="4" rx="0.5" fill="oklch(0.6045 0.1414 46.33)" opacity="0.4"/>
+      <rect x="8" y="30" width="4" height="4" rx="0.5" fill="oklch(0.6045 0.1414 46.33)" opacity="0.4"/>
+      <rect x="15" y="30" width="4" height="4" rx="0.5" fill="oklch(0.6045 0.1414 46.33)" opacity="0.7"/>
+      <rect x="22" y="30" width="4" height="4" rx="0.5" fill="oklch(0.6045 0.1414 46.33)" opacity="0.3"/>
+      <line x1="40" y1="20" x2="56" y2="20" stroke="oklch(0.6045 0.1414 46.33)" stroke-width="1.5" stroke-linecap="round" opacity="0.9"/>
+      <line x1="40" y1="27" x2="56" y2="27" stroke="oklch(0.6045 0.1414 46.33)" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+      <line x1="40" y1="34" x2="52" y2="34" stroke="oklch(0.6045 0.1414 46.33)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <line x1="40" y1="41" x2="50" y2="41" stroke="oklch(0.6045 0.1414 46.33)" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+    </svg>
+
+    <div class="rule-top"></div>
+
+    <p class="issue-label">Error 404</p>
+    <h1 class="headline">Lost pace.</h1>
+    <p class="subhead">This page doesn't appear in the log.</p>
+
+    <div class="rule-mid"></div>
+
+    <p class="body-text">The session you're looking for may have moved, been deleted, or never existed. Even the best athletes take a wrong turn.</p>
+
+    <div class="actions">
+      <a class="btn-primary" href="/">Go to dashboard</a>
+      <a class="btn-ghost" href="javascript:history.back()">Go back</a>
+    </div>
+
+  </div>
+
+  <div class="folio">
+    <span>Digital Training Log</span>
+    <span>Plan. Train. Log.</span>
+  </div>
+
+</div>
