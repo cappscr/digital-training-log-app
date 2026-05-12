@@ -16,7 +16,7 @@ module Api
       end
 
       def user_params
-        params.expect(user: [ :name, :email, :password, :password_confirmation ])
+        params.expect(user: [ :id, :name, :email, :password, :password_confirmation ])
       end
     end
   end
