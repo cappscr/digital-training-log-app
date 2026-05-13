@@ -32,7 +32,7 @@ RSpec.describe "User signup", type: :request do
 
       it "should not create user with duplicate id" do
         existing_user = create(:user)
-  
+
         post api_v1_users_path, params: {
           user: {
             id: existing_user.id,

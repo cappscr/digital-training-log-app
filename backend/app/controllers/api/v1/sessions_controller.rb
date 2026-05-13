@@ -9,7 +9,7 @@ module Api
         if user&.authenticate(params[:password])
           access_token = log_in(user)
 
-          return render json: {user: UserSerializer.new(user), access_token: access_token }, status: :ok
+          return render json: { user: UserSerializer.new(user), access_token: access_token }, status: :ok
         end
 
         raise AuthenticationError.new(detail: "Invalid credentials")

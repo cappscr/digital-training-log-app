@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  self.primary_key = 'id'
+  self.primary_key = "id"
 
   before_create :set_id
   before_save { self.email = email.downcase }
