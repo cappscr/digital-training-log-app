@@ -60,7 +60,8 @@ RSpec.describe "User signup", type: :request do
         parsed_body = JSON.parse(response.body)
         expect(parsed_body["user"]["name"]).to eq("Example User")
         expect(parsed_body["user"]["email"]).to eq("example@user.com")
-        expect(response.cookies["auth_token"]).not_to be_nil
+        expect(parsed_body["access_token"]).not_to be_nil
+        expect(response.cookies["refresh_token"]).not_to be_nil
       end
     end
   end
