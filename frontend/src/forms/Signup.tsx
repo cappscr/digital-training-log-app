@@ -46,9 +46,11 @@ export const SignupForm = () => {
   });
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
+    const id = crypto.randomUUID();
     try {
       const response = await apiClient.post('/signup', {
         user: {
+          id,
           name: data.name,
           email: data.email,
           password: data.password,

@@ -29,6 +29,22 @@ RSpec.describe "User signup", type: :request do
         parsed_body = JSON.parse(response.body)
         expect(parsed_body["errors"].length).to eq(4)
       end
+
+      it "should not create user with duplicate id" do
+        existing_user = create(:user)
+
+        post api_v1_users_path, params: {
+          user: {
+            id: existing_user.id,
+            name: "New User",
+            email: "new@example.com",
+            password: "password",
+            password_confirmation: "password"
+          }
+        }, as: :json
+
+        assert_response :unprocessable_entity
+      end
     end
 
     context "with valid information" do
@@ -44,7 +60,8 @@ RSpec.describe "User signup", type: :request do
         parsed_body = JSON.parse(response.body)
         expect(parsed_body["user"]["name"]).to eq("Example User")
         expect(parsed_body["user"]["email"]).to eq("example@user.com")
-        expect(response.cookies["auth_token"]).not_to be_nil
+        expect(parsed_body["access_token"]).not_to be_nil
+        expect(response.cookies["refresh_token"]).not_to be_nil
       end
     end
   end

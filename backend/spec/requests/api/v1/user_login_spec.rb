@@ -14,12 +14,13 @@ RSpec.describe "User login", type: :request do
     end
 
     context "with valid credentials" do
-      it "returns an auth token cookie" do
+      it "returns an access token and refresh token cookie" do
         user = create(:user)
         post api_v1_login_path, params: { email: user.email, password: user.password }
 
         expect(response).to have_http_status(:ok)
-        expect(response.cookies['auth_token']).not_to be_nil
+        expect(response.body).to include("access_token")
+        expect(response.cookies['refresh_token']).not_to be_nil
       end
     end
   end
@@ -31,11 +32,12 @@ RSpec.describe "User login", type: :request do
       post api_v1_login_path, params: { email: user.email, password: user.password }
     end
 
-    it "clears the auth token cookie" do
-      delete api_v1_logout_path
+    it "clears the refresh token cookie" do
+      access_token = response.parsed_body["access_token"]
+      delete api_v1_logout_path, headers: { "Authorization" => "Bearer #{access_token}" }
 
       expect(response).to have_http_status(:no_content)
-      expect(response.cookies['auth_token']).to be_nil
+      expect(response.cookies['refresh_token']).to be_nil
       expect(user.reload.token_digest).to be_nil
     end
   end
