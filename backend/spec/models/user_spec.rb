@@ -82,4 +82,27 @@ RSpec.describe User, type: :model do
       expect(user.reload.email).to eq mixed_case_email.downcase
     end
   end
+
+  describe "soft delete" do
+    let(:user) { create(:user) }
+
+    it "soft deletes the user" do
+      expect { user.soft_delete }.to change { user.deleted? }.from(false).to(true)
+    end
+  end
+
+  describe "scopes" do
+    let!(:active_user) { create(:user) }
+    let!(:deleted_user) { create(:user, email: "deleted@example.com", deleted_at: 1.day.ago) }
+
+    it "active returns only active users" do
+      expect(User.active).to include(active_user)
+      expect(User.active).not_to include(deleted_user)
+    end
+
+    it "deleted returns only deleted users" do
+      expect(User.deleted).to include(deleted_user)
+      expect(User.deleted).not_to include(active_user)
+    end
+  end
 end
