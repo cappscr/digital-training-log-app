@@ -1,10 +1,7 @@
 module Api
   class ApplicationController < ::ApplicationController
-    include ActionController::RequestForgeryProtection
     include ActionController::Cookies
     include Authentication
-
-    protect_from_forgery with: :null_session
 
     rescue_from ActiveRecord::RecordNotFound,       with: :render_not_found
     rescue_from ActiveRecord::RecordInvalid,        with: :render_record_invalid

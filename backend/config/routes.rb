@@ -8,13 +8,14 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   namespace :api do
     namespace :v1 do
+      get "/users/me", to: "users#me"
       resources :users, only: [ :show ]
       resources :users, only: [ :create ], path: "signup"
       post "/login", to: "sessions#create"
       delete "/logout", to: "sessions#destroy"
       resources :pace_calculator, only: [ :create ], path: "pace-calculator"
     end
-
-    match "*path", to: "application#not_found", via: :all
   end
+
+  match "*path", to: "api/application#not_found", via: :all
 end
