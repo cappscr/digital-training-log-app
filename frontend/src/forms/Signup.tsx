@@ -12,7 +12,7 @@ import {
 import { AlertError } from '@/components/AlertError';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { apiClient } from '@/fetcher';
+import { apiClient } from '@/lib/fetcher';
 import { successToast } from '@/lib/toasts';
 import { toSentenceCase } from '@/lib/utils';
 

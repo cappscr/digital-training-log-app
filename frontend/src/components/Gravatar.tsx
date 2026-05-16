@@ -1,11 +1,9 @@
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { useUser } from '@/hooks/useUser';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 
 export function Gravatar({
-  userId,
   size = 'default',
 }: {
-  userId: string;
   size?: 'sm' | 'lg' | 'default';
 }) {
   const imageSizes = {
@@ -13,7 +11,7 @@ export function Gravatar({
     default: 30,
     lg: 38,
   };
-  const { user } = useUser(userId);
+  const { user } = useCurrentUser();
   const userInitials =
     user?.name
       .split(' ')

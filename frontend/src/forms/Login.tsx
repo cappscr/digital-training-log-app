@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router';
 import * as z from 'zod';
 import axios from 'axios';
+import { mutate } from 'swr';
 import {
   FieldGroup,
   Field,
@@ -12,8 +13,10 @@ import {
 import { AlertError } from '@/components/AlertError';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { apiClient } from '@/fetcher';
+import { CURRENT_USER_KEY } from '@/hooks/useCurrentUser';
+import { apiClient } from '@/lib/fetcher';
 import { toSentenceCase } from '@/lib/utils';
+import { setAccessToken } from '@/lib/auth';
 
 const INVALID_CREDENTIALS_MESSAGE =
   'Invalid email or password. Please try again.';
@@ -40,6 +43,8 @@ export const LoginForm = () => {
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
       const response = await apiClient.post('/login', data);
+      setAccessToken(response.data.access_token);
+      await mutate(CURRENT_USER_KEY, { user: response.data.user }, false);
       navigate(`/users/${response.data?.user.id}`);
     } catch (apiError) {
       if (axios.isAxiosError(apiError) && apiError.response?.status === 401) {
