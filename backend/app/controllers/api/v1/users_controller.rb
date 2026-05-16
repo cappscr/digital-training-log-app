@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < Api::ApplicationController
-      before_action :require_login, only: [:me, :show]
+      before_action :require_login, only: [ :me, :show ]
 
       def show
         @user = User.find(params[:id])
