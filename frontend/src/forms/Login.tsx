@@ -15,6 +15,8 @@ import { Button } from '@/components/ui/button';
 import { apiClient } from '@/fetcher';
 import { toSentenceCase } from '@/lib/utils';
 
+const INVALID_CREDENTIALS_MESSAGE =
+  'Invalid email or password. Please try again.';
 const UNEXPECTED_ERROR_MESSAGE =
   'An unexpected error occurred. Please try again later.';
 
@@ -42,7 +44,7 @@ export const LoginForm = () => {
     } catch (apiError) {
       if (axios.isAxiosError(apiError) && apiError.response?.status === 401) {
         const message = apiError.response?.data.detail
-          ? toSentenceCase(apiError.response?.data.detail)
+          ? toSentenceCase(INVALID_CREDENTIALS_MESSAGE)
           : UNEXPECTED_ERROR_MESSAGE;
         form.setError('root', {
           message,
