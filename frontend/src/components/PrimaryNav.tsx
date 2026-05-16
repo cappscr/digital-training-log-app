@@ -3,9 +3,10 @@ import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ModeToggle';
 import { Link, NavLink } from 'react-router';
 import { Menu, X } from 'lucide-react';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
+import { useLogout } from '@/hooks/useLogout';
 
 const NAV_LINKS = [
-  { name: 'Login', to: '/login' },
   { name: 'About', to: '/about' },
   { name: 'Pace Calculator', to: '/pace-calculator' },
 ];
@@ -17,6 +18,12 @@ const navLinkClass = ({ isActive }: { isActive: boolean }) =>
 
 export const PrimaryNav = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user } = useCurrentUser();
+  const { logout } = useLogout();
+
+  const navLinks = user
+    ? [...NAV_LINKS, { name: 'Profile', to: `/users/${user.id}` }]
+    : [...NAV_LINKS, { name: 'Log In', to: '/login' }];
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
@@ -37,21 +44,28 @@ export const PrimaryNav = () => {
           <span className="text-primary">.</span>Log
         </Link>
         <div className="hidden items-center gap-6 sm:flex">
-          {NAV_LINKS.map((link) => (
+          {navLinks.map((link) => (
             <NavLink key={link.to} to={link.to} className={navLinkClass}>
               {link.name}
             </NavLink>
           ))}
           <ModeToggle />
-          <Button
-            uppercase
-            disabled
-            radius="xs"
-            nativeButton={false}
-            render={<Link to="/signup" />}
-          >
-            Coming soon
-          </Button>
+          {!user && (
+            <Button
+              uppercase
+              disabled
+              radius="xs"
+              nativeButton={false}
+              render={<Link to="/signup" />}
+            >
+              Coming soon
+            </Button>
+          )}
+          {user && (
+            <Button uppercase radius="xs" onClick={logout}>
+              Logout
+            </Button>
+          )}
         </div>
         <button
           className="text-foreground flex h-8 w-8 cursor-pointer items-center justify-center border-none bg-transparent p-0 sm:hidden"
@@ -70,7 +84,7 @@ export const PrimaryNav = () => {
       >
         <div className="overflow-hidden">
           <div className="flex flex-col gap-6 px-8 py-6">
-            {NAV_LINKS.map((link) => (
+            {navLinks.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
@@ -81,15 +95,29 @@ export const PrimaryNav = () => {
               </NavLink>
             ))}
             <ModeToggle />
-            <Button
-              uppercase
-              disabled
-              radius="xs"
-              nativeButton={false}
-              render={<Link to="/signup" />}
-            >
-              Coming soon
-            </Button>
+            {!user && (
+              <Button
+                uppercase
+                disabled
+                radius="xs"
+                nativeButton={false}
+                render={<Link to="/signup" />}
+              >
+                Coming soon
+              </Button>
+            )}
+            {user && (
+              <Button
+                uppercase
+                radius="xs"
+                onClick={() => {
+                  logout();
+                  setMenuOpen(false);
+                }}
+              >
+                Logout
+              </Button>
+            )}
           </div>
         </div>
       </div>
