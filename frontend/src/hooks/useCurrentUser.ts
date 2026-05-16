@@ -14,11 +14,6 @@ export const CURRENT_USER_KEY = '/users/me';
 export function useCurrentUser() {
   const { data, error, isLoading, mutate } = useSWR<{ user: User }>(
     CURRENT_USER_KEY,
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-      revalidateOnMount: false,
-    },
   );
 
   return {
