@@ -26,6 +26,8 @@ module Authentication
       return nil unless payload
 
       User.active.find_by(id: payload[:user_id])
+    rescue TokenExpiredError, InvalidTokenError
+      nil
     end
   end
 
@@ -37,6 +39,10 @@ module Authentication
     @current_user&.update_column(:token_digest, nil)
     cookies.delete(:refresh_token)
     @current_user = nil
+  end
+
+  def require_login
+    render_problem_detail(UnauthenticatedError.new(detail: "You must be logged in")) unless logged_in?
   end
 
   private

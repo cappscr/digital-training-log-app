@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { SWRConfig } from 'swr';
-import { fetcher } from './fetcher';
+import { fetcher } from '@/lib/fetcher.ts';
 import { RouterProvider } from 'react-router/dom';
 import { router } from './Routes.tsx';
 import './app.css';

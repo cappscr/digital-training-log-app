@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router';
 import * as z from 'zod';
 import axios from 'axios';
+import { mutate } from 'swr';
 import {
   FieldGroup,
   Field,
@@ -12,59 +13,43 @@ import {
 import { AlertError } from '@/components/AlertError';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { CURRENT_USER_KEY } from '@/hooks/useCurrentUser';
 import { apiClient } from '@/lib/fetcher';
-import { successToast } from '@/lib/toasts';
 import { toSentenceCase } from '@/lib/utils';
+import { setAccessToken } from '@/lib/auth';
 
+const INVALID_CREDENTIALS_MESSAGE =
+  'Invalid email or password. Please try again.';
 const UNEXPECTED_ERROR_MESSAGE =
   'An unexpected error occurred. Please try again later.';
 
-const formSchema = z
-  .object({
-    name: z.string().min(1, 'Enter your name'),
-    email: z.email('Enter a valid email'),
-    password: z.string().min(8, 'Password must be at least 8 characters'),
-    confirmPassword: z.string().min(1, 'Confirm your password'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords must match',
-    path: ['confirmPassword'],
-  });
+const formSchema = z.object({
+  email: z.email('Enter a valid email'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+});
 
-export const SignupForm = () => {
+export const LoginForm = () => {
   const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
       email: '',
       password: '',
-      confirmPassword: '',
     },
     mode: 'onTouched',
   });
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    const id = crypto.randomUUID();
     try {
-      const response = await apiClient.post('/signup', {
-        user: {
-          id,
-          name: data.name,
-          email: data.email,
-          password: data.password,
-          password_confirmation: data.confirmPassword,
-        },
-      });
-      successToast('Welcome to the Digital Training Log!');
+      const response = await apiClient.post('/login', data);
+      setAccessToken(response.data.access_token);
+      await mutate(CURRENT_USER_KEY, { user: response.data.user }, false);
       navigate(`/users/${response.data?.user.id}`);
     } catch (apiError) {
-      if (axios.isAxiosError(apiError) && apiError.response?.status === 422) {
-        const message = apiError.response?.data.errors[0]
-          ? toSentenceCase(
-              `${apiError.response?.data.errors[0].pointer.replace('#/user/', '')} ${apiError.response?.data.errors[0].detail}`,
-            )
+      if (axios.isAxiosError(apiError) && apiError.response?.status === 401) {
+        const message = apiError.response?.data.detail
+          ? toSentenceCase(INVALID_CREDENTIALS_MESSAGE)
           : UNEXPECTED_ERROR_MESSAGE;
         form.setError('root', {
           message,
@@ -84,27 +69,8 @@ export const SignupForm = () => {
           />
         </div>
       )}
-      <form id="signup-form" onSubmit={form.handleSubmit(onSubmit)}>
+      <form id="login-form" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldGroup>
-          <Controller
-            name="name"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="signup-form-name">Name</FieldLabel>
-                <Input
-                  {...field}
-                  id="signup-form-name"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="Your name"
-                  autoComplete="name"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
           <Controller
             name="email"
             control={form.control}
@@ -145,40 +111,18 @@ export const SignupForm = () => {
               </Field>
             )}
           />
-          <Controller
-            name="confirmPassword"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.error}>
-                <FieldLabel htmlFor="signup-form-confirm-password">
-                  Confirm Password
-                </FieldLabel>
-                <Input
-                  {...field}
-                  type="password"
-                  id="signup-form-confirm-password"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="Re-enter your password"
-                  autoComplete="new-password"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
         </FieldGroup>
       </form>
       <Button
         type="submit"
-        form="signup-form"
+        form="login-form"
         size="xl"
         radius="none"
         uppercase
         disabled={form.formState.isSubmitting || !form.formState.isValid}
         className="mt-8 w-full"
       >
-        Create account
+        Log in
       </Button>
     </>
   );

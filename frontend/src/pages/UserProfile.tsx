@@ -1,12 +1,10 @@
-import { useParams } from 'react-router';
-import { useUser } from '../hooks/useUser';
+import { useCurrentUser } from '../hooks/useCurrentUser';
 
 import { PageTitle } from '@/components/PageTitle';
 import { UserSidebar } from '@/components/UserSidebar';
 
 export function UserProfilePage() {
-  const { id } = useParams<{ id: string }>();
-  const { user, error, isLoading } = useUser(id!);
+  const { user, error, isLoading } = useCurrentUser();
 
   return isLoading ? (
     <p className="text-xl">Loading...</p>
@@ -16,7 +14,7 @@ export function UserProfilePage() {
     <>
       <PageTitle pageName={user?.name || 'User Profile'} />
       <div className="flex flex-row">
-        <UserSidebar userId={id!} />
+        <UserSidebar />
         <h1 className="font-display mt-10 px-8 text-5xl">
           <em className="text-primary">User Profile</em> Page
         </h1>
