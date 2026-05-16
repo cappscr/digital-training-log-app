@@ -5,6 +5,7 @@ import { Link, NavLink } from 'react-router';
 import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
+  { name: 'Login', to: '/login' },
   { name: 'About', to: '/about' },
   { name: 'Pace Calculator', to: '/pace-calculator' },
 ];

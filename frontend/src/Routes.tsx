@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router';
 import { AppLayout } from './layouts/AppLayout';
 import { HomePage } from './pages/Home';
 import { SignupPage } from './pages/Signup';
+import { LoginPage } from './pages/Login';
 import { UserProfilePage } from './pages/UserProfile';
 import { PaceCalculatorPage } from './pages/PaceCalculator';
 import { AboutPage } from './pages/About';
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
           {
             Component: SignupPage,
             path: '/signup',
+          },
+          {
+            Component: LoginPage,
+            path: '/login',
           },
           {
             Component: PaceCalculatorPage,
