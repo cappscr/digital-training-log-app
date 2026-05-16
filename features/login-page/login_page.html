@@ -1,0 +1,386 @@
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .dtl-page {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: oklch(0.9618 0.0086 84.57);
+    color: oklch(0.2098 0.0083 84.59);
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* NAV */
+  .dtl-nav {
+    background: oklch(0.9618 0.0086 84.57);
+    border-bottom: 1px solid oklch(0.2098 0.0083 84.59 / 0.1);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .dtl-logo {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.025em;
+    color: oklch(0.2098 0.0083 84.59);
+    text-decoration: none;
+  }
+  .dtl-logo-dot { color: oklch(0.6045 0.1414 46.33); }
+  .dtl-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .dtl-nav-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: oklch(0.5152 0.0119 81.78);
+    text-decoration: none;
+  }
+  .dtl-nav-link.active { color: oklch(0.2098 0.0083 84.59); }
+  .dtl-mode-toggle {
+    width: 32px; height: 32px;
+    border: 1px solid oklch(0.2098 0.0083 84.59 / 0.18);
+    background: transparent;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 15px;
+    color: oklch(0.5152 0.0119 81.78);
+  }
+  .dtl-btn-disabled {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border: 1px solid oklch(0.2098 0.0083 84.59 / 0.18);
+    background: oklch(0.9257 0.0188 62.44);
+    color: oklch(0.5152 0.0119 81.78);
+    border-radius: 2px;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  /* MAIN */
+  .dtl-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+  }
+  .dtl-login-card {
+    width: 100%;
+    max-width: 400px;
+  }
+  .dtl-login-header {
+    margin-bottom: 32px;
+  }
+  .dtl-login-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: oklch(0.2098 0.0083 84.59);
+    margin-bottom: 6px;
+  }
+  .dtl-login-sub {
+    font-size: 14px;
+    color: oklch(0.5152 0.0119 81.78);
+  }
+  .dtl-login-sub a {
+    color: oklch(0.6045 0.1414 46.33);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* ERROR BANNER */
+  .dtl-error-banner {
+    background: oklch(0.577 0.245 27.325 / 0.08);
+    border: 1px solid oklch(0.577 0.245 27.325 / 0.3);
+    border-radius: 2px;
+    padding: 12px 14px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: oklch(0.577 0.245 27.325);
+  }
+  .dtl-error-banner i { margin-top: 1px; flex-shrink: 0; }
+  .dtl-error-banner.hidden { display: none; }
+
+  /* FORM */
+  .dtl-form { display: flex; flex-direction: column; gap: 20px; }
+  .dtl-field { display: flex; flex-direction: column; gap: 6px; }
+  .dtl-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: oklch(0.2098 0.0083 84.59);
+    letter-spacing: 0.01em;
+  }
+  .dtl-input-wrap { position: relative; }
+  .dtl-input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    color: oklch(0.2098 0.0083 84.59);
+    background: oklch(0.9618 0.0086 84.57);
+    border: 1px solid oklch(0.2098 0.0083 84.59 / 0.18);
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .dtl-input::placeholder { color: oklch(0.5152 0.0119 81.78 / 0.6); }
+  .dtl-input:focus { border-color: oklch(0.6045 0.1414 46.33); box-shadow: 0 0 0 3px oklch(0.6045 0.1414 46.33 / 0.12); }
+  .dtl-input.error { border-color: oklch(0.577 0.245 27.325); }
+  .dtl-input.error:focus { box-shadow: 0 0 0 3px oklch(0.577 0.245 27.325 / 0.12); }
+
+  /* password toggle */
+  .dtl-pw-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: oklch(0.5152 0.0119 81.78);
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+  }
+  .dtl-input-pw { padding-right: 40px; }
+
+  /* inline error */
+  .dtl-field-error {
+    font-size: 12px;
+    color: oklch(0.577 0.245 27.325);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .dtl-field-error.hidden { display: none; }
+  .dtl-field-error i { font-size: 14px; }
+
+  /* forgot link */
+  .dtl-forgot {
+    text-align: right;
+    margin-top: -12px;
+  }
+  .dtl-forgot a {
+    font-size: 13px;
+    color: oklch(0.5152 0.0119 81.78);
+    text-decoration: none;
+  }
+  .dtl-forgot a:hover { color: oklch(0.6045 0.1414 46.33); }
+
+  /* submit */
+  .dtl-submit {
+    width: 100%;
+    height: 42px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: oklch(0.9618 0.0086 84.57);
+    background: oklch(0.2098 0.0083 84.59);
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-top: 4px;
+  }
+  .dtl-submit:hover { background: oklch(0.6045 0.1414 46.33); }
+
+  /* scenarios */
+  .dtl-scenarios {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid oklch(0.2098 0.0083 84.59 / 0.1);
+  }
+  .dtl-scenario-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: oklch(0.5152 0.0119 81.78);
+    margin-bottom: 10px;
+  }
+  .dtl-scenario-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .dtl-scenario-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+    border: 1px solid oklch(0.2098 0.0083 84.59 / 0.18);
+    background: transparent;
+    border-radius: 2px;
+    cursor: pointer;
+    color: oklch(0.5152 0.0119 81.78);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .dtl-scenario-btn:hover { border-color: oklch(0.6045 0.1414 46.33); color: oklch(0.6045 0.1414 46.33); }
+</style>
+
+<div class="dtl-page">
+
+  <nav class="dtl-nav">
+    <span class="dtl-logo">Digital<span class="dtl-logo-dot">.</span>Training<span class="dtl-logo-dot">.</span>Log</span>
+    <div class="dtl-nav-links">
+      <a href="#" class="dtl-nav-link">About</a>
+      <a href="#" class="dtl-nav-link">Pace Calculator</a>
+      <a href="#" class="dtl-nav-link active">Log in</a>
+      <button class="dtl-mode-toggle" aria-label="Toggle theme">
+        <i class="ti ti-sun" aria-hidden="true"></i>
+      </button>
+      <span class="dtl-btn-disabled">Coming soon</span>
+    </div>
+  </nav>
+
+  <main class="dtl-main">
+    <div class="dtl-login-card">
+
+      <div class="dtl-login-header">
+        <h1 class="dtl-login-title">Welcome back.</h1>
+        <p class="dtl-login-sub">Don't have an account? <a href="#">Sign up</a></p>
+      </div>
+
+      <div id="error-banner" class="dtl-error-banner hidden" role="alert">
+        <i class="ti ti-alert-circle" aria-hidden="true"></i>
+        <span id="error-banner-msg">Invalid email or password. Please try again.</span>
+      </div>
+
+      <form class="dtl-form" id="login-form" novalidate>
+
+        <div class="dtl-field">
+          <label class="dtl-label" for="email">Email address</label>
+          <div class="dtl-input-wrap">
+            <input class="dtl-input" id="email" type="email" placeholder="you@example.com" autocomplete="email" />
+          </div>
+          <span id="email-error" class="dtl-field-error hidden">
+            <i class="ti ti-alert-circle" aria-hidden="true"></i>
+            <span id="email-error-msg">Please enter a valid email address.</span>
+          </span>
+        </div>
+
+        <div class="dtl-field">
+          <label class="dtl-label" for="password">Password</label>
+          <div class="dtl-input-wrap">
+            <input class="dtl-input dtl-input-pw" id="password" type="password" placeholder="Your password" autocomplete="current-password" />
+            <button type="button" class="dtl-pw-toggle" id="pw-toggle" aria-label="Show password">
+              <i class="ti ti-eye" id="pw-icon" aria-hidden="true"></i>
+            </button>
+          </div>
+          <span id="pw-error" class="dtl-field-error hidden">
+            <i class="ti ti-alert-circle" aria-hidden="true"></i>
+            <span id="pw-error-msg">Password must be at least 8 characters.</span>
+          </span>
+        </div>
+
+        <div class="dtl-forgot">
+          <a href="#">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="dtl-submit">Log in</button>
+
+      </form>
+
+      <div class="dtl-scenarios">
+        <p class="dtl-scenario-label">Preview error states</p>
+        <div class="dtl-scenario-btns">
+          <button class="dtl-scenario-btn" onclick="showScenario('invalid-format')">Invalid email format</button>
+          <button class="dtl-scenario-btn" onclick="showScenario('short-password')">Password too short</button>
+          <button class="dtl-scenario-btn" onclick="showScenario('api-error')">Wrong credentials</button>
+          <button class="dtl-scenario-btn" onclick="showScenario('reset')">Reset</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<script>
+  const emailInput = document.getElementById('email');
+  const pwInput = document.getElementById('password');
+  const emailError = document.getElementById('email-error');
+  const emailErrorMsg = document.getElementById('email-error-msg');
+  const pwError = document.getElementById('pw-error');
+  const pwErrorMsg = document.getElementById('pw-error-msg');
+  const banner = document.getElementById('error-banner');
+  const bannerMsg = document.getElementById('error-banner-msg');
+  const pwToggle = document.getElementById('pw-toggle');
+  const pwIcon = document.getElementById('pw-icon');
+
+  function setFieldError(input, errorEl, msgEl, msg) {
+    input.classList.add('error');
+    msgEl.textContent = msg;
+    errorEl.classList.remove('hidden');
+  }
+  function clearFieldError(input, errorEl) {
+    input.classList.remove('error');
+    errorEl.classList.add('hidden');
+  }
+  function showBanner(msg) {
+    bannerMsg.textContent = msg;
+    banner.classList.remove('hidden');
+  }
+  function hideBanner() { banner.classList.add('hidden'); }
+
+  pwToggle.addEventListener('click', () => {
+    const isHidden = pwInput.type === 'password';
+    pwInput.type = isHidden ? 'text' : 'password';
+    pwIcon.className = isHidden ? 'ti ti-eye-off' : 'ti ti-eye';
+    pwToggle.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+  });
+
+  emailInput.addEventListener('input', () => clearFieldError(emailInput, emailError));
+  pwInput.addEventListener('input', () => clearFieldError(pwInput, pwError));
+
+  document.getElementById('login-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    hideBanner();
+    let valid = true;
+    const emailVal = emailInput.value.trim();
+    const pwVal = pwInput.value;
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailVal || !emailRe.test(emailVal)) {
+      setFieldError(emailInput, emailError, emailErrorMsg, 'Please enter a valid email address.');
+      valid = false;
+    }
+    if (!pwVal || pwVal.length < 8) {
+      setFieldError(pwInput, pwError, pwErrorMsg, 'Password must be at least 8 characters.');
+      valid = false;
+    }
+    if (valid) {
+      showBanner('Invalid email or password. Please try again.');
+    }
+  });
+
+  function showScenario(s) {
+    hideBanner();
+    clearFieldError(emailInput, emailError);
+    clearFieldError(pwInput, pwError);
+    if (s === 'invalid-format') {
+      emailInput.value = 'notanemail';
+      setFieldError(emailInput, emailError, emailErrorMsg, 'Please enter a valid email address.');
+    } else if (s === 'short-password') {
+      pwInput.value = 'abc';
+      setFieldError(pwInput, pwError, pwErrorMsg, 'Password must be at least 8 characters.');
+    } else if (s === 'api-error') {
+      emailInput.value = 'runner@example.com';
+      pwInput.value = 'wrongpassword';
+      showBanner('Invalid email or password. Please try again.');
+    } else if (s === 'reset') {
+      emailInput.value = '';
+      pwInput.value = '';
+    }
+  }
+</script>
