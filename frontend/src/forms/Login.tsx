@@ -40,11 +40,9 @@ export const LoginForm = () => {
       const response = await apiClient.post('/login', data);
       navigate(`/users/${response.data?.user.id}`);
     } catch (apiError) {
-      if (axios.isAxiosError(apiError) && apiError.response?.status === 422) {
-        const message = apiError.response?.data.errors[0]
-          ? toSentenceCase(
-              `${apiError.response?.data.errors[0].pointer.replace('#/user/', '')} ${apiError.response?.data.errors[0].detail}`,
-            )
+      if (axios.isAxiosError(apiError) && apiError.response?.status === 401) {
+        const message = apiError.response?.data.detail
+          ? toSentenceCase(apiError.response?.data.detail)
           : UNEXPECTED_ERROR_MESSAGE;
         form.setError('root', {
           message,
