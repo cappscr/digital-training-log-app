@@ -10,17 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_13_085252) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_25_114309) do
+  create_table "user_sessions", id: :string, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "expires_at"
+    t.datetime "last_used_at"
+    t.boolean "remember_me", default: false, null: false
+    t.string "token_digest", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.string "user_id", null: false
+    t.index ["token_digest"], name: "index_user_sessions_on_token_digest", unique: true
+    t.index ["user_id"], name: "index_user_sessions_on_user_id"
+  end
+
   create_table "users", id: :string, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "deleted_at"
     t.string "email"
     t.string "name"
     t.string "password_digest"
-    t.string "token_digest"
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["token_digest"], name: "index_users_on_token_digest", unique: true
   end
+
+  add_foreign_key "user_sessions", "users"
 end
