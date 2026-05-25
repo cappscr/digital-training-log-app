@@ -2,19 +2,22 @@ module Authentication
   extend ActiveSupport::Concern
   include JsonWebToken
 
-  def log_in(user)
-    token = SecureRandom.hex(32)
-    if user.update_column(:token_digest, Digest::SHA256.hexdigest(token))
-      cookies[:refresh_token] = {
-        value: token,
-        http_only: true,
-        secure: Rails.env.production?,
-        same_site: :strict
-      }
-      jwt_encode(user_id: user.id)
-    else
-      false
+  def log_in(user, remember_me: false)
+    session_record = UserSession.generate_for(
+      user,
+      remember_me: remember_me,
+      user_agent: request.user_agent
+    )
+    cookies[:refresh_token] = {
+      value: session_record.refresh_token,
+      http_only: true,
+      secure: Rails.env.production?,
+      same_site: :strict
+    }
+    if remember_me
+      cookies[:refresh_token][:expires] = 30.days.from_now
     end
+    jwt_encode(user_id: user.id)
   end
 
   def current_user
@@ -31,14 +34,23 @@ module Authentication
     end
   end
 
+  def current_session
+    @current_session ||= find_current_session
+  end
+
   def logged_in?
     current_user.present?
   end
 
   def log_out
-    @current_user&.update_column(:token_digest, nil)
+    raw_token = cookies[:refresh_token]
+    if raw_token
+      session_record = UserSession.find_by_token(raw_token)
+      session_record&.destroy
+    end
     cookies.delete(:refresh_token)
     @current_user = nil
+    @current_session = nil
   end
 
   def require_login
@@ -46,6 +58,17 @@ module Authentication
   end
 
   private
+
+  def find_current_session
+    raw_token = cookies[:refresh_token]
+    return nil unless raw_token
+
+    record = UserSession.find_by_token(raw_token)
+    return nil if record.nil? || record.expired?
+
+    record.touch_last_used
+    record
+  end
 
   def extract_access_token_from_header
     request.headers["Authorization"]&.split(" ")&.last
