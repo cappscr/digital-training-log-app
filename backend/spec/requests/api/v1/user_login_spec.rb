@@ -34,11 +34,12 @@ RSpec.describe "User login", type: :request do
 
     it "clears the refresh token cookie" do
       access_token = response.parsed_body["access_token"]
+      refresh_token = response.cookies['refresh_token']
       delete api_v1_logout_path, headers: { "Authorization" => "Bearer #{access_token}" }
 
       expect(response).to have_http_status(:no_content)
       expect(response.cookies['refresh_token']).to be_nil
-      expect(user.reload.token_digest).to be_nil
+      expect(UserSession.find_by_token(refresh_token)).to be_nil
     end
   end
 end
