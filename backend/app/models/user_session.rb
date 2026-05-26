@@ -15,7 +15,7 @@ class UserSession < ApplicationRecord
       last_used_at: Time.current,
       expires_at: remember_me ? 30.days.from_now : 2.weeks.from_now
     )
-    refresh_token = raw_token
+    session.refresh_token = raw_token
     session.save!
     session
   end
