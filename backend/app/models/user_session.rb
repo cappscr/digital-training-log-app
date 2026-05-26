@@ -9,7 +9,7 @@ class UserSession < ApplicationRecord
     raw_token = SecureRandom.urlsafe_base64
     session = new(
       user: user,
-      token_digest: digest(raw_token),
+      token_digest: sha256(raw_token),
       remember_me: remember_me,
       user_agent: user_agent,
       last_used_at: Time.current,
@@ -21,12 +21,13 @@ class UserSession < ApplicationRecord
   end
 
   def self.find_by_token(raw_token)
-    digest = digest(raw_token)
-    find_by(token_digest: digest)
+    find_by(token_digest: sha256(raw_token))
   end
 
   def authenticated?(raw_token)
-    BCrypt::Password.new(token_digest).is_password?(raw_token)
+    return false if token_digest.nil?
+
+    self.class.sha256(raw_token) == token_digest
   end
 
   def expired?
@@ -37,16 +38,13 @@ class UserSession < ApplicationRecord
     update_column(:last_used_at, Time.current)
   end
 
+  def self.sha256(string)
+    Digest::SHA256.hexdigest(string)
+  end
+
   private
 
   def set_id
     self.id ||= SecureRandom.uuid
   end
-
-  def self.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
-  end
-
-  private_class_method :digest
 end

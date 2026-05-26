@@ -3,13 +3,13 @@ module Authentication
   include JsonWebToken
 
   def log_in(user, remember_me: false)
-    session_record = UserSession.generate_for(
+    session = UserSession.generate_for(
       user,
       remember_me: remember_me,
       user_agent: request.user_agent
     )
     cookies[:refresh_token] = {
-      value: session_record.refresh_token,
+      value: session.refresh_token,
       http_only: true,
       secure: Rails.env.production?,
       same_site: :strict
