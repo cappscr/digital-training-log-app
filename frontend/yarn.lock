@@ -2608,7 +2608,7 @@ __metadata:
     react-dom: "npm:^19.2.6"
     react-hook-form: "npm:^7.76.1"
     react-router: "npm:^7.15.1"
-    shadcn: "npm:^4.8.1"
+    shadcn: "npm:^4.8.2"
     sonner: "npm:^2.0.7"
     swr: "npm:^2.4.1"
     tailwind-merge: "npm:^3.6.0"
@@ -5490,9 +5490,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shadcn@npm:^4.8.1":
-  version: 4.8.1
-  resolution: "shadcn@npm:4.8.1"
+"shadcn@npm:^4.8.2":
+  version: 4.8.2
+  resolution: "shadcn@npm:4.8.2"
   dependencies:
     "@babel/core": "npm:^7.28.0"
     "@babel/parser": "npm:^7.28.0"
@@ -5530,7 +5530,7 @@ __metadata:
     zod-to-json-schema: "npm:^3.24.6"
   bin:
     shadcn: dist/index.js
-  checksum: 10c0/14e64f3748ad03fdc058395180ff9bf766e4009414e91ac538e90276b064b074e03a5861affdc51f8cfeaf166fe1d589cd7a50944b9b7fb3cb7fb6c5648d5166
+  checksum: 10c0/0754f644c912674e4fd1229ab888737fd3f3f8df4415b32ac0ebfbc0cb7f50acf6188c0675fdfebee9f2fa4687f1c266090f6e75e16e1c2968fd9126c8981346
   languageName: node
   linkType: hard
 
