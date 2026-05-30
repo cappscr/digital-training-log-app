@@ -18,6 +18,11 @@ module Api
         log_out if logged_in?
         head :no_content
       end
+
+      def refresh
+        access_token = refresh_access_token
+        render json: { access_token: access_token }, status: :ok
+      end
     end
   end
 end
