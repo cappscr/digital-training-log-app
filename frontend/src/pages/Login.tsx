@@ -1,8 +1,16 @@
 import { PageTitle } from '@/components/PageTitle';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { LoginForm } from '@/forms/Login';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
+  const { user, isAuthenticated } = useCurrentUser();
+
+  if (isAuthenticated) {
+    navigate(`/users/${user?.id}`);
+  }
+
   return (
     <>
       <PageTitle pageName="Login" />
