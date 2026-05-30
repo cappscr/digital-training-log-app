@@ -5,7 +5,8 @@ module Api
         user = User.active.find_by(email: params[:email].downcase)
 
         if user&.authenticate(params[:password])
-          access_token = log_in(user)
+          remember_me = params[:remember_me] == true
+          access_token = log_in(user, remember_me: remember_me)
 
           return render json: { user: UserSerializer.new(user), access_token: access_token }, status: :ok
         end

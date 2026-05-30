@@ -8,15 +8,14 @@ module Authentication
       remember_me: remember_me,
       user_agent: request.user_agent
     )
-    cookies[:refresh_token] = {
+    cookie_options = {
       value: session.refresh_token,
       http_only: true,
       secure: Rails.env.production?,
       same_site: :strict
     }
-    if remember_me
-      cookies[:refresh_token][:expires] = 30.days.from_now
-    end
+    cookie_options[:expires] = 30.days.from_now if remember_me
+    cookies[:refresh_token] = cookie_options
     jwt_encode(user_id: user.id)
   end
 

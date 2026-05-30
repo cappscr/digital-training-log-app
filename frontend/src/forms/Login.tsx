@@ -13,6 +13,7 @@ import {
 import { AlertError } from '@/components/AlertError';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { CURRENT_USER_KEY } from '@/hooks/useCurrentUser';
 import { apiClient } from '@/lib/fetcher';
 import { toSentenceCase } from '@/lib/utils';
@@ -26,6 +27,7 @@ const UNEXPECTED_ERROR_MESSAGE =
 const formSchema = z.object({
   email: z.email('Enter a valid email'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
+  rememberMe: z.boolean().optional(),
 });
 
 export const LoginForm = () => {
@@ -36,13 +38,18 @@ export const LoginForm = () => {
     defaultValues: {
       email: '',
       password: '',
+      rememberMe: false,
     },
     mode: 'onTouched',
   });
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
-      const response = await apiClient.post('/login', data);
+      const response = await apiClient.post('/login', {
+        email: data.email,
+        password: data.password,
+        remember_me: data.rememberMe,
+      });
       setAccessToken(response.data.access_token);
       await mutate(CURRENT_USER_KEY, { user: response.data.user }, false);
       navigate(`/users/${response.data?.user.id}`);
@@ -108,6 +115,24 @@ export const LoginForm = () => {
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}
+              </Field>
+            )}
+          />
+          <Controller
+            name="rememberMe"
+            control={form.control}
+            render={({ field }) => (
+              <Field>
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id="remember-me"
+                    checked={field.value}
+                    onCheckedChange={(checked) => field.onChange(checked)}
+                  />
+                  <FieldLabel htmlFor="remember-me" className="cursor-pointer">
+                    Remember me
+                  </FieldLabel>
+                </div>
               </Field>
             )}
           />
