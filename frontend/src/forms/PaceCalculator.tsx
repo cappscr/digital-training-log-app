@@ -15,7 +15,7 @@ import {
 import { NumberField } from '@/components/NumberField';
 import { Button } from '@/components/ui/button';
 import { usePaceCalculator } from '@/hooks/usePaceCalculator';
-import axios from 'axios';
+import { isApiError } from '@/lib/fetcher';
 
 const UNEXPECTED_ERROR_MESSAGE =
   'An unexpected error occurred. Please try again later.';
@@ -61,11 +61,9 @@ export const PaceCalculatorForm = () => {
     try {
       await calculate(data, { populateCache: true });
     } catch (apiError) {
-      if (axios.isAxiosError(apiError) && apiError.response?.data) {
+      if (isApiError(apiError) && apiError.status === 422) {
         form.setError('root', {
-          message:
-            apiError.response?.data.api_error.errors[0] ||
-            UNEXPECTED_ERROR_MESSAGE,
+          message: apiError.data?.detail || UNEXPECTED_ERROR_MESSAGE,
         });
       } else {
         form.setError('root', { message: UNEXPECTED_ERROR_MESSAGE });

@@ -2,7 +2,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router';
 import * as z from 'zod';
-import axios from 'axios';
 import { mutate } from 'swr';
 import {
   FieldGroup,
@@ -14,8 +13,8 @@ import { AlertError } from '@/components/AlertError';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { CURRENT_USER_KEY } from '@/hooks/useCurrentUser';
-import { apiClient } from '@/lib/fetcher';
+import { CURRENT_USER_KEY, type User } from '@/hooks/useCurrentUser';
+import { apiClient, isApiError } from '@/lib/fetcher';
 import { toSentenceCase } from '@/lib/utils';
 import { setAccessToken } from '@/lib/auth';
 
@@ -45,17 +44,23 @@ export const LoginForm = () => {
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
-      const response = await apiClient.post('/login', {
-        email: data.email,
-        password: data.password,
-        remember_me: data.rememberMe,
-      });
-      setAccessToken(response.data.access_token);
-      await mutate(CURRENT_USER_KEY, { user: response.data.user }, false);
-      navigate(`/users/${response.data?.user.id}`);
+      const response = await apiClient<{ access_token: string; user: User }>(
+        'POST',
+        '/login',
+        {
+          email: data.email,
+          password: data.password,
+          remember_me: data.rememberMe,
+        },
+      );
+      if (response?.access_token) {
+        setAccessToken(response.access_token);
+      }
+      await mutate(CURRENT_USER_KEY, { user: response?.user }, false);
+      navigate(`/users/${response?.user.id}`);
     } catch (apiError) {
-      if (axios.isAxiosError(apiError) && apiError.response?.status === 401) {
-        const message = apiError.response?.data.detail
+      if (isApiError(apiError) && apiError.status === 401) {
+        const message = apiError.data?.detail
           ? toSentenceCase(INVALID_CREDENTIALS_MESSAGE)
           : UNEXPECTED_ERROR_MESSAGE;
         form.setError('root', {

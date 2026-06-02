@@ -1,6 +1,6 @@
 import useSWR, { useSWRConfig } from 'swr';
 import useSWRMutation from 'swr/mutation';
-import axios, { type AxiosError } from 'axios';
+import { apiClient, type ApiError } from '@/lib/fetcher';
 
 interface PaceCalculatorFormValues {
   minutes: number;
@@ -17,15 +17,15 @@ export interface PaceCalculationResult {
 }
 
 async function sendPaceRequest(
-  url: string,
+  path: string,
   { arg }: { arg: PaceCalculatorFormValues },
 ): Promise<PaceCalculationResult> {
-  const response = await axios.post<{
+  const response = await apiClient<{
     pace_calculation: PaceCalculationResult;
-  }>(`/api/v1${url}`, {
+  }>('POST', path, {
     pace_calculation: arg,
   });
-  return response.data?.pace_calculation;
+  return response!.pace_calculation;
 }
 
 export function usePaceResult() {
@@ -44,7 +44,7 @@ export function usePaceResult() {
 export function usePaceCalculator() {
   const { trigger, data, error, isMutating } = useSWRMutation<
     PaceCalculationResult,
-    AxiosError<{ errors: string[] }>,
+    ApiError,
     string,
     PaceCalculatorFormValues
   >('/pace-calculator', sendPaceRequest, {

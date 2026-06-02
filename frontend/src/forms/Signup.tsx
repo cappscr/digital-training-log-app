@@ -2,7 +2,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router';
 import * as z from 'zod';
-import axios from 'axios';
 import {
   FieldGroup,
   Field,
@@ -12,7 +11,8 @@ import {
 import { AlertError } from '@/components/AlertError';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { apiClient } from '@/lib/fetcher';
+import { type User } from '@/hooks/useCurrentUser';
+import { apiClient, isApiError } from '@/lib/fetcher';
 import { successToast } from '@/lib/toasts';
 import { toSentenceCase } from '@/lib/utils';
 
@@ -48,7 +48,7 @@ export const SignupForm = () => {
   async function onSubmit(data: z.infer<typeof formSchema>) {
     const id = crypto.randomUUID();
     try {
-      const response = await apiClient.post('/signup', {
+      const response = await apiClient<{ user: User }>('POST', '/signup', {
         user: {
           id,
           name: data.name,
@@ -58,17 +58,16 @@ export const SignupForm = () => {
         },
       });
       successToast('Welcome to the Digital Training Log!');
-      navigate(`/users/${response.data?.user.id}`);
+      navigate(`/users/${response?.user.id}`);
     } catch (apiError) {
-      if (axios.isAxiosError(apiError) && apiError.response?.status === 422) {
-        const message = apiError.response?.data.errors[0]
+      if (isApiError(apiError) && apiError.status === 422) {
+        const errors = apiError.data?.errors;
+        const message = errors?.[0]
           ? toSentenceCase(
-              `${apiError.response?.data.errors[0].pointer.replace('#/user/', '')} ${apiError.response?.data.errors[0].detail}`,
+              `${errors[0].pointer.replace('#/user/', '')} ${errors[0].detail}`,
             )
           : UNEXPECTED_ERROR_MESSAGE;
-        form.setError('root', {
-          message,
-        });
+        form.setError('root', { message });
       } else {
         form.setError('root', { message: UNEXPECTED_ERROR_MESSAGE });
       }
