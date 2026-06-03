@@ -25,3 +25,12 @@ export const getTokenExpiry = (): Date | null => {
 
   return null;
 };
+
+export const isTokenNearExpiry = (): boolean => {
+  const expiry = getTokenExpiry();
+  if (!expiry) return true;
+
+  const now = Date.now();
+  const timeToExpiry = expiry.getTime() - now;
+  return timeToExpiry <= 60 * 1000; // Consider near expiry if less than 1 minute left
+};
