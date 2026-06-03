@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :users, only: [ :show ]
       resources :users, only: [ :create ], path: "signup"
       post "/login", to: "sessions#create"
+      post "/refresh", to: "sessions#refresh"
       delete "/logout", to: "sessions#destroy"
       resources :pace_calculator, only: [ :create ], path: "pace-calculator"
     end

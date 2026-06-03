@@ -56,6 +56,24 @@ module Authentication
     render_problem_detail(UnauthenticatedError.new(detail: "You must be logged in")) unless logged_in?
   end
 
+  def refresh_access_token
+    raise UnauthenticatedError.new(detail: "No active session") unless current_session
+    new_refresh_token = SecureRandom.urlsafe_base64
+    current_session.update!(
+      token_digest: UserSession.sha256(new_refresh_token),
+      expires_at: current_session.remember_me ? 30.days.from_now : 2.weeks.from_now
+    )
+    cookie_options = {
+      value: new_refresh_token,
+      http_only: true,
+      secure: Rails.env.production?,
+      same_site: :strict
+    }
+    cookie_options[:expires] = 30.days.from_now if current_session.remember_me
+    cookies[:refresh_token] = cookie_options
+    jwt_encode(user_id: current_session.user.id)
+  end
+
   private
 
   def find_current_session

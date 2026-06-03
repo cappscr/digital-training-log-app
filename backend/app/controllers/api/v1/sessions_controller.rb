@@ -5,7 +5,7 @@ module Api
         user = User.active.find_by(email: params[:email].downcase)
 
         if user&.authenticate(params[:password])
-          remember_me = params[:remember_me] == true
+          remember_me = ActiveModel::Type::Boolean.new.cast(params[:remember_me]) || false
           access_token = log_in(user, remember_me: remember_me)
 
           return render json: { user: UserSerializer.new(user), access_token: access_token }, status: :ok
@@ -17,6 +17,11 @@ module Api
       def destroy
         log_out if logged_in?
         head :no_content
+      end
+
+      def refresh
+        access_token = refresh_access_token
+        render json: { access_token: access_token }, status: :ok
       end
     end
   end

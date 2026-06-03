@@ -9,7 +9,7 @@ export function useLogout() {
 
   const logout = async () => {
     try {
-      await apiClient.delete('/logout');
+      await apiClient('DELETE', '/logout');
     } catch {
       // proceed with client-side logout even if the API call fails
     } finally {
