@@ -4,7 +4,7 @@ export const TermsHeader = ({ effectiveDate }: { effectiveDate: string }) => {
       <p className="text-primary mb-6 text-xs font-semibold tracking-widest uppercase">
         Legal
       </p>
-      <h1 className="font-display mb-3 text-[clamp(2rem,4.5vw,3rem)] leading-tight font-bold tracking-tight">
+      <h1 className="font-display mb-3 text-[clamp(2rem,4.5vw,3rem)] leading-tight font-medium tracking-tight">
         Terms of Use
       </h1>
       <p className="text-muted-foreground mb-7 text-sm">
