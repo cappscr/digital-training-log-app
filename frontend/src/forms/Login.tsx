@@ -88,11 +88,11 @@ export const LoginForm = () => {
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="signup-form-email">Email</FieldLabel>
+                <FieldLabel htmlFor="login-form-email">Email</FieldLabel>
                 <Input
                   {...field}
                   type="email"
-                  id="signup-form-email"
+                  id="login-form-email"
                   aria-invalid={fieldState.invalid}
                   placeholder="you@example.com"
                   autoComplete="email"
@@ -108,14 +108,14 @@ export const LoginForm = () => {
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.error}>
-                <FieldLabel htmlFor="signup-form-password">Password</FieldLabel>
+                <FieldLabel htmlFor="login-form-password">Password</FieldLabel>
                 <Input
                   {...field}
                   type="password"
-                  id="signup-form-password"
+                  id="login-form-password"
                   aria-invalid={fieldState.invalid}
                   placeholder="8 character minimum"
-                  autoComplete="new-password"
+                  autoComplete="current-password"
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
@@ -130,11 +130,14 @@ export const LoginForm = () => {
               <Field>
                 <div className="flex items-center gap-2">
                   <Checkbox
-                    id="remember-me"
+                    id="login-form-remember-me"
                     checked={field.value}
                     onCheckedChange={(checked) => field.onChange(checked)}
                   />
-                  <FieldLabel htmlFor="remember-me" className="cursor-pointer">
+                  <FieldLabel
+                    htmlFor="login-form-remember-me"
+                    className="cursor-pointer"
+                  >
                     Remember me
                   </FieldLabel>
                 </div>
