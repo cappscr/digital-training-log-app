@@ -1,0 +1,5 @@
+# Daily Vitals Feature
+
+The daily vitals feature allows users to input, view, and see trends related to selected daily vitals. A set of default daily vitals will be provided by the application and include sleep duration (hr and min), resting heart rate (beats per minute or bpm), heart rate variability or HRV (ms), weight (lbs or kg), and body composition (% body fat). Additionally, users should be able to define their own daily vitals that they want to track. Each daily vital will be comprised of a name and a unit of measure.
+
+There should be a daily vitals page where users can view vitals trend analysis showing the 30-day, 3-month, and 1-year averages. Additionally, users should be able to enter a new days vitals from this page. The form should open in a dialog? The date for the vitals should default to the current date but should be a date picker so that the user could select a different day to enter vitals for (for example, if they forget to log data for a given day they may need to enter a past date).
