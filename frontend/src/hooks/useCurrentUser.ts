@@ -7,6 +7,8 @@ export type User = {
   created_at?: string;
   updated_at?: string;
   gravatar_id: string;
+  activated: boolean;
+  activated_at: string | null;
 };
 
 export const CURRENT_USER_KEY = '/users/me';
