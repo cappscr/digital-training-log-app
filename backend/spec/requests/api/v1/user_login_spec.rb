@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "User login", type: :request do
   describe "POST /api/v1/login" do
     let(:user) { create(:user, :activated) }
-    
+
     context "with an unactivated user" do
       let(:unactivated_user) { create(:user, email: 'unactivated@example.com') }
 
