@@ -4,7 +4,7 @@ module Api
       def create
         user = User.active.find_by(email: params[:email].downcase)
 
-        raise ActivationError.new(detail: "Account not activated") unless user&.activated?
+        raise ActivationError.new(status: 403, detail: "Account not activated") unless user&.activated?
 
         if user&.authenticate(params[:password])
           remember_me = ActiveModel::Type::Boolean.new.cast(params[:remember_me]) || false
