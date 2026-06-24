@@ -19,7 +19,9 @@ RSpec.describe "Account activation", type: :request do
           patch api_v1_account_activation_path(user.activation_token), params: { email: user.email }
 
           expect(response).to have_http_status(:ok)
-          expect(JSON.parse(response.body)["user"]["id"]).to eq(user.id)
+          response_body = JSON.parse(response.body)
+          expect(response_body["user"]["id"]).to eq(user.id)
+          expect(response_body["user"]["activated"]).to eq(true)
         end
       end
     end
