@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       post "/refresh", to: "sessions#refresh"
       delete "/logout", to: "sessions#destroy"
       resources :pace_calculator, only: [ :create ], path: "pace-calculator"
+      resources :account_activations, only: [ :update ], path: "account-activation"
     end
   end
 
