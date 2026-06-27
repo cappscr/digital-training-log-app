@@ -3,7 +3,6 @@ class ActivationError < ApplicationError
   problem_title "Activation Error"
 
   def initialize(status:, detail:, instance: nil, errors: nil)
-    @status = status || 403
-    super(detail: detail, instance: instance)
+    super(status: status || 403, detail: detail, instance: instance)
   end
 end

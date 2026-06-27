@@ -17,10 +17,11 @@ class ApplicationError < StandardError
   def self.title = @title
   def self.status_code = @status_code
 
-  def initialize(detail:, instance: nil, errors: nil)
+  def initialize(detail:, instance: nil, errors: nil, status: nil)
     @detail = detail
     @instance = instance
     @errors = errors
+    @status = status || self.class.status_code
     super(detail)
   end
 end

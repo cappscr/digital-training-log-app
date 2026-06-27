@@ -8,7 +8,7 @@ class ProblemSerializer
     payload = {
       type: error_class.type_uri,
       title: error_class.title,
-      status: error_class.status_code,
+      status: @error.status || error_class.status_code,
       instance: @error.instance || @request.path
     }
 
