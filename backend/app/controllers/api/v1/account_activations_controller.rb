@@ -6,7 +6,6 @@ module Api
 
         if user && !user.activated? && user.authenticated?(:activation, params[:id])
           user.activate
-          log_in(user)
           render json: user, status: :ok
         else
           render_problem_detail(ActivationError.new(
