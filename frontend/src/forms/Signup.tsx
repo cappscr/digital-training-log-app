@@ -58,7 +58,7 @@ export const SignupForm = () => {
         },
       });
       successToast('Welcome to the Digital Training Log!');
-      navigate(`/users/${response?.user.id}`);
+      navigate('/signup/confirm', { state: { email: response?.user.email } });
     } catch (apiError) {
       if (isApiError(apiError) && apiError.status === 422) {
         const errors = apiError.data?.errors;
