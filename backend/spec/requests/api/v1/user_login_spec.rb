@@ -2,9 +2,22 @@ require 'rails_helper'
 
 RSpec.describe "User login", type: :request do
   describe "POST /api/v1/login" do
+    let(:user) { create(:user, :activated) }
+
+    context "with an unactivated user" do
+      let(:unactivated_user) { create(:user, email: 'unactivated@example.com') }
+
+      it "returns a 403 Forbidden error" do
+        post api_v1_login_path, params: { email: unactivated_user.email, password: unactivated_user.password }
+
+        expect(response).to have_http_status(:forbidden)
+        expect(JSON.parse(response.body)["detail"]).to eq("Account not activated")
+      end
+    end
+
     context "with invalid credentials" do
       it "returns a 401 Unauthorized error" do
-        post api_v1_login_path, params: { email: "example@user.com", password: "wrongpassword" }
+        post api_v1_login_path, params: { email: user.email, password: "wrongpassword" }
 
         expect(response).to have_http_status(:unauthorized)
 
@@ -15,7 +28,6 @@ RSpec.describe "User login", type: :request do
 
     context "with valid credentials" do
       it "returns an access token and refresh token cookie" do
-        user = create(:user)
         post api_v1_login_path, params: { email: user.email, password: user.password }
 
         expect(response).to have_http_status(:ok)
@@ -26,7 +38,7 @@ RSpec.describe "User login", type: :request do
   end
 
   describe "DELETE /api/v1/logout" do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, :activated) }
 
     before do
       post api_v1_login_path, params: { email: user.email, password: user.password }
@@ -44,7 +56,7 @@ RSpec.describe "User login", type: :request do
   end
 
   describe "POST /api/v1/refresh" do
-    let(:user) { create(:user) }
+    let(:user) { create(:user, :activated) }
 
     it "returns 401 when no refresh token cookie is present" do
       post api_v1_refresh_path

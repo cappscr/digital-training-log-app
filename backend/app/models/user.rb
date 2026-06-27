@@ -1,8 +1,10 @@
 class User < ApplicationRecord
   self.primary_key = "id"
 
-  before_create :set_id
-  before_save { self.email = email.downcase }
+  attr_accessor :activation_token
+
+  before_create :set_id, :create_activation_digest
+  before_save :downcase_email
 
   has_many :user_sessions, dependent: :destroy
 
@@ -24,9 +26,37 @@ class User < ApplicationRecord
     deleted_at.present?
   end
 
+  # Returns true if the given token matches the digest.
+  def authenticated?(attribute, token)
+    digest = self.send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  # Activates an account.
+  def activate
+    update_columns(activated: true, activated_at: Time.zone.now)
+  end
+
+  # Sends activation email.
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
   private
 
   def set_id
     self.id ||= SecureRandom.uuid
+  end
+
+  # Converts email to all lower-case.
+  def downcase_email
+    email.downcase!
+  end
+
+  # Creates and assigns the activation token and digest.
+  def create_activation_digest
+    self.activation_token = SecureRandom.urlsafe_base64
+    self.activation_digest = BCrypt::Password.create(activation_token)
   end
 end

@@ -20,7 +20,7 @@ module Api
       def render_problem_detail(error)
         serialized = ProblemSerializer.new(error, request).serialize
         render json: serialized,
-             status: error.class.status_code,
+             status: error.status || error.class.status_code,
              content_type: "application/problem+json"
       end
 
