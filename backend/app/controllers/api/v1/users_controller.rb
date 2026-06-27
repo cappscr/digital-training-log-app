@@ -12,7 +12,7 @@ module Api
         @user = User.new(user_params)
         @user.save!
         @user.send_activation_email
-        render json: { user: UserSerializer.new(@user) }, status: :created
+        render json: @user, status: :created
       rescue ActiveRecord::RecordNotUnique
         raise DuplicateIdError.new(detail: "A record with this ID already exists")
       end

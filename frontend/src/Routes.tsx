@@ -8,6 +8,7 @@ import { PaceCalculatorPage } from './pages/PaceCalculator';
 import { AboutPage } from './pages/About';
 import { TermsPage } from './pages/TermsOfUse';
 import { AccountActivationPage } from './pages/AccountActivation';
+import { ConfirmEmailPage } from './pages/ConfirmEmail';
 import { NotFoundPage } from './pages/NotFound';
 import { Layout } from './layouts/Layout';
 import { RootLayout } from './layouts/RootLayout';
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
           {
             Component: LoginPage,
             path: '/login',
+          },
+          {
+            Component: ConfirmEmailPage,
+            path: '/signup/confirm',
           },
           {
             Component: AccountActivationPage,
