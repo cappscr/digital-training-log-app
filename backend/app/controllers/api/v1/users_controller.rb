@@ -11,6 +11,7 @@ module Api
       def create
         @user = User.new(user_params)
         @user.save!
+        @user.send_activation_email
         access_token = log_in(@user)
         render json: { user: UserSerializer.new(@user), access_token: access_token }, status: :created
       rescue ActiveRecord::RecordNotUnique
