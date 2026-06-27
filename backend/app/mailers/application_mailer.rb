@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "no-reply@digitaltraininglog.com"
+  default from: "Digital Training Log <no-reply@mail.digitaltraininglog.com>"
   layout "mailer"
 end
