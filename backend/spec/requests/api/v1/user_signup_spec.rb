@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "User signup", type: :request do
   describe "POST /api/v1/signup" do
+    before do
+      ActionMailer::Base.deliveries.clear
+    end
+
     context "with missing user param" do
       it "does not create a user and returns a 400 Bad Request error" do
         expect {
@@ -56,6 +60,7 @@ RSpec.describe "User signup", type: :request do
                                                  password_confirmation: "password" } }
         }.to change(User, :count).by(1)
 
+        expect(ActionMailer::Base.deliveries.size).to eq(1)
         expect(response).to have_http_status(:created)
         parsed_body = JSON.parse(response.body)
         expect(parsed_body["user"]["name"]).to eq("Example User")
