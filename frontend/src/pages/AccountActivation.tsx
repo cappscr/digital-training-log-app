@@ -1,6 +1,7 @@
 import { PageTitle } from '@/components/PageTitle';
 import { successToast } from '@/lib/toasts';
 import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 import { useActivateAccount } from '@/hooks/useActivateAccount';
@@ -44,20 +45,23 @@ export const AccountActivationPage = () => {
     <>
       <PageTitle pageName="Account Activation" />
       <section className="flex flex-1 items-center justify-center px-6 py-12">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-xl">
           <div className="mb-8">
-            <h1 className="font-display mb-1.5 text-3xl">
+            <h1 className="font-display mb-1.5 text-5xl leading-tight">
               Activating your account...
             </h1>
             {isLoading && (
-              <p className="text-muted-foreground text-sm">
-                Please wait while we activate your account.
-              </p>
+              <div className="mt-10 flex flex-col items-center gap-4">
+                <p className="text-muted-foreground">
+                  Please wait while we activate your account.
+                </p>
+                <Spinner className="size-10" />
+              </div>
             )}
             {isError && (
-              <>
-                <p className="mt-4 text-sm text-red-500">
-                  {activationError?.data.detail}, you're account is already
+              <div className="mt-10 flex flex-col items-center gap-4">
+                <p className="text-red-500">
+                  {activationError?.data.detail}, your account is already
                   activated or could not be activated
                 </p>
                 <Button
@@ -70,7 +74,7 @@ export const AccountActivationPage = () => {
                 >
                   Return home
                 </Button>
-              </>
+              </div>
             )}
           </div>
         </div>
