@@ -1,6 +1,6 @@
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import * as z from 'zod';
 import { mutate } from 'swr';
 import {
@@ -109,6 +109,7 @@ export const LoginForm = () => {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.error}>
                 <FieldLabel htmlFor="login-form-password">Password</FieldLabel>
+
                 <Input
                   {...field}
                   type="password"
@@ -157,6 +158,14 @@ export const LoginForm = () => {
       >
         Log in
       </Button>
+      <p className="mt-4 text-center text-sm">
+        <Link
+          to="/forgot-password"
+          className="text-muted-foreground hover:text-primary"
+        >
+          Forgot password?
+        </Link>
+      </p>
     </>
   );
 };
