@@ -19,21 +19,28 @@ module Api
       def update
         user = User.find_by(email: params[:email])
         if user && user.authenticated?(:reset, params[:id]) && !user.password_reset_expired?
+          if params[:user][:password].empty?
+            raise PasswordResetError.new(
+              status: 422,
+              detail: "Password can't be empty",
+              instance: request.path
+            )
+          end
           if user.update(password_params)
             render json: { message: "Password has been reset" }, status: :ok
           else
-            render_problem_detail(ResetError.new(
+            raise PasswordResetError.new(
               status: 422,
               detail: "Password reset failed",
               instance: request.path
-            ))
+            )
           end
         else
-          render_problem_detail(ResetError.new(
-            status: 404,
+          raise PasswordResetError.new(
+            status: 403,
             detail: "Invalid password reset link or link has expired",
             instance: request.path
-          ))
+          )
         end
       end
 
