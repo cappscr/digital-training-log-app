@@ -13,6 +13,7 @@ import { AlertError } from '@/components/AlertError';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { EmailInput } from './EmailInput';
 import { CURRENT_USER_KEY, type User } from '@/hooks/useCurrentUser';
 import { apiClient, isApiError } from '@/lib/fetcher';
 import { toSentenceCase } from '@/lib/utils';
@@ -83,26 +84,7 @@ export const LoginForm = () => {
       )}
       <form id="login-form" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldGroup>
-          <Controller
-            name="email"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="login-form-email">Email</FieldLabel>
-                <Input
-                  {...field}
-                  type="email"
-                  id="login-form-email"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="you@example.com"
-                  autoComplete="email"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
+          <EmailInput control={form.control} formId="login-form" name="email" />
           <Controller
             name="password"
             control={form.control}
