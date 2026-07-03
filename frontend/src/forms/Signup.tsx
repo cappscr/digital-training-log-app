@@ -11,6 +11,7 @@ import {
 import { AlertError } from '@/components/AlertError';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { EmailInput } from './EmailInput';
 import { PasswordInput } from './PasswordInput';
 import { type User } from '@/hooks/useCurrentUser';
 import { apiClient, isApiError } from '@/lib/fetcher';
@@ -105,25 +106,10 @@ export const SignupForm = () => {
               </Field>
             )}
           />
-          <Controller
-            name="email"
+          <EmailInput
             control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="signup-form-email">Email</FieldLabel>
-                <Input
-                  {...field}
-                  type="email"
-                  id="signup-form-email"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="you@example.com"
-                  autoComplete="email"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
+            formId="signup-form"
+            name="email"
           />
           <PasswordInput
             control={form.control}

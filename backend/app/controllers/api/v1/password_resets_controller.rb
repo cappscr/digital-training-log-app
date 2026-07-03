@@ -18,6 +18,11 @@ module Api
 
       def update
         user = User.find_by(email: params[:email])
+        raise PasswordResetError.new(
+          status: 404,
+          detail: "Email address not found",
+          instance: request.path
+        ) unless user
         if user && user.authenticated?(:reset, params[:id]) && !user.password_reset_expired?
           if params[:user][:password].empty?
             raise PasswordResetError.new(
