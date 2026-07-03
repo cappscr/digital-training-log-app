@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate, useSearchParams } from 'react-router';
+import { Link, useNavigate, useSearchParams } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { FieldGroup } from '@/components/ui/field';
@@ -102,6 +102,14 @@ export const ResetPasswordForm = () => {
       >
         Reset Password
       </Button>
+      <p className="mt-4 text-center text-sm">
+        <Link
+          to="/forgot-password"
+          className="text-muted-foreground hover:text-primary"
+        >
+          Request a new password reset link
+        </Link>
+      </p>
     </>
   );
 };
