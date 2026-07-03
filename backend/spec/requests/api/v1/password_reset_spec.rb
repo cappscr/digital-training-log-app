@@ -53,8 +53,8 @@ RSpec.describe("Password reset", type: :request) do
         user.create_reset_digest
         patch api_v1_password_reset_path(user.reset_token), params: { email: "invalid@example.com", user: { password: "newpassword", password_confirmation: "newpassword" } }
 
-        expect(response).to have_http_status(:forbidden)
-        expect(JSON.parse(response.body)["detail"]).to include("Invalid password reset link")
+        expect(response).to have_http_status(:not_found)
+        expect(JSON.parse(response.body)["detail"]).to include("Email address not found")
         expect(user.reload.authenticate("newpassword")).to be_falsey
       end
     end
