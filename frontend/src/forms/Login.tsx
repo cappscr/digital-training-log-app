@@ -1,18 +1,14 @@
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import * as z from 'zod';
 import { mutate } from 'swr';
-import {
-  FieldGroup,
-  Field,
-  FieldLabel,
-  FieldError,
-} from '@/components/ui/field';
+import { FieldGroup, Field, FieldLabel } from '@/components/ui/field';
 import { AlertError } from '@/components/AlertError';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { EmailInput } from './EmailInput';
+import { PasswordInput } from './PasswordInput';
 import { CURRENT_USER_KEY, type User } from '@/hooks/useCurrentUser';
 import { apiClient, isApiError } from '@/lib/fetcher';
 import { toSentenceCase } from '@/lib/utils';
@@ -83,45 +79,12 @@ export const LoginForm = () => {
       )}
       <form id="login-form" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldGroup>
-          <Controller
-            name="email"
+          <EmailInput control={form.control} formId="login-form" name="email" />
+          <PasswordInput
             control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="login-form-email">Email</FieldLabel>
-                <Input
-                  {...field}
-                  type="email"
-                  id="login-form-email"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="you@example.com"
-                  autoComplete="email"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
-          <Controller
+            formId="login-form"
             name="password"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.error}>
-                <FieldLabel htmlFor="login-form-password">Password</FieldLabel>
-                <Input
-                  {...field}
-                  type="password"
-                  id="login-form-password"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="8 character minimum"
-                  autoComplete="current-password"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
+            autoCompleteType="current"
           />
           <Controller
             name="rememberMe"
@@ -157,6 +120,14 @@ export const LoginForm = () => {
       >
         Log in
       </Button>
+      <p className="mt-4 text-center text-sm">
+        <Link
+          to="/forgot-password"
+          className="text-muted-foreground hover:text-primary"
+        >
+          Forgot password?
+        </Link>
+      </p>
     </>
   );
 };

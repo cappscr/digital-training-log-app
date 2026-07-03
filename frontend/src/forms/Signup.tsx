@@ -11,6 +11,8 @@ import {
 import { AlertError } from '@/components/AlertError';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { EmailInput } from './EmailInput';
+import { PasswordInput } from './PasswordInput';
 import { type User } from '@/hooks/useCurrentUser';
 import { apiClient, isApiError } from '@/lib/fetcher';
 import { successToast } from '@/lib/toasts';
@@ -104,67 +106,22 @@ export const SignupForm = () => {
               </Field>
             )}
           />
-          <Controller
+          <EmailInput
+            control={form.control}
+            formId="signup-form"
             name="email"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="signup-form-email">Email</FieldLabel>
-                <Input
-                  {...field}
-                  type="email"
-                  id="signup-form-email"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="you@example.com"
-                  autoComplete="email"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
           />
-          <Controller
+          <PasswordInput
+            control={form.control}
+            formId="signup-form"
             name="password"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.error}>
-                <FieldLabel htmlFor="signup-form-password">Password</FieldLabel>
-                <Input
-                  {...field}
-                  type="password"
-                  id="signup-form-password"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="8 character minimum"
-                  autoComplete="new-password"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
+            autoCompleteType="new"
           />
-          <Controller
-            name="confirmPassword"
+          <PasswordInput
             control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.error}>
-                <FieldLabel htmlFor="signup-form-confirm-password">
-                  Confirm Password
-                </FieldLabel>
-                <Input
-                  {...field}
-                  type="password"
-                  id="signup-form-confirm-password"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="Re-enter your password"
-                  autoComplete="new-password"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
+            formId="signup-form"
+            name="confirmPassword"
+            autoCompleteType="new"
           />
         </FieldGroup>
       </form>

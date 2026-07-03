@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_23_232344) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_02_105950) do
   create_table "user_sessions", id: :string, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "expires_at"
@@ -33,6 +33,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_23_232344) do
     t.string "email"
     t.string "name"
     t.string "password_digest"
+    t.string "reset_digest"
+    t.datetime "reset_sent_at"
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
