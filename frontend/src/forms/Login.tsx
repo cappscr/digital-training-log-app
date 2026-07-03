@@ -3,17 +3,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Link, useNavigate } from 'react-router';
 import * as z from 'zod';
 import { mutate } from 'swr';
-import {
-  FieldGroup,
-  Field,
-  FieldLabel,
-  FieldError,
-} from '@/components/ui/field';
+import { FieldGroup, Field, FieldLabel } from '@/components/ui/field';
 import { AlertError } from '@/components/AlertError';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { EmailInput } from './EmailInput';
+import { PasswordInput } from './PasswordInput';
 import { CURRENT_USER_KEY, type User } from '@/hooks/useCurrentUser';
 import { apiClient, isApiError } from '@/lib/fetcher';
 import { toSentenceCase } from '@/lib/utils';
@@ -85,26 +80,11 @@ export const LoginForm = () => {
       <form id="login-form" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldGroup>
           <EmailInput control={form.control} formId="login-form" name="email" />
-          <Controller
-            name="password"
+          <PasswordInput
             control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.error}>
-                <FieldLabel htmlFor="login-form-password">Password</FieldLabel>
-
-                <Input
-                  {...field}
-                  type="password"
-                  id="login-form-password"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="8 character minimum"
-                  autoComplete="current-password"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
+            formId="login-form"
+            name="password"
+            autoCompleteType="current"
           />
           <Controller
             name="rememberMe"
