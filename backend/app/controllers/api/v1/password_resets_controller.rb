@@ -32,6 +32,7 @@ module Api
             )
           end
           if user.update(password_params)
+            user.send_password_reset_success_email
             render json: { message: "Password has been reset" }, status: :ok
           else
             raise PasswordResetError.new(

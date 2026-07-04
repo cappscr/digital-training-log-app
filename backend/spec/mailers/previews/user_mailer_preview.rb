@@ -11,4 +11,10 @@ class UserMailerPreview < ActionMailer::Preview
     user.reset_token = SecureRandom.urlsafe_base64
     UserMailer.password_reset(user)
   end
+
+  def password_reset_success
+    user = User.last
+    user.updated_at = Time.zone.now
+    UserMailer.password_reset_success(user)
+  end
 end
