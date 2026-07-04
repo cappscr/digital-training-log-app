@@ -34,6 +34,7 @@ RSpec.describe("Password reset", type: :request) do
         patch api_v1_password_reset_path(user.reset_token), params: { email: user.email, user: { password: "newpassword", password_confirmation: "newpassword" } }
 
         expect(response).to have_http_status(:ok)
+        expect(ActionMailer::Base.deliveries.size).to eq(1)
         expect(user.reload.authenticate("newpassword")).to be_truthy
       end
     end
