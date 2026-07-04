@@ -73,7 +73,7 @@ export const ForgotPasswordForm = () => {
         size="xl"
         radius="none"
         uppercase
-        disabled={form.formState.isSubmitting || !form.formState.isValid}
+        disabled={form.formState.isSubmitting}
         className="mt-8 w-full"
       >
         Send Reset Email

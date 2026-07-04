@@ -18,7 +18,7 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   describe "password_reset" do
-    let(:user) { FactoryBot.create(:user) }
+    let(:user) { create(:user) }
     let(:mail) { UserMailer.password_reset(user) }
 
     it "renders the headers" do
@@ -30,6 +30,17 @@ RSpec.describe UserMailer, type: :mailer do
     it "renders the reset token and email in the link" do
       expect(mail.body.encoded).to match("#{user.reset_token}")
       expect(mail.body.encoded).to match(CGI.escape(user.email))
+    end
+  end
+
+  describe "password_reset_success" do
+    let(:user) { create(:user) }
+    let(:mail) { UserMailer.password_reset_success(user) }
+
+    it "renders the headers" do
+      expect(mail.subject).to eq("Your Digital Training Log App password has been reset")
+      expect(mail.to).to eq([ user.email ])
+      expect(mail.from).to eq([ "noreply@mail.digitaltraininglog.com" ])
     end
   end
 end
