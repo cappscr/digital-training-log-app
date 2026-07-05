@@ -19,6 +19,10 @@ export const AccountActivationPage = () => {
   } = useActivateAccount(token);
   const [isError, setIsError] = useState<boolean>(false);
 
+  const handleGetNewActivationLink = () => {
+    navigate('/resend-activation-link');
+  };
+
   useEffect(() => {
     let cancelled = false;
 
@@ -73,6 +77,16 @@ export const AccountActivationPage = () => {
                   render={<Link to="/" />}
                 >
                   Return home
+                </Button>
+                <Button
+                  variant="outline"
+                  size="xl"
+                  radius="none"
+                  uppercase
+                  nativeButton={false}
+                  onClick={handleGetNewActivationLink}
+                >
+                  Get a new activation link
                 </Button>
               </div>
             )}
