@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_02_105950) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_05_092210) do
   create_table "user_sessions", id: :string, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "expires_at"
@@ -28,6 +28,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_02_105950) do
     t.boolean "activated", default: false
     t.datetime "activated_at"
     t.string "activation_digest"
+    t.datetime "activation_sent_at"
     t.datetime "created_at", null: false
     t.datetime "deleted_at"
     t.string "email"
