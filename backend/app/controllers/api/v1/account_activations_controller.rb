@@ -3,7 +3,12 @@ module Api
     class AccountActivationsController < Api::ApplicationController
       def create
         user = User.active.find_by(email: params[:email])
-        if user
+        if user 
+          raise ActivationError.new(
+            status: 403,
+            detail: "User is already activated",
+            instance: request.path
+          ) if user.activated?
           user.create_new_activation_digest 
           user.send_activation_email
           render json: { message: "Activation email sent" }, status: :ok

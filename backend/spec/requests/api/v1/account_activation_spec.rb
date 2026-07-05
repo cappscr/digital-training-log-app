@@ -18,6 +18,18 @@ RSpec.describe "Account activation", type: :request do
       end
     end
 
+    context "with an already activated user" do
+      let(:activated_user) { create(:user, :activated) }
+
+      it "returns a 403 Forbidden error" do
+        post api_v1_account_activations_path, params: { email: activated_user.email }
+
+        expect(response).to have_http_status(:forbidden)
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body["detail"]).to eq("User is already activated")
+      end
+    end
+
     context "with an invalid email" do
       it "returns a 404 Not Found error" do
         post api_v1_account_activations_path, params: { email: "invalid@example.com" }
