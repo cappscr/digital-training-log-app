@@ -1,6 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe "Account activation", type: :request do
+  before do
+    ActionMailer::Base.deliveries.clear
+  end
+
+  describe "POST /api/v1/account-activation" do
+    context "with a valid email" do
+      let(:user) { create(:user) }
+
+      it "sends an activation email and returns a 200 status" do
+        post api_v1_account_activations_path, params: { email: user.email }
+
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)["message"]).to eq("Activation email sent")
+        expect(ActionMailer::Base.deliveries.size).to eq(1)
+      end
+    end
+
+    context "with an invalid email" do
+      it "returns a 404 Not Found error" do
+        post api_v1_account_activations_path, params: { email: "invalid@example.com" }
+
+        expect(response).to have_http_status(:not_found)
+        expect(JSON.parse(response.body)["detail"]).to eq("Email address not found")
+      end
+    end
+  end
+
   describe "PATCH /api/v1/account-activation/:id" do
     context "with an unactivated user" do
       let(:user) { create(:user) }

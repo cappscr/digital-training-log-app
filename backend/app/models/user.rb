@@ -43,6 +43,12 @@ class User < ApplicationRecord
     UserMailer.account_activation(self).deliver_now
   end
 
+  # Creates a new activation token and digest, and updates the activation_sent_at timestamp.
+  def create_new_activation_digest
+    self.activation_token = SecureRandom.urlsafe_base64
+    update_columns(activation_digest: BCrypt::Password.create(activation_token), activation_sent_at: Time.zone.now)
+  end
+
   # Sets the password reset attributes.
   def create_reset_digest
     self.reset_token = SecureRandom.urlsafe_base64

@@ -2,6 +2,18 @@ module Api
   module V1
     class AccountActivationsController < Api::ApplicationController
       def create
+        user = User.active.find_by(email: params[:email])
+        if user
+          user.create_new_activation_digest 
+          user.send_activation_email
+          render json: { message: "Activation email sent" }, status: :ok
+        else
+          render_problem_detail(ActivationError.new(
+            status: 404,
+            detail: "Email address not found",
+            instance: request.path
+          ))
+        end
       end
 
       def update
