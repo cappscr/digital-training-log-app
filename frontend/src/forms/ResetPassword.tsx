@@ -88,6 +88,7 @@ export const ResetPasswordForm = () => {
             formId="login-form"
             name="confirmPassword"
             autoCompleteType="new"
+            labelOverride="Confirm Password"
           />
         </FieldGroup>
       </form>

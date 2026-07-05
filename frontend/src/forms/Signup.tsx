@@ -122,6 +122,7 @@ export const SignupForm = () => {
             formId="signup-form"
             name="confirmPassword"
             autoCompleteType="new"
+            labelOverride="Confirm Password"
           />
         </FieldGroup>
       </form>
