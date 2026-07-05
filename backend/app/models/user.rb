@@ -64,6 +64,11 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
+  # Returns true if the account activation has expired.
+  def activation_expired?
+    activation_sent_at < 24.hours.ago
+  end
+
   private
 
   def set_id
@@ -79,5 +84,6 @@ class User < ApplicationRecord
   def create_activation_digest
     self.activation_token = SecureRandom.urlsafe_base64
     self.activation_digest = BCrypt::Password.create(activation_token)
+    self.activation_sent_at = Time.zone.now
   end
 end

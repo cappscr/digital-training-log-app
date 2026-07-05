@@ -10,7 +10,19 @@ RSpec.describe "Account activation", type: :request do
           patch api_v1_account_activation_path(SecureRandom.urlsafe_base64), params: { email: user.email }
 
           expect(response).to have_http_status(:not_found)
-          expect(JSON.parse(response.body)["detail"]).to eq("Invalid activation link")
+          expect(JSON.parse(response.body)["detail"]).to eq("Invalid or expired activation link")
+        end
+      end
+
+      context "with an expired activation token" do
+        let(:user_with_expired_activation) { create(:user, email: "expired@example.com") }
+
+        it "returns a 404 Not Found error" do
+          user_with_expired_activation.update_columns(activation_sent_at: 25.hours.ago)
+          patch api_v1_account_activation_path(user_with_expired_activation.activation_token), params: { email: user_with_expired_activation.email }
+
+          expect(response).to have_http_status(:not_found)
+          expect(JSON.parse(response.body)["detail"]).to eq("Invalid or expired activation link")
         end
       end
 
@@ -35,7 +47,7 @@ RSpec.describe "Account activation", type: :request do
         expect(response).to have_http_status(:not_found)
 
         parsed_body = JSON.parse(response.body)
-        expect(parsed_body["detail"]).to eq("Invalid activation link")
+        expect(parsed_body["detail"]).to eq("Invalid or expired activation link")
       end
     end
   end
