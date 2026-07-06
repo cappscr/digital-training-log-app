@@ -13,6 +13,8 @@ import { CURRENT_USER_KEY, type User } from '@/hooks/useCurrentUser';
 import { apiClient, isApiError } from '@/lib/fetcher';
 import { toSentenceCase } from '@/lib/utils';
 import { setAccessToken } from '@/lib/auth';
+import { successToast, errorToast } from '@/lib/toasts';
+import { useGetNewActivationLink } from '@/hooks/useGetNewActivationLink';
 
 const INVALID_CREDENTIALS_MESSAGE =
   'Invalid email or password. Please try again.';
@@ -37,6 +39,8 @@ export const LoginForm = () => {
     },
     mode: 'onTouched',
   });
+
+  const { getNewActivationLink } = useGetNewActivationLink();
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
@@ -67,6 +71,43 @@ export const LoginForm = () => {
       }
     }
   }
+
+  const email = form.watch('email');
+
+  const handleGetNewActivationLink = () => {
+    getNewActivationLink({ email })
+      .then(() => {
+        successToast(
+          'A new activation link has been sent to your email address.',
+        );
+      })
+      .catch((apiError) => {
+        const status = apiError?.status;
+        if (status === 403) {
+          errorToast(
+            <div>
+              User account with email {email} is already activated. Please{' '}
+              <Link to="/login" className="underline">
+                log in
+              </Link>{' '}
+              or{' '}
+              <Link to="/forgot-password" className="underline">
+                reset your password
+              </Link>
+              .
+            </div>,
+          );
+        } else if (status === 404) {
+          errorToast(`No user account found with email ${email}. Please check the email
+                address and try again.`);
+        } else {
+          errorToast(
+            'An unexpected error occurred while requesting a new activation link. Please try again later.',
+          );
+        }
+      });
+  };
+
   return (
     <>
       {form.formState.errors.root && (
@@ -120,14 +161,25 @@ export const LoginForm = () => {
       >
         Log in
       </Button>
-      <p className="mt-4 text-center text-sm">
+      <p className="font-body mt-4 text-center text-sm font-medium tracking-wide antialiased">
         <Link
           to="/forgot-password"
-          className="text-muted-foreground hover:text-primary"
+          className="text-muted-foreground hover:text-primary text-sm underline-offset-4 hover:underline"
         >
           Forgot password?
         </Link>
       </p>
+      {email && (
+        <div className="mt-2 text-center text-sm">
+          <Button
+            variant="link"
+            className="text-muted-foreground hover:text-primary text-sm"
+            onClick={handleGetNewActivationLink}
+          >
+            Send a new activation link?
+          </Button>
+        </div>
+      )}
     </>
   );
 };

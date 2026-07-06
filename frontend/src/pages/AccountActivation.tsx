@@ -1,10 +1,11 @@
 import { PageTitle } from '@/components/PageTitle';
-import { successToast } from '@/lib/toasts';
+import { successToast, errorToast } from '@/lib/toasts';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 import { useActivateAccount } from '@/hooks/useActivateAccount';
+import { useGetNewActivationLink } from '@/hooks/useGetNewActivationLink';
 
 export const AccountActivationPage = () => {
   const navigate = useNavigate();
@@ -17,10 +18,47 @@ export const AccountActivationPage = () => {
     isLoading,
     error: activationError,
   } = useActivateAccount(token);
+  const { getNewActivationLink } = useGetNewActivationLink();
+
   const [isError, setIsError] = useState<boolean>(false);
 
   const handleGetNewActivationLink = () => {
-    navigate('/resend-activation-link');
+    if (!email) {
+      errorToast('Email is required to get a new activation link.');
+      return;
+    }
+
+    getNewActivationLink({ email })
+      .then(() => {
+        successToast(
+          'A new activation link has been sent to your email address.',
+        );
+      })
+      .catch((apiError) => {
+        const status = apiError?.status;
+        if (status === 403) {
+          errorToast(
+            <div>
+              User account with email {email} is already activated. Please{' '}
+              <Link to="/login" className="underline">
+                log in
+              </Link>{' '}
+              or{' '}
+              <Link to="/forgot-password" className="underline">
+                reset your password
+              </Link>
+              .
+            </div>,
+          );
+        } else if (status === 404) {
+          errorToast(`No user account found with email ${email}. Please check the email
+              address and try again.`);
+        } else {
+          errorToast(
+            'An unexpected error occurred while requesting a new activation link. Please try again later.',
+          );
+        }
+      });
   };
 
   useEffect(() => {
