@@ -9,3 +9,13 @@ export const successToast = (message: string, options?: ExternalToast) =>
     },
     ...options,
   });
+
+export const errorToast = (message: React.ReactNode, options?: ExternalToast) =>
+  toast.error(message, {
+    style: {
+      background: 'var(--color-red-100)',
+      border: '1px solid var(--color-red-900)',
+      color: 'var(--color-red-900)',
+    },
+    ...options,
+  });

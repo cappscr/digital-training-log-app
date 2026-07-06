@@ -13,6 +13,7 @@ interface PasswordInputProps<TFieldValues extends FieldValues> {
   name: FieldPath<TFieldValues>;
   formId: string;
   autoCompleteType: 'new' | 'current';
+  labelOverride?: string;
 }
 
 export const PasswordInput = <TFieldValues extends FieldValues>({
@@ -20,6 +21,7 @@ export const PasswordInput = <TFieldValues extends FieldValues>({
   formId,
   name,
   autoCompleteType,
+  labelOverride,
 }: PasswordInputProps<TFieldValues>) => {
   return (
     <Controller
@@ -28,7 +30,7 @@ export const PasswordInput = <TFieldValues extends FieldValues>({
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
           <FieldLabel htmlFor={`${formId}-${toKebabCase(name)}`}>
-            Password
+            {labelOverride || 'Password'}
           </FieldLabel>
           <Input
             {...field}
