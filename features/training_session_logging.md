@@ -6,6 +6,7 @@ Training sessions consist of:
 - A duration (stored in seconds displayed in HH:MM:SS)
 - Is either indoors or outdoors
 - Notes (or comments)
+- A link to GPS watch data
 
 Running training sessions consist of:
 - A distance
