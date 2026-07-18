@@ -5,6 +5,7 @@ Users should be able to view, log (create), edit, and delete (their own) trainin
 Training sessions consist of:
 - A duration (stored in seconds displayed in HH:MM:SS)
 - Is either indoors or outdoors
+- Notes (or comments)
 
 Running training sessions consist of:
 - A distance
