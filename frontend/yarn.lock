@@ -727,10 +727,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource-variable/dm-sans@npm:^5.2.8":
-  version: 5.2.8
-  resolution: "@fontsource-variable/dm-sans@npm:5.2.8"
-  checksum: 10c0/99971f181c343a81f72ab6d8d1354ca38bc138054e352e922a12c2be52083598446436a584b67e6e505a3e2ffdc65933c3faa290fbdb425b4768a5f4e90e12db
+"@fontsource-variable/dm-sans@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "@fontsource-variable/dm-sans@npm:5.3.0"
+  checksum: 10c0/95c74b19fff2b4b1d669e61d481ede2186e28b92d7e1950748db94b9c3b2598aa38ff852e45ffd9955ea0a51386acdc90a8c4267783d45dd5f05e2430b24ad4e
   languageName: node
   linkType: hard
 
@@ -2437,7 +2437,7 @@ __metadata:
   dependencies:
     "@base-ui/react": "npm:^1.6.0"
     "@eslint/js": "npm:^10.0.1"
-    "@fontsource-variable/dm-sans": "npm:^5.2.8"
+    "@fontsource-variable/dm-sans": "npm:^5.3.0"
     "@fontsource-variable/playfair-display": "npm:^5.3.0"
     "@hookform/resolvers": "npm:^5.4.0"
     "@tailwindcss/vite": "npm:^4.3.3"
