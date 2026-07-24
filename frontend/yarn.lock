@@ -2467,7 +2467,7 @@ __metadata:
     react-error-boundary: "npm:^6.1.2"
     react-hook-form: "npm:^7.82.0"
     react-router: "npm:^8.2.0"
-    shadcn: "npm:^4.13.1"
+    shadcn: "npm:^4.14.0"
     sonner: "npm:^2.0.7"
     swr: "npm:^2.4.2"
     tailwind-merge: "npm:^3.6.0"
@@ -5133,9 +5133,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shadcn@npm:^4.13.1":
-  version: 4.13.1
-  resolution: "shadcn@npm:4.13.1"
+"shadcn@npm:^4.14.0":
+  version: 4.14.0
+  resolution: "shadcn@npm:4.14.0"
   dependencies:
     "@babel/core": "npm:^7.28.0"
     "@babel/parser": "npm:^7.28.0"
@@ -5171,7 +5171,7 @@ __metadata:
     zod-to-json-schema: "npm:^3.24.6"
   bin:
     shadcn: dist/index.js
-  checksum: 10c0/132abf73c615146f72e9a42742d85963c190cee688768b4ecebb6fa12c4ce553d3a6368e27f18ba4147dedf5ca1cf64199c2ac5ba1510a9543eca7b042461334
+  checksum: 10c0/2784cc60e6e8c5668cf758f63ed47c12ebe2fc7f7914b83cd861d6e49f04fadac3aea5e24e875b316af533d0455d454524ff3792a65a5a9dc2d1ed080c24f66c
   languageName: node
   linkType: hard
 
