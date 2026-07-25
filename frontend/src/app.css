@@ -79,6 +79,23 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  --grid-paper:
+    linear-gradient(to right, oklch(var(--ink) / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(var(--ink) / 0.04) 1px, transparent 1px);
+  --grid-paper-dark:
+    linear-gradient(
+      to right,
+      oklch(var(--near-cream) / 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      oklch(var(--near-cream) / 0.04) 1px,
+      transparent 1px
+    );
+  --grid-md: 24px 24px;
+
   --animate-fade-up: fadeUp 0.7s ease both;
 
   @keyframes fadeUp {
