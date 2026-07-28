@@ -8,9 +8,9 @@ description: This outlines the design system for Digital Training Log and how to
 Don't rely on `font-size` alone to create visual hierarchy. Making a primary element bolder lets you use a more reasonable font size, and often does a better job at communicating its importance. Using a softer color for supporting text instead of a tiny font size makes it clear that the text is secondary while sacrificing less on readability.
 
 These are the three primary text colors in the app
-- A dark color named ink for primary content: `--ink: oklch(0.2098 0.0083 84.59)` this same color is also aliased in `--foreground` which is used by shadcn and `--color-foreground`, the Tailwind classes are `text-foreground` or `color-foreground`.
-- A grey named ink-muted for secondary content: `--ink-muted: oklch(0.5152 0.0119 81.78)`, the Tailwind class: `text-muted-foreground` or `color-muted-foreground`.
-- A lighter grey named ink-faint for tertiary content: `--ink-faint: oklch(0.7203 0.0097 78.27)`. Tailwind class: `text-ink-faint` or `color-ink-faint`
+- A dark color named ink-700 for primary content: `--ink: oklch(0.3 0.008 75)` this same color is also aliased in `--foreground` which is used by shadcn and `--color-foreground`, the Tailwind classes are `text-text-primary`, `text-foreground` or `color-foreground`.
+- A grey named ink-500 for secondary content: `--ink-500: oklch(0.45 0.008 75)`, the Tailwind class: `text-muted-foreground` or `color-muted-foreground`.
+- A lighter grey named ink-300 for tertiary content: `--ink-300: oklch(0.6 0.008 75)`. Tailwind class: `text-text-tertiary` or `color-text-tertiary`
 
 ### Font Weight
 - Use class `font-normal` (`font-weight: 400`) for most text
