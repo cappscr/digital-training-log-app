@@ -178,7 +178,7 @@ These principles should inform every feature and UI decision:
 - **Primary accent:** `oklch(0.6045 0.1414 46.33)` (burnt terracotta)
 - **Background:** `oklch(0.9618 0.0086 84.57)` (warm cream)
 - **Ink:** `oklch(0.2098 0.0083 84.59)` (near-black)
-- **Design language:** Editorial minimalism — warm, serious, personal. Not a fitness startup aesthetic.
+- **Design language:** DTL's visual language treats the interface as a digital analog to a paper training journal — a warm, paper-toned background with fine grid or ruled texture, structured data in a clean sans-serif, and freeform commentary in a hand-drawn heading typeface. The aesthetic deliberately departs from generic SaaS polish (soft shadows, uniform radii, pill buttons) to signal a personal tool rather than a commercial product, while keeping quantitative data — distances, splits, dates — rendered with full legibility and trust.
 
 The app icon is a split open-journal mark: left page is a calendar grid (planning), right page is ruled lines with entry bars (logging). The favicon is a minimal 3×3 grid of cells at varying opacity. Both use the accent color on a dark ground.
 
@@ -190,7 +190,10 @@ The app uses semantic CSS variables to theme shadcn components.
 
 |Token|Description|Light Mode Value|Dark Mode Value|
 |---|---|---|---|
-|background|The default app background color|**cream:** `oklch(0.9618 0.0086 84.57)`|**deep-warm-charcoal:** `oklch(0.16 0.008 84.59)`|
+|background|The default app background color|**paper-50:** `oklch(0.99 0.006 75)`|**paper-50-dark:** `oklch(0.2 0.01 75)`|
+|text-primary|The default app text color|**ink-700:** `oklch(0.3 0.008 75)`|**ink-700-dark:** `oklch(0.9 0.006 75)`|
+|text-secondary|The secondary app text color|**ink-500:** `oklch(0.45 0.008 75)`|**ink-500-dark:** `oklch(0.72 0.006 75)`|
+|text-tertiary|The tertiary app text color|**ink-300:** `oklch(0.6 0.008 75)`|**ink-300-dark:** `oklch(0.56 0.006 75)`|
 |foreground|The default app text color|**ink:** `oklch(0.2098 0.0083 84.59)`|**near-cream:** `oklch(0.91 0.0008 84.57)`|
 |primary|High-emphasis actions and brand surfaces|**burnt-terracotta:** `oklch(0.6045 0.1414 46.33)`|**burnt-terracotta:** `oklch(0.6045 0.1414 46.33)`|
 |secondary|Lower-emphasis filled actions and supporting surfaces|**warm-stone:** `oklch(0.72 0.01 84.59)`|**dark stone:** `oklch(0.24 0.009 84.59)`|
