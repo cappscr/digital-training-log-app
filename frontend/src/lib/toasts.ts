@@ -3,9 +3,9 @@ import { toast, type ExternalToast } from 'sonner';
 export const successToast = (message: string, options?: ExternalToast) =>
   toast.success(message, {
     style: {
-      background: 'var(--color-green-100)',
-      border: '1px solid var(--color-green-300)',
-      color: 'var(--color-green-900)',
+      background: 'var(--success)',
+      border: '1px solid var(--success-border)',
+      color: 'var(--success-foreground)',
     },
     ...options,
   });
@@ -13,9 +13,9 @@ export const successToast = (message: string, options?: ExternalToast) =>
 export const errorToast = (message: React.ReactNode, options?: ExternalToast) =>
   toast.error(message, {
     style: {
-      background: 'var(--color-red-100)',
-      border: '1px solid var(--color-red-300)',
-      color: 'var(--color-red-900)',
+      background: 'var(--error)',
+      border: '1px solid var(--error-border)',
+      color: 'var(--error-foreground)',
     },
     ...options,
   });
