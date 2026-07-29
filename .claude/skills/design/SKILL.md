@@ -34,3 +34,20 @@ Balance weight and contrast
 ### Actions
 
 Primary actions should be obvious. Use the default variant from shadcn. Secondary actions should be clear but not prominent. Use the outline or secondary variants from shadcn. Tertiary actions should be discoverable but unobtrusive. Use the ghost variant from shadcn. If a destructive action isn't the primary on the page, it might be better to give it a secondary or tertiary button treatment. Combine this with a confirmation step where the destructive action actually is the primary action, and apply the destructive variant from shadcn there.
+
+## Color
+
+### Semantic Accent Colors
+
+Use the default tailwind color palette to express semantic states with color and the listed 5 shade stops
+
+- `red-*` for destructive or error states
+- `amber-*` for warning states
+- `green-*` for success states
+- `blue-*` for info states
+
+- `*-100` for subtle bg tint
+- `*-300` for borders
+- `*-500` for base and icons
+- `*-700` for text-on-light
+- `*-900` for dark bg and text-on-dark
