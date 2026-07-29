@@ -201,6 +201,13 @@
   --text-secondary: var(--ink-500);
   --text-tertiary: var(--ink-300);
 
+  /**
+   * Colors to express semantic states
+   */
+  --error: var(--color-red-100);
+  --error-border: var(--color-red-300);
+  --error-foreground: var(--color-red-700);
+
   --foreground: var(--text-primary);
   --border: var(--text-primary) / 0.12;
   --border-emphasis: var(--near-cream) / 0.2;
@@ -256,6 +263,13 @@
   /* semantic tokens */
   --border: var(--near-cream) / 0.18;
   --border-emphasis: var(--near-cream);
+
+  /**
+   * Colors to express semantic states in dark mode
+   */
+  --error: var(--color-red-900);
+  --error-border: var(--color-red-700);
+  --error-foreground: var(--color-red-300);
 
   --primary: var(--terracotta);
 
