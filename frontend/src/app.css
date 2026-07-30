@@ -22,42 +22,41 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* font tokens */
+  /** Font tokens */
   --font-heading: var(--font-sans);
   --font-sans: 'DM Sans Variable', system-ui, sans-serif;
   --font-body: var(--font-sans);
   --font-display: 'Playfair Display', Georgia, serif;
 
-  /* semantic color tokens */
-  --color-background: oklch(var(--background));
-  --color-text-primary: oklch(var(--text-primary));
-  --color-text-secondary: oklch(var(--text-secondary));
-  --color-text-tertiary: oklch(var(--text-tertiary));
+  /** Create utility classes for shadcn */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
 
-  --color-foreground: oklch(var(--foreground));
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
   --color-border: oklch(var(--border));
   --color-border-emphasis: oklch(var(--border-emphasis));
-  --color-primary: oklch(var(--primary));
-  --color-primary-foreground: oklch(var(--primary-foreground));
-  --color-secondary: oklch(var(--secondary));
-  --color-secondary-foreground: oklch(var(--secondary-foreground));
-  --color-accent: oklch(var(--accent));
-  --color-accent-foreground: oklch(var(--accent-foreground));
-  --color-muted: oklch(var(--muted));
-  --color-muted-foreground: oklch(var(--muted-foreground));
-  --color-emphasis: oklch(var(--emphasis));
-  --color-emphasis-foreground: oklch(var(--emphasis-foreground));
-  --color-emphasis-heading: oklch(var(--emphasis-heading));
-  --color-destructive: oklch(var(--destructive));
 
-  /* component specific semantic tokens */
-  --color-input: oklch(var(--input));
-  --color-ring: oklch(var(--ring));
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
 
-  --color-card: oklch(var(--card));
-  --color-card-foreground: oklch(var(--card-foreground));
-  --color-popover-foreground: oklch(var(--popover-foreground));
-  --color-popover: oklch(var(--popover));
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
@@ -73,6 +72,11 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
+
+  /** Custom shadcn theme-like tokens */
+  --color-emphasis: oklch(var(--emphasis));
+  --color-emphasis-foreground: oklch(var(--emphasis-foreground));
+  --color-emphasis-heading: oklch(var(--emphasis-heading));
 
   /* non-color tokens */
   --radius-xs: calc(var(--radius) * 0.2);
@@ -116,10 +120,7 @@
 
 :root {
   /** Raw light mode tokens */
-  --paper-50: 0.99 0.006 75; /* #fefbf7 */
-  --ink-700: 0.3 0.008 75; /* #302d29 */
-  --ink-500: 0.45 0.008 75; /* #585550 */
-  --ink-300: 0.6 0.008 75; /* #83807b */
+  --paper-50: oklch(0.99 0.006 75); /* #fefbf7 */
 
   /**
    * Grey scale — anchored to terracotta hue (46.33)
@@ -197,9 +198,9 @@
 
   /* semantic tokens */
   --background: var(--paper-50);
-  --text-primary: var(--ink-700);
-  --text-secondary: var(--ink-500);
-  --text-tertiary: var(--ink-300);
+  --text-primary: var(--color-grey-900);
+  --text-secondary: var(--color-grey-600);
+  --text-tertiary: var(--color-grey-500);
 
   /**
    * Colors to express semantic states
@@ -217,30 +218,42 @@
   --warning-border: var(--color-amber-300);
   --warning-foreground: var(--color-amber-700);
 
+  /**
+   * Additional semantic tokens to fill out the
+   * shadcn theme
+   */
   --foreground: var(--text-primary);
-  --border: var(--text-primary) / 0.12;
-  --border-emphasis: var(--near-cream) / 0.2;
-  --primary: var(--burnt-terracotta);
-  --primary-foreground: var(--black);
-  --secondary: var(--light-olive);
-  --secondary-foreground: var(--text-primary);
-  --accent: var(--light-beige);
-  --accent-foreground: var(--text-primary);
-  --muted: var(--beige);
-  --muted-foreground: var(--text-secondary);
-  --emphasis: var(--text-primary);
-  --emphasis-foreground: var(--text-tertiary);
-  --destructive: var(--destructive-red);
-
-  /* component specific semantic tokens */
-  --input: var(--text-primary) / 0.18;
-  --ring: var(--burnt-terracotta);
 
   --card: var(--background);
   --card-foreground: var(--text-primary);
 
   --popover: var(--background);
   --popover-foreground: var(--text-primary);
+
+  --primary: var(--color-terracotta-500);
+  --primary-foreground: var(
+    --background
+  ); /* May need to revisit and increase the contrast */
+
+  --secondary: var(--color-teal-200);
+  --secondary-foreground: var(--color-teal-900);
+
+  /* May need to revisit */
+  --accent: var(--color-rose-200);
+  --accent-foreground: var(--color-rose-900);
+
+  --muted: var(--color-grey-100); /* This may need to be darker */
+  --muted-foreground: var(--text-secondary);
+
+  --destructive: var(--color-red-500);
+  --border: var(--color-grey-300);
+  --input: var(--color-grey-300);
+  --ring: var(--color-terracotta-400);
+
+  /* These are custom additions, evalute if they are still needed */
+  --border-emphasis: var(--near-cream) / 0.2;
+  --emphasis: var(--text-primary);
+  --emphasis-foreground: var(--text-tertiary);
 
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
