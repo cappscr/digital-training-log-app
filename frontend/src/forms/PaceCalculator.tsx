@@ -92,6 +92,7 @@ export const PaceCalculatorForm = () => {
                 id="pace-calculator-form-min"
                 min={2}
                 size="icon-sm"
+                surface="background"
               />
               <NumberField
                 name="seconds"
@@ -101,6 +102,7 @@ export const PaceCalculatorForm = () => {
                 min={0}
                 max={59}
                 size="icon-sm"
+                surface="background"
               />
               <Controller
                 name="units"
@@ -118,7 +120,10 @@ export const PaceCalculatorForm = () => {
                       onValueChange={field.onChange}
                       items={paceUnitOptions}
                     >
-                      <SelectTrigger className="w-full max-w-48">
+                      <SelectTrigger
+                        surface="background"
+                        className="w-full max-w-48"
+                      >
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -142,6 +147,7 @@ export const PaceCalculatorForm = () => {
               label="Pecentage"
               min={1}
               size="icon-xs"
+              surface="background"
             />
           </FieldGroup>
           <Button

@@ -21,12 +21,14 @@ export function NumberField<T extends FieldValues>({
   name,
   control,
   size = 'icon-xs',
+  surface,
   ...other
 }: BaseNumberField.Root.Props & {
   label?: React.ReactNode;
   name: FieldPath<T>;
   control: Control<T>;
   size?: 'icon-xs' | 'icon-sm';
+  surface?: 'transparent' | 'card' | 'background';
 }) {
   const { field, fieldState } = useController({ name, control });
   const generatedId = useId();
@@ -53,7 +55,7 @@ export function NumberField<T extends FieldValues>({
             : (field.value ?? '0');
 
           return (
-            <InputGroup>
+            <InputGroup surface={surface}>
               <InputGroupInput
                 id={id}
                 aria-invalid={hasError}
