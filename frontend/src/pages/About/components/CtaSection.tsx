@@ -9,8 +9,8 @@ export const CtaSection = () => {
       className="animate-fade-up mx-auto my-0 max-w-225 px-5 pt-14 pb-32 [animation-delay:var(--animation-delay)] sm:px-8 sm:pt-20"
       style={{ '--animation-delay': '0.35s' } as CSSProperties}
     >
-      <div className="bg-emphasis text-primary-foreground rounded-sm px-6 py-9 sm:p-12">
-        <h2 className="font-display text-emphasis-heading mb-4 text-[clamp(1.5rem,3vw,2rem)] leading-tight font-bold tracking-tight">
+      <div className="bg-grey-900 dark:bg-grey-800 text-primary-foreground rounded-sm px-6 py-9 sm:p-12">
+        <h2 className="font-display text-grey-100 mb-4 text-[clamp(1.5rem,3vw,2rem)] leading-tight font-bold tracking-tight">
           Get in touch or support the work
         </h2>
         <p className="text-muted-foreground mb-9 max-w-135 text-base/[1.7]">
@@ -38,18 +38,18 @@ export const CtaSection = () => {
             disabled
             size="xl"
             radius="xs"
-            className="border-border-emphasis text-muted-foreground gap-2 border border-solid data-[disabled]:opacity-100"
+            className="border-grey-700 text-muted-foreground gap-2 border border-solid data-[disabled]:opacity-100"
             aria-label="Contribution link coming soon"
           >
             Support the project
             <ComingSoonBadge />
           </Button>
         </div>
-        <div className="border-border-emphasis text-muted-foreground mt-8 border-t pt-8 text-sm">
+        <div className="border-grey-700 text-muted-foreground mt-8 border-t pt-8 text-sm">
           By using Digital Training Log you agree to our{' '}
           <Link
             to="/terms"
-            className="text-accent hover:text-muted whitespace-nowrap underline underline-offset-2"
+            className="text-accent hover:text-muted whitespace-nowrap underline underline-offset-2 dark:text-rose-200 dark:hover:text-rose-400"
           >
             Terms of Use
           </Link>
