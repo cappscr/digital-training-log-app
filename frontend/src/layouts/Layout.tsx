@@ -8,7 +8,7 @@ export const Layout = () => {
     <>
       <PrimaryNav />
       <ErrorBoundary>
-        <main className="text-foreground font-body min-h-screen overflow-x-hidden bg-(image:--grid-paper) bg-size-(--grid-md) leading-relaxed antialiased dark:bg-(image:--grid-paper-dark)">
+        <main className="text-foreground font-body bg-background min-h-screen overflow-x-hidden leading-relaxed antialiased">
           <Outlet />
         </main>
       </ErrorBoundary>
