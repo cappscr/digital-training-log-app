@@ -10,8 +10,6 @@ gem "jbuilder"
 gem "bcrypt", "~> 3.1.7"
 gem "jwt"
 gem "active_model_serializers", "~> 0.10.0"
-# The default for Active Storage image variant processing
-gem "ruby-vips"
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
