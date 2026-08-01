@@ -37,17 +37,41 @@ Primary actions should be obvious. Use the default variant from shadcn. Secondar
 
 ## Color
 
+| Palette | Stops | Role |
+|---|---|---|
+| `grey` | 100–900 | Text, borders, backgrounds, panels, form controls |
+| `terracotta` | 100–900 | Primary — buttons, links, elements that need to stand out |
+| `teal` | 100–900 | Secondary — supporting actions, less prominent than primary |
+| `rose` | 100–900 | Accent — hover/highlight states, flagged/attention items |
+
+All four are declared with the `color-` prefix in `@theme`, which generates the corresponding Tailwind utility classes (`bg-terracotta-500`, `text-grey-700`, etc.).
+
+Don't rely on color alone to communicate meaning. Use icons, text, and contrast to make sure your interface is accessible to everyone.
+
+### Heuristics
+
+- **Reserve high-saturation color for small areas.** Large surfaces should stay closer to grey/tinted-neutral; saturated color is for buttons, links, and accents — not backgrounds or panels.
+- **Don't reach for the raw scale directly in components.** Use semantic tokens (`--primary`, `--border`, `--muted-foreground`, etc.) wherever one exists; they carry the light/dark mapping automatically. Reach for `grey-500` etc. directly only for one-off cases with no existing semantic role.
+
+### Dark mode
+
+Semantic tokens are redefined per-mode in `.dark`, not the raw palette. Background/foreground pairs invert which end of the scale they draw from — e.g. a status background moves from a light tint (`green-100`) to a dark tint (`green-900`), while its text moves the opposite direction (`green-700` → `green-300`). When adding a new semantic token, always define both halves of the pair together rather than assuming the light-mode value works as-is in dark mode.
+
 ### Semantic Accent Colors
 
-Use the default tailwind color palette to express semantic states with color and the listed 5 shade stops
+Use Tailwind's default palette to emphasize semantic states with color, at these five stops:
+
+- `100` — subtle background tint
+- `300` — border
+- `500` — base and icons
+- `700` — text-on-light
+- `900` — dark background and text-on-dark
+
+Applied to:
 
 - `red-*` for destructive or error states
 - `amber-*` for warning states
 - `green-*` for success states
 - `blue-*` for info states
 
-- `*-100` for subtle bg tint
-- `*-300` for borders
-- `*-500` for base and icons
-- `*-700` for text-on-light
-- `*-900` for dark bg and text-on-dark
+These use Tailwind's built-in colors rather than a custom hue-anchored scale, since status colors need to be instantly recognizable (red = error, green = success) regardless of the app's brand palette.
