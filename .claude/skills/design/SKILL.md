@@ -37,9 +37,19 @@ Primary actions should be obvious. Use the default variant from shadcn. Secondar
 
 ## Color
 
+There are nine shades of grey available in the palette, from `grey-100` to `grey-900`. They are included with the `color-` prefix in the Tailwind theme to generate Tailwind utility classes. The grey palette is used for text, borders, backgrounds, panels, and form controls.
+
+The app's primary color is terracotta and available in 9 shades in the palette, from `terracotta-100` to `terracotta-900`. They are included with the `color-` prefix in the Tailwind theme to generate Tailwind utility classes. The terracotta palette is used for primary buttons, links, and other elements that need to stand out.
+
+There are also 9 shades of teal available in the palette, from `teal-100` to `teal-900`. They are included with the `color-` prefix in the Tailwind theme to generate Tailwind utility classes. The teal palette is used for secondary buttons, links, and other elements that need to stand out.
+
+Finally, there are 9 shades of rose available in the palette, from `rose-100` to `rose-900`. They are included with the `color-` prefix in the Tailwind theme to generate Tailwind utility classes. The rose palette is used for tertiary buttons, links, and other elements that need to stand out.
+
+Don't rely on color alone to communicate meaning. Use icons, text, and contrast to make sure your interface is accessible to everyone.
+
 ### Semantic Accent Colors
 
-Use the default tailwind color palette to express semantic states with color and the listed 5 shade stops
+Use the default tailwind color palette to emphasize semantic states with color and the listed 5 shade stops
 
 - `red-*` for destructive or error states
 - `amber-*` for warning states
