@@ -1,0 +1,57 @@
+@theme {
+  /**
+   * Grey scale — anchored to terracotta hue (46.33)
+   * Overrides Tailwind's default grey palette for 100-900 shades
+   */
+  --color-grey-100: oklch(0.96 0.006 46.33); /* #f5f1ee */
+  --color-grey-200: oklch(0.91 0.01 46.33); /* #e7dfdc */
+  --color-grey-300: oklch(0.83 0.014 46.33);
+  --color-grey-400: oklch(0.71 0.018 46.33);
+  --color-grey-500: oklch(0.58 0.02 46.33);
+  --color-grey-600: oklch(0.46 0.019 46.33);
+  --color-grey-700: oklch(0.35 0.016 46.33);
+  --color-grey-800: oklch(0.25 0.012 46.33); /* #27201d */
+  --color-grey-900: oklch(0.16 0.008 46.33); /* #100c0a */
+
+  /**
+   * Terracotta scale - primary brand color
+   * Extends Tailwind's theme
+   */
+  --color-terracotta-100: oklch(0.94 0.025 46.33);
+  --color-terracotta-200: oklch(0.87 0.05 46.33);
+  --color-terracotta-300: oklch(0.79 0.08 46.33);
+  --color-terracotta-400: oklch(0.7 0.112 46.33);
+  --color-terracotta-500: oklch(0.6045 0.1414 46.33); /* #c4622d */
+  --color-terracotta-600: oklch(0.53 0.138 46.33);
+  --color-terracotta-700: oklch(0.45 0.125 46.33);
+  --color-terracotta-800: oklch(0.36 0.1 46.33);
+  --color-terracotta-900: oklch(0.27 0.07 46.33);
+
+  /**
+   * Teal — anchors --secondary, hue 197 - secondary color
+   * Overrides the default Teal colors from the Tailwind theme
+   */
+  --color-teal-100: oklch(0.95 0.015 197);
+  --color-teal-200: oklch(0.89 0.03 197);
+  --color-teal-300: oklch(0.81 0.05 197);
+  --color-teal-400: oklch(0.71 0.075 197);
+  --color-teal-500: oklch(0.62 0.095 197);
+  --color-teal-600: oklch(0.53 0.09 197);
+  --color-teal-700: oklch(0.44 0.078 197);
+  --color-teal-800: oklch(0.34 0.06 197);
+  --color-teal-900: oklch(0.24 0.04 197);
+
+  /**
+   * Rose — standalone accent, hue 23.07 (matches old --blush-rose hue)
+   * Extends Tailwind's theme
+   */
+  --color-rose-100: oklch(0.95 0.025 23.07);
+  --color-rose-200: oklch(0.9 0.045 23.07);
+  --color-rose-300: oklch(0.84 0.07 23.07);
+  --color-rose-400: oklch(0.78 0.095 23.07);
+  --color-rose-500: oklch(0.72 0.115 23.07);
+  --color-rose-600: oklch(0.63 0.11 23.07);
+  --color-rose-700: oklch(0.52 0.095 23.07);
+  --color-rose-800: oklch(0.4 0.075 23.07);
+  --color-rose-900: oklch(0.28 0.05 23.07);
+}

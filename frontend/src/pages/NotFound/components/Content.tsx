@@ -20,7 +20,7 @@ export const Content = () => {
         This page doesn't appear in the log.
       </p>
       <Rule />
-      <p className="text-emphasis-foreground mb-10 leading-[1.625]">
+      <p className="text-muted-foreground mb-10 leading-[1.625]">
         The session you're looking for may have moved, been deleted, or never
         existed. Even the best athletes take a wrong turn.
       </p>

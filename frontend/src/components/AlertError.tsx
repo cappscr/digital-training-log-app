@@ -13,12 +13,14 @@ export const AlertError = ({
   return (
     <Alert
       variant="destructive"
-      className="max-w-md border-red-800 bg-red-100"
+      className="border-error-border bg-error max-w-md"
       {...rest}
     >
-      <AlertCircleIcon className="stroke-red-800" />
-      <AlertTitle className="font-bold text-red-800">{title}</AlertTitle>
-      <AlertDescription className="data-[slot=alert-description]:text-red-800">
+      <AlertCircleIcon className="stroke-error-foreground" />
+      <AlertTitle className="text-error-foreground font-bold">
+        {title}
+      </AlertTitle>
+      <AlertDescription className="data-[slot=alert-description] text-error-foreground">
         {description}
       </AlertDescription>
     </Alert>

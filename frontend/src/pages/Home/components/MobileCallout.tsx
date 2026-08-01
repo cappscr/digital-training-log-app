@@ -38,11 +38,11 @@ const PhoneDay = ({ day }: { day: string }) => {
 
 export const MobileCallout = () => {
   return (
-    <div className="bg-emphasis px-8 py-20 text-white">
+    <div className="bg-grey-900 dark:bg-grey-800 px-8 py-20 text-white">
       <div className="mx-auto my-0 grid max-w-215 grid-cols-2 items-center gap-16">
         <div>
           <SectionLabel label="Mobile-first" />
-          <h2 className="font-display text-emphasis-heading mb-5 text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2]">
+          <h2 className="font-display text-grey-100 mb-5 text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2]">
             Log a session
             <br />
             <em className="text-primary italic opacity-90">at the track.</em>
@@ -51,7 +51,7 @@ export const MobileCallout = () => {
             <br />
             from the couch.
           </h2>
-          <p className="text-emphasis-foreground text-base/[1.8] font-light">
+          <p className="text-grey-400 text-base/[1.8] font-light">
             Digital Training Log is built to work as well on your phone as your
             desktop. Your training journal is wherever you are — not tethered to
             a laptop.
