@@ -6,7 +6,14 @@ Training sessions consist of:
 - A duration (stored in seconds displayed in HH:MM:SS)
 - Is either indoors or outdoors
 - Notes (or comments)
-- A link to GPS watch data
+
+Belongs to a user
+May have many links to GPS watch data
+May have associated weather data
+
+Outdoor training sessions can include:
+- A temperature
+- A humidity
 
 Running training sessions consist of:
 - A distance
@@ -21,10 +28,6 @@ Running training sessions consist of:
 - A tag (optional)
   - Treadmill
   - Strides
-
-Outdoor training sessions can include:
-- A temperature
-- A humidity
 
 ## Validations
 
