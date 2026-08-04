@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   attr_accessor :activation_token, :reset_token
 
-  before_create :set_id, :create_activation_digest
+  before_create :create_activation_digest
   before_save :downcase_email
 
   has_many :user_sessions, dependent: :destroy
@@ -76,10 +76,6 @@ class User < ApplicationRecord
   end
 
   private
-
-  def set_id
-    self.id ||= SecureRandom.uuid
-  end
 
   # Converts email to all lower-case.
   def downcase_email

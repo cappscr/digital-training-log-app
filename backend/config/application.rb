@@ -37,6 +37,7 @@ module Backend
       g.test_framework :rspec
       g.integration_tool :rspec
       g.system_tests :rspec
+      g.orm :active_record, primary_key_type: :string
     end
   end
 end
