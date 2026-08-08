@@ -2555,7 +2555,7 @@ __metadata:
     react-router: "npm:^8.3.0"
     shadcn: "npm:^4.16.1"
     sonner: "npm:^2.0.7"
-    swr: "npm:^2.4.2"
+    swr: "npm:^2.5.0"
     tailwind-merge: "npm:^3.6.0"
     tailwindcss: "npm:^4.3.3"
     tw-animate-css: "npm:^1.4.0"
@@ -5623,15 +5623,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swr@npm:^2.4.2":
-  version: 2.4.2
-  resolution: "swr@npm:2.4.2"
+"swr@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "swr@npm:2.5.0"
   dependencies:
     dequal: "npm:^2.0.3"
     use-sync-external-store: "npm:^1.6.0"
   peerDependencies:
     react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10c0/fdb54e3cb5e788d4aa53d7db7d541709807c0dde2af41c423e241274cd6595e66dca15a0a310e08a26a49391ff615c153aaa44710016249c2d4c0fe653cc970f
+  checksum: 10c0/8f53bf64c5948bc925e36c2d0200e8f7c840c7e9bd353ff4e7e618c5e4447233dbcdb50d0c14a4a5ab38c69fa096ddbe629f23faa1638ecb302e679f4e4cd6a2
   languageName: node
   linkType: hard
 
