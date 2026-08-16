@@ -27,5 +27,5 @@ The Rails API must be running separately on port 3000 for API calls to work in d
 
 ```bash
 bundle install
-rails server
+bin/rails server
 ```

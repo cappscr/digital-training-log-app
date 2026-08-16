@@ -10,17 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_04_090454) do
-  create_table "training_sessions", force: :cascade do |t|
+ActiveRecord::Schema[8.1].define(version: 2026_08_16_092800) do
+  create_table "running_training_sessions", id: :string, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "training_sessions", id: :string, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "duration_seconds"
     t.string "location_type", default: "outdoor", null: false
     t.text "notes"
-    t.string "sport_session_id", null: false
-    t.string "sport_session_type", null: false
+    t.string "sport_details_id", null: false
+    t.string "sport_details_type", null: false
     t.datetime "updated_at", null: false
     t.string "user_id", null: false
-    t.index ["sport_session_type", "sport_session_id"], name: "index_training_sessions_on_sport_session", unique: true
+    t.index ["sport_details_type", "sport_details_id"], name: "index_training_sessions_on_sport_details", unique: true
     t.index ["user_id"], name: "index_training_sessions_on_user_id"
   end
 
