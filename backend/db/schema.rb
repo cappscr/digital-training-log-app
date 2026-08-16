@@ -10,10 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_16_092800) do
-  create_table "running_training_sessions", id: :string, force: :cascade do |t|
+ActiveRecord::Schema[8.1].define(version: 2026_08_16_213421) do
+  create_table "running_training_session_tags", id: :string, force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.string "kind", null: false
+    t.string "running_training_session_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["running_training_session_id"], name: "idx_on_running_training_session_id_f37cba9841"
+  end
+
+  create_table "running_training_session_types", id: :string, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "kind", null: false
+    t.string "running_training_session_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["running_training_session_id"], name: "idx_on_running_training_session_id_7ed4ad0821"
+  end
+
+  create_table "running_training_sessions", id: :string, force: :cascade do |t|
+    t.integer "average_cadence"
+    t.integer "average_heart_rate"
+    t.datetime "created_at", null: false
+    t.decimal "distance", precision: 5, scale: 2
+    t.integer "elevation_gain"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "training_session_weathers", id: :string, force: :cascade do |t|
+    t.string "conditions"
+    t.datetime "created_at", null: false
+    t.decimal "humidity", precision: 4, scale: 1
+    t.decimal "temperature", precision: 4, scale: 1
+    t.string "training_session_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["training_session_id"], name: "index_training_session_weathers_on_training_session_id", unique: true
   end
 
   create_table "training_sessions", id: :string, force: :cascade do |t|
@@ -59,6 +89,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_16_092800) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "running_training_session_tags", "running_training_sessions"
+  add_foreign_key "running_training_session_types", "running_training_sessions"
+  add_foreign_key "training_session_weathers", "training_sessions"
   add_foreign_key "training_sessions", "users"
   add_foreign_key "user_sessions", "users"
 end

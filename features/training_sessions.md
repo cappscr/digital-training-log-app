@@ -14,13 +14,13 @@ May have associated weather data
 Outdoor training sessions can include:
 - A temperature
 - A humidity
+- Conditions
 
 Running training sessions consist of:
 - A distance
 - Elevation gain (optional)
 - Zero or more types
   - Workout (meaning high intensity session like intervals or threshold)
-  - Cross Training
   - Long Run (for running workouts)
   - Race
 - An average HR (optional)
@@ -28,6 +28,8 @@ Running training sessions consist of:
 - A tag (optional)
   - Treadmill
   - Strides
+  - Cross Training
+  - Run Club
 
 ## Validations
 
@@ -41,4 +43,4 @@ Use delegated types with a base TrainingSession model and then inheritance for s
 
 Create a separate model and association for Weather Conditions, which will be associated to outdoor workouts
 
-Create separate models, tables, and associations for RunningTrainingSession types and RunningTrainingSessionTags
+Create separate models, tables, and associations for RunningTrainingSessionTypes and RunningTrainingSessionTags
