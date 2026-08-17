@@ -6,6 +6,7 @@ FactoryBot.define do
     reps { 6 }
     weight { 100 }
     weight_units { "lbs" }
+    bodyweight { false }
 
     trait :multiple_sets do
       sets { 3 }
@@ -13,6 +14,12 @@ FactoryBot.define do
 
     trait :weight_in_kg do
       weight_units { "kg" }
+    end
+
+    trait :bodyweight do
+      bodyweight { true }
+      weight { nil }
+      weight_units { nil }
     end
   end
 end

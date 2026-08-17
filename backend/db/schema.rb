@@ -37,10 +37,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_17_103946) do
   end
 
   create_table "strength_training_exercises", id: :string, force: :cascade do |t|
+    t.boolean "bodyweight", default: false, null: false
     t.datetime "created_at", null: false
-    t.string "name"
-    t.integer "reps"
-    t.integer "sets"
+    t.string "name", null: false
+    t.integer "reps", null: false
+    t.integer "sets", null: false
     t.string "strength_training_session_id", null: false
     t.datetime "updated_at", null: false
     t.integer "weight"

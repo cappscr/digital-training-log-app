@@ -12,6 +12,11 @@ RSpec.describe StrengthTrainingExercise, type: :model do
       expect(strength_training_exercise).to be_persisted
       expect(strength_training_exercise.session).to be_present
     end
+
+    it "cannot persist without a name" do
+      exercise = build(:strength_training_exercise, name: nil)
+      expect { exercise.save!(validate: false) }.to raise_error(ActiveRecord::NotNullViolation)
+    end
   end
 
   describe "weight units" do
@@ -23,6 +28,20 @@ RSpec.describe StrengthTrainingExercise, type: :model do
     it "can be kg" do
       strength_training_exercise = build(:strength_training_exercise, :weight_in_kg)
       expect(strength_training_exercise.weight_in_kg?).to be true
+    end
+  end
+
+  describe "bodyweight" do
+    it "defaults to false" do
+      strength_training_exercise = build(:strength_training_exercise)
+      expect(strength_training_exercise.bodyweight?).to be false
+    end
+    
+    it "can be true" do
+      strength_training_exercise = build(:strength_training_exercise, :bodyweight)
+      expect(strength_training_exercise.bodyweight?).to be true
+      expect(strength_training_exercise.weight).to be nil
+      expect(strength_training_exercise.weight_units).to be nil
     end
   end
 
