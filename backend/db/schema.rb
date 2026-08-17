@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_16_213421) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_17_103946) do
   create_table "running_training_session_tags", id: :string, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "kind", null: false
@@ -33,6 +33,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_16_213421) do
     t.datetime "created_at", null: false
     t.decimal "distance", precision: 5, scale: 2
     t.integer "elevation_gain"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "strength_training_exercises", id: :string, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.integer "reps"
+    t.integer "sets"
+    t.string "strength_training_session_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "weight"
+    t.string "weight_units"
+    t.index ["strength_training_session_id"], name: "idx_on_strength_training_session_id_371a7d4b3b"
+  end
+
+  create_table "strength_training_sessions", id: :string, force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
@@ -91,6 +108,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_16_213421) do
 
   add_foreign_key "running_training_session_tags", "running_training_sessions"
   add_foreign_key "running_training_session_types", "running_training_sessions"
+  add_foreign_key "strength_training_exercises", "strength_training_sessions"
   add_foreign_key "training_session_weathers", "training_sessions"
   add_foreign_key "training_sessions", "users"
   add_foreign_key "user_sessions", "users"

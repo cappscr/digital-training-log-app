@@ -7,6 +7,11 @@ FactoryBot.define do
 
     association :sport_details, factory: :running_training_session
 
+    trait :strength_training do
+      association :sport_details, factory: :strength_training_session
+      location_type { "indoor" }
+    end
+
     trait :indoor do
       location_type { "indoor" }
     end
