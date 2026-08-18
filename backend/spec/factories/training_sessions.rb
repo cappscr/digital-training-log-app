@@ -12,6 +12,10 @@ FactoryBot.define do
       location_type { "indoor" }
     end
 
+    trait :cross_training do
+      association :sport_details, factory: :cross_training_session
+    end
+
     trait :indoor do
       location_type { "indoor" }
     end

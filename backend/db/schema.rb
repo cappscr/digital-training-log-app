@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_17_103946) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_18_085844) do
+  create_table "cross_training_sessions", id: :string, force: :cascade do |t|
+    t.string "activity", null: false
+    t.integer "average_heart_rate"
+    t.datetime "created_at", null: false
+    t.decimal "distance", precision: 5, scale: 2
+    t.integer "elevation_gain"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "running_training_session_tags", id: :string, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "kind", null: false
