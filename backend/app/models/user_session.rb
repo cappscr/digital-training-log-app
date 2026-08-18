@@ -1,8 +1,6 @@
 class UserSession < ApplicationRecord
   belongs_to :user
 
-  before_create :set_id
-
   attr_accessor :refresh_token
 
   def self.generate_for(user, remember_me: false, user_agent: nil)
@@ -40,11 +38,5 @@ class UserSession < ApplicationRecord
 
   def self.sha256(string)
     Digest::SHA256.hexdigest(string)
-  end
-
-  private
-
-  def set_id
-    self.id ||= SecureRandom.uuid
   end
 end

@@ -10,7 +10,82 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_05_092210) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_18_085844) do
+  create_table "cross_training_sessions", id: :string, force: :cascade do |t|
+    t.string "activity", null: false
+    t.integer "average_heart_rate"
+    t.datetime "created_at", null: false
+    t.decimal "distance", precision: 5, scale: 2
+    t.integer "elevation_gain"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "running_training_session_tags", id: :string, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "kind", null: false
+    t.string "running_training_session_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["running_training_session_id"], name: "idx_on_running_training_session_id_f37cba9841"
+  end
+
+  create_table "running_training_session_types", id: :string, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "kind", null: false
+    t.string "running_training_session_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["running_training_session_id"], name: "idx_on_running_training_session_id_7ed4ad0821"
+  end
+
+  create_table "running_training_sessions", id: :string, force: :cascade do |t|
+    t.integer "average_cadence"
+    t.integer "average_heart_rate"
+    t.datetime "created_at", null: false
+    t.decimal "distance", precision: 5, scale: 2
+    t.integer "elevation_gain"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "strength_training_exercises", id: :string, force: :cascade do |t|
+    t.boolean "bodyweight", default: false, null: false
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.integer "reps", null: false
+    t.integer "sets", null: false
+    t.string "strength_training_session_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "weight"
+    t.string "weight_units"
+    t.index ["strength_training_session_id"], name: "idx_on_strength_training_session_id_371a7d4b3b"
+  end
+
+  create_table "strength_training_sessions", id: :string, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "training_session_weathers", id: :string, force: :cascade do |t|
+    t.string "conditions"
+    t.datetime "created_at", null: false
+    t.decimal "humidity", precision: 4, scale: 1
+    t.decimal "temperature", precision: 4, scale: 1
+    t.string "training_session_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["training_session_id"], name: "index_training_session_weathers_on_training_session_id", unique: true
+  end
+
+  create_table "training_sessions", id: :string, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "duration_seconds"
+    t.string "location_type", default: "outdoor", null: false
+    t.text "notes"
+    t.string "sport_details_id", null: false
+    t.string "sport_details_type", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_id", null: false
+    t.index ["sport_details_type", "sport_details_id"], name: "index_training_sessions_on_sport_details", unique: true
+    t.index ["user_id"], name: "index_training_sessions_on_user_id"
+  end
+
   create_table "user_sessions", id: :string, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "expires_at"
@@ -41,5 +116,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_05_092210) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "running_training_session_tags", "running_training_sessions"
+  add_foreign_key "running_training_session_types", "running_training_sessions"
+  add_foreign_key "strength_training_exercises", "strength_training_sessions"
+  add_foreign_key "training_session_weathers", "training_sessions"
+  add_foreign_key "training_sessions", "users"
   add_foreign_key "user_sessions", "users"
 end

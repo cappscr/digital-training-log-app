@@ -33,14 +33,6 @@ The primary audience is dedicated, high-level athletes. Coaches are a secondary 
 | Data fetching | SWR |
 | Icons | Lucide React |
 
-### Backend
-
-| Concern | Choice |
-|---|---|
-| API | Rails (API-only mode) |
-| Database (dev/test) | SQLite |
-| Database (production) | PostgreSQL via Supabase |
-
 ### Infrastructure
 
 | Concern | Choice |
@@ -90,10 +82,7 @@ frontend/
 
 ### backend/
 
-Standard Rails API-only layout. Key conventions:
-- SQLite in development and test environments
-- PostgreSQL (Supabase) in production
-- All routes are namespaced under `/api/`
+Standard Rails API-only layout. See ![backed CLAUDE.md for more detail](./backend/CLAUDE.md)
 
 ### features/
 
@@ -263,13 +252,6 @@ yarn test
 
 # Build for production
 yarn build
-```
-
-The Rails API must be running separately on port 3000 for API calls to work in development. From `backend/`:
-
-```bash
-bundle install
-rails server
 ```
 
 ---
