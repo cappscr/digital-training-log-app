@@ -24,7 +24,7 @@ RSpec.describe StrengthTrainingExercise, type: :model do
       strength_training_exercise = build(:strength_training_exercise)
       expect(strength_training_exercise.weight_in_lbs?).to be true
     end
-    
+
     it "can be kg" do
       strength_training_exercise = build(:strength_training_exercise, :weight_in_kg)
       expect(strength_training_exercise.weight_in_kg?).to be true
@@ -36,7 +36,7 @@ RSpec.describe StrengthTrainingExercise, type: :model do
       strength_training_exercise = build(:strength_training_exercise)
       expect(strength_training_exercise.bodyweight?).to be false
     end
-    
+
     it "can be true" do
       strength_training_exercise = build(:strength_training_exercise, :bodyweight)
       expect(strength_training_exercise.bodyweight?).to be true
