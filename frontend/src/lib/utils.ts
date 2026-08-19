@@ -15,3 +15,32 @@ export const toKebabCase = (str: string): string =>
     .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
     .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2')
     .toLowerCase();
+
+export const parseDuration = (duration: string): number | null => {
+  const trimmed = duration.trim();
+  if (!trimmed) return null;
+
+  const parts = trimmed.split(':');
+
+  if (parts.length > 3) return null;
+
+  const numbers = parts.map((part) => Number(part));
+  if (numbers.some((n) => Number.isNaN(n) || n < 0)) return null;
+
+  let hours = 0;
+  let minutes = 0;
+  let seconds;
+
+  if (parts.length === 1) {
+    seconds = numbers[0];
+  } else if (parts.length === 2) {
+    [minutes, seconds] = numbers;
+  } else {
+    [hours, minutes, seconds] = numbers;
+  }
+
+  if (minutes >= 60 || seconds >= 60) return null;
+  if (hours === 0 && minutes === 0 && seconds === 0) return null;
+
+  return hours * 3600 + minutes * 60 + seconds;
+};
