@@ -44,3 +44,11 @@ export const parseDuration = (duration: string): number | null => {
 
   return hours * 3600 + minutes * 60 + seconds;
 };
+
+export const formatPace = (
+  minutes: number,
+  seconds: number,
+  unit: 'mi' | 'km',
+): string => {
+  return `${minutes}:${seconds.toString().padStart(2, '0')} min/${unit}`;
+};
