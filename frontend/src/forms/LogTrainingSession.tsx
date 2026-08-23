@@ -13,6 +13,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { DateAndTimePicker } from './DateAndTimePicker';
 import { DistanceInput } from './DistanceInput';
 import { DurationInput } from './DurationInput';
+import { IntegerInput } from './IntegerInput';
 import { SportSelectorField } from './SportSelectorField';
 import { formatPace, parseDuration } from '@/lib/utils';
 
@@ -35,6 +36,9 @@ const formSchema = z.object({
       message: 'Use at most two decimal places',
     }),
   unit: z.enum(['mi', 'km']),
+  elevation_gain: z.number({ error: 'Enter an elevation gain' }).optional(),
+  average_heart_rate: z.number({ error: 'Enter a heart rate' }).optional(),
+  average_cadence: z.number({ error: 'Enter a cadence' }).optional(),
 });
 
 export const LogTrainingSessionForm = () => {
@@ -131,6 +135,24 @@ export const LogTrainingSessionForm = () => {
             placeholder="-"
           />
         </Field>
+        <IntegerInput
+          control={form.control}
+          formId="log-workout-form"
+          label="Elevation Gain"
+          name="elevation_gain"
+        />
+        <IntegerInput
+          control={form.control}
+          formId="log-workout-form"
+          label="Average Heart Rate"
+          name="average_heart_rate"
+        />
+        <IntegerInput
+          control={form.control}
+          formId="log-workout-form"
+          label="Average Cadence"
+          name="average_cadence"
+        />
       </FieldGroup>
     </form>
   );
