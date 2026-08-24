@@ -13,6 +13,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { DateAndTimePicker } from './DateAndTimePicker';
 import { DistanceInput } from './DistanceInput';
 import { DurationInput } from './DurationInput';
+import { IndoorOrOutdoorSelector } from './IndoorOrOutdoorSelector';
 import { IntegerInput } from './IntegerInput';
 import { SportSelectorField } from './SportSelectorField';
 import { formatPace, parseDuration } from '@/lib/utils';
@@ -21,6 +22,7 @@ const formSchema = z.object({
   date: z.date({ error: 'Select a date' }),
   time: z.string().optional(),
   type: z.enum(['run', 'strength', 'cross-training']),
+  indoor_or_outdoor: z.enum(['indoor', 'outdoor']),
   duration: z
     .string('Enter a duration')
     .min(1, 'Enter a duration')
@@ -46,6 +48,7 @@ export const LogTrainingSessionForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       date: new Date(),
+      indoor_or_outdoor: 'outdoor',
       duration: '',
       notes: '',
       time: '',
@@ -97,6 +100,11 @@ export const LogTrainingSessionForm = () => {
           control={form.control}
           formId="log-workout-form"
           name="type"
+        />
+        <IndoorOrOutdoorSelector
+          control={form.control}
+          formId="log-workout-form"
+          name="indoor_or_outdoor"
         />
         <DurationInput
           control={form.control}
