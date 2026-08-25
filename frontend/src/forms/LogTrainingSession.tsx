@@ -79,7 +79,7 @@ export const LogTrainingSessionForm = () => {
     return formatPace(minutes, seconds, unit);
   }, [duration, distance, unit]);
 
-  async function onSubmit(data: z.infer<typeof formSchema>) {
+  async function handleSubmit(data: z.infer<typeof formSchema>) {
     console.log(data);
   }
 
@@ -87,7 +87,7 @@ export const LogTrainingSessionForm = () => {
     <form
       id="log-workout-form"
       className="flex flex-col gap-4"
-      onSubmit={form.handleSubmit(onSubmit)}
+      onSubmit={form.handleSubmit(handleSubmit)}
     >
       <DateAndTimePicker
         control={form.control}
