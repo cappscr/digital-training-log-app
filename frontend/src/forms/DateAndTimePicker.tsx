@@ -44,7 +44,7 @@ export const DateAndTimePicker = <TFieldValues extends FieldValues>({
         control={control}
         name={dateName}
         render={({ field, fieldState }) => (
-          <Field>
+          <Field className="text-foreground">
             <FieldLabel htmlFor={`${formId}-${dateName}`}>Date</FieldLabel>
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger
