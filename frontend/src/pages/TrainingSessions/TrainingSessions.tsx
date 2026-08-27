@@ -23,10 +23,7 @@ export const TrainingSessionsPage = () => {
         closedby="any"
         className="bg-background mx-auto my-4 w-full max-w-screen-md rounded-lg border p-6 shadow-lg backdrop:bg-black/50"
       >
-        <h2 className="text-foreground mb-4 text-2xl font-bold">
-          Log Training Session
-        </h2>
-        <LogTrainingSessionForm />
+        <LogTrainingSessionForm handleCancel={closeModal} />
       </dialog>
     </>
   );
