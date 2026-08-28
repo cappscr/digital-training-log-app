@@ -62,4 +62,18 @@ RSpec.describe TrainingSession, type: :model do
       expect(training_session.indoor?).to be true
     end
   end
+
+  describe "validations" do
+    it "validates the duration_seconds" do
+      training_session = build(:training_session, duration_seconds: -1)
+      expect(training_session).not_to be_valid
+      expect(training_session.errors.full_messages).to include("Duration seconds must be greater than 0")
+    end
+
+    it "validates the duration_seconds is an integer" do
+      training_session = build(:training_session, duration_seconds: 1.5)
+      expect(training_session).not_to be_valid
+      expect(training_session.errors.full_messages).to include("Duration seconds must be an integer")
+    end
+  end
 end

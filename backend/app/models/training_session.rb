@@ -9,4 +9,6 @@ class TrainingSession < ApplicationRecord
   ], dependent: :destroy
 
   enum :location_type, { outdoor: "outdoor", indoor: "indoor" }
+
+  validates :duration_seconds, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
 end
