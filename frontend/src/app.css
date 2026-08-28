@@ -268,4 +268,7 @@
   html {
     @apply font-sans;
   }
+  .root {
+    isolation: isolate;
+  }
 }

@@ -32,6 +32,11 @@ export const IntegerInput = <TFieldValues extends FieldValues>({
             type="number"
             id={`${formId}-${name}`}
             aria-invalid={fieldState.invalid}
+            value={field.value ?? ''}
+            onChange={(e) => {
+              const { value, valueAsNumber } = e.target;
+              field.onChange(value === '' ? undefined : valueAsNumber);
+            }}
             autoComplete="off"
           />
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
