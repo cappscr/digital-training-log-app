@@ -75,5 +75,11 @@ RSpec.describe TrainingSession, type: :model do
       expect(training_session).not_to be_valid
       expect(training_session.errors.full_messages).to include("Duration seconds must be an integer")
     end
+
+    it "validates the session_date" do
+      training_session = build(:training_session, session_date: nil)
+      expect(training_session).not_to be_valid
+      expect(training_session.errors.full_messages).to include("Session date can't be blank")
+    end
   end
 end

@@ -10,5 +10,6 @@ class TrainingSession < ApplicationRecord
 
   enum :location_type, { outdoor: "outdoor", indoor: "indoor" }
 
+  validates :session_date, presence: true
   validates :duration_seconds, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
 end

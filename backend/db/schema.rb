@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_18_085844) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_29_095711) do
   create_table "cross_training_sessions", id: :string, force: :cascade do |t|
     t.string "activity", null: false
     t.integer "average_heart_rate"
@@ -78,6 +78,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_18_085844) do
     t.integer "duration_seconds"
     t.string "location_type", default: "outdoor", null: false
     t.text "notes"
+    t.date "session_date", null: false
+    t.time "session_time"
     t.string "sport_details_id", null: false
     t.string "sport_details_type", null: false
     t.datetime "updated_at", null: false
