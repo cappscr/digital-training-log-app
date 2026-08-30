@@ -1,0 +1,67 @@
+id,session_date,duration_seconds,distance,elevation_gain,average_heart_rate,average_cadence,temperature,humidity,conditions,tags,session_type,notes
+1,2026-06-09,2601,5.88,414,140,173,69,92,,strides,,
+2,2026-06-10,1589,3.44,265,137,170,68,96,,,,
+3,2026-06-10,1522,3.54,29,152,,83,69,,,race,
+4,2026-06-11,3301,7.01,0,151,168,,,,treadmill,,
+5,2026-06-13,3851,8.65,529,154,172,74,85,,,,
+6,2026-06-14,5905,14.01,659,155,174,71,89,,,"workout, long_run",
+7,2026-06-16,3208,7.19,459,138,173,66,68,,,,
+8,2026-06-17,3242,7.24,545,135,172,65,89,,,,
+9,2026-06-18,3363,8.11,472,161,172,75,84,,,workout,
+10,2026-06-20,3461,8.21,495,150,172,75,56,,strides,,
+11,2026-06-21,6302,15.01,,153,172,64,90,,,"workout, long_run",
+12,2026-06-22,1800,2.00,,136,,,,,treadmill,cross_training,
+13,2026-06-23,3155,7.19,418,144,174,74,87,,strides,,
+14,2026-06-24,1893,4.00,,142,168,,,,treadmill, ,
+15,2026-06-24,1559,3.76,28,157,,83,38,,,race,
+16,2026-06-26,3781,8.54,534,146,174,,,,,,
+17,2026-06-27,2736,6.35,326,158,168,84,68,,,,
+18,2026-06-28,6290,15.00,812,162,173,69,94,,,"workout, long_run",
+19,2026-06-30,3481,7.75,483,143,172,72,91,,,,
+20,2026-07-01,3406,8.09,,165,169,81,73,,,workout,
+21,2026-07-02,1800,2.00,,141,,,,,treadmill,cross_training,
+22,2026-07-03,3134,7.27,393,156,173,75,87,,strides,,
+23,2026-07-04,2042,5.54,266,170,,76,82,,,race,
+24,2026-07-05,6192,14.00,948,149,172,73,85,,,long_run,
+25,2026-07-07,2955,6.35,478,134,171,71,96,,,,
+26,2026-07-08,3158,7.18,429,135,175,72,94,,strides,,
+27,2026-07-09,3485,8.30,,149,173,73,89,,,workout,
+28,2026-07-11,3690,8.18,502,147,172,73,90,,,,
+29,2026-07-12,6515,15.01,846,157,169,73,94,,,"workout, long_run",
+30,2026-07-14,2342,5.01,,146,169,,,,treadmill,,
+31,2026-07-15,3281,7.75,,155,173,67,90,,,workout,
+32,2026-07-16,1200,1.33,,136,,,,,treadmill,cross_training,
+33,2026-07-17,3222,7.07,434,144,171,73,90,,,,
+34,2026-07-18,3662,8.23,534,160,169,84,73,,,,
+35,2026-07-19,6936,16.00,753,157,171,75,87,,,long_run,
+36,2026-07-21,3254,7.01,,151,164,,,,treadmill,,
+37,2026-07-22,3037,7.07,,157,169,78,75,,,workout,
+38,2026-07-24,2905,6.17,486,152,171,67,94,,,,
+39,2026-07-25,3220,7.51,432,153,173,70,94,,strides,,
+40,2026-07-26,7332,17.00,,160,170,70,96,,,"workout, long_run",
+41,2026-07-28,3986,8.06,550,137,157,82,76,,,,
+42,2026-07-29,3686,8.30,486,152,171,82,64,,,,
+43,2026-07-30,3546,8.54,,155,175,64,83,,,workout,1’ jog recovery between reps and 3’ total jog recovery between sets. Wanted to focus on hitting faster paces today and succeeded. Not quite third lung good but the cooler air was 👌🏻
+44,2026-08-01,3260,7.31,419,152,173,77,83,,strides,,Humidity was back in full force and I felt sluggish for those first few miles.
+45,2026-08-02,7298,17.06,752,158,173,72,93,Light rain,,"workout, long_run","8 miles normal before the first first 3 mi progression, 1 mile easy in between, and 2 miles easy to round out 17. SiS Beta Fuel during the 12th mile in between progressions plus water from the handheld throughout. Despite the humidity was able to hit a solid workout."
+46,2026-08-04,2822,6.03,,151,168,,,,treadmill,,"Started at 7.2 mph, progressed to 8 mph with stops at 7.6, 7.7, and 7.8 along the way."
+47,2026-08-05,3644,8.71,,157,173,71,96,Foggy,,workout,"Humid but feel decently acclimated at this point. This was one of the best workouts I’ve had in a while, solid paces despite the humidity outside of the 5th rep."
+48,2026-08-07,3733,8.24,534,146,172,68,99,,,,Even just a few degrees cooler feels so much better and it didn’t look like I’d been swimming afterwards.
+49,2026-08-08,2090,4.73,,155,174,86,65,Partly cloudy,strides,,Lap and a half around the Petal to the Medal course in between stints of walk/jog with Courtney
+50,2026-08-09,6932,16.00,,155,171,70,95,,,"workout, long_run",Probably the best in long run surges yet. Focused more today on keeping the pace decent in the recovery between surges. No water and no gels during this week.
+51,2026-08-11,3661,8.10,543,139,172,72,89,,,,"Run felt good but first time in 20 years of running that I got buzzed by some sort of big bird, a hawk or owl."
+52,2026-08-12,3183,7.57,,151,173,69,94,,,workout,"1’ jog recovery between. These felt smooth! A tiny bit cooler this morning, which helped but mainly fitness may finally be coming around."
+53,2026-08-13,2481,5.26,152,143,173,85,68,Cloudy,run_club,,Nice and easy recovery run at Triple C with Dan and Mike
+54,2026-08-14,3283,7.50,236,158,168,76,86,Partly cloudy, ,,It felt okay but the summer humidity was back in full force with the slightly later start and it looked like I had emerged from a swimming pool afterwards.
+55,2026-08-15,1800,2.00,1373,136,,,,,treadmill,cross_training,Nice and easy uphill treadmill cross training session.
+56,2026-08-16,7625,18.01,826,157,173,73,94,Sunny,,"workout, long_run",Mentally broke the 10 miles steady to finish into 3x3mi plus 1 mi where I tried to work down to marathon effort. First two 3 mile segments felt pretty good and controlled but then between the false flat and the humidity I was hanging on a little in those last 4 miles.
+57,2026-08-18,3724,8.24,510,137,173,72,91,,,,Easy run from the house felt good after the first couple of miles.
+58,2026-08-19,3707,8.87,,153,174,71,88,,,workout,1’45” jog between reps and 4’ jog between sets. Really consistent splits and it felt hard but under control and like I definitely won that workout.
+59,2026-08-20,2321,5.21,141,148,175,92,49,Partly cloudy,run_club,,Pair of demo Ghosts. Nice catching up with Dan again. Two weeks in a row of CCC!
+60,2026-08-21,3282,6.69,546,145,176,72,92,Cloudy,strides,,"Easy double lap of the mountain bike trails at North Meck, which I didn’t realize had re-opened. There’s also new greenway but I didn’t explore that at all today."
+61,2026-08-22,8710,20.00,715,157,172,70,97,Cloudy,,"workout, long_run","8 mi easy to start and then 2 mi easy between reps. First felt great, second rep was a struggle those last 3 miles but we did it with 33:01 and 33:22 splits."
+62,2026-08-24,3707,8.17,516,133,172,64,87,,,,Legs still felt trashed from Saturday’s long run and yesterday’s lift but the weather was glorious.
+63,2026-08-25,3072,7.40,,146,175,62,82,,,workout,2x4x2’ with 1’15” jog recovery between reps and 4’ between sets. Breathing and aerobic system felt great but I couldn’t turn the legs over much faster and that felt like the real limiter today.
+64,2026-08-26,907,1.01,639,122,,,,,treadmill,cross_training,Short and easy uphill treadmill at 4 mph and 12% incline before lifting
+65,2026-08-27,2931,6.34,545,134,171,71,96,,,,Easy recovery run from the house. Typical slow start but got rolling and felt much better.
+66,2026-08-28,2490,5.56,278,139,171,70,94,Cloudy,strides,,Recovery run from Downtown Huntersville through Vermillion after dropping the girls at school. Felt smooth and strides felt great.
