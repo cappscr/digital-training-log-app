@@ -82,4 +82,21 @@ RSpec.describe TrainingSession, type: :model do
       expect(training_session.errors.full_messages).to include("Session date can't be blank")
     end
   end
+
+  describe "duration" do
+    it "returns the duration in the expected format" do
+      training_session = build(:training_session, duration_seconds: 3600)
+      expect(training_session.duration).to eq("1:00:00")
+    end
+
+    it "returns the duration in the expected format for durations less than an hour" do
+      training_session = build(:training_session, duration_seconds: 60)
+      expect(training_session.duration).to eq("1:00")
+    end
+
+    it "returns the duration in the expected format for durations less than a minute" do
+      training_session = build(:training_session, duration_seconds: 10)
+      expect(training_session.duration).to eq("10")
+    end
+  end
 end
