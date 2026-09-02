@@ -3,6 +3,12 @@ class TrainingSessionSerializer < ActiveModel::Serializer
 
   attribute :sport_details
 
+  def session_time
+    return nil unless object.session_time
+
+    object.session_time.strftime("%H:%M")
+  end
+
   def sport_details
     details = object.sport_details
     return nil unless details

@@ -10,7 +10,7 @@ RSpec.describe RunningTrainingSession, type: :model do
     it "is valid with valid attributes and duration_seconds" do
       running = build(:running_training_session, distance: nil)
       running.build_training_session(duration_seconds: 1000, user: build(:user))
-      
+
       expect(running).to be_valid
     end
   end
