@@ -45,3 +45,34 @@
     transform: translate(-50%, -50%) scale(0.98);
   }
 }
+
+.heading {
+  font-style: italic;
+  color: var(--color-primary);
+  margin-bottom: 2rem;
+}
+
+.trainingSessionsSection {
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: var(--breakpoint-md);
+}
+
+.trainingSessionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.trainingSessionDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.distance {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}

@@ -52,3 +52,17 @@ export const formatPace = (
 ): string => {
   return `${minutes}:${seconds.toString().padStart(2, '0')} min/${unit}`;
 };
+
+export const formatTime = (time: string): string => {
+  const [hours, minutes] = time.split(':').map(Number);
+  return `${hours > 12 ? hours - 12 : hours}:${minutes.toString().padStart(2, '0')} ${hours > 12 ? 'PM' : 'AM'}`;
+};
+
+export const formatSportName = (sportDetailsType: string): string => {
+  switch (sportDetailsType) {
+    case 'RunningTrainingSession':
+      return 'Run';
+    default:
+      return 'Cross Training';
+  }
+};
