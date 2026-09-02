@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       resources :pace_calculator, only: [ :create ], path: "pace-calculator"
       resources :account_activations, only: [ :create, :update ], path: "account-activation"
       resources :password_resets, only: [ :create, :update ], path: "password-reset"
-      resources :training_sessions, only: [ :index ]
+      resources :training_sessions, only: [ :create, :index ]
     end
   end
 
