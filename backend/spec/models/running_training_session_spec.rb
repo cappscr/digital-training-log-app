@@ -45,6 +45,6 @@ RSpec.describe RunningTrainingSession, type: :model do
     running = build(:running_training_session, distance: nil)
     training_session = build(:training_session, duration_seconds: nil, sport_details: running)
     expect(running).not_to be_valid
-    expect(running.errors.full_messages).to include("Duration or distance can't be blank")
+    expect(running.errors.full_messages).to include("Duration and distance can't both be blank")
   end
 end
