@@ -76,3 +76,9 @@
   font-weight: var(--font-weight-bold);
   color: var(--color-primary);
 }
+
+.sportIcon {
+  display: inline;
+  width: 2rem;
+  height: 100%;
+}

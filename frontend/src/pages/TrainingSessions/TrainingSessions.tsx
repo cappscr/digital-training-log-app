@@ -1,14 +1,9 @@
 import { useState } from 'react';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Dialog } from '@base-ui/react/dialog';
-import { PlusIcon } from 'lucide-react';
+import { PlusIcon, SportShoe } from 'lucide-react';
 import { useTrainingSessions } from '@/hooks/useTrainingSessions';
 import { LogTrainingSessionForm } from '@/forms/LogTrainingSession';
 import { formatTime, formatSportName, toSentenceCase } from '@/lib/utils';
@@ -46,22 +41,33 @@ export const TrainingSessionsPage = () => {
         <div className={styles.trainingSessionsList}>
           {training_sessions.map((training_session) => (
             <Card key={training_session.id}>
-              <CardHeader>
-                <CardTitle>
-                  {`${toSentenceCase(training_session.location_type)} ${formatSportName(training_session.sport_details_type)}`}
-                </CardTitle>
-                {training_session.session_time && (
-                  <CardDescription>
-                    {formatTime(training_session.session_time)}
-                  </CardDescription>
-                )}
-              </CardHeader>
-              <CardContent>
-                <div className={styles.trainingSessionDetails}>
-                  <p className={styles.distance}>
-                    {training_session.sport_details.distance} miles
-                  </p>
-                  <p>{training_session.session_date}</p>
+              <CardContent className="flex items-center gap-5 py-3">
+                <Avatar className="size-12">
+                  <AvatarFallback className="bg-terracotta-400">
+                    <SportShoe className="text-terracotta-900 size-6" />
+                  </AvatarFallback>
+                </Avatar>
+
+                <div className="flex min-w-0 flex-1 justify-between gap-3">
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-foreground text-lg font-medium">
+                      {`${toSentenceCase(training_session.location_type)} ${formatSportName(training_session.sport_details_type)}`}
+                    </span>
+                    <span className={styles.distance}>
+                      {training_session.sport_details.distance} miles
+                    </span>
+                  </div>
+
+                  <div className="text-muted-foreground flex flex-col items-end justify-between">
+                    {training_session.session_time && (
+                      <span className="inline-flex items-center gap-1 text-xs">
+                        {formatTime(training_session.session_time)}
+                      </span>
+                    )}
+                    <span className="text-xs">
+                      {training_session.session_date}
+                    </span>
+                  </div>
                 </div>
               </CardContent>
             </Card>
