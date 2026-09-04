@@ -33,7 +33,7 @@
 .iconBg {
   height: calc(var(--spacing) * 12);
   width: calc(var(--spacing) * 12);
-  background-color: var(--color-terracotta-400);
+  background-color: var(--color-rose-400);
   border-radius: calc(infinity * 1px);
   display: flex;
   align-items: center;
@@ -43,7 +43,7 @@
 .icon {
   height: calc(var(--spacing) * 6);
   width: calc(var(--spacing) * 6);
-  color: var(--color-terracotta-900);
+  color: var(--color-rose-900);
 }
 
 .trainingSessionType {
