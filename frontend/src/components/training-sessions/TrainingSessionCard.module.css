@@ -11,8 +11,9 @@
   display: flex;
   height: 100%;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: flex-start;
+  gap: calc(var(--spacing) * 2);
 }
 
 .dayOfWeek {
@@ -42,14 +43,16 @@
   font-size: var(--text-xs);
 }
 
+.trainingSessionTypeAndNotes {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+}
+
 .trainingSessionType {
   font-size: var(--text-xl);
   font-weight: var(--font-weight-medium);
   color: var(--color-foreground);
-
-  @media (width >= 40rem) {
-    justify-self: center;
-  }
 }
 
 .iconBg {
@@ -72,4 +75,10 @@
   font-size: var(--text-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-primary);
+}
+
+.duration {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-secondary-foreground);
 }

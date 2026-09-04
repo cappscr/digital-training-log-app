@@ -40,13 +40,21 @@ export const TrainingSessionCard = ({
         <SportShoe className={styles.icon} />
       </span>
 
-      <span className={styles.trainingSessionType}>
-        {`${toSentenceCase(training_session.location_type)} ${formatSportName(training_session.sport_details_type)}`}
-      </span>
+      <div className={styles.trainingSessionTypeAndNotes}>
+        <span className={styles.trainingSessionType}>
+          {`${toSentenceCase(training_session.location_type)} ${formatSportName(training_session.sport_details_type)}`}
+        </span>
+        <p>{training_session.notes}</p>
+      </div>
 
-      <span className={styles.distance}>
-        {training_session.sport_details.distance} mi
-      </span>
+      <div className={styles.trainingSessionDayAndDate}>
+        <span className={styles.distance}>
+          {training_session.sport_details.distance} mi
+        </span>
+        {training_session.duration && (
+          <span className={styles.duration}>{training_session.duration}</span>
+        )}
+      </div>
     </Card>
   );
 };
