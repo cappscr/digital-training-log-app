@@ -47,7 +47,7 @@ export const TrainingSessionCard = ({
         <p>{training_session.notes}</p>
       </div>
 
-      <div className={styles.trainingSessionDayAndDate}>
+      <div className={styles.trainingSessionDistanceAndDuration}>
         <span className={styles.distance}>
           {training_session.sport_details.distance} mi
         </span>
