@@ -2,6 +2,7 @@ import { Card } from '@/components/ui/card';
 import { SportShoe } from 'lucide-react';
 import {
   formatSportName,
+  formatTime,
   isoDateStringToMonthDayString,
   toSentenceCase,
 } from '@/lib/utils';
@@ -22,23 +23,29 @@ export const TrainingSessionCard = ({
           <span className={styles.dayOfWeek}>
             {training_session.day_of_week}
           </span>
-          <span className={styles.date}>
-            {isoDateStringToMonthDayString(training_session.session_date)}
-          </span>
+          <div className={styles.dateAndTime}>
+            <span className={styles.date}>
+              {isoDateStringToMonthDayString(training_session.session_date)}
+            </span>
+            {training_session.session_time && (
+              <span className={styles.sessionTime}>
+                {formatTime(training_session.session_time)}
+              </span>
+            )}
+          </div>
         </div>
       )}
 
-      <div className="flex flex-col gap-0.5 sm:justify-self-center">
-        <span className={styles.trainingSessionType}>
-          {`${toSentenceCase(training_session.location_type)} ${formatSportName(training_session.sport_details_type)}`}
-        </span>
-        <span className={styles.distance}>
-          {training_session.sport_details.distance} miles
-        </span>
-      </div>
-
       <span className={styles.iconBg}>
         <SportShoe className={styles.icon} />
+      </span>
+
+      <span className={styles.trainingSessionType}>
+        {`${toSentenceCase(training_session.location_type)} ${formatSportName(training_session.sport_details_type)}`}
+      </span>
+
+      <span className={styles.distance}>
+        {training_session.sport_details.distance} mi
       </span>
     </Card>
   );
