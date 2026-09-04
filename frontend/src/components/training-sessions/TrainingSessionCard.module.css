@@ -1,0 +1,59 @@
+.cardContent {
+  display: grid;
+  grid-column: span 4;
+  grid-template-columns: subgrid;
+  align-items: center;
+  gap: calc(var(--spacing) * 5);
+  padding: calc(var(--spacing) * 3);
+}
+
+.trainingSessionDayAndDate {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.dayOfWeek {
+  background-color: var(--color-secondary);
+  padding: calc(var(--spacing) * 1) calc(var(--spacing) * 2);
+  border-radius: calc(var(--spacing) * 1);
+  font-size: var(--text-sm);
+  color: var(--color-secondary-foreground);
+  font-weight: var(--font-weight-medium);
+}
+
+.date {
+  color: var(--color-foreground);
+  font-size: var(--text-sm);
+  padding: calc(var(--spacing) * 1) calc(var(--spacing) * 2);
+}
+
+.iconBg {
+  height: calc(var(--spacing) * 12);
+  width: calc(var(--spacing) * 12);
+  background-color: var(--color-terracotta-400);
+  border-radius: calc(infinity * 1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  height: calc(var(--spacing) * 6);
+  width: calc(var(--spacing) * 6);
+  color: var(--color-terracotta-900);
+}
+
+.trainingSessionType {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-foreground);
+}
+
+.distance {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}

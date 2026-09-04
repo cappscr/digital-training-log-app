@@ -66,3 +66,11 @@ export const formatSportName = (sportDetailsType: string): string => {
       return 'Cross Training';
   }
 };
+
+export const isoDateStringToMonthDayString = (date: string): string => {
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(date));
+};

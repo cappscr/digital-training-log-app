@@ -59,8 +59,8 @@
 }
 
 .trainingSessionsList {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: max-content 1fr auto;
   gap: 1rem;
 }
 
@@ -69,12 +69,6 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
-
-.distance {
-  font-size: var(--text-xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
 }
 
 .sportIcon {
