@@ -3,8 +3,8 @@ module DistanceValidatable
 
   included do
     enum :distance_unit, {
-      km: 'km',
-      mi: 'mi',
+      km: "km",
+      mi: "mi"
     }, validate: true
 
     validates :distance, numericality: { greater_than: 0 }, allow_nil: true

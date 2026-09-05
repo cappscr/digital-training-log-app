@@ -7,6 +7,6 @@ namespace :training_sessions do
     TrainingSession.destroy_all
     puts "Destroyed #{count} training sessions"
 
-    Rake::Task['db:seed'].invoke
+    Rake::Task["db:seed"].invoke
   end
 end
