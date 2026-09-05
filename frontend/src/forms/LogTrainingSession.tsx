@@ -113,6 +113,7 @@ export const LogTrainingSessionForm = ({
               id: runningSessionId,
               kind: data.type,
               distance: data.distance,
+              distance_unit: data.unit,
               elevation_gain: data.elevation_gain,
               average_heart_rate: data.average_heart_rate,
               average_cadence: data.average_cadence,
