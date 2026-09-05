@@ -17,20 +17,22 @@ import {
 
 const typeOptions = [
   { label: 'Running', value: 'run' },
-  { label: 'Strength Training', value: 'strength' },
-  { label: 'Cross Training', value: 'cross_training' },
+  /*{ label: 'Strength Training', value: 'strength' },
+  { label: 'Cross Training', value: 'cross_training' },*/
 ];
 
 interface SportSelectorFieldProps<TFieldValues extends FieldValues> {
   control: Control<TFieldValues>;
   formId: string;
   name: FieldPath<TFieldValues>;
+  disabled?: boolean;
 }
 
 export const SportSelectorField = <TFieldValues extends FieldValues>({
   control,
   formId,
   name,
+  disabled,
 }: SportSelectorFieldProps<TFieldValues>) => {
   return (
     <Controller
@@ -44,6 +46,7 @@ export const SportSelectorField = <TFieldValues extends FieldValues>({
             id={`${formId}-${name}`}
             onValueChange={field.onChange}
             items={typeOptions}
+            disabled={disabled}
           >
             <SelectTrigger
               className="w-full max-w-48"

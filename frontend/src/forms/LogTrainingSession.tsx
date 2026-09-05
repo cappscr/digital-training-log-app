@@ -31,7 +31,7 @@ import { type TrainingSession } from '@/hooks/useTrainingSessions';
 const formSchema = z.object({
   date: z.date({ error: 'Select a date' }),
   time: z.string().optional(),
-  type: z.enum(['run', 'strength', 'cross-training']),
+  type: z.enum(['run' /*, 'strength', 'cross-training' */]),
   indoor_or_outdoor: z.enum(['indoor', 'outdoor']),
   duration: z
     .string('Enter a duration')
@@ -163,6 +163,7 @@ export const LogTrainingSessionForm = ({
               control={form.control}
               formId="log-workout-form"
               name="type"
+              disabled={true} // TODO: remove this once strength and cross training are supported
             />
             <IndoorOrOutdoorSelector
               control={form.control}
