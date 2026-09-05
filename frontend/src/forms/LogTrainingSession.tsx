@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
+import { mutate } from 'swr';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
@@ -20,7 +21,12 @@ import { DurationInput } from './DurationInput';
 import { IndoorOrOutdoorSelector } from './IndoorOrOutdoorSelector';
 import { IntegerInput } from './IntegerInput';
 import { SportSelectorField } from './SportSelectorField';
-import { formatPace, parseDuration } from '@/lib/utils';
+import { UNEXPECTED_ERROR_MESSAGE } from './errors';
+import { apiClient, isApiError } from '@/lib/fetcher';
+import { formatPace, parseDuration, toSentenceCase } from '@/lib/utils';
+import { successToast } from '@/lib/toasts';
+import { TRAINING_SESSIONS_KEY } from '@/hooks/useTrainingSessions';
+import { type TrainingSession } from '@/hooks/useTrainingSessions';
 
 const formSchema = z.object({
   date: z.date({ error: 'Select a date' }),
@@ -48,9 +54,9 @@ const formSchema = z.object({
 });
 
 export const LogTrainingSessionForm = ({
-  handleCancel,
+  handleModalClose,
 }: {
-  handleCancel: () => void;
+  handleModalClose: () => void;
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -88,7 +94,48 @@ export const LogTrainingSessionForm = ({
   }, [duration, distance, unit]);
 
   async function handleSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+    const trainingSessionId = crypto.randomUUID();
+    const runningSessionId = crypto.randomUUID();
+
+    try {
+      await apiClient<{ trainingSession: TrainingSession }>(
+        'POST',
+        '/training_sessions',
+        {
+          training_session: {
+            id: trainingSessionId,
+            session_date: data.date,
+            session_time: data.time,
+            duration_seconds: parseDuration(data.duration),
+            location_type: data.indoor_or_outdoor,
+            notes: data.notes,
+            sport_details: {
+              id: runningSessionId,
+              kind: data.type,
+              distance: data.distance,
+              elevation_gain: data.elevation_gain,
+              average_heart_rate: data.average_heart_rate,
+              average_cadence: data.average_cadence,
+            },
+          },
+        },
+      );
+      await mutate(TRAINING_SESSIONS_KEY);
+      successToast('Training session logged successfully');
+      handleModalClose();
+    } catch (apiError) {
+      if (isApiError(apiError) && apiError.status === 422) {
+        const errors = apiError.data?.errors;
+        const message = errors?.[0]
+          ? toSentenceCase(
+              `${errors[0].pointer.replace('#/user/', '')} ${errors[0].detail}`,
+            )
+          : UNEXPECTED_ERROR_MESSAGE;
+        form.setError('root', { message });
+      } else {
+        form.setError('root', { message: UNEXPECTED_ERROR_MESSAGE });
+      }
+    }
   }
 
   return (
@@ -184,7 +231,7 @@ export const LogTrainingSessionForm = ({
         </FieldSet>
         <Field orientation="horizontal">
           <Button type="submit">Submit</Button>
-          <Button variant="outline" type="button" onClick={handleCancel}>
+          <Button variant="outline" type="button" onClick={handleModalClose}>
             Cancel
           </Button>
         </Field>

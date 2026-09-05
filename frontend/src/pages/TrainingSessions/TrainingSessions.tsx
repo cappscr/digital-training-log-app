@@ -30,7 +30,7 @@ export const TrainingSessionsPage = () => {
         <Dialog.Portal>
           <Dialog.Backdrop className={styles.Backdrop} />
           <Dialog.Popup className={styles.Popup}>
-            <LogTrainingSessionForm handleCancel={() => setOpen(false)} />
+            <LogTrainingSessionForm handleModalClose={() => setOpen(false)} />
           </Dialog.Popup>
         </Dialog.Portal>
       </Dialog.Root>

@@ -17,9 +17,7 @@ import { type User } from '@/hooks/useCurrentUser';
 import { apiClient, isApiError } from '@/lib/fetcher';
 import { successToast } from '@/lib/toasts';
 import { toSentenceCase } from '@/lib/utils';
-
-const UNEXPECTED_ERROR_MESSAGE =
-  'An unexpected error occurred. Please try again later.';
+import { UNEXPECTED_ERROR_MESSAGE } from './errors';
 
 const formSchema = z
   .object({
