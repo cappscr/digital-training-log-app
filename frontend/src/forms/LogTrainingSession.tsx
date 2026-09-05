@@ -23,7 +23,12 @@ import { IntegerInput } from './IntegerInput';
 import { SportSelectorField } from './SportSelectorField';
 import { UNEXPECTED_ERROR_MESSAGE } from './errors';
 import { apiClient, isApiError } from '@/lib/fetcher';
-import { formatPace, parseDuration, toSentenceCase } from '@/lib/utils';
+import {
+  formatPace,
+  parseDuration,
+  toISODateString,
+  toSentenceCase,
+} from '@/lib/utils';
 import { successToast } from '@/lib/toasts';
 import { TRAINING_SESSIONS_KEY } from '@/hooks/useTrainingSessions';
 import { type TrainingSession } from '@/hooks/useTrainingSessions';
@@ -104,7 +109,7 @@ export const LogTrainingSessionForm = ({
         {
           training_session: {
             id: trainingSessionId,
-            session_date: data.date,
+            session_date: toISODateString(data.date),
             session_time: data.time,
             duration_seconds: parseDuration(data.duration),
             location_type: data.indoor_or_outdoor,
