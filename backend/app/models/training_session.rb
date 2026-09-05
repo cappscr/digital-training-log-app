@@ -10,6 +10,7 @@ class TrainingSession < ApplicationRecord
 
   enum :location_type, { outdoor: "outdoor", indoor: "indoor" }
 
+  validate :sport_details_must_be_valid
   validates :session_date, presence: true
   validates :duration_seconds, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
 
@@ -25,6 +26,24 @@ class TrainingSession < ApplicationRecord
       format("%d:%02d", minutes, seconds)
     else
       format("%d", seconds)
+    end
+  end
+
+  private
+
+  def sport_details_must_be_valid
+    return if sport_details.blank?
+    return if sport_details.valid?
+
+    sport_details.errors.each do |error|
+      attribute = 
+        if error.attribute == :base
+          :sport_details
+        else
+          :"sport_details/#{error.attribute}"
+        end
+
+      errors.add(attribute, error.message)
     end
   end
 end

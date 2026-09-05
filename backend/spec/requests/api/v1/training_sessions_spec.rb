@@ -38,6 +38,56 @@ RSpec.describe "Training Sessions", type: :request do
         end
       end
 
+      context "with invalid sport details" do
+        it "does not create a new training session and returns a 422 Unprocessable Entity error" do
+          expect {
+            post api_v1_training_sessions_path, params: { training_session: {
+              session_date: Date.today,
+              duration_seconds: 3600,
+              location_type: "outdoor",
+              notes: "This is a test training session",
+              sport_details: {
+                kind: "running",
+                distance: -1
+              }
+            } },
+            headers: auth_headers
+          }.not_to change(TrainingSession, :count)
+
+          expect(response).to have_http_status(:unprocessable_content)
+
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body["errors"]).to include(
+            "detail" => "Must be greater than 0",
+            "pointer" => "#/training_session/sport_details/distance"
+          )
+        end
+      end
+
+      context "with missing distance and duration" do
+        it "does not create a new training session and returns a 422 Unprocessable Entity error" do
+          expect {
+            post api_v1_training_sessions_path, params: { training_session: {
+              session_date: Date.today,
+              location_type: "outdoor",
+              notes: "This is a test training session",
+              sport_details: {
+                kind: "running"
+              }
+            } },
+            headers: auth_headers
+          }.not_to change(TrainingSession, :count)
+
+          expect(response).to have_http_status(:unprocessable_content)
+
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body["errors"]).to include(
+            "detail" => "Duration and distance can't both be blank",
+            "pointer" => "#/training_session/sport_details"
+          )
+        end
+      end
+
       context "with valid parameters" do
         it "creates a new training session" do
           expect {
