@@ -36,7 +36,7 @@ class TrainingSession < ApplicationRecord
     return if sport_details.valid?
 
     sport_details.errors.each do |error|
-      attribute = 
+      attribute =
         if error.attribute == :base
           :sport_details
         else
