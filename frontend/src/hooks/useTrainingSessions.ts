@@ -6,6 +6,7 @@ type SportDetailsType = 'RunningTrainingSession';
 export type RunningTrainingSession = {
   id: string;
   distance: number | null;
+  distance_unit: string | null;
   elevation_gain: number | null;
   average_heart_rate: number | null;
   average_cadence: number | null;

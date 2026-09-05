@@ -49,7 +49,8 @@ export const TrainingSessionCard = ({
 
       <div className={styles.trainingSessionDistanceAndDuration}>
         <span className={styles.distance}>
-          {training_session.sport_details.distance} mi
+          {training_session.sport_details.distance}{' '}
+          {training_session.sport_details.distance_unit}
         </span>
         {training_session.duration && (
           <span className={styles.duration}>{training_session.duration}</span>

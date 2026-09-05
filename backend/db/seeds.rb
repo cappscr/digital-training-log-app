@@ -35,6 +35,7 @@ CSV.foreach(csv_path, headers: true) do |row|
   running = RunningTrainingSession.find_or_initialize_by(id: running_id)
   running.assign_attributes(
     distance: row["distance"].presence&.to_d,
+    distance_unit: row["distance_unit"].presence&.strip,
     elevation_gain: row["elevation_gain"].presence&.to_i,
     average_heart_rate: row["average_heart_rate"].presence&.to_i,
     average_cadence: row["average_cadence"].presence&.to_i,
