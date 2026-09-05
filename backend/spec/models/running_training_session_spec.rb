@@ -21,6 +21,18 @@ RSpec.describe RunningTrainingSession, type: :model do
       expect(running_training_session).not_to be_valid
       expect(running_training_session.errors.full_messages).to include("Distance must be greater than 0")
     end
+
+    it "validates the distance_unit" do
+      running_training_session = build(:running_training_session, distance_unit: 'invalid')
+      expect(running_training_session).not_to be_valid
+      expect(running_training_session.errors.full_messages).to include("Distance unit is not included in the list")
+    end
+
+    it "validates the distance_unit is present if the distance is present" do
+      running_training_session = build(:running_training_session, distance: 10, distance_unit: nil)
+      expect(running_training_session).not_to be_valid
+      expect(running_training_session.errors.full_messages).to include("Distance unit can't be blank")
+    end
   end
 
   it "validates the elevation_gain" do
