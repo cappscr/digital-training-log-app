@@ -98,7 +98,8 @@ RSpec.describe "Training Sessions", type: :request do
               notes: "This is a test training session",
               sport_details: {
                 kind: "running",
-                distance: 10
+                distance: 10,
+                distance_unit: "mi"
               }
             } },
             headers: auth_headers

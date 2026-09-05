@@ -1,6 +1,6 @@
 class RunningTrainingSession < ApplicationRecord
   include TrainingSessionable
-  include Distancable
+  include DistanceValidatable
   include DurationOrDistanceValidatable
 
   has_many :running_training_session_tags, dependent: :destroy

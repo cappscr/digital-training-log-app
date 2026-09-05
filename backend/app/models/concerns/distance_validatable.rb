@@ -1,4 +1,4 @@
-module Distancable
+module DistanceValidatable
   extend ActiveSupport::Concern
 
   included do

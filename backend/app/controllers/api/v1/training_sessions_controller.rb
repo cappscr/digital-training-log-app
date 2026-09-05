@@ -34,6 +34,7 @@ module Api
               :id,
               :kind,
               :distance,
+              :distance_unit,
               :elevation_gain,
               :average_cadence,
               :average_heart_rate
