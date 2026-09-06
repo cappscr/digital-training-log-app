@@ -34,30 +34,38 @@ import { successToast } from '@/lib/toasts';
 import { TRAINING_SESSIONS_KEY } from '@/hooks/useTrainingSessions';
 import { type TrainingSession } from '@/hooks/useTrainingSessions';
 
-const formSchema = z.object({
-  date: z.date({ error: 'Select a date' }),
-  time: z.string().optional(),
-  type: z.enum(['run' /*, 'strength', 'cross-training' */]),
-  indoor_or_outdoor: z.enum(['indoor', 'outdoor']),
-  duration: z
-    .string('Enter a duration')
-    .min(1, 'Enter a duration')
-    .refine((value) => parseDuration(value) !== null, {
-      message: 'Enter a valid duration (e.g. 1:30:00 or 45:30)',
-    }),
-  notes: z.string().optional(),
-  distance: z
-    .number({ error: 'Enter a distance' })
-    .positive('Distance must be greater than 0')
-    .optional()
-    .refine((n) => n === undefined || Math.round(n * 100) / 100 === n, {
-      message: 'Use at most two decimal places',
-    }),
-  unit: z.enum(['mi', 'km']),
-  elevation_gain: z.number({ error: 'Enter an elevation gain' }).optional(),
-  average_heart_rate: z.number({ error: 'Enter a heart rate' }).optional(),
-  average_cadence: z.number({ error: 'Enter a cadence' }).optional(),
-});
+const formSchema = z
+  .object({
+    date: z.date({ error: 'Select a date' }),
+    time: z.string().optional(),
+    type: z.enum(['run' /*, 'strength', 'cross-training' */]),
+    indoor_or_outdoor: z.enum(['indoor', 'outdoor']),
+    duration: z
+      .string()
+      .refine((value) => !value.trim() || parseDuration(value) !== null, {
+        message: 'Enter a valid duration (e.g. 1:30:00 or 45:30)',
+      }),
+    notes: z.string().optional(),
+    distance: z
+      .number({ error: 'Enter a distance' })
+      .positive('Distance must be greater than 0')
+      .optional()
+      .refine((n) => n === undefined || Math.round(n * 100) / 100 === n, {
+        message: 'Use at most two decimal places',
+      }),
+    unit: z.enum(['mi', 'km']),
+    elevation_gain: z.number({ error: 'Enter an elevation gain' }).optional(),
+    average_heart_rate: z.number({ error: 'Enter a heart rate' }).optional(),
+    average_cadence: z.number({ error: 'Enter a cadence' }).optional(),
+  })
+  .refine(
+    (data) =>
+      parseDuration(data.duration) !== null || data.distance !== undefined,
+    {
+      message: "Duration and distance can't both be blank",
+      path: ['duration'],
+    },
+  );
 
 export const LogTrainingSessionForm = ({
   handleModalClose,
@@ -133,10 +141,12 @@ export const LogTrainingSessionForm = ({
     } catch (apiError) {
       if (isApiError(apiError) && apiError.status === 422) {
         const errors = apiError.data?.errors;
+        const field = errors?.[0]?.pointer.replace(
+          /^#\/training_session(?:\/sport_details)?\/?/,
+          '',
+        );
         const message = errors?.[0]
-          ? toSentenceCase(
-              `${errors[0].pointer.replace('#/user/', '')} ${errors[0].detail}`,
-            )
+          ? toSentenceCase([field, errors[0].detail].filter(Boolean).join(' '))
           : UNEXPECTED_ERROR_MESSAGE;
         form.setError('root', { message });
       } else {
