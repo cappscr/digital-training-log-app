@@ -6,7 +6,7 @@ class TrainingSession < ApplicationRecord
     CrossTrainingSession
     StrengthTrainingSession
     SupplementaryTrainingSession
-  ], dependent: :destroy
+  ], dependent: :destroy, inverse_of: :training_session
 
   enum :location_type, { outdoor: "outdoor", indoor: "indoor" }
 

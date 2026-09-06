@@ -5,7 +5,7 @@ module DistanceValidatable
     enum :distance_unit, {
       km: "km",
       mi: "mi"
-    }, validate: true
+    }, validate: { allow_nil: true }
 
     validates :distance, numericality: { greater_than: 0 }, allow_nil: true
     validates :distance_unit, presence: true, if: -> { distance.present? }

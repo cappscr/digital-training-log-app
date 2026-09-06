@@ -14,7 +14,9 @@ module Api
       def create
         training_session = current_user.training_sessions.build(create_params.except(:sport_details))
         # condition the sport details based on the params[:sport_details][:kind]
-        training_session.sport_details = RunningTrainingSession.new(create_params[:sport_details].except(:kind).to_h)
+        details = RunningTrainingSession.new(create_params[:sport_details].except(:kind).to_h)
+        training_session.sport_details = details
+        details.training_session = training_session
         training_session.save!
         render json: training_session, status: :created
       end

@@ -88,6 +88,23 @@ RSpec.describe "Training Sessions", type: :request do
         end
       end
 
+      context "with valid duration and missing distance" do
+        it "creates a new training session" do
+          expect {
+            post api_v1_training_sessions_path, params: { training_session: {
+              session_date: Date.today,
+              duration_seconds: 3600,
+              location_type: "outdoor",
+              notes: "This is a test training session",
+              sport_details: {
+                kind: "running"
+              }
+            } },
+            headers: auth_headers
+          }.to change(TrainingSession, :count).by(1)
+        end
+      end
+
       context "with valid parameters" do
         it "creates a new training session" do
           expect {
