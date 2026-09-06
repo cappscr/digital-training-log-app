@@ -55,7 +55,8 @@ export const formatPace = (
 
 export const formatTime = (time: string): string => {
   const [hours, minutes] = time.split(':').map(Number);
-  return `${hours > 12 ? hours - 12 : hours}:${minutes.toString().padStart(2, '0')} ${hours > 12 ? 'PM' : 'AM'}`;
+  const displayHours = hours === 0 || hours > 12 ? Math.abs(hours - 12) : hours;
+  return `${displayHours}:${minutes.toString().padStart(2, '0')} ${hours >= 12 ? 'PM' : 'AM'}`;
 };
 
 export const formatSportName = (sportDetailsType: string): string => {
