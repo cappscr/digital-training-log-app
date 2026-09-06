@@ -20,6 +20,7 @@ import { DistanceInput } from './DistanceInput';
 import { DurationInput } from './DurationInput';
 import { IndoorOrOutdoorSelector } from './IndoorOrOutdoorSelector';
 import { IntegerInput } from './IntegerInput';
+import { RootFormErrorsAlert } from './RootFormErrorsAlert';
 import { SportSelectorField } from './SportSelectorField';
 import { UNEXPECTED_ERROR_MESSAGE } from './errors';
 import { apiClient, isApiError } from '@/lib/fetcher';
@@ -145,104 +146,111 @@ export const LogTrainingSessionForm = ({
   }
 
   return (
-    <form
-      id="log-workout-form"
-      className="flex flex-col gap-4"
-      onSubmit={form.handleSubmit(handleSubmit)}
-    >
-      <FieldGroup>
-        <FieldSet>
-          <FieldLegend variant="title">Training Session</FieldLegend>
-          <FieldDescription>
-            Enter the details of your training session
-          </FieldDescription>
-          <FieldGroup>
-            <DateAndTimePicker
-              control={form.control}
-              formId="log-workout-form"
-              dateName="date"
-              timeName="time"
-            />
-
-            <SportSelectorField
-              control={form.control}
-              formId="log-workout-form"
-              name="type"
-              disabled={true} // TODO: remove this once strength and cross training are supported
-            />
-            <IndoorOrOutdoorSelector
-              control={form.control}
-              formId="log-workout-form"
-              name="indoor_or_outdoor"
-            />
-            <DurationInput
-              control={form.control}
-              formId="log-workout-form"
-              name="duration"
-            />
-            <Controller
-              name="notes"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="log-workout-form-notes">
-                    Notes
-                  </FieldLabel>
-                  <Textarea
-                    {...field}
-                    id="log-workout-form-notes"
-                    aria-invalid={fieldState.invalid}
-                    placeholder="Add any notes about the workout"
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-            <DistanceInput
-              control={form.control}
-              formId="log-workout-form"
-              distanceName="distance"
-              unitName="unit"
-            />
-            <Field>
-              <FieldLabel htmlFor="log-workout-form-pace">Pace</FieldLabel>
-              <Input
-                type="text"
-                id="log-workout-form-pace"
-                disabled
-                value={paceDisplay}
-                placeholder="-"
+    <>
+      {form.formState.errors.root && (
+        <RootFormErrorsAlert
+          errorMessage={form.formState.errors.root.message ?? ''}
+        />
+      )}
+      <form
+        id="log-workout-form"
+        className="flex flex-col gap-4"
+        onSubmit={form.handleSubmit(handleSubmit)}
+      >
+        <FieldGroup>
+          <FieldSet>
+            <FieldLegend variant="title">Training Session</FieldLegend>
+            <FieldDescription>
+              Enter the details of your training session
+            </FieldDescription>
+            <FieldGroup>
+              <DateAndTimePicker
+                control={form.control}
+                formId="log-workout-form"
+                dateName="date"
+                timeName="time"
               />
-            </Field>
-            <IntegerInput
-              control={form.control}
-              formId="log-workout-form"
-              label="Elevation Gain"
-              name="elevation_gain"
-            />
-            <IntegerInput
-              control={form.control}
-              formId="log-workout-form"
-              label="Average Heart Rate"
-              name="average_heart_rate"
-            />
-            <IntegerInput
-              control={form.control}
-              formId="log-workout-form"
-              label="Average Cadence"
-              name="average_cadence"
-            />
-          </FieldGroup>
-        </FieldSet>
-        <Field orientation="horizontal">
-          <Button type="submit">Submit</Button>
-          <Button variant="outline" type="button" onClick={handleModalClose}>
-            Cancel
-          </Button>
-        </Field>
-      </FieldGroup>
-    </form>
+
+              <SportSelectorField
+                control={form.control}
+                formId="log-workout-form"
+                name="type"
+                disabled={true} // TODO: remove this once strength and cross training are supported
+              />
+              <IndoorOrOutdoorSelector
+                control={form.control}
+                formId="log-workout-form"
+                name="indoor_or_outdoor"
+              />
+              <DurationInput
+                control={form.control}
+                formId="log-workout-form"
+                name="duration"
+              />
+              <Controller
+                name="notes"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="log-workout-form-notes">
+                      Notes
+                    </FieldLabel>
+                    <Textarea
+                      {...field}
+                      id="log-workout-form-notes"
+                      aria-invalid={fieldState.invalid}
+                      placeholder="Add any notes about the workout"
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+              <DistanceInput
+                control={form.control}
+                formId="log-workout-form"
+                distanceName="distance"
+                unitName="unit"
+              />
+              <Field>
+                <FieldLabel htmlFor="log-workout-form-pace">Pace</FieldLabel>
+                <Input
+                  type="text"
+                  id="log-workout-form-pace"
+                  disabled
+                  value={paceDisplay}
+                  placeholder="-"
+                />
+              </Field>
+              <IntegerInput
+                control={form.control}
+                formId="log-workout-form"
+                label="Elevation Gain"
+                name="elevation_gain"
+              />
+              <IntegerInput
+                control={form.control}
+                formId="log-workout-form"
+                label="Average Heart Rate"
+                name="average_heart_rate"
+              />
+              <IntegerInput
+                control={form.control}
+                formId="log-workout-form"
+                label="Average Cadence"
+                name="average_cadence"
+              />
+            </FieldGroup>
+          </FieldSet>
+          <Field orientation="horizontal">
+            <Button type="submit">Submit</Button>
+            <Button variant="outline" type="button" onClick={handleModalClose}>
+              Cancel
+            </Button>
+          </Field>
+        </FieldGroup>
+      </form>
+    </>
   );
 };

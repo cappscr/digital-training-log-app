@@ -8,7 +8,7 @@ import {
   FieldLabel,
   FieldError,
 } from '@/components/ui/field';
-import { AlertError } from '@/components/AlertError';
+import { RootFormErrorsAlert } from './RootFormErrorsAlert';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { EmailInput } from './EmailInput';
@@ -76,12 +76,9 @@ export const SignupForm = () => {
   return (
     <>
       {form.formState.errors.root && (
-        <div className="mb-4">
-          <AlertError
-            title="Error"
-            description={form.formState.errors.root.message ?? ''}
-          />
-        </div>
+        <RootFormErrorsAlert
+          errorMessage={form.formState.errors.root.message ?? ''}
+        />
       )}
       <form id="signup-form" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldGroup>
