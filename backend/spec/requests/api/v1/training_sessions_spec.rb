@@ -112,7 +112,7 @@ RSpec.describe "Training Sessions", type: :request do
   describe "GET /api/v1/training_sessions" do
     let(:user) { create(:user, :activated) }
     let(:other_user) { create(:user, :activated, email: "other@example.com") }
-    let(:other_user_training_session) { create(:training_session, user: other_user) }
+    let!(:other_user_training_session) { create(:training_session, user: other_user) }
 
     context "when not logged in" do
       it "does not return any training sessions and returns a 401 Unauthorized error" do
@@ -171,9 +171,8 @@ RSpec.describe "Training Sessions", type: :request do
           expect(response).to have_http_status(:ok)
 
           parsed_body = JSON.parse(response.body)
-          expect(parsed_body["training_sessions"]).not_to include(
-            "id" => other_user_training_session.id
-          )
+          expect(parsed_body["training_sessions"].map { |session| session["id"] })
+            .not_to include(other_user_training_session.id)
         end
 
         context "when there are multiple training sessions" do
