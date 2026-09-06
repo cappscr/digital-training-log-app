@@ -57,7 +57,7 @@ export const LoginForm = () => {
         setAccessToken(response.access_token);
       }
       await mutate(CURRENT_USER_KEY, { user: response?.user }, false);
-      navigate(`/users/${response?.user.id}`);
+      navigate(`/training-sessions`);
     } catch (apiError) {
       if (isApiError(apiError) && apiError.status === 401) {
         const message = apiError.data?.detail

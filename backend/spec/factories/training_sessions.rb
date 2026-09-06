@@ -4,6 +4,7 @@ FactoryBot.define do
     duration_seconds { 1800 }
     notes { "Felt strong through the middle miles." }
     location_type { "outdoor" }
+    session_date { Date.today }
 
     association :sport_details, factory: :running_training_session
 
@@ -18,6 +19,10 @@ FactoryBot.define do
 
     trait :indoor do
       location_type { "indoor" }
+    end
+
+    trait :with_time do
+      session_time { Time.now.strftime("%H:%M:%S") }
     end
   end
 end

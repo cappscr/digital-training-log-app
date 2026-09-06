@@ -268,4 +268,16 @@
   html {
     @apply font-sans;
   }
+  .root {
+    isolation: isolate;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-normal);
+    font-style: normal;
+    font-size: var(--text-5xl);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-tight);
+  }
 }

@@ -1,0 +1,117 @@
+.cardContent {
+  display: grid;
+  grid-column: span 4;
+  grid-template-columns: subgrid;
+  align-items: center;
+  gap: calc(var(--spacing) * 7);
+  padding: calc(var(--spacing) * 3);
+
+  @media (width >= 40rem) {
+    padding: calc(var(--spacing) * 3) calc(var(--spacing) * 5);
+  }
+}
+
+.trainingSessionDayAndDate {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: calc(var(--spacing) * 2);
+}
+
+.dayOfWeek {
+  background-color: var(--color-secondary);
+  padding: calc(var(--spacing) * 1) calc(var(--spacing) * 2);
+  border-radius: calc(var(--spacing) * 1);
+  font-size: var(--text-md);
+  color: var(--color-secondary-foreground);
+  font-weight: var(--font-weight-medium);
+
+  @media (width >= 40rem) {
+    font-size: var(--text-lg);
+  }
+}
+
+.dateAndTime {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: calc(var(--spacing) * 1);
+}
+
+.date {
+  color: var(--color-foreground);
+  font-size: var(--text-md);
+  padding: calc(var(--spacing) * 1) calc(var(--spacing) * 2);
+
+  @media (width >= 40rem) {
+    font-size: var(--text-lg);
+  }
+}
+
+.sessionTime {
+  color: var(--color-muted-foreground);
+  font-size: var(--text-sm);
+
+  @media (width >= 40rem) {
+    font-size: var(--text-md);
+  }
+}
+
+.trainingSessionTypeAndNotes {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+}
+
+.trainingSessionType {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-foreground);
+}
+
+.iconBg {
+  height: calc(var(--spacing) * 12);
+  width: calc(var(--spacing) * 12);
+  background-color: var(--color-rose-400);
+  border-radius: calc(infinity * 1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  height: calc(var(--spacing) * 6);
+  width: calc(var(--spacing) * 6);
+  color: var(--color-rose-900);
+}
+
+.trainingSessionDistanceAndDuration {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: calc(var(--spacing) * 2);
+}
+
+.distance {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+
+  @media (width >= 40rem) {
+    font-size: var(--text-2xl);
+  }
+}
+
+.duration {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-secondary-foreground);
+
+  @media (width >= 40rem) {
+    font-size: var(--text-xl);
+  }
+}

@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_18_085844) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_05_115343) do
   create_table "cross_training_sessions", id: :string, force: :cascade do |t|
     t.string "activity", null: false
     t.integer "average_heart_rate"
     t.datetime "created_at", null: false
     t.decimal "distance", precision: 5, scale: 2
+    t.string "distance_unit"
     t.integer "elevation_gain"
     t.datetime "updated_at", null: false
   end
@@ -41,6 +42,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_18_085844) do
     t.integer "average_heart_rate"
     t.datetime "created_at", null: false
     t.decimal "distance", precision: 5, scale: 2
+    t.string "distance_unit"
     t.integer "elevation_gain"
     t.datetime "updated_at", null: false
   end
@@ -78,6 +80,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_18_085844) do
     t.integer "duration_seconds"
     t.string "location_type", default: "outdoor", null: false
     t.text "notes"
+    t.date "session_date", null: false
+    t.time "session_time"
     t.string "sport_details_id", null: false
     t.string "sport_details_type", null: false
     t.datetime "updated_at", null: false
