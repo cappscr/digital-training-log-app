@@ -210,7 +210,7 @@ RSpec.describe "Training Sessions", type: :request do
             .not_to include(other_user_training_session.id)
         end
 
-        context "when there are multiple training sessions" do
+        context "on multiple days" do
           let!(:later_training_session) { create(:training_session, user: user, session_date: Date.today + 1.day) }
 
           it "returns training sessions with the most recent first" do
@@ -220,6 +220,21 @@ RSpec.describe "Training Sessions", type: :request do
             parsed_body = JSON.parse(response.body)
             expect(parsed_body["training_sessions"].map { |session| session["id"] })
               .to eq([ later_training_session.id, training_session.id ])
+          end
+        end
+
+        context "on the same day" do
+          let!(:morning_training_session) { create(:training_session, user: user, session_date: Date.today, session_time: "07:00") }
+          let!(:afternoon_training_session) { create(:training_session, user: user, session_date: Date.today, session_time: "17:00") }
+
+          it "returns training sessions with the same session date in the correct order" do
+            get api_v1_training_sessions_path, headers: auth_headers
+            expect(response).to have_http_status(:ok)
+
+            parsed_body = JSON.parse(response.body)
+            expect(parsed_body["training_sessions"].map { |session| session["id"] })
+              # sort by session_date and then session_time with null session_time last
+              .to eq([ afternoon_training_session.id, morning_training_session.id, training_session.id ])
           end
         end
       end

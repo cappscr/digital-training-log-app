@@ -22,7 +22,7 @@ FactoryBot.define do
     end
 
     trait :with_time do
-      session_time { Time.now.strftime("%H:%M:%S") }
+      session_time { Time.now.strftime("%H:%M") }
     end
   end
 end

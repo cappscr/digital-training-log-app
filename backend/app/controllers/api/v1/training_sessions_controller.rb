@@ -7,7 +7,7 @@ module Api
         @training_sessions = TrainingSession
           .where(user_id: current_user.id)
           .includes(:sport_details)
-          .order(session_date: :desc)
+          .order(session_date: :desc, session_time: :desc)
         render json: @training_sessions, each_serializer: TrainingSessionSerializer
       end
 
