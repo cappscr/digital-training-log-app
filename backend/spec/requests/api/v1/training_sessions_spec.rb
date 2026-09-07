@@ -38,6 +38,15 @@ RSpec.describe "Training Sessions", type: :request do
         end
       end
 
+      context "with missing sport details param" do
+        it "does not create a new training session and returns a 400 Bad Request error" do
+          expect {
+            post api_v1_training_sessions_path, params: { training_session: { session_date: Date.today, session_time: Time.now, duration_seconds: 3600, location_type: "outdoor", notes: "This is a test training session" } },
+            headers: auth_headers
+          }.not_to change(TrainingSession, :count)
+        end
+      end
+
       context "with invalid sport details" do
         it "does not create a new training session and returns a 422 Unprocessable Entity error" do
           expect {

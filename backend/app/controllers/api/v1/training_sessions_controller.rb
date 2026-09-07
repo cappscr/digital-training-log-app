@@ -14,7 +14,7 @@ module Api
       def create
         training_session = current_user.training_sessions.build(create_params.except(:sport_details))
         # condition the sport details based on the params[:sport_details][:kind]
-        details = RunningTrainingSession.new(create_params[:sport_details].except(:kind).to_h)
+        details = RunningTrainingSession.new(sport_details_params.except(:kind))
         training_session.sport_details = details
         details.training_session = training_session
         training_session.save!
@@ -41,6 +41,20 @@ module Api
               :average_cadence,
               :average_heart_rate
             ]
+          ]
+        )
+      end
+
+      def sport_details_params
+        create_params.expect(
+          sport_details: [
+            :id,
+            :kind,
+            :distance,
+            :distance_unit,
+            :elevation_gain,
+            :average_cadence,
+            :average_heart_rate
           ]
         )
       end
