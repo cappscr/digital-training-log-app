@@ -130,6 +130,15 @@ RSpec.describe "Training Sessions", type: :request do
             } },
             headers: auth_headers
           }.to change(TrainingSession, :count).by(1)
+          expect(response).to have_http_status(:created)
+
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body["training_session"]).to include(
+            "id" => TrainingSession.last.id,
+            "duration" => "1:00:00",
+            "location_type" => "outdoor",
+            "notes" => "This is a test training session",
+          )
         end
       end
     end
