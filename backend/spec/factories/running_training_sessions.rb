@@ -1,9 +1,14 @@
 FactoryBot.define do
   factory :running_training_session do
     distance { 8.0 }
+    distance_unit { 'mi' }
     elevation_gain { 100 }
     average_heart_rate { 130 }
     average_cadence { 180 }
+
+    trait :km do
+      distance_unit { 'km' }
+    end
 
     trait :workout do
       after(:create) do |running_training_session|

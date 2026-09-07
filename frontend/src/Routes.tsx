@@ -3,7 +3,6 @@ import { AppLayout } from './layouts/AppLayout';
 import { HomePage } from './pages/Home';
 import { SignupPage } from './pages/Signup';
 import { LoginPage } from './pages/Login';
-import { UserProfilePage } from './pages/UserProfile';
 import { PaceCalculatorPage } from './pages/PaceCalculator';
 import { AboutPage } from './pages/About';
 import { TermsPage } from './pages/TermsOfUse';
@@ -14,6 +13,9 @@ import { ResetPasswordPage } from './pages/ResetPassword';
 import { ForgotPasswordPage } from './pages/ForgotPassword';
 import { Layout } from './layouts/Layout';
 import { RootLayout } from './layouts/RootLayout';
+
+import { UserProfilePage } from './pages/UserProfile';
+import { TrainingSessionsPage } from './pages/TrainingSessions';
 
 export const router = createBrowserRouter([
   {
@@ -67,6 +69,10 @@ export const router = createBrowserRouter([
       {
         Component: AppLayout,
         children: [
+          {
+            Component: TrainingSessionsPage,
+            path: '/training-sessions',
+          },
           {
             Component: UserProfilePage,
             path: '/users/:id',

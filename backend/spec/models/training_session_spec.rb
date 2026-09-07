@@ -62,4 +62,41 @@ RSpec.describe TrainingSession, type: :model do
       expect(training_session.indoor?).to be true
     end
   end
+
+  describe "validations" do
+    it "validates the duration_seconds" do
+      training_session = build(:training_session, duration_seconds: -1)
+      expect(training_session).not_to be_valid
+      expect(training_session.errors.full_messages).to include("Duration seconds must be greater than 0")
+    end
+
+    it "validates the duration_seconds is an integer" do
+      training_session = build(:training_session, duration_seconds: 1.5)
+      expect(training_session).not_to be_valid
+      expect(training_session.errors.full_messages).to include("Duration seconds must be an integer")
+    end
+
+    it "validates the session_date" do
+      training_session = build(:training_session, session_date: nil)
+      expect(training_session).not_to be_valid
+      expect(training_session.errors.full_messages).to include("Session date can't be blank")
+    end
+  end
+
+  describe "duration" do
+    it "returns the duration in the expected format" do
+      training_session = build(:training_session, duration_seconds: 3600)
+      expect(training_session.duration).to eq("1:00:00")
+    end
+
+    it "returns the duration in the expected format for durations less than an hour" do
+      training_session = build(:training_session, duration_seconds: 60)
+      expect(training_session.duration).to eq("1:00")
+    end
+
+    it "returns the duration in the expected format for durations less than a minute" do
+      training_session = build(:training_session, duration_seconds: 10)
+      expect(training_session.duration).to eq("10")
+    end
+  end
 end

@@ -1,0 +1,1 @@
+export { TrainingSessionsPage } from './TrainingSessions';

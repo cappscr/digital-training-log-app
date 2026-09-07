@@ -22,7 +22,11 @@ export const PrimaryNav = () => {
   const { logout } = useLogout();
 
   const navLinks = user
-    ? [...NAV_LINKS, { name: 'Profile', to: `/users/${user.id}` }]
+    ? [
+        { name: 'Training Sessions', to: '/training-sessions' },
+        { name: 'Profile', to: `/users/${user.id}` },
+        ...NAV_LINKS,
+      ]
     : [...NAV_LINKS, { name: 'Log In', to: '/login' }];
 
   useEffect(() => {
