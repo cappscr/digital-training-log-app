@@ -19,12 +19,13 @@ export const TrainingSessionsPage = () => {
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger
           render={
-            <div className="mx-4 my-4 flex justify-end">
-              <Button variant="outline" className="mb-4">
-                <PlusIcon className="h-4 w-4" />
-                Add Training Session
-              </Button>
-            </div>
+            <Button
+              variant="outline"
+              className="mx-4 my-4 flex justify-self-end"
+            >
+              <PlusIcon className="h-4 w-4" />
+              Add Training Session
+            </Button>
           }
         />
         <Dialog.Portal>

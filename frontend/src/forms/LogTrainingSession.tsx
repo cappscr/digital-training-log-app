@@ -54,9 +54,18 @@ const formSchema = z
         message: 'Use at most two decimal places',
       }),
     unit: z.enum(['mi', 'km']),
-    elevation_gain: z.number({ error: 'Enter an elevation gain' }).optional(),
-    average_heart_rate: z.number({ error: 'Enter a heart rate' }).optional(),
-    average_cadence: z.number({ error: 'Enter a cadence' }).optional(),
+    elevation_gain: z
+      .number({ error: 'Enter an elevation gain' })
+      .positive('Elevation gain must be greater than 0')
+      .optional(),
+    average_heart_rate: z
+      .number({ error: 'Enter a heart rate' })
+      .positive('Heart rate must be greater than 0')
+      .optional(),
+    average_cadence: z
+      .number({ error: 'Enter a cadence' })
+      .positive('Cadence must be greater than 0')
+      .optional(),
   })
   .refine(
     (data) =>
@@ -254,7 +263,9 @@ export const LogTrainingSessionForm = ({
             </FieldGroup>
           </FieldSet>
           <Field orientation="horizontal">
-            <Button type="submit">Submit</Button>
+            <Button type="submit" disabled={form.formState.isSubmitting}>
+              Submit
+            </Button>
             <Button variant="outline" type="button" onClick={handleModalClose}>
               Cancel
             </Button>

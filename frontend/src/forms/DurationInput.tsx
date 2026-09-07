@@ -36,7 +36,7 @@ export const DurationInput = <TFieldValues extends FieldValues>({
             className="tabular-nums"
             id={`${formId}-${name}`}
             aria-invalid={fieldState.invalid}
-            autoComplete="number"
+            autoComplete="off"
           />
           <FieldDescription>
             Hours, minutes, and seconds — e.g. 1:30:00 or 45:30

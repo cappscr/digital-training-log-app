@@ -47,7 +47,7 @@ export const DistanceInput = <TFieldValues extends FieldValues>({
         control={control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor="log-workout-form-distance">
+            <FieldLabel htmlFor={`${formId}-${distanceName}`}>
               Distance
             </FieldLabel>
             <Input
@@ -55,7 +55,7 @@ export const DistanceInput = <TFieldValues extends FieldValues>({
               type="number"
               step="0.01"
               inputMode="decimal"
-              id="log-workout-form-distance"
+              id={`${formId}-${distanceName}`}
               ref={field.ref}
               onChange={(e) => {
                 const { value, valueAsNumber } = e.target;
