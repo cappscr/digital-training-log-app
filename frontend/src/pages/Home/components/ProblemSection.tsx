@@ -1,4 +1,4 @@
-import { SectionLabel } from './SectionLabel';
+import { Label } from '@/components/Label';
 
 const ProblemSectionText = ({
   text,
@@ -27,7 +27,7 @@ const FeatureCard = ({
 }) => {
   return (
     <div className="border-border border-r-0 border-b px-7 py-8 last:border-b-0 sm:border-r sm:last:border-r-0">
-      <span className="text-primary mb-3 block text-3xl leading-none font-normal">
+      <span className="font-numerictext-primary mb-3 block text-3xl leading-none font-normal">
         {num}
       </span>
       <div className="font-heading text-foreground mb-3 text-xl">{title}</div>
@@ -39,7 +39,7 @@ const FeatureCard = ({
 export const ProblemSection = () => {
   return (
     <section className="mx-auto my-0 max-w-215 px-5 py-14 sm:px-8 sm:py-20">
-      <SectionLabel label="The problem" />
+      <Label text="The problem" variant="emphasized" className="mb-6" />
       <h2 className="font-heading text-foreground mb-6 text-[clamp(1.75rem,4vw,2.5rem)]">
         You already know
         <br />

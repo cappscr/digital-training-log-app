@@ -1,6 +1,7 @@
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CardAction } from '@/components/ui/card';
+import { Label } from '@/components/Label';
 import { usePaceResult, usePaceCalculator } from '@/hooks/usePaceCalculator';
 
 export function PaceResultCard() {
@@ -20,11 +21,9 @@ export function PaceResultCard() {
           Recalculate
         </Button>
       </CardAction>
-      <div className="text-muted-foreground mb-2 text-xs font-medium tracking-widest uppercase">
-        Adjusted pace
-      </div>
+      <Label text="Adjusted pace" variant="muted" className="mb-2" />
       <div className="mb-4 flex items-baseline gap-3">
-        <span className="text-primary mb-1 text-5xl font-medium">
+        <span className="font-numeric text-primary mb-1 text-5xl font-medium">
           {result?.calculated_pace}
         </span>
         <span className="text-muted-foreground">
@@ -36,16 +35,16 @@ export function PaceResultCard() {
 
       <div className="flex items-baseline justify-between">
         <div>
-          <div className="text-muted-foreground mb-1 text-sm font-medium tracking-wider uppercase">
-            Base pace
+          <Label text="base pace" size="sm" variant="muted" className="mb-1" />
+          <div className="font-numeric text-foreground text-sm">
+            {result?.original_pace}
           </div>
-          <div className="text-foreground text-sm">{result?.original_pace}</div>
         </div>
         <div className="align-left">
-          <div className="text-muted-foreground mb-1 text-sm font-medium tracking-wider uppercase">
-            Percentage
+          <Label text="Percentage" size="sm" variant="muted" className="mb-1" />
+          <div className="font-numeric text-foreground text-sm">
+            {result?.percentage}%
           </div>
-          <div className="text-foreground text-sm">{result?.percentage}%</div>
         </div>
       </div>
 

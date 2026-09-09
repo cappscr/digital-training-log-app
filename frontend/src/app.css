@@ -3,16 +3,19 @@
 @import 'shadcn/tailwind.css';
 @import '@fontsource-variable/dm-sans';
 @import '@fontsource-variable/shantell-sans/wght.css';
+@import '@fontsource-variable/bricolage-grotesque/wght.css';
 @import './palette.css';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   /** Font tokens */
+  --font-shantell: 'Shantell Sans Variable', system-ui, sans-serif;
   --font-heading: var(--font-shantell);
   --font-sans: 'DM Sans Variable', system-ui, sans-serif;
   --font-body: var(--font-sans);
-  --font-shantell: 'Shantell Sans Variable', system-ui, sans-serif;
+  --font-bricolage: 'Bricolage Grotesque Variable', system-ui, sans-serif;
+  --font-numeric: var(--font-bricolage);
 
   /** Create utility classes for shadcn */
   --color-background: var(--background);
@@ -293,7 +296,7 @@
 
   h1 {
     font-family: var(--font-heading);
-    font-weight: 300;
+    font-weight: var(--font-weight-light);
     font-style: normal;
     font-size: var(--text-5xl);
     line-height: var(--leading-normal);

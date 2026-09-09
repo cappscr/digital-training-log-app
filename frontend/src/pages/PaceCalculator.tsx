@@ -1,6 +1,7 @@
 import { PageTitle } from '@/components/PageTitle';
 import { usePaceResult } from '@/hooks/usePaceCalculator';
 import { Card } from '@/components/ui/card';
+import { Label } from '@/components/Label';
 import { PaceResultCard } from '@/components/pace-calculator/PaceResultCard';
 import { PaceCalculatorForm } from '@/forms/PaceCalculator';
 
@@ -12,9 +13,7 @@ export function PaceCalculatorPage() {
       <PageTitle pageName="Pace Calculator" />
       <div className="flex flex-col items-center px-4 pt-10 pb-16 sm:px-6 sm:pt-16 sm:pb-24">
         <header className="mb-12 max-w-md text-center">
-          <span className="text-primary mb-3 inline-block text-xs font-medium tracking-widest uppercase">
-            Training Tools
-          </span>
+          <Label text="Training Tools" className="mb-3" />
           <h1 className="font-heading mb-3 text-[clamp(1.75rem,4vw,2.5rem)] leading-tight">
             Pace Calculator
           </h1>

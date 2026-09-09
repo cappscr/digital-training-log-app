@@ -1,4 +1,4 @@
-import { SectionLabel } from './SectionLabel';
+import { Label } from '@/components/Label';
 
 const PhoneEntry = ({ label, entry }: { label: string; entry: string }) => {
   return (
@@ -41,7 +41,7 @@ export const MobileCallout = () => {
     <div className="bg-grey-900 dark:bg-grey-800 px-8 py-20 text-white">
       <div className="mx-auto my-0 grid max-w-215 grid-cols-2 items-center gap-16">
         <div>
-          <SectionLabel label="Mobile-first" />
+          <Label text="Mobile-first" variant="emphasized" className="mb-5" />
           <h2 className="font-heading text-grey-100 mb-5 text-[clamp(1.75rem,4vw,2.5rem)]">
             Log a session
             <br />

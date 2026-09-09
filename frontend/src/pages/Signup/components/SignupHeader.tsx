@@ -1,9 +1,13 @@
+import { Label } from '@/components/Label';
+
 export const SignupHeader = () => {
   return (
     <header className="mb-10">
-      <span className="font-body text-primary mb-3.5 block text-xs font-medium tracking-wide uppercase">
-        Get started — it's free
-      </span>
+      <Label
+        text="Get started — it's free"
+        variant="emphasized"
+        className="mb-3.5"
+      />
       <h1 className="font-heading text-foreground mb-2.5 text-3xl sm:text-4xl">
         Start your
         <br />

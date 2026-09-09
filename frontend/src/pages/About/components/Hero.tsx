@@ -1,10 +1,10 @@
+import { Label } from '@/components/Label';
+
 export const Hero = () => {
   return (
     <section className="animate-fade-up mx-auto my-0 max-w-225 px-5 pt-16 pb-0 sm:px-8 sm:pt-28">
       <div className="max-w-170">
-        <p className="text-primary mb-6 text-sm font-semibold tracking-widest uppercase">
-          About
-        </p>
+        <Label text="About" variant="emphasized" className="mb-6" />
         <h1 className="font-heading mb-7 text-[clamp(2.4rem,5.5vw,3.75rem)] leading-tight tracking-tight">
           A training log built by a runner,
           <br />

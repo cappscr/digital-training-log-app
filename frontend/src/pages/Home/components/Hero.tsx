@@ -1,12 +1,15 @@
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/Label';
 import { Link } from 'react-router';
 
 export const Hero = () => {
   return (
     <section className="mx-auto my-0 max-w-215 px-5 pt-12 pb-10 sm:px-8 sm:pt-20 sm:pb-16">
-      <span className="text-primary mb-6 block text-xs font-medium tracking-[0.18em] uppercase">
-        Your training journal, digitized
-      </span>
+      <Label
+        text="Your training journal, digitized"
+        variant="emphasized"
+        className="mb-6"
+      />
       <h1 className="font-heading text-foreground mb-6 max-w-180 text-[clamp(2.5rem,6vw,4rem)] font-light">
         Built for athletes who are serious about their training —{' '}
         <span className="text-primary">not their data.</span>
