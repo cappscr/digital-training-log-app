@@ -5,10 +5,10 @@ export const Hero = () => {
         <p className="text-primary mb-6 text-sm font-semibold tracking-widest uppercase">
           About
         </p>
-        <h1 className="font-display mb-7 text-[clamp(2.4rem,5.5vw,3.75rem)] leading-tight font-bold tracking-tight">
+        <h1 className="font-heading mb-7 text-[clamp(2.4rem,5.5vw,3.75rem)] leading-tight tracking-tight">
           A training log built by a runner,
           <br />
-          <em className="text-primary italic">for runners.</em>
+          <span className="text-primary">for runners.</span>
         </h1>
         <p className="text-muted-foreground max-w-140 text-lg/[1.7]">
           Digital Training Log is a personal project. Not a startup, not a

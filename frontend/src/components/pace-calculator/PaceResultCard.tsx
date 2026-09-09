@@ -14,7 +14,7 @@ export function PaceResultCard() {
           onClick={reset}
           size="xl"
           variant="link"
-          className="text-secondary hover:text-primary mb-6 inline-flex items-center gap-1.5 p-0"
+          className="text-secondary-foreground hover:text-primary mb-6 inline-flex items-center gap-1.5 p-0"
         >
           <ChevronLeft />
           Recalculate
@@ -23,11 +23,13 @@ export function PaceResultCard() {
       <div className="text-muted-foreground mb-2 text-xs font-medium tracking-widest uppercase">
         Adjusted pace
       </div>
-      <div className="font-display text-primary mb-1 text-5xl">
-        {result?.calculated_pace}
-      </div>
-      <div className="text-muted-foreground mb-6 text-sm">
-        {result?.units.replace('_', ' ')}
+      <div className="mb-4 flex items-baseline gap-3">
+        <span className="text-primary mb-1 text-5xl font-medium">
+          {result?.calculated_pace}
+        </span>
+        <span className="text-muted-foreground">
+          {result?.units.replace('_', ' ')}
+        </span>
       </div>
 
       <div className="bg-border mb-5 h-px" />
@@ -43,9 +45,7 @@ export function PaceResultCard() {
           <div className="text-muted-foreground mb-1 text-sm font-medium tracking-wider uppercase">
             Percentage
           </div>
-          <div className="text-foreground text-sm">
-            <em className="font-display">{result?.percentage}</em>%
-          </div>
+          <div className="text-foreground text-sm">{result?.percentage}%</div>
         </div>
       </div>
 

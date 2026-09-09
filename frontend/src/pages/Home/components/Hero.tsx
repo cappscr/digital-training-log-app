@@ -7,9 +7,9 @@ export const Hero = () => {
       <span className="text-primary mb-6 block text-xs font-medium tracking-[0.18em] uppercase">
         Your training journal, digitized
       </span>
-      <h1 className="font-display text-foreground mb-6 max-w-180 text-[clamp(2.5rem,6vw,4rem)] leading-tight font-normal">
+      <h1 className="font-heading text-foreground mb-6 max-w-180 text-[clamp(2.5rem,6vw,4rem)] font-light">
         Built for athletes who are serious about their training —{' '}
-        <em className="text-primary italic">not their data.</em>
+        <span className="text-primary">not their data.</span>
       </h1>
       <p className="text-muted-foreground mb-10 max-w-135 text-base/[1.7] font-light">
         A flexible, private space to plan your sessions, record your workouts,

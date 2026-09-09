@@ -15,8 +15,8 @@ export function PaceCalculatorPage() {
           <span className="text-primary mb-3 inline-block text-xs font-medium tracking-widest uppercase">
             Training Tools
           </span>
-          <h1 className="font-display mb-3 text-[clamp(1.75rem,4vw,2.5rem)] leading-tight">
-            Pace <em>Calculator</em>
+          <h1 className="font-heading mb-3 text-[clamp(1.75rem,4vw,2.5rem)] leading-tight">
+            Pace Calculator
           </h1>
           <p className="text-muted-foreground mx-auto my-0 max-w-sm text-sm">
             Enter a target pace and percentage to find your adjusted trainging

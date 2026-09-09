@@ -2,32 +2,17 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 @import '@fontsource-variable/dm-sans';
+@import '@fontsource-variable/shantell-sans/wght.css';
 @import './palette.css';
-
-@font-face {
-  font-family: 'Playfair Display';
-  src: url('/fonts/PlayfairDisplay-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Playfair Display';
-  src: url('/fonts/PlayfairDisplay-Italic-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   /** Font tokens */
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-shantell);
   --font-sans: 'DM Sans Variable', system-ui, sans-serif;
   --font-body: var(--font-sans);
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-shantell: 'Shantell Sans Variable', system-ui, sans-serif;
 
   /** Create utility classes for shadcn */
   --color-background: var(--background);
@@ -307,8 +292,8 @@
   }
 
   h1 {
-    font-family: var(--font-display);
-    font-weight: var(--font-weight-normal);
+    font-family: var(--font-heading);
+    font-weight: 300;
     font-style: normal;
     font-size: var(--text-5xl);
     line-height: var(--leading-normal);

@@ -7,9 +7,7 @@ const PhilosophyItem = ({
 }) => {
   return (
     <div className="border-b-solid border-b-border border-b pb-8 last:border-b-0 last:pb-0">
-      <h3 className="font-display text-foreground mb-2 text-lg font-medium">
-        {label}
-      </h3>
+      <h3 className="font-heading text-foreground mb-2 text-lg">{label}</h3>
       <p className="text-muted-foreground text-base/[1.75] font-light">
         {description}
       </p>
@@ -20,7 +18,7 @@ const PhilosophyItem = ({
 export const PhilosophySection = () => {
   return (
     <section className="mx-auto my-0 grid max-w-215 grid-cols-1 items-start gap-8 px-8 py-20 sm:grid-cols-[1fr_2fr] sm:gap-16">
-      <div className="font-display text-muted-foreground static top-20 text-xl italic sm:sticky">
+      <div className="font-heading text-muted-foreground static top-20 text-xl sm:sticky">
         No opinions.
         <br />
         No prescriptions.

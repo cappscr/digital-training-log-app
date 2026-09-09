@@ -23,7 +23,7 @@ export const SectionWrapper = ({
           </span>
         </div>
         <div className="section-body">
-          <h2 className="font-display mb-6 text-[clamp(1.6rem,3vw,2.25rem)] leading-tight font-bold tracking-tight">
+          <h2 className="font-heading mb-6 text-[clamp(1.6rem,3vw,2.25rem)]">
             {heading}
           </h2>
           {children}

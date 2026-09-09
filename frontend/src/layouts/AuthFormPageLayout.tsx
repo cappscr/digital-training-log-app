@@ -19,7 +19,7 @@ export const AuthFormPageLayout = ({
       <section className="flex flex-1 items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
           <div className="mb-8">
-            <h1 className="font-display mb-1.5 text-3xl">{title}</h1>
+            <h1 className="font-heading mb-1.5 text-3xl">{title}</h1>
             <p className="text-muted-foreground text-sm">{caption}</p>
           </div>
           <div className="w-full">{children}</div>
