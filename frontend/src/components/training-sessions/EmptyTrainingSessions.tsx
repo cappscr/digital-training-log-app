@@ -17,8 +17,8 @@ export const EmptyTrainingSessions = ({
   return (
     <Empty>
       <EmptyHeader>
-        <EmptyMedia variant="icon">
-          <SportShoeIcon className="size-10" />
+        <EmptyMedia variant="icon" className="size-15 rounded-full bg-rose-400">
+          <SportShoeIcon className="color-rose-900 size-10" />
         </EmptyMedia>
         <EmptyTitle>No training sessions found</EmptyTitle>
         <EmptyDescription>
