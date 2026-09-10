@@ -1,7 +1,7 @@
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CardAction } from '@/components/ui/card';
-import { Label } from '@/components/Label';
+import { Eyebrow } from '@/components/Eyebrow';
 import { usePaceResult, usePaceCalculator } from '@/hooks/usePaceCalculator';
 
 export function PaceResultCard() {
@@ -21,7 +21,7 @@ export function PaceResultCard() {
           Recalculate
         </Button>
       </CardAction>
-      <Label text="Adjusted pace" variant="muted" className="mb-2" />
+      <Eyebrow text="Adjusted pace" variant="muted" className="mb-2" />
       <div className="mb-4 flex items-baseline gap-3">
         <span className="font-numeric text-primary mb-1 text-5xl font-medium">
           {result?.calculated_pace}
@@ -35,13 +35,23 @@ export function PaceResultCard() {
 
       <div className="flex items-baseline justify-between">
         <div>
-          <Label text="base pace" size="sm" variant="muted" className="mb-1" />
+          <Eyebrow
+            text="base pace"
+            size="sm"
+            variant="muted"
+            className="mb-1"
+          />
           <div className="font-numeric text-foreground text-sm">
             {result?.original_pace}
           </div>
         </div>
         <div className="align-left">
-          <Label text="Percentage" size="sm" variant="muted" className="mb-1" />
+          <Eyebrow
+            text="Percentage"
+            size="sm"
+            variant="muted"
+            className="mb-1"
+          />
           <div className="font-numeric text-foreground text-sm">
             {result?.percentage}%
           </div>

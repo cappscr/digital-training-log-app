@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 
-const labelVariants = cva(
+const eyebrowVariants = cva(
   'text-primary font-medium block text-xs tracking-widest uppercase',
   {
     variants: {
@@ -23,19 +23,19 @@ const labelVariants = cva(
   },
 );
 
-type LabelProps = VariantProps<typeof labelVariants> & {
+type EyebrowProps = VariantProps<typeof eyebrowVariants> & {
   text: string | number;
   className?: string;
 };
 
-export const Label = ({
+export const Eyebrow = ({
   text,
   size = 'default',
   variant = 'default',
   className,
-}: LabelProps) => {
+}: EyebrowProps) => {
   return (
-    <span className={cn(labelVariants({ size, variant, className }))}>
+    <span className={cn(eyebrowVariants({ size, variant, className }))}>
       {text}
     </span>
   );

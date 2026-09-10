@@ -1,9 +1,9 @@
-import { Label } from '@/components/Label';
+import { Eyebrow } from '@/components/Eyebrow';
 
 export const TermsHeader = ({ effectiveDate }: { effectiveDate: string }) => {
   return (
     <div className="animate-fade-up mx-auto my-0 max-w-170 px-5 pt-16 pb-0 sm:px-8 sm:pt-28">
-      <Label text="Legal" variant="emphasized" className="mb-6" />
+      <Eyebrow text="Legal" variant="emphasized" className="mb-6" />
       <h1 className="font-heading mb-3 text-[clamp(2rem,4.5vw,3rem)]">
         Terms of Use
       </h1>

@@ -1,9 +1,9 @@
-import { Label } from '@/components/Label';
+import { Eyebrow } from '@/components/Eyebrow';
 
 export const SignupHeader = () => {
   return (
     <header className="mb-10">
-      <Label
+      <Eyebrow
         text="Get started — it's free"
         variant="emphasized"
         className="mb-3.5"

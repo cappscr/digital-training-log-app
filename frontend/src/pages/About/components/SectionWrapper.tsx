@@ -1,5 +1,5 @@
 import { type ReactNode, type CSSProperties } from 'react';
-import { Label } from '@/components/Label';
+import { Eyebrow } from '@/components/Eyebrow';
 
 export const SectionWrapper = ({
   children,
@@ -19,7 +19,7 @@ export const SectionWrapper = ({
     >
       <div className="grid grid-cols-1 items-start gap-4 sm:grid-cols-[160px_1fr] sm:gap-12">
         <div className="pt-1">
-          <Label
+          <Eyebrow
             text={label}
             variant="muted"
             className="static top-[2rem] sm:sticky"

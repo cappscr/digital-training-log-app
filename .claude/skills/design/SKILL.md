@@ -78,9 +78,9 @@ These use Tailwind's built-in colors rather than a custom hue-anchored scale, si
 
 ## Text
 
-Use the type scale for setting text size. Tailwind utility classes `text-xs` - `text-7xl`. This provides 11 different font-sizes to use. Do not hardcode other font sizes. The type scale is also encoded in the CSS vars `--text-xs` - `-text-7xl`. There are accompanying line height vars `--text-xs--line-height` - `--text-7xl--line-height`.
+Use the type scale for setting text size. Tailwind utility classes `text-xs` - `text-7xl`. This provides 11 different font-sizes to use. Do not hardcode other font sizes. The type scale is also encoded in the CSS vars `--text-xs` - `--text-7xl`. There are accompanying line height vars `--text-xs--line-height` - `--text-7xl--line-height`.
 
-Paragraph text should be wide enough to fit between 45-75 characters per line. In the web using `em` units in a range of `20-35` should be the right ballpark. When mixing paragraph text with images or other large components, you should still limit the paragraph width even if the overall content area needs to be wider to accomodate the other elements.
+Paragraph text should be wide enough to fit between 45-75 characters per line. In the web using `em` units in a range of `20-35` should be the right ballpark. When mixing paragraph text with images or other large components, you should still limit the paragraph width even if the overall content area needs to be wider to accommodate the other elements.
 
 Align multiple font sizes on a single line using their baseline not true center. (`align-items: baseline;` or `items-baseline` Tailwind utility class).
 

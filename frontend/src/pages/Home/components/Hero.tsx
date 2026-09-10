@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/Label';
+import { Eyebrow } from '@/components/Eyebrow';
 import { Link } from 'react-router';
 
 export const Hero = () => {
   return (
     <section className="mx-auto my-0 max-w-215 px-5 pt-12 pb-10 sm:px-8 sm:pt-20 sm:pb-16">
-      <Label
+      <Eyebrow
         text="Your training journal, digitized"
         variant="emphasized"
         className="mb-6"

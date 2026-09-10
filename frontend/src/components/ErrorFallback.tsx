@@ -1,7 +1,7 @@
 import { getErrorMessage, type FallbackProps } from 'react-error-boundary';
 import { Link } from 'react-router';
 import { Button } from './ui/button';
-import { Label } from './Label';
+import { Eyebrow } from './Eyebrow';
 
 const isDev = import.meta.env.DEV;
 
@@ -12,7 +12,7 @@ export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
       role="alert"
     >
       <div className="w-full max-w-144">
-        <Label text="Something went wrong" className="my-4" />
+        <Eyebrow text="Something went wrong" className="my-4" />
         <h1 className="font-heading text-foreground mb-8 text-[clamp(1.75rem,4vw,2.5rem)] leading-tight font-light">
           This page ran into a problem.
         </h1>
