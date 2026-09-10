@@ -1,0 +1,36 @@
+import { Button } from '@/components/ui/button';
+import {
+  Empty,
+  EmptyHeader,
+  EmptyContent,
+  EmptyMedia,
+  EmptyTitle,
+  EmptyDescription,
+} from '@/components/ui/empty';
+import { PlusIcon, SportShoeIcon } from 'lucide-react';
+
+export const EmptyTrainingSessions = ({
+  handleActionClick,
+}: {
+  handleActionClick: () => void;
+}) => {
+  return (
+    <Empty>
+      <EmptyHeader>
+        <EmptyMedia variant="icon">
+          <SportShoeIcon className="size-10" />
+        </EmptyMedia>
+        <EmptyTitle>No training sessions found</EmptyTitle>
+        <EmptyDescription>
+          Create a new training session to get started.
+        </EmptyDescription>
+      </EmptyHeader>
+      <EmptyContent>
+        <Button variant="outline" onClick={handleActionClick}>
+          <PlusIcon className="size-4" />
+          Add Training Session
+        </Button>
+      </EmptyContent>
+    </Empty>
+  );
+};

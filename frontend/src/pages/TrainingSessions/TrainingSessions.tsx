@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog } from '@base-ui/react/dialog';
 import { Loading } from '@/components/Loading';
+import { EmptyTrainingSessions } from '@/components/training-sessions/EmptyTrainingSessions';
 import { TrainingSessionCard } from '@/components/training-sessions/TrainingSessionCard';
 import { PlusIcon } from 'lucide-react';
 import { useTrainingSessions } from '@/hooks/useTrainingSessions';
@@ -17,17 +18,19 @@ export const TrainingSessionsPage = () => {
   return (
     <div>
       <Dialog.Root open={open} onOpenChange={setOpen}>
-        <Dialog.Trigger
-          render={
-            <Button
-              variant="outline"
-              className="mx-4 my-4 flex justify-self-end"
-            >
-              <PlusIcon className="h-4 w-4" />
-              Add Training Session
-            </Button>
-          }
-        />
+        {training_sessions.length > 0 && (
+          <Dialog.Trigger
+            render={
+              <Button
+                variant="outline"
+                className="mx-4 my-4 flex justify-self-end"
+              >
+                <PlusIcon className="h-4 w-4" />
+                Add Training Session
+              </Button>
+            }
+          />
+        )}
         <Dialog.Portal>
           <Dialog.Backdrop className={styles.Backdrop} />
           <Dialog.Popup className={styles.Popup}>
@@ -37,9 +40,11 @@ export const TrainingSessionsPage = () => {
       </Dialog.Root>
       <section className={styles.trainingSessionsSection}>
         <h1 className={styles.heading}>Training Sessions</h1>
-        {isLoading ? (
-          <Loading />
-        ) : (
+        {isLoading && <Loading />}
+        {!isLoading && training_sessions.length === 0 && (
+          <EmptyTrainingSessions handleActionClick={() => setOpen(true)} />
+        )}
+        {!isLoading && training_sessions.length > 0 && (
           <div className={styles.trainingSessionsList}>
             {training_sessions.map((training_session) => (
               <TrainingSessionCard
