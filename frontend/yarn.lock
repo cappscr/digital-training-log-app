@@ -705,13 +705,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource-variable/shantell-sans@npm:^5.3.0":
-  version: 5.3.0
-  resolution: "@fontsource-variable/shantell-sans@npm:5.3.0"
-  checksum: 10c0/744e5a47cb874d88dec0437664bfb6e0c90d6dd172e6b0f8946866db2ed86359a749cce32e3243d2563bca58cad723bc4c5350066b445ab338987ab1097bd0d5
-  languageName: node
-  linkType: hard
-
 "@hono/node-server@npm:^1.19.9":
   version: 1.19.11
   resolution: "@hono/node-server@npm:1.19.11"
@@ -2298,7 +2291,6 @@ __metadata:
     "@eslint/js": "npm:^10.0.1"
     "@fontsource-variable/bricolage-grotesque": "npm:^5.3.0"
     "@fontsource-variable/dm-sans": "npm:^5.3.0"
-    "@fontsource-variable/shantell-sans": "npm:^5.3.0"
     "@hookform/resolvers": "npm:^5.9.1"
     "@tailwindcss/vite": "npm:^4.3.3"
     "@testing-library/dom": "npm:^10.4.1"

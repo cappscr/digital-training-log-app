@@ -15,7 +15,7 @@ export function UserProfilePage() {
       <PageTitle pageName={user?.name || 'User Profile'} />
       <div className="flex flex-row">
         <UserSidebar />
-        <h1 className="font-heading text-primary mt-10 px-8 text-5xl">
+        <h1 className="font-heading text-primary mt-10 px-8 text-4xl tracking-tight">
           User Profile
         </h1>
       </div>

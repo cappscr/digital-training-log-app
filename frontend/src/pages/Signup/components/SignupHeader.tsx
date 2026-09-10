@@ -8,7 +8,7 @@ export const SignupHeader = () => {
         variant="emphasized"
         className="mb-3.5"
       />
-      <h1 className="font-heading text-foreground mb-2.5 text-3xl sm:text-4xl">
+      <h1 className="font-heading text-foreground mb-2.5 text-4xl tracking-tight">
         Start your
         <br />
         <span className="text-primary">training log.</span>
