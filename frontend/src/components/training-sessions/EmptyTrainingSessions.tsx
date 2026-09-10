@@ -26,7 +26,7 @@ export const EmptyTrainingSessions = ({
         </EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
-        <Button variant="outline" onClick={handleActionClick}>
+        <Button onClick={handleActionClick}>
           <PlusIcon className="size-4" />
           Add Training Session
         </Button>
