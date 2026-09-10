@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog } from '@base-ui/react/dialog';
+import { Loading } from '@/components/Loading';
 import { TrainingSessionCard } from '@/components/training-sessions/TrainingSessionCard';
 import { PlusIcon } from 'lucide-react';
 import { useTrainingSessions } from '@/hooks/useTrainingSessions';
@@ -11,7 +12,6 @@ export const TrainingSessionsPage = () => {
   const [open, setOpen] = useState(false);
   const { training_sessions, isLoading, error } = useTrainingSessions();
 
-  if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
@@ -37,14 +37,18 @@ export const TrainingSessionsPage = () => {
       </Dialog.Root>
       <section className={styles.trainingSessionsSection}>
         <h1 className={styles.heading}>Training Sessions</h1>
-        <div className={styles.trainingSessionsList}>
-          {training_sessions.map((training_session) => (
-            <TrainingSessionCard
-              key={training_session.id}
-              training_session={training_session}
-            />
-          ))}
-        </div>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <div className={styles.trainingSessionsList}>
+            {training_sessions.map((training_session) => (
+              <TrainingSessionCard
+                key={training_session.id}
+                training_session={training_session}
+              />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
