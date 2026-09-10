@@ -53,6 +53,7 @@
 .sessionTime {
   color: var(--color-muted-foreground);
   font-size: var(--text-sm);
+  font-family: var(--font-numeric);
 
   @media (width >= 40rem) {
     font-size: var(--text-md);
@@ -94,11 +95,12 @@
   justify-content: center;
   align-items: flex-end;
   gap: calc(var(--spacing) * 2);
+  font-family: var(--font-numeric);
 }
 
 .distance {
   font-size: var(--text-xl);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-medium);
   color: var(--color-primary);
 
   @media (width >= 40rem) {
@@ -108,7 +110,7 @@
 
 .duration {
   font-size: var(--text-lg);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-medium);
   color: var(--color-secondary-foreground);
 
   @media (width >= 40rem) {

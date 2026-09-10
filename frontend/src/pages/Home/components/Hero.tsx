@@ -1,15 +1,18 @@
 import { Button } from '@/components/ui/button';
+import { Eyebrow } from '@/components/Eyebrow';
 import { Link } from 'react-router';
 
 export const Hero = () => {
   return (
     <section className="mx-auto my-0 max-w-215 px-5 pt-12 pb-10 sm:px-8 sm:pt-20 sm:pb-16">
-      <span className="text-primary mb-6 block text-xs font-medium tracking-[0.18em] uppercase">
-        Your training journal, digitized
-      </span>
-      <h1 className="font-display text-foreground mb-6 max-w-180 text-[clamp(2.5rem,6vw,4rem)] leading-tight font-normal">
+      <Eyebrow
+        text="Your training journal, digitized"
+        variant="emphasized"
+        className="mb-6"
+      />
+      <h1 className="font-heading text-foreground mb-6 max-w-180 text-[clamp(2.5rem,6vw,4rem)] font-medium tracking-tight">
         Built for athletes who are serious about their training —{' '}
-        <em className="text-primary italic">not their data.</em>
+        <span className="text-primary">not their data.</span>
       </h1>
       <p className="text-muted-foreground mb-10 max-w-135 text-base/[1.7] font-light">
         A flexible, private space to plan your sessions, record your workouts,

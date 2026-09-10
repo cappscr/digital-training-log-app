@@ -8,7 +8,7 @@ export const SignupPage = () => {
     <>
       <PageTitle pageName="Sign Up" />
       <div className="flex flex-1 items-start justify-center px-5 pt-10 pb-16 sm:px-6 sm:pt-16 sm:pb-20">
-        <div className="mx-auto w-100 max-w-md p-4">
+        <div className="mx-auto max-w-md p-4">
           <SignupHeader />
 
           <hr className="border-border mb-10 border-t border-solid" />

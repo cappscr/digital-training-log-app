@@ -47,7 +47,6 @@
 }
 
 .heading {
-  font-style: italic;
   color: var(--color-primary);
   margin-bottom: 2rem;
 }

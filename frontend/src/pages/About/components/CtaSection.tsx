@@ -10,7 +10,7 @@ export const CtaSection = () => {
       style={{ '--animation-delay': '0.35s' } as CSSProperties}
     >
       <div className="bg-grey-900 dark:bg-grey-800 text-primary-foreground rounded-sm px-6 py-9 sm:p-12">
-        <h2 className="font-display text-grey-100 mb-4 text-[clamp(1.5rem,3vw,2rem)] leading-tight font-bold tracking-tight">
+        <h2 className="font-heading text-grey-100 mb-4 text-[clamp(1.5rem,3vw,2rem)] leading-tight tracking-tight">
           Get in touch or support the work
         </h2>
         <p className="text-muted-foreground mb-9 max-w-135 text-base/[1.7]">

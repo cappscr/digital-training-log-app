@@ -49,6 +49,7 @@ CSV.foreach(csv_path, headers: true) do |row|
     duration_seconds: row["duration_seconds"].presence&.to_i,
     notes: row["notes"].presence&.strip,
     session_date: Date.iso8601(row["session_date"]),
+    session_time: row["session_time"].presence&.strip,
     location_type: row["tags"]&.strip&.include?("treadmill") ? "indoor" : "outdoor",
     sport_details: running
   )

@@ -75,3 +75,19 @@ Applied to:
 - `blue-*` for info states
 
 These use Tailwind's built-in colors rather than a custom hue-anchored scale, since status colors need to be instantly recognizable (red = error, green = success) regardless of the app's brand palette.
+
+## Text
+
+Use the type scale for setting text size. Tailwind utility classes `text-xs` - `text-7xl`. This provides 11 different font-sizes to use. Do not hardcode other font sizes. The type scale is also encoded in the CSS vars `--text-xs` - `--text-7xl`. There are accompanying line height vars `--text-xs--line-height` - `--text-7xl--line-height`.
+
+Paragraph text should be wide enough to fit between 45-75 characters per line. In the web using `em` units in a range of `20-35` should be the right ballpark. When mixing paragraph text with images or other large components, you should still limit the paragraph width even if the overall content area needs to be wider to accommodate the other elements.
+
+Align multiple font sizes on a single line using their baseline not true center. (`align-items: baseline;` or `items-baseline` Tailwind utility class).
+
+Line-height and paragraph width should be proportional – narrow content can use a shorter line-height like 1.5, but wide content might need a `line-height` as tall as 2. Line-height and font size are inversely proportional – use a taller `line-height` for small text and a shorter `line-height` for large text. Each of the `--text-size` CSS vars has an accompanying `--text-size--line-height` var that should determine the `line-height`. Using the `text-*` utility classes from Tailwind sets both properties.
+
+Not every link needs a color. In an interface where almost everything is a link emphasize most links in a more subtle way, like by just using a heavier font weight or darker color. Some links might not even need to be emphasized at all. Really ancillary links not part of the main user path could add underline or color change on hover only.
+
+Most text should be left aligned. Don't center long form text (more than 2-3 lines). Right align numbers.
+
+If you use a font family with wider letter-spacing for headlines or titles, it can often make sense to decrease the letter-spacing to mimic the condensed look of a purpose-built headline family. Don't use headline fonts at smaller sizes even with increased letter spacing. Increasing the `letter-spacing` of all caps text improves readability. Don't use arbitrary `letter-spacing` values, stick to the Tailwind utility classes of `tracking-tighter`, `tracking-tight`, `tracking-wide`, `tracking-wider`, and `tracking-widest`.

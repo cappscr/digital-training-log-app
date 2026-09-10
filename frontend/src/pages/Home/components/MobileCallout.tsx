@@ -1,4 +1,4 @@
-import { SectionLabel } from './SectionLabel';
+import { Eyebrow } from '@/components/Eyebrow';
 
 const PhoneEntry = ({ label, entry }: { label: string; entry: string }) => {
   return (
@@ -18,7 +18,7 @@ const PhoneEntry = ({ label, entry }: { label: string; entry: string }) => {
 const PhoneStat = ({ label, value }: { label: string; value: string }) => {
   return (
     <div className="bg-muted flex-1 rounded-sm px-1 py-1.25 text-center">
-      <span className="font-display text-primary block text-[0.625rem] font-medium tracking-wider">
+      <span className="text-primary block text-[0.625rem] font-medium tracking-wider">
         {value}
       </span>
       <span className="text-muted-foreground text-[0.375rem] tracking-wider uppercase">
@@ -41,11 +41,11 @@ export const MobileCallout = () => {
     <div className="bg-grey-900 dark:bg-grey-800 px-8 py-20 text-white">
       <div className="mx-auto my-0 grid max-w-215 grid-cols-2 items-center gap-16">
         <div>
-          <SectionLabel label="Mobile-first" />
-          <h2 className="font-display text-grey-100 mb-5 text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.2]">
+          <Eyebrow text="Mobile-first" variant="emphasized" className="mb-5" />
+          <h2 className="font-heading text-grey-100 mb-5 text-[clamp(1.75rem,4vw,2.5rem)]">
             Log a session
             <br />
-            <em className="text-primary italic opacity-90">at the track.</em>
+            <span className="text-primary opacity-90">at the track.</span>
             <br />
             Plan your week
             <br />

@@ -1,4 +1,4 @@
-import { SectionLabel } from './SectionLabel';
+import { Eyebrow } from '@/components/Eyebrow';
 
 const ProblemSectionText = ({
   text,
@@ -27,12 +27,10 @@ const FeatureCard = ({
 }) => {
   return (
     <div className="border-border border-r-0 border-b px-7 py-8 last:border-b-0 sm:border-r sm:last:border-r-0">
-      <span className="font-display text-primary mb-3 block text-4xl leading-none font-normal">
+      <span className="font-numeric text-primary mb-3 block text-3xl leading-none font-normal">
         {num}
       </span>
-      <div className="font-display text-foreground mb-3 text-lg font-medium">
-        {title}
-      </div>
+      <div className="font-heading text-foreground mb-3 text-xl">{title}</div>
       <p className="text-muted-foreground text-base/[1.7] font-light">{body}</p>
     </div>
   );
@@ -41,8 +39,8 @@ const FeatureCard = ({
 export const ProblemSection = () => {
   return (
     <section className="mx-auto my-0 max-w-215 px-5 py-14 sm:px-8 sm:py-20">
-      <SectionLabel label="The problem" />
-      <h2 className="font-display text-foreground mb-6 text-[clamp(1.75rem,4vw,2.5rem)] leading-tight">
+      <Eyebrow text="The problem" variant="emphasized" className="mb-6" />
+      <h2 className="font-heading text-foreground mb-6 text-[clamp(1.75rem,4vw,2.5rem)]">
         You already know
         <br />
         you need a log.

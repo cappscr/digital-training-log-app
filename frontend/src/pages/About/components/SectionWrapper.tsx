@@ -1,4 +1,5 @@
 import { type ReactNode, type CSSProperties } from 'react';
+import { Eyebrow } from '@/components/Eyebrow';
 
 export const SectionWrapper = ({
   children,
@@ -18,12 +19,14 @@ export const SectionWrapper = ({
     >
       <div className="grid grid-cols-1 items-start gap-4 sm:grid-cols-[160px_1fr] sm:gap-12">
         <div className="pt-1">
-          <span className="text-muted-foreground static top-[2rem] block text-xs font-semibold tracking-widest uppercase sm:sticky">
-            {label}
-          </span>
+          <Eyebrow
+            text={label}
+            variant="muted"
+            className="static top-[2rem] sm:sticky"
+          />
         </div>
         <div className="section-body">
-          <h2 className="font-display mb-6 text-[clamp(1.6rem,3vw,2.25rem)] leading-tight font-bold tracking-tight">
+          <h2 className="font-heading mb-6 text-[clamp(1.6rem,3vw,2.25rem)]">
             {heading}
           </h2>
           {children}

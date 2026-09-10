@@ -1,6 +1,7 @@
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CardAction } from '@/components/ui/card';
+import { Eyebrow } from '@/components/Eyebrow';
 import { usePaceResult, usePaceCalculator } from '@/hooks/usePaceCalculator';
 
 export function PaceResultCard() {
@@ -14,37 +15,45 @@ export function PaceResultCard() {
           onClick={reset}
           size="xl"
           variant="link"
-          className="text-secondary hover:text-primary mb-6 inline-flex items-center gap-1.5 p-0"
+          className="text-secondary-foreground hover:text-primary mb-6 inline-flex items-center gap-1.5 p-0"
         >
           <ChevronLeft />
           Recalculate
         </Button>
       </CardAction>
-      <div className="text-muted-foreground mb-2 text-xs font-medium tracking-widest uppercase">
-        Adjusted pace
-      </div>
-      <div className="font-display text-primary mb-1 text-5xl">
-        {result?.calculated_pace}
-      </div>
-      <div className="text-muted-foreground mb-6 text-sm">
-        {result?.units.replace('_', ' ')}
+      <Eyebrow text="Adjusted pace" variant="muted" className="mb-2" />
+      <div className="mb-4 flex items-baseline gap-3">
+        <span className="font-numeric text-primary mb-1 text-5xl font-medium">
+          {result?.calculated_pace}
+        </span>
+        <span className="text-muted-foreground">
+          {result?.units.replace('_', ' ')}
+        </span>
       </div>
 
       <div className="bg-border mb-5 h-px" />
 
       <div className="flex items-baseline justify-between">
         <div>
-          <div className="text-muted-foreground mb-1 text-sm font-medium tracking-wider uppercase">
-            Base pace
+          <Eyebrow
+            text="base pace"
+            size="sm"
+            variant="muted"
+            className="mb-1"
+          />
+          <div className="font-numeric text-foreground text-sm">
+            {result?.original_pace}
           </div>
-          <div className="text-foreground text-sm">{result?.original_pace}</div>
         </div>
         <div className="align-left">
-          <div className="text-muted-foreground mb-1 text-sm font-medium tracking-wider uppercase">
-            Percentage
-          </div>
-          <div className="text-foreground text-sm">
-            <em className="font-display">{result?.percentage}</em>%
+          <Eyebrow
+            text="Percentage"
+            size="sm"
+            variant="muted"
+            className="mb-1"
+          />
+          <div className="font-numeric text-foreground text-sm">
+            {result?.percentage}%
           </div>
         </div>
       </div>

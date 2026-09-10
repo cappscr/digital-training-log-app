@@ -89,7 +89,7 @@ export const AccountActivationPage = () => {
       <section className="flex flex-1 items-center justify-center px-6 py-12">
         <div className="w-full max-w-xl">
           <div className="mb-8">
-            <h1 className="font-display mb-1.5 text-5xl leading-tight">
+            <h1 className="font-heading mb-1.5 text-5xl leading-tight">
               Activating your account...
             </h1>
             {isLoading && (

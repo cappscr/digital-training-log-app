@@ -42,7 +42,7 @@ export const PrimaryNav = () => {
         <Link
           to="/"
           onClick={() => setMenuOpen(false)}
-          className="font-display text-foreground hover:bg-muted p-2 text-lg font-normal tracking-wide antialiased"
+          className="font-heading text-foreground hover:bg-muted p-2 text-lg font-normal tracking-wide antialiased"
         >
           Digital<span className="text-primary">.</span>Training
           <span className="text-primary">.</span>Log
