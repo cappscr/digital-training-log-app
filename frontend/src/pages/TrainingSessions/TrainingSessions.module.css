@@ -52,7 +52,7 @@
 }
 
 .trainingSessionsSection {
-  margin: 0 auto;
+  margin: calc(var(--spacing) * 4) auto;
   padding: 0 1rem;
   max-width: var(--breakpoint-md);
 }
