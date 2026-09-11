@@ -19,7 +19,7 @@ export const EmptyPageNotFound = () => {
         <EmptyMedia variant="icon" className="size-20 rounded-full">
           <JournalMark />
         </EmptyMedia>
-        <EmptyTitle>Lost pace</EmptyTitle>
+        <EmptyTitle className="text-4xl">Lost pace</EmptyTitle>
         <EmptyDescription>
           The session you're looking for may have moved, been deleted, or never
           existed. Even the best athletes take a wrong turn.
