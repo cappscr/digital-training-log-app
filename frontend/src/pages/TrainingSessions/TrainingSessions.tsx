@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Dialog } from '@base-ui/react/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { Loading } from '@/components/Loading';
 import { EmptyTrainingSessions } from '@/components/training-sessions/EmptyTrainingSessions';
 import { TrainingSessionCard } from '@/components/training-sessions/TrainingSessionCard';
@@ -17,9 +24,9 @@ export const TrainingSessionsPage = () => {
 
   return (
     <div>
-      <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={setOpen}>
         {training_sessions.length > 0 && (
-          <Dialog.Trigger
+          <DialogTrigger
             render={
               <Button
                 variant="outline"
@@ -31,13 +38,21 @@ export const TrainingSessionsPage = () => {
             }
           />
         )}
-        <Dialog.Portal>
-          <Dialog.Backdrop className={styles.Backdrop} />
-          <Dialog.Popup className={styles.Popup}>
-            <LogTrainingSessionForm handleModalClose={() => setOpen(false)} />
-          </Dialog.Popup>
-        </Dialog.Portal>
-      </Dialog.Root>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Log Training Session</DialogTitle>
+            <DialogDescription>
+              Enter the details of your training session
+            </DialogDescription>
+          </DialogHeader>
+          <div className="no-scrollbar -mx-4 max-h-[75vh] overflow-y-auto px-4">
+            <LogTrainingSessionForm
+              handleModalClose={() => setOpen(false)}
+              showHeader={false}
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
       <section className={styles.trainingSessionsSection}>
         <h1 className={styles.heading}>Training Sessions</h1>
         {isLoading && <Loading />}
