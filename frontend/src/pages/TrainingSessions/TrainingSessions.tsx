@@ -38,14 +38,14 @@ export const TrainingSessionsPage = () => {
             }
           />
         )}
-        <DialogContent className="max-w-md">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Log Training Session</DialogTitle>
             <DialogDescription>
               Enter the details of your training session
             </DialogDescription>
           </DialogHeader>
-          <div className="no-scrollbar -mx-4 max-h-[75vh] overflow-y-auto px-4">
+          <div className="no-scrollbar -mx-4 max-h-[50vh] overflow-y-auto px-4">
             <LogTrainingSessionForm
               handleModalClose={() => setOpen(false)}
               showHeader={false}
