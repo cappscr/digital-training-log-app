@@ -14,7 +14,6 @@ import { TrainingSessionCard } from '@/components/training-sessions/TrainingSess
 import { PlusIcon } from 'lucide-react';
 import { useTrainingSessions } from '@/hooks/useTrainingSessions';
 import { LogTrainingSessionForm } from '@/forms/LogTrainingSession';
-import styles from './TrainingSessions.module.css';
 
 export const TrainingSessionsPage = () => {
   const [open, setOpen] = useState(false);
@@ -53,14 +52,14 @@ export const TrainingSessionsPage = () => {
           </div>
         </DialogContent>
       </Dialog>
-      <section className={styles.trainingSessionsSection}>
-        <h1 className={styles.heading}>Training Sessions</h1>
+      <section className="mx-auto my-4 max-w-2xl px-4">
+        <h1 className="text-primary mb-8">Training Sessions</h1>
         {isLoading && <Loading />}
         {!isLoading && training_sessions.length === 0 && (
           <EmptyTrainingSessions handleActionClick={() => setOpen(true)} />
         )}
         {!isLoading && training_sessions.length > 0 && (
-          <div className={styles.trainingSessionsList}>
+          <div className="grid grid-cols-[max-content_auto_1fr_auto] gap-7">
             {training_sessions.map((training_session) => (
               <TrainingSessionCard
                 key={training_session.id}
