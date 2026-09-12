@@ -1,13 +1,19 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Dialog } from '@base-ui/react/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { Loading } from '@/components/Loading';
 import { EmptyTrainingSessions } from '@/components/training-sessions/EmptyTrainingSessions';
 import { TrainingSessionCard } from '@/components/training-sessions/TrainingSessionCard';
 import { PlusIcon } from 'lucide-react';
 import { useTrainingSessions } from '@/hooks/useTrainingSessions';
 import { LogTrainingSessionForm } from '@/forms/LogTrainingSession';
-import styles from './TrainingSessions.module.css';
 
 export const TrainingSessionsPage = () => {
   const [open, setOpen] = useState(false);
@@ -17,9 +23,9 @@ export const TrainingSessionsPage = () => {
 
   return (
     <div>
-      <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={setOpen}>
         {training_sessions.length > 0 && (
-          <Dialog.Trigger
+          <DialogTrigger
             render={
               <Button
                 variant="outline"
@@ -31,21 +37,29 @@ export const TrainingSessionsPage = () => {
             }
           />
         )}
-        <Dialog.Portal>
-          <Dialog.Backdrop className={styles.Backdrop} />
-          <Dialog.Popup className={styles.Popup}>
-            <LogTrainingSessionForm handleModalClose={() => setOpen(false)} />
-          </Dialog.Popup>
-        </Dialog.Portal>
-      </Dialog.Root>
-      <section className={styles.trainingSessionsSection}>
-        <h1 className={styles.heading}>Training Sessions</h1>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Log Training Session</DialogTitle>
+            <DialogDescription>
+              Enter the details of your training session
+            </DialogDescription>
+          </DialogHeader>
+          <div className="no-scrollbar -mx-4 max-h-[50vh] overflow-y-auto px-4">
+            <LogTrainingSessionForm
+              handleModalClose={() => setOpen(false)}
+              showHeader={false}
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
+      <section className="mx-auto my-4 max-w-2xl px-4">
+        <h1 className="text-primary mb-8">Training Sessions</h1>
         {isLoading && <Loading />}
         {!isLoading && training_sessions.length === 0 && (
           <EmptyTrainingSessions handleActionClick={() => setOpen(true)} />
         )}
         {!isLoading && training_sessions.length > 0 && (
-          <div className={styles.trainingSessionsList}>
+          <div className="grid grid-cols-[max-content_auto_1fr_auto] gap-7">
             {training_sessions.map((training_session) => (
               <TrainingSessionCard
                 key={training_session.id}

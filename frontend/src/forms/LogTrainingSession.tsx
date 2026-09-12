@@ -78,8 +78,10 @@ const formSchema = z
 
 export const LogTrainingSessionForm = ({
   handleModalClose,
+  showHeader = true,
 }: {
   handleModalClose: () => void;
+  showHeader?: boolean;
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -178,10 +180,14 @@ export const LogTrainingSessionForm = ({
       >
         <FieldGroup>
           <FieldSet>
-            <FieldLegend variant="title">Training Session</FieldLegend>
-            <FieldDescription>
-              Enter the details of your training session
-            </FieldDescription>
+            {showHeader && (
+              <>
+                <FieldLegend variant="title">Training Session</FieldLegend>
+                <FieldDescription>
+                  Enter the details of your training session
+                </FieldDescription>
+              </>
+            )}
             <FieldGroup>
               <DateAndTimePicker
                 control={form.control}
