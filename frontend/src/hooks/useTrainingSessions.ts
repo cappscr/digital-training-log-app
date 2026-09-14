@@ -16,7 +16,7 @@ export type TrainingSession = {
   id: string;
   session_date: string;
   session_time: string | null;
-  day_of_week: string | null;
+  day_of_week: string;
   duration: string | null;
   location_type: LocationType;
   notes: string | null;
