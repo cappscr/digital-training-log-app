@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { buttonVariants } from '@/components/ui/button';
-import { Card, CardFooter } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { PencilIcon, SportShoe } from 'lucide-react';
 import {
   formatSportName,
@@ -74,7 +74,6 @@ export const TrainingSessionCard = ({
           </span>
         )}
       </div>
-      <CardFooter></CardFooter>
     </Card>
   );
 };
