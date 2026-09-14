@@ -1,7 +1,7 @@
 module Api
   module V1
     class TrainingSessionsController < Api::ApplicationController
-      before_action :require_login, only: [ :create, :index, :show ]
+      before_action :require_login, only: [ :create, :index, :show, :update ]
 
       def index
         @training_sessions = TrainingSession
@@ -11,8 +11,16 @@ module Api
         render json: @training_sessions, each_serializer: TrainingSessionSerializer
       end
 
+      def update
+        training_session = current_user.training_sessions.find(params[:id])
+        training_session.assign_attributes(create_or_update_params.except(:sport_details, :id))
+        training_session.sport_details.assign_attributes(sport_details_params.except(:kind, :id))
+        training_session.save!
+        render json: training_session, serializer: TrainingSessionSerializer
+      end
+
       def create
-        training_session = current_user.training_sessions.build(create_params.except(:sport_details))
+        training_session = current_user.training_sessions.build(create_or_update_params.except(:sport_details))
         # condition the sport details based on the params[:sport_details][:kind]
         details = RunningTrainingSession.new(sport_details_params.except(:kind))
         training_session.sport_details = details
@@ -28,7 +36,7 @@ module Api
 
       private
 
-      def create_params
+      def create_or_update_params
         params.expect(
           training_session: [
             :id,
@@ -51,7 +59,7 @@ module Api
       end
 
       def sport_details_params
-        create_params.expect(
+        create_or_update_params.expect(
           sport_details: [
             :id,
             :kind,

@@ -145,6 +145,48 @@ RSpec.describe "Training Sessions", type: :request do
     end
   end
 
+  # update training session
+  describe "PUT /api/v1/training_sessions/:id" do
+    let(:user) { create(:user, :activated) }
+    let(:training_session) { create(:training_session, user: user) }
+
+    context "when not logged in" do
+      it "does not update the training session and returns a 401 Unauthorized error" do
+        put api_v1_training_session_path(training_session.id), params: { training_session: { notes: "This is a test training session" } }
+
+        expect(response).to have_http_status(:unauthorized)
+        expect(training_session.reload.notes).not_to eq("This is a test training session")
+      end
+    end
+
+    context "when logged in" do
+      let(:auth_headers) { { "Authorization" => "Bearer #{access_token}" } }
+      let(:access_token) do
+        post api_v1_login_path, params: { email: user.email, password: user.password }
+        response.parsed_body["access_token"]
+      end
+
+      context "when the training session is not found" do
+        it "does not update the training session and returns a 404 Not Found error" do
+          put api_v1_training_session_path('invalid-id'), params: { training_session: { notes: "This is a test training session", sport_details: { distance: 10, distance_unit: "mi", elevation_gain: 400 } } }, headers: auth_headers
+          expect(response).to have_http_status(:not_found)
+          expect(training_session.reload.notes).not_to eq("This is a test training session")
+        end
+      end
+
+      context "with a valid training session id" do
+        it "updates the training session and the sport details" do
+          put api_v1_training_session_path(training_session.id), params: { training_session: { notes: "This is a test training session", sport_details: { distance: 10, distance_unit: "mi", elevation_gain: 400 } } }, headers: auth_headers
+          expect(response).to have_http_status(:ok)
+          expect(training_session.reload.notes).to eq("This is a test training session")
+          expect(training_session.reload.sport_details.distance).to eq(10)
+          expect(training_session.reload.sport_details.distance_unit).to eq("mi")
+          expect(training_session.reload.sport_details.elevation_gain).to eq(400)
+        end
+      end
+    end
+  end
+
   # index training sessions
   describe "GET /api/v1/training_sessions" do
     let(:user) { create(:user, :activated) }
