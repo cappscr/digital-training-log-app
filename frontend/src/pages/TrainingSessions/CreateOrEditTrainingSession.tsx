@@ -19,10 +19,7 @@ export const CreateOrEditTrainingSessionPage = () => {
       </h1>
       {isLoading && <Loading />}
       {!isLoading && (
-        <LogTrainingSessionForm
-          showHeader={false}
-          trainingSessionToEdit={training_session}
-        />
+        <LogTrainingSessionForm trainingSessionToEdit={training_session} />
       )}
     </section>
   );

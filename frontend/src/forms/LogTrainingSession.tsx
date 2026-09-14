@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as z from 'zod';
@@ -7,11 +7,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Field,
-  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
-  FieldLegend,
   FieldSet,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
@@ -78,16 +76,14 @@ const formSchema = z
   );
 
 interface LogTrainingSessionFormProps {
-  handleModalClose?: () => void;
-  showHeader?: boolean;
   trainingSessionToEdit?: TrainingSession | null;
 }
 
 export const LogTrainingSessionForm = ({
-  handleModalClose,
-  showHeader = true,
   trainingSessionToEdit = null,
 }: LogTrainingSessionFormProps) => {
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: trainingSessionToEdit
@@ -141,36 +137,46 @@ export const LogTrainingSessionForm = ({
   }, [duration, distance, unit]);
 
   async function handleSubmit(data: z.infer<typeof formSchema>) {
-    const trainingSessionId = crypto.randomUUID();
-    const runningSessionId = crypto.randomUUID();
+    const trainingSessionId = trainingSessionToEdit?.id ?? crypto.randomUUID();
+    const runningSessionId =
+      trainingSessionToEdit?.sport_details.id ?? crypto.randomUUID();
 
     try {
       await apiClient<{ trainingSession: TrainingSession }>(
-        'POST',
-        '/training_sessions',
+        trainingSessionToEdit ? 'PUT' : 'POST',
+        trainingSessionToEdit
+          ? `/training_sessions/${trainingSessionId}`
+          : '/training_sessions',
         {
           training_session: {
             id: trainingSessionId,
             session_date: toISODateString(data.date),
-            session_time: data.time,
+            session_time: data.time ?? null,
             duration_seconds: parseDuration(data.duration),
             location_type: data.indoor_or_outdoor,
             notes: data.notes,
             sport_details: {
               id: runningSessionId,
               kind: data.type,
-              distance: data.distance,
+              distance: data.distance ?? null,
               distance_unit: data.unit,
-              elevation_gain: data.elevation_gain,
-              average_heart_rate: data.average_heart_rate,
-              average_cadence: data.average_cadence,
+              elevation_gain: data.elevation_gain ?? null,
+              average_heart_rate: data.average_heart_rate ?? null,
+              average_cadence: data.average_cadence ?? null,
             },
           },
         },
       );
+      if (trainingSessionToEdit) {
+        await mutate(`/training_sessions/${trainingSessionId}`);
+      }
       await mutate(TRAINING_SESSIONS_KEY);
-      successToast('Training session logged successfully');
-      handleModalClose?.();
+      successToast(
+        trainingSessionToEdit
+          ? 'Training session updated successfully'
+          : 'Training session logged successfully',
+      );
+      navigate('/training-sessions');
     } catch (apiError) {
       if (isApiError(apiError) && apiError.status === 422) {
         const errors = apiError.data?.errors;
@@ -196,20 +202,13 @@ export const LogTrainingSessionForm = ({
         />
       )}
       <form
+        key={trainingSessionToEdit?.id ?? 'new'}
         id="log-workout-form"
         className="flex flex-col gap-4"
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FieldGroup>
           <FieldSet>
-            {showHeader && (
-              <>
-                <FieldLegend variant="title">Training Session</FieldLegend>
-                <FieldDescription>
-                  Enter the details of your training session
-                </FieldDescription>
-              </>
-            )}
             <FieldGroup>
               <DateAndTimePicker
                 control={form.control}
