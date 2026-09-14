@@ -1,5 +1,7 @@
-import { Card } from '@/components/ui/card';
-import { SportShoe } from 'lucide-react';
+import { Link } from 'react-router';
+import { buttonVariants } from '@/components/ui/button';
+import { Card, CardFooter } from '@/components/ui/card';
+import { PencilIcon, SportShoe } from 'lucide-react';
 import {
   formatSportName,
   formatTime,
@@ -18,8 +20,19 @@ export const TrainingSessionCard = ({
   return (
     <Card
       key={training_session.id}
-      className="col-span-4 grid grid-cols-subgrid items-center gap-7 p-3 sm:px-5"
+      className="relative col-span-4 grid grid-cols-subgrid items-center gap-7 p-3 sm:px-5"
     >
+      <Link
+        to={`/training-sessions/${training_session.id}/edit`}
+        className={buttonVariants({
+          variant: 'outline',
+          size: 'icon',
+          className: 'absolute top-1 right-1',
+        })}
+      >
+        <PencilIcon className="text-muted-foreground size-4" />
+      </Link>
+
       {training_session.day_of_week && (
         <div className="flex h-full flex-col items-start justify-center gap-2">
           <span className="bg-secondary text-secondary-foreground rounded-md px-2 py-1 text-base font-medium sm:text-lg">
@@ -38,14 +51,15 @@ export const TrainingSessionCard = ({
         </div>
       )}
 
-      <span className="flex size-12 items-center justify-center rounded-full bg-rose-400">
-        <SportShoe className="size-6 text-rose-900" />
-      </span>
-
       <div className="flex flex-col gap-2">
-        <span className="text-foreground text-xl font-medium">
-          {`${toSentenceCase(training_session.location_type)} ${formatSportName(training_session.sport_details_type)}`}
-        </span>
+        <div className="flex flex-row items-center gap-2 text-2xl">
+          <span className="flex size-[1lh] items-center justify-center rounded-full bg-rose-400">
+            <SportShoe className="size-[0.5lh] text-rose-900" />
+          </span>
+          <span className="text-foreground font-medium">
+            {`${toSentenceCase(training_session.location_type)} ${formatSportName(training_session.sport_details_type)}`}
+          </span>
+        </div>
         <p>{training_session.notes}</p>
       </div>
 
@@ -60,6 +74,7 @@ export const TrainingSessionCard = ({
           </span>
         )}
       </div>
+      <CardFooter></CardFooter>
     </Card>
   );
 };
