@@ -65,6 +65,7 @@ export const TrainingSessionCard = ({
       <div className="col-span-4 flex flex-row items-end justify-end border-t pt-2">
         <Link
           to={`/training-sessions/${training_session.id}/edit`}
+          aria-label="Edit training session"
           className={buttonVariants({
             variant: 'outline',
             size: 'icon',
