@@ -20,7 +20,7 @@ export const TrainingSessionCard = ({
   return (
     <Card
       key={training_session.id}
-      className="col-span-4 grid grid-cols-subgrid grid-rows-[auto_auto_auto] items-center gap-7 p-3 sm:px-5"
+      className="col-span-4 grid grid-cols-subgrid grid-rows-[auto_auto_auto] items-center gap-4 p-3 sm:px-5"
     >
       <div className="flex h-full flex-col items-start gap-1">
         <span className="bg-secondary text-secondary-foreground rounded-md px-1 py-1 text-base font-medium sm:px-2 sm:text-lg">
@@ -38,16 +38,12 @@ export const TrainingSessionCard = ({
         </div>
       </div>
 
-      <span className="flex size-12 items-center justify-center rounded-full bg-rose-400">
-        <SportShoe className="size-6 text-rose-900" />
+      <span className="flex size-8 items-center justify-center rounded-full bg-rose-400 sm:size-10">
+        <SportShoe className="size-5 text-rose-900 sm:size-6" />
       </span>
 
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-row items-center gap-4 text-lg sm:text-2xl">
-          <span className="text-foreground font-medium">
-            {`${toSentenceCase(training_session.location_type)} ${formatSportName(training_session.sport_details_type)}`}
-          </span>
-        </div>
+      <div className="text-foreground text-base font-medium sm:text-2xl">
+        {`${toSentenceCase(training_session.location_type)} ${formatSportName(training_session.sport_details_type)}`}
       </div>
 
       <div className="font-numeric flex h-full flex-col items-end justify-center gap-2">
@@ -62,7 +58,7 @@ export const TrainingSessionCard = ({
         )}
       </div>
 
-      <p className="text-muted-foreground col-span-3 text-base">
+      <p className="text-muted-foreground col-span-4 text-base">
         {training_session.notes}
       </p>
 

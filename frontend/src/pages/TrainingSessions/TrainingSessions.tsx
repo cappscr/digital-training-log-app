@@ -59,7 +59,7 @@ export const TrainingSessionsPage = () => {
           <EmptyTrainingSessions handleActionClick={() => setOpen(true)} />
         )}
         {!isLoading && training_sessions.length > 0 && (
-          <div className="grid grid-cols-[max-content_auto_1fr_auto] gap-7">
+          <div className="grid grid-cols-[max-content_auto_1fr_auto] gap-2">
             {training_sessions.map((training_session) => (
               <TrainingSessionCard
                 key={training_session.id}
