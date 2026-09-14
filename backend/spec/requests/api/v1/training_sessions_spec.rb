@@ -45,6 +45,11 @@ RSpec.describe "Training Sessions", type: :request do
             post api_v1_training_sessions_path, params: { training_session: { session_date: Date.today, session_time: Time.now, duration_seconds: 3600, location_type: "outdoor", notes: "This is a test training session" } },
             headers: auth_headers
           }.not_to change(TrainingSession, :count)
+
+          expect(response).to have_http_status(:bad_request)
+
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body["detail"]).to eq("Required parameter missing: sport_details")
         end
       end
 
