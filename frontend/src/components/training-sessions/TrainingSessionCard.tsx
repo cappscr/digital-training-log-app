@@ -1,7 +1,13 @@
 import { Link } from 'react-router';
 import { /*Button,*/ buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { /*Trash,*/ PencilIcon, SportShoe } from 'lucide-react';
+import {
+  HeartPulse,
+  Metronome,
+  Mountain,
+  /*Trash,*/ PencilIcon,
+  SportShoe,
+} from 'lucide-react';
 import {
   formatSportName,
   formatTime,
@@ -61,6 +67,36 @@ export const TrainingSessionCard = ({
       <p className="text-muted-foreground col-span-4 text-base">
         {training_session.notes}
       </p>
+
+      <div className="col-span-4 flex flex-row gap-3">
+        {training_session.sport_details.average_heart_rate && (
+          <span
+            aria-label="Average heart rate"
+            className="flex flex-row items-center gap-1"
+          >
+            <HeartPulse className="text-muted-foreground size-4" />
+            {training_session.sport_details.average_heart_rate}
+          </span>
+        )}
+        {training_session.sport_details.elevation_gain && (
+          <span
+            aria-label="Elevation gain"
+            className="flex flex-row items-center gap-1"
+          >
+            <Mountain className="text-muted-foreground size-4" />
+            {training_session.sport_details.elevation_gain}
+          </span>
+        )}
+        {training_session.sport_details.average_cadence && (
+          <span
+            aria-label="Average cadence"
+            className="flex flex-row items-center gap-1"
+          >
+            <Metronome className="text-muted-foreground size-4" />
+            {training_session.sport_details.average_cadence}
+          </span>
+        )}
+      </div>
 
       <div className="col-span-4 flex flex-row items-end justify-end gap-2 border-t pt-2">
         <Link
