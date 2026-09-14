@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
+import { Link } from 'react-router';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { mutate } from 'swr';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Field,
   FieldDescription,
@@ -293,9 +294,15 @@ export const LogTrainingSessionForm = ({
             <Button type="submit" disabled={form.formState.isSubmitting}>
               Submit
             </Button>
-            <Button variant="outline" type="button" onClick={handleModalClose}>
+            <Link
+              to="/training-sessions"
+              className={buttonVariants({
+                variant: 'outline',
+                size: 'default',
+              })}
+            >
               Cancel
-            </Button>
+            </Link>
           </Field>
         </FieldGroup>
       </form>

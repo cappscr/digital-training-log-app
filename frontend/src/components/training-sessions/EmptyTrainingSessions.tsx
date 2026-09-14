@@ -1,4 +1,5 @@
-import { Button } from '@/components/ui/button';
+import { Link } from 'react-router';
+import { buttonVariants } from '@/components/ui/button';
 import {
   Empty,
   EmptyHeader,
@@ -9,11 +10,7 @@ import {
 } from '@/components/ui/empty';
 import { PlusIcon, SportShoeIcon } from 'lucide-react';
 
-export const EmptyTrainingSessions = ({
-  handleActionClick,
-}: {
-  handleActionClick: () => void;
-}) => {
+export const EmptyTrainingSessions = () => {
   return (
     <Empty>
       <EmptyHeader>
@@ -29,10 +26,16 @@ export const EmptyTrainingSessions = ({
         </EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
-        <Button onClick={handleActionClick}>
-          <PlusIcon className="size-4" />
+        <Link
+          to="/training-sessions/new"
+          className={buttonVariants({
+            variant: 'outline',
+            size: 'lg',
+          })}
+        >
+          <PlusIcon className="h-4 w-4" />
           Add Training Session
-        </Button>
+        </Link>
       </EmptyContent>
     </Empty>
   );
