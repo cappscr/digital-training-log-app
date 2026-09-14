@@ -26,7 +26,7 @@ module Api
 
       def render_not_found(error)
         not_found_error = NotFoundError.new(
-          detail: error.message,
+          detail: "#{error.model.underscore.humanize} not found",
           instance: request.path
         )
         render_problem_detail(not_found_error)

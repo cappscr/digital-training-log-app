@@ -16,6 +16,7 @@ import { RootLayout } from './layouts/RootLayout';
 
 import { UserProfilePage } from './pages/UserProfile';
 import { TrainingSessionsPage } from './pages/TrainingSessions';
+import { CreateOrEditTrainingSessionPage } from './pages/TrainingSessions/CreateOrEditTrainingSession';
 
 export const router = createBrowserRouter([
   {
@@ -72,6 +73,14 @@ export const router = createBrowserRouter([
           {
             Component: TrainingSessionsPage,
             path: '/training-sessions',
+          },
+          {
+            Component: CreateOrEditTrainingSessionPage,
+            path: '/training-sessions/new',
+          },
+          {
+            Component: CreateOrEditTrainingSessionPage,
+            path: '/training-sessions/:trainingSessionId/edit',
           },
           {
             Component: UserProfilePage,

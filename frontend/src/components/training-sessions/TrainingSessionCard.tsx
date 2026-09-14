@@ -1,5 +1,13 @@
+import { Link } from 'react-router';
+import { /*Button,*/ buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { SportShoe } from 'lucide-react';
+import {
+  HeartPulse,
+  Metronome,
+  Mountain,
+  /*Trash,*/ PencilIcon,
+  SportShoe,
+} from 'lucide-react';
 import {
   formatSportName,
   formatTime,
@@ -18,35 +26,30 @@ export const TrainingSessionCard = ({
   return (
     <Card
       key={training_session.id}
-      className="col-span-4 grid grid-cols-subgrid items-center gap-7 p-3 sm:px-5"
+      className="col-span-4 grid grid-cols-subgrid grid-rows-[auto_auto_auto] items-center gap-4 p-3 sm:px-5"
     >
-      {training_session.day_of_week && (
-        <div className="flex h-full flex-col items-start justify-center gap-2">
-          <span className="bg-secondary text-secondary-foreground rounded-md px-2 py-1 text-base font-medium sm:text-lg">
-            {training_session.day_of_week}
+      <div className="flex h-full flex-col items-start gap-1">
+        <span className="bg-secondary text-secondary-foreground rounded-md px-1 py-1 text-base font-medium sm:px-2 sm:text-lg">
+          {training_session.day_of_week}
+        </span>
+        <div className="flex flex-row items-baseline gap-1">
+          <span className="text-foreground px-1 text-base font-medium sm:px-2 sm:text-lg">
+            {isoDateStringToMonthDayString(training_session.session_date)}
           </span>
-          <div className="flex flex-row items-baseline gap-1">
-            <span className="text-foreground text-md px-2 py-1 font-medium sm:text-lg">
-              {isoDateStringToMonthDayString(training_session.session_date)}
+          {training_session.session_time && (
+            <span className="text-muted-foreground font-numeric px-1 text-sm sm:px-2 sm:text-base">
+              {formatTime(training_session.session_time)}
             </span>
-            {training_session.session_time && (
-              <span className="text-muted-foreground font-numeric text-sm sm:text-base">
-                {formatTime(training_session.session_time)}
-              </span>
-            )}
-          </div>
+          )}
         </div>
-      )}
+      </div>
 
-      <span className="flex size-12 items-center justify-center rounded-full bg-rose-400">
-        <SportShoe className="size-6 text-rose-900" />
+      <span className="flex size-8 items-center justify-center rounded-full bg-rose-400 sm:size-10">
+        <SportShoe className="size-5 text-rose-900 sm:size-6" />
       </span>
 
-      <div className="flex flex-col gap-2">
-        <span className="text-foreground text-xl font-medium">
-          {`${toSentenceCase(training_session.location_type)} ${formatSportName(training_session.sport_details_type)}`}
-        </span>
-        <p>{training_session.notes}</p>
+      <div className="text-foreground text-base font-medium sm:text-2xl">
+        {`${toSentenceCase(training_session.location_type)} ${formatSportName(training_session.sport_details_type)}`}
       </div>
 
       <div className="font-numeric flex h-full flex-col items-end justify-center gap-2">
@@ -59,6 +62,60 @@ export const TrainingSessionCard = ({
             {training_session.duration}
           </span>
         )}
+      </div>
+
+      <p className="text-muted-foreground col-span-4 text-base">
+        {training_session.notes}
+      </p>
+
+      <div className="col-span-4 flex flex-row gap-3">
+        {training_session.sport_details.average_heart_rate && (
+          <span
+            aria-label="Average heart rate"
+            className="flex flex-row items-center gap-1"
+          >
+            <HeartPulse className="text-muted-foreground size-4" />
+            {training_session.sport_details.average_heart_rate}
+          </span>
+        )}
+        {training_session.sport_details.elevation_gain && (
+          <span
+            aria-label="Elevation gain"
+            className="flex flex-row items-center gap-1"
+          >
+            <Mountain className="text-muted-foreground size-4" />
+            {training_session.sport_details.elevation_gain}
+          </span>
+        )}
+        {training_session.sport_details.average_cadence && (
+          <span
+            aria-label="Average cadence"
+            className="flex flex-row items-center gap-1"
+          >
+            <Metronome className="text-muted-foreground size-4" />
+            {training_session.sport_details.average_cadence}
+          </span>
+        )}
+      </div>
+
+      <div className="col-span-4 flex flex-row items-end justify-end gap-2 border-t pt-2">
+        <Link
+          to={`/training-sessions/${training_session.id}/edit`}
+          aria-label="Edit training session"
+          className={buttonVariants({
+            variant: 'outline',
+            size: 'icon',
+          })}
+        >
+          <PencilIcon className="text-muted-foreground size-4" />
+        </Link>
+        {/*<Button
+          aria-label="Delete training session"
+          size="icon"
+          variant="destructive"
+        >
+          <Trash className="text-destructive size-4" />
+        </Button>*/}
       </div>
     </Card>
   );
