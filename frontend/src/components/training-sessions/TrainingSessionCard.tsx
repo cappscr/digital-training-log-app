@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
-import { buttonVariants } from '@/components/ui/button';
+import { /*Button,*/ buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { PencilIcon, SportShoe } from 'lucide-react';
+import { /*Trash,*/ PencilIcon, SportShoe } from 'lucide-react';
 import {
   formatSportName,
   formatTime,
@@ -62,7 +62,7 @@ export const TrainingSessionCard = ({
         {training_session.notes}
       </p>
 
-      <div className="col-span-4 flex flex-row items-end justify-end border-t pt-2">
+      <div className="col-span-4 flex flex-row items-end justify-end gap-2 border-t pt-2">
         <Link
           to={`/training-sessions/${training_session.id}/edit`}
           aria-label="Edit training session"
@@ -73,6 +73,13 @@ export const TrainingSessionCard = ({
         >
           <PencilIcon className="text-muted-foreground size-4" />
         </Link>
+        {/*<Button
+          aria-label="Delete training session"
+          size="icon"
+          variant="destructive"
+        >
+          <Trash className="text-destructive size-4" />
+        </Button>*/}
       </div>
     </Card>
   );
