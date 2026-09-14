@@ -1,7 +1,7 @@
 module Api
   module V1
     class TrainingSessionsController < Api::ApplicationController
-      before_action :require_login, only: [ :create, :index ]
+      before_action :require_login, only: [ :create, :index, :show ]
 
       def index
         @training_sessions = TrainingSession
@@ -19,6 +19,11 @@ module Api
         details.training_session = training_session
         training_session.save!
         render json: training_session, status: :created
+      end
+
+      def show
+        training_session = current_user.training_sessions.find(params[:id])
+        render json: training_session, serializer: TrainingSessionSerializer
       end
 
       private

@@ -76,25 +76,46 @@ const formSchema = z
     },
   );
 
+interface LogTrainingSessionFormProps {
+  handleModalClose?: () => void;
+  showHeader?: boolean;
+  trainingSessionToEdit?: TrainingSession | null;
+}
+
 export const LogTrainingSessionForm = ({
   handleModalClose,
   showHeader = true,
-}: {
-  handleModalClose: () => void;
-  showHeader?: boolean;
-}) => {
+  trainingSessionToEdit = null,
+}: LogTrainingSessionFormProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      date: new Date(),
-      indoor_or_outdoor: 'outdoor',
-      duration: '',
-      notes: '',
-      time: '',
-      type: 'run',
-      distance: undefined,
-      unit: 'mi',
-    },
+    defaultValues: trainingSessionToEdit
+      ? {
+          date: new Date(trainingSessionToEdit.session_date + 'T00:00:00'),
+          time: trainingSessionToEdit.session_time ?? '',
+          indoor_or_outdoor: trainingSessionToEdit.location_type,
+          duration: trainingSessionToEdit.duration ?? '',
+          notes: trainingSessionToEdit.notes ?? '',
+          type: 'run',
+          distance: trainingSessionToEdit.sport_details.distance ?? undefined,
+          unit: trainingSessionToEdit.sport_details.distance_unit ?? 'mi',
+          elevation_gain:
+            trainingSessionToEdit.sport_details.elevation_gain ?? undefined,
+          average_heart_rate:
+            trainingSessionToEdit.sport_details.average_heart_rate ?? undefined,
+          average_cadence:
+            trainingSessionToEdit.sport_details.average_cadence ?? undefined,
+        }
+      : {
+          date: new Date(),
+          indoor_or_outdoor: 'outdoor',
+          duration: '',
+          notes: '',
+          time: '',
+          type: 'run',
+          distance: undefined,
+          unit: 'mi',
+        },
     mode: 'onTouched',
   });
 
@@ -148,7 +169,7 @@ export const LogTrainingSessionForm = ({
       );
       await mutate(TRAINING_SESSIONS_KEY);
       successToast('Training session logged successfully');
-      handleModalClose();
+      handleModalClose?.();
     } catch (apiError) {
       if (isApiError(apiError) && apiError.status === 422) {
         const errors = apiError.data?.errors;
