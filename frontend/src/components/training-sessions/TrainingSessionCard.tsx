@@ -1,11 +1,12 @@
 import { Link } from 'react-router';
-import { /*Button,*/ buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import {
   HeartPulse,
   Metronome,
   Mountain,
-  /*Trash,*/ PencilIcon,
+  Trash,
+  PencilIcon,
   SportShoe,
 } from 'lucide-react';
 import {
@@ -109,13 +110,13 @@ export const TrainingSessionCard = ({
         >
           <PencilIcon className="text-muted-foreground size-4" />
         </Link>
-        {/*<Button
+        <Button
           aria-label="Delete training session"
           size="icon"
           variant="destructive"
         >
           <Trash className="text-destructive size-4" />
-        </Button>*/}
+        </Button>
       </div>
     </Card>
   );
