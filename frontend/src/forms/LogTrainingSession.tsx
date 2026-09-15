@@ -30,8 +30,10 @@ import {
   toSentenceCase,
 } from '@/lib/utils';
 import { successToast } from '@/lib/toasts';
-import { TRAINING_SESSIONS_KEY } from '@/hooks/useTrainingSessions';
-import { type TrainingSession } from '@/hooks/useTrainingSessions';
+import {
+  TRAINING_SESSIONS_KEY,
+  type TrainingSession,
+} from '@/hooks/useTrainingSessions';
 
 const formSchema = z
   .object({

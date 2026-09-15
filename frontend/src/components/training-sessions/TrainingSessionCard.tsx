@@ -1,28 +1,59 @@
 import { Link } from 'react-router';
-import { /*Button,*/ buttonVariants } from '@/components/ui/button';
+import { mutate } from 'swr';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import {
   HeartPulse,
   Metronome,
   Mountain,
-  /*Trash,*/ PencilIcon,
+  Trash,
+  PencilIcon,
   SportShoe,
 } from 'lucide-react';
+import { apiClient, isApiError } from '@/lib/fetcher';
+import { errorToast } from '@/lib/toasts';
 import {
   formatSportName,
   formatTime,
   isoDateStringToMonthDayString,
   toSentenceCase,
 } from '@/lib/utils';
-import type { TrainingSession } from '@/hooks/useTrainingSessions';
+import {
+  TRAINING_SESSIONS_KEY,
+  type TrainingSession,
+} from '@/hooks/useTrainingSessions';
+import { useCallback } from 'react';
 
 interface TrainingSessionCardProps {
   training_session: TrainingSession;
 }
 
+const UNEXPECTED_ERROR_MESSAGE =
+  'An unexpected error occurred while deleting the training session, please try again later.';
+
 export const TrainingSessionCard = ({
   training_session,
 }: TrainingSessionCardProps) => {
+  const handleDelete = useCallback(async () => {
+    try {
+      await apiClient('DELETE', `/training_sessions/${training_session.id}`);
+      await mutate(TRAINING_SESSIONS_KEY);
+      await mutate(
+        `${TRAINING_SESSIONS_KEY}/${training_session.id}`,
+        undefined,
+        {
+          revalidate: false,
+        },
+      );
+    } catch (apiError) {
+      if (isApiError(apiError) && apiError.status === 404) {
+        errorToast('Training session not found');
+      } else {
+        errorToast(UNEXPECTED_ERROR_MESSAGE);
+      }
+    }
+  }, [training_session.id]);
+
   return (
     <Card
       key={training_session.id}
@@ -109,13 +140,14 @@ export const TrainingSessionCard = ({
         >
           <PencilIcon className="text-muted-foreground size-4" />
         </Link>
-        {/*<Button
+        <Button
           aria-label="Delete training session"
           size="icon"
           variant="destructive"
+          onClick={handleDelete}
         >
           <Trash className="text-destructive size-4" />
-        </Button>*/}
+        </Button>
       </div>
     </Card>
   );

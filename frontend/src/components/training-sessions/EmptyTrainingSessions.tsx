@@ -1,4 +1,5 @@
 import { Link } from 'react-router';
+import { cn } from 'cn';
 import { buttonVariants } from '@/components/ui/button';
 import {
   Empty,
@@ -28,10 +29,12 @@ export const EmptyTrainingSessions = () => {
       <EmptyContent>
         <Link
           to="/training-sessions/new"
-          className={buttonVariants({
-            variant: 'outline',
-            size: 'lg',
-          })}
+          className={cn(
+            buttonVariants({
+              variant: 'outline',
+              size: 'lg',
+            }),
+          )}
         >
           <PlusIcon className="h-4 w-4" />
           Add Training Session
