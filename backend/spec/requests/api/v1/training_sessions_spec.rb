@@ -398,10 +398,19 @@ RSpec.describe "Training Sessions", type: :request do
       end
 
       context "when the training session is found" do
+        let!(:second_training_session) { create(:training_session, user: user) }
+
         it "destroys the training session" do
           expect {
             delete api_v1_training_session_path(training_session.id), headers: auth_headers
           }.to change(TrainingSession, :count).by(-1)
+          expect(response).to have_http_status(:no_content)
+        end
+
+        it "also destroys the sport details" do
+          expect {
+            delete api_v1_training_session_path(second_training_session.id), headers: auth_headers
+          }.to change(RunningTrainingSession, :count).by(-1)
           expect(response).to have_http_status(:no_content)
         end
       end

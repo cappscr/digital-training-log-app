@@ -1,5 +1,16 @@
 import { Link } from 'react-router';
-import { mutate } from 'swr';
+import { cn } from 'cn';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import {
@@ -10,7 +21,7 @@ import {
   PencilIcon,
   SportShoe,
 } from 'lucide-react';
-import { apiClient, isApiError } from '@/lib/fetcher';
+import { isApiError } from '@/lib/fetcher';
 import { errorToast } from '@/lib/toasts';
 import {
   formatSportName,
@@ -19,10 +30,9 @@ import {
   toSentenceCase,
 } from '@/lib/utils';
 import {
-  TRAINING_SESSIONS_KEY,
+  useDeleteTrainingSession,
   type TrainingSession,
 } from '@/hooks/useTrainingSessions';
-import { useCallback } from 'react';
 
 interface TrainingSessionCardProps {
   training_session: TrainingSession;
@@ -34,17 +44,13 @@ const UNEXPECTED_ERROR_MESSAGE =
 export const TrainingSessionCard = ({
   training_session,
 }: TrainingSessionCardProps) => {
-  const handleDelete = useCallback(async () => {
+  const { deleteTrainingSession, isDeleting } = useDeleteTrainingSession(
+    training_session.id,
+  );
+
+  const handleDelete = async () => {
     try {
-      await apiClient('DELETE', `/training_sessions/${training_session.id}`);
-      await mutate(TRAINING_SESSIONS_KEY);
-      await mutate(
-        `${TRAINING_SESSIONS_KEY}/${training_session.id}`,
-        undefined,
-        {
-          revalidate: false,
-        },
-      );
+      await deleteTrainingSession();
     } catch (apiError) {
       if (isApiError(apiError) && apiError.status === 404) {
         errorToast('Training session not found');
@@ -52,7 +58,7 @@ export const TrainingSessionCard = ({
         errorToast(UNEXPECTED_ERROR_MESSAGE);
       }
     }
-  }, [training_session.id]);
+  };
 
   return (
     <Card
@@ -133,21 +139,48 @@ export const TrainingSessionCard = ({
         <Link
           to={`/training-sessions/${training_session.id}/edit`}
           aria-label="Edit training session"
-          className={buttonVariants({
-            variant: 'outline',
-            size: 'icon',
-          })}
+          className={cn(
+            buttonVariants({
+              variant: 'outline',
+              size: 'icon',
+            }),
+          )}
         >
           <PencilIcon className="text-muted-foreground size-4" />
         </Link>
-        <Button
-          aria-label="Delete training session"
-          size="icon"
-          variant="destructive"
-          onClick={handleDelete}
-        >
-          <Trash className="text-destructive size-4" />
-        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger
+            render={
+              <Button
+                aria-label="Delete training session"
+                size="icon"
+                variant="outline"
+                disabled={isDeleting}
+              >
+                <Trash className="text-muted-foreground size-4" />
+              </Button>
+            }
+          />
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Delete training session?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This will permanently delete the training session and all of its
+                data.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                variant="destructive"
+                disabled={isDeleting}
+                onClick={handleDelete}
+              >
+                Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </Card>
   );
