@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { Link } from 'react-router';
 import { cn } from 'cn';
 import {
@@ -47,6 +48,7 @@ export const TrainingSessionCard = ({
   const { deleteTrainingSession, isDeleting } = useDeleteTrainingSession(
     training_session.id,
   );
+  const confirmDeleteLabelId = useId();
 
   const handleDelete = async () => {
     try {
@@ -175,8 +177,11 @@ export const TrainingSessionCard = ({
                 variant="destructive"
                 disabled={isDeleting}
                 onClick={handleDelete}
+                aria-labelledby={confirmDeleteLabelId}
               >
-                Delete
+                <span id={confirmDeleteLabelId}>
+                  {isDeleting ? 'Deleting...' : 'Delete'}
+                </span>
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
