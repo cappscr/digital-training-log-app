@@ -1,4 +1,6 @@
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
+import useSWRMutation from 'swr/mutation';
+import { apiClient, type ApiError } from '@/lib/fetcher';
 
 type LocationType = 'outdoor' | 'indoor';
 type SportDetailsType = 'RunningTrainingSession';
@@ -58,4 +60,31 @@ export const useTrainingSession = (trainingSessionId?: string) => {
     isLoading,
     mutate,
   };
+};
+
+export const useDeleteTrainingSession = (trainingSessionId: string) => {
+  const { trigger, error, isMutating } = useSWRMutation<
+    undefined,
+    ApiError,
+    string
+  >(
+    `${TRAINING_SESSIONS_KEY}/${trainingSessionId}`,
+    (path) => apiClient('DELETE', path),
+    {
+      populateCache: false,
+      revalidate: false,
+      onSuccess: async () => {
+        await mutate(TRAINING_SESSIONS_KEY);
+        await mutate(
+          `${TRAINING_SESSIONS_KEY}/${trainingSessionId}`,
+          undefined,
+          {
+            revalidate: false,
+          },
+        );
+      },
+    },
+  );
+
+  return { deleteTrainingSession: trigger, error, isDeleting: isMutating };
 };

@@ -1,4 +1,5 @@
 import { Link } from 'react-router';
+import { cn } from 'cn';
 import { buttonVariants } from '@/components/ui/button';
 import { Loading } from '@/components/Loading';
 import { EmptyTrainingSessions } from '@/components/training-sessions/EmptyTrainingSessions';
@@ -17,10 +18,12 @@ export const TrainingSessionsPage = () => {
         <div className="m-4 flex flex-row items-center justify-end">
           <Link
             to="/training-sessions/new"
-            className={buttonVariants({
-              variant: 'outline',
-              size: 'lg',
-            })}
+            className={cn(
+              buttonVariants({
+                variant: 'outline',
+                size: 'lg',
+              }),
+            )}
           >
             <PlusIcon className="h-4 w-4" />
             Add Training Session

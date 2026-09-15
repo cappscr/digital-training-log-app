@@ -357,4 +357,61 @@ RSpec.describe "Training Sessions", type: :request do
       end
     end
   end
+
+  # destroy training session
+  describe "DELETE /api/v1/training_sessions/:id" do
+    let!(:user) { create(:user, :activated) }
+    let!(:training_session) { create(:training_session, user: user) }
+    let!(:other_user) { create(:user, :activated, email: "other@example.com") }
+    let!(:other_user_training_session) { create(:training_session, user: other_user) }
+
+    context "when not logged in" do
+      it "does not destroy the training session and returns a 401 Unauthorized error" do
+        expect {
+          delete api_v1_training_session_path(training_session.id)
+        }.not_to change(TrainingSession, :count)
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context "when logged in" do
+      let(:auth_headers) { { "Authorization" => "Bearer #{access_token}" } }
+      let(:access_token) do
+        post api_v1_login_path, params: { email: user.email, password: user.password }
+        response.parsed_body["access_token"]
+      end
+
+      context "when the training session is not found or not owned by the user" do
+        it "does not destroy the training session and returns a 404 Not Found error" do
+          expect {
+            delete api_v1_training_session_path('invalid-id'), headers: auth_headers
+          }.not_to change(TrainingSession, :count)
+          expect(response).to have_http_status(:not_found)
+        end
+
+        it "does not destroy other user's training sessions" do
+          expect {
+            delete api_v1_training_session_path(other_user_training_session.id), headers: auth_headers
+          }.not_to change(TrainingSession, :count)
+          expect(response).to have_http_status(:not_found)
+        end
+      end
+
+      context "when the training session is found" do
+        it "destroys the training session" do
+          expect {
+            delete api_v1_training_session_path(training_session.id), headers: auth_headers
+          }.to change(TrainingSession, :count).by(-1)
+          expect(response).to have_http_status(:no_content)
+        end
+
+        it "also destroys the sport details" do
+          expect {
+            delete api_v1_training_session_path(training_session.id), headers: auth_headers
+          }.to change(RunningTrainingSession, :count).by(-1)
+          expect(response).to have_http_status(:no_content)
+        end
+      end
+    end
+  end
 end

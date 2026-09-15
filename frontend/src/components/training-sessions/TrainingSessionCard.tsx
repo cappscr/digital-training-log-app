@@ -1,28 +1,67 @@
+import { useId } from 'react';
 import { Link } from 'react-router';
-import { /*Button,*/ buttonVariants } from '@/components/ui/button';
+import { cn } from 'cn';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import {
   HeartPulse,
   Metronome,
   Mountain,
-  /*Trash,*/ PencilIcon,
+  Trash,
+  PencilIcon,
   SportShoe,
 } from 'lucide-react';
+import { isApiError } from '@/lib/fetcher';
+import { errorToast } from '@/lib/toasts';
 import {
   formatSportName,
   formatTime,
   isoDateStringToMonthDayString,
   toSentenceCase,
 } from '@/lib/utils';
-import type { TrainingSession } from '@/hooks/useTrainingSessions';
+import {
+  useDeleteTrainingSession,
+  type TrainingSession,
+} from '@/hooks/useTrainingSessions';
 
 interface TrainingSessionCardProps {
   training_session: TrainingSession;
 }
 
+const UNEXPECTED_ERROR_MESSAGE =
+  'An unexpected error occurred while deleting the training session, please try again later.';
+
 export const TrainingSessionCard = ({
   training_session,
 }: TrainingSessionCardProps) => {
+  const { deleteTrainingSession, isDeleting } = useDeleteTrainingSession(
+    training_session.id,
+  );
+  const confirmDeleteLabelId = useId();
+
+  const handleDelete = async () => {
+    try {
+      await deleteTrainingSession();
+    } catch (apiError) {
+      if (isApiError(apiError) && apiError.status === 404) {
+        errorToast('Training session not found');
+      } else {
+        errorToast(UNEXPECTED_ERROR_MESSAGE);
+      }
+    }
+  };
+
   return (
     <Card
       key={training_session.id}
@@ -102,20 +141,51 @@ export const TrainingSessionCard = ({
         <Link
           to={`/training-sessions/${training_session.id}/edit`}
           aria-label="Edit training session"
-          className={buttonVariants({
-            variant: 'outline',
-            size: 'icon',
-          })}
+          className={cn(
+            buttonVariants({
+              variant: 'outline',
+              size: 'icon',
+            }),
+          )}
         >
           <PencilIcon className="text-muted-foreground size-4" />
         </Link>
-        {/*<Button
-          aria-label="Delete training session"
-          size="icon"
-          variant="destructive"
-        >
-          <Trash className="text-destructive size-4" />
-        </Button>*/}
+        <AlertDialog>
+          <AlertDialogTrigger
+            render={
+              <Button
+                aria-label="Delete training session"
+                size="icon"
+                variant="outline"
+                disabled={isDeleting}
+              >
+                <Trash className="text-muted-foreground size-4" />
+              </Button>
+            }
+          />
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Delete training session?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This will permanently delete the training session and all of its
+                data.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                variant="destructive"
+                disabled={isDeleting}
+                onClick={handleDelete}
+                aria-labelledby={confirmDeleteLabelId}
+              >
+                <span id={confirmDeleteLabelId}>
+                  {isDeleting ? 'Deleting...' : 'Delete'}
+                </span>
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </Card>
   );
