@@ -5,6 +5,7 @@ status: ready for implementation
 issues:
   - 375
   - 240 # parent
+  - 410 # shared elevation gain + unit (running follow-up)
 ---
 
 # Cross Training Sessions
@@ -31,6 +32,7 @@ A signed-in user can:
 
 Out of scope for this slice:
 
+- Extracting elevation gain + unit into a shared concern and applying it to running (#410; CT implements `elevation_unit` on `cross_training_sessions` only for now).
 - Strength training and supplementary training (including any decision about the unfinished `SupplementaryTrainingSession` delegated type — that belongs with strength training, not CT).
 - Cycling/swimming as distinct sport types (beyond enabling the cross-training catch-all path).
 - Weather capture UI/API (still specified on the parent domain; not wired for any sport yet).
@@ -358,32 +360,12 @@ Optional, only if that doc discusses seed/tag vocabulary:
 
 ---
 
-## Areas of concern / policy conflicts
+## Areas of concern / residual follow-ups
 
-### 1. Seed CSV headers still overloaded
+Most earlier conflicts are resolved by the intent or by decisions elsewhere in this spec (same list/card UX; weather and tags out of scope; seed `cross_training` → sport type with CSV header cleanup; auth/ownership rules under API; API `kind` values `running` | `cross_training`).
 
-Until the CSV is renamed (`sport`, `activity`, `location_type`, etc.), `seeds.rb` must map legacy `session_type` / `tags` carefully so CT rows never become tagged runs. Prefer updating the CSV in the same change as the importer.
+What remains in-doc only:
 
-### 2. Design skill vs marketing frontend rules
+1. **Parent numeric wording** — When editing `spec/training_sessions/spec.md`, clarify that elevation may be non-negative (≥ 0) while other numerics stay strictly positive. CT should match running’s current elevation validation.
 
-User/marketing design rules discourage cards and push brand-hero layouts. In-app session list already uses `Card` as the interaction container, and the design skill + `frontend/AGENTS.md` govern app UI. **Resolution:** preserve existing session list patterns; apply the design skill’s typography/color/action hierarchy. Do not redesign the training sessions index as a marketing page in this feature.
-
-### 3. Security policy skill missing
-
-There is no in-repo security skill or threat-model doc. This spec encodes ownership, auth, and param-filtering requirements from existing controller patterns. If organizational security policies (e.g. rate limits, audit logs, PII retention for notes) exist outside the repo, they are **not applied here** because they are unavailable to the agent.
-
-### 4. Elevation units (in scope for CT; may diverge from running briefly)
-
-Intent requires selectable elevation units (`ft` | `m`) for cross training. Running today stores `elevation_gain` with no unit. CT should add `elevation_unit` (and UI) even if running is not updated in the same slice; align running later rather than blocking CT.
-
-### 5. Kind string inconsistency (`run` vs `running` vs `cross-training`)
-
-Frontend form enum uses `run` and commented `cross-training`; API request specs use `running`; sport selector comment uses `cross_training`. CT work must pick a single API contract and map UI → API in one place. Recommended API: `running` | `cross_training`.
-
-### 6. Weather conditions “normalize on backend” (parent spec)
-
-Parent training-sessions spec asks for weather condition normalization. Unimplemented. CT outdoor sessions will not collect weather until that parent work lands — **not a CT blocker**, but outdoor CT will look incomplete relative to the parent doc until then.
-
-### 7. Positive-number rule vs elevation ≥ 0
-
-Parent says “all numeric values need to be positive.” Running allows `elevation_gain >= 0`. CT should match running (allow 0), and the parent spec should eventually say “positive unless explicitly non-negative (e.g. elevation).”
+**Already accounted for (out of scope here):** sharing elevation gain + unit as a reusable concern and applying it to running is #410. This slice only adds `elevation_unit` on `cross_training_sessions`.
