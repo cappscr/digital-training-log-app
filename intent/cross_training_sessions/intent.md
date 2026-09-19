@@ -1,6 +1,11 @@
-# Intent: cross training sessions
+---
+title: cross training sessions
+author: Chris Capps
+status: draft
+issue: 375
+---
 
-Author: Chris Capps Status: draft.
+# Intent: cross training sessions
 
 ## Problem
 
