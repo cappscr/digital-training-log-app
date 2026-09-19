@@ -24,18 +24,21 @@ A signed-in user can:
 
 1. Choose **Cross Training** when logging a new training session.
 2. Enter a required **activity** (what they did) plus shared session fields.
-3. Optionally enter distance (+ unit), elevation gain, and average heart rate when relevant.
+3. Optionally enter distance (+ unit), elevation gain (+ unit), and average heart rate when relevant.
 4. See cross training sessions in the training sessions list with correct sport labeling and metrics.
 5. Edit and delete their own cross training sessions (same ownership rules as running).
 6. Not create, read, update, or delete another user’s sessions.
 
 Out of scope for this slice:
 
-- Strength training, supplementary training, cycling/swimming as distinct sport types (beyond enabling the cross-training path).
+- Strength training and supplementary training (including any decision about the unfinished `SupplementaryTrainingSession` delegated type — that belongs with strength training, not CT).
+- Cycling/swimming as distinct sport types (beyond enabling the cross-training catch-all path).
 - Weather capture UI/API (still specified on the parent domain; not wired for any sport yet).
 - GPS watch links.
-- Changing sport type on edit (e.g. converting a run into cross training). Create as the chosen sport; edit stays within that sport.
+- Changing sport type on edit (e.g. converting a run into cross training). Create as the chosen sport; edit stays within that sport. Disabled sport select should show a tooltip telling the user to delete the session if they want a different sport.
+- Summaries / aggregation of cross training volume.
 - Coaching/share views.
+- Tags (including any future “cross training” tag on other sports).
 
 ---
 
@@ -45,26 +48,27 @@ Out of scope for this slice:
 
 Cross training is one delegated sport type under `TrainingSession`:
 
-| Layer                  | Responsibility                                                                                                        |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `TrainingSession`      | Ownership (`user`), `session_date`, `session_time`, `duration_seconds`, `location_type`, `notes`, weather association |
-| `CrossTrainingSession` | Activity-specific fields: `activity`, optional `distance` / `distance_unit`, `elevation_gain`, `average_heart_rate`   |
+| Layer                  | Responsibility                                                                                                                         |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `TrainingSession`      | Ownership (`user`), `session_date`, `session_time`, `duration_seconds`, `location_type`, `notes`, weather association                  |
+| `CrossTrainingSession` | Activity-specific fields: `activity`, optional `distance` / `distance_unit`, `elevation_gain` / `elevation_unit`, `average_heart_rate` |
 
-Table `cross_training_sessions` already exists (string UUID PK) with those columns. No new migration is required unless validation work surfaces a schema gap (see Concerns).
+Table `cross_training_sessions` already exists (string UUID PK) with most of these columns. **Add a migration for `elevation_unit`** (`ft` \| `m`); distance unit already exists.
 
 ### Fields
 
-| Field                     | Required            | Notes                                                                                                                                               |
-| ------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `activity`                | Yes                 | Free-text name of the activity. Paper-journal flexibility: do not constrain to a fixed DB enum. Normalize with strip; reject blank. Max length 100. |
-| `distance`                | No                  | Positive decimal; at most 2 decimal places (matches running / existing `precision: 5, scale: 2`).                                                   |
-| `distance_unit`           | If distance present | `mi` or `km` via shared `DistanceValidatable`.                                                                                                      |
-| `elevation_gain`          | No                  | Non-negative integer (meters or feet — same ambiguity as running today; do not invent unit UI in this slice).                                       |
-| `average_heart_rate`      | No                  | Positive integer (bpm).                                                                                                                             |
-| Parent `duration_seconds` | Conditionally       | See validations.                                                                                                                                    |
-| Parent `session_date`     | Yes                 | Inherited.                                                                                                                                          |
-| Parent `location_type`    | Yes                 | `indoor` \| `outdoor`.                                                                                                                              |
-| Parent `notes`            | No                  | Free text.                                                                                                                                          |
+| Field                     | Required             | Notes                                                                                                                                               |
+| ------------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `activity`                | Yes                  | Free-text name of the activity. Paper-journal flexibility: do not constrain to a fixed DB enum. Normalize with strip; reject blank. Max length 100. |
+| `distance`                | No                   | Positive decimal; at most 2 decimal places (matches running / existing `precision: 5, scale: 2`).                                                   |
+| `distance_unit`           | If distance present  | `mi` or `km` via shared `DistanceValidatable`.                                                                                                      |
+| `elevation_gain`          | No                   | Non-negative integer.                                                                                                                               |
+| `elevation_unit`          | If elevation present | `ft` or `m` (selectable in UI; new column on `cross_training_sessions`).                                                                            |
+| `average_heart_rate`      | No                   | Positive integer (bpm).                                                                                                                             |
+| Parent `duration_seconds` | Conditionally        | See validations.                                                                                                                                    |
+| Parent `session_date`     | Yes                  | Inherited.                                                                                                                                          |
+| Parent `location_type`    | Yes                  | `indoor` \| `outdoor`.                                                                                                                              |
+| Parent `notes`            | No                   | Free text.                                                                                                                                          |
 
 ### Validations
 
@@ -73,7 +77,7 @@ Mirror running where the metrics overlap; add activity rules unique to this spor
 1. **`activity`**: presence, max 100 characters, strip whitespace before validate/save.
 2. **Reuse `DistanceValidatable`** on `CrossTrainingSession`.
 3. **Reuse `DurationOrDistanceValidatable`**: either parent `duration_seconds` or `distance` must be present (same rule as running). Rationale: some sessions are time-only (yoga, mobility); some are distance-oriented (bike, uphill treadmill) like the seed data.
-4. Numeric positivity: distance > 0; elevation_gain ≥ 0; average_heart_rate > 0 when present (align elevation with running’s `greater_than_or_equal_to: 0`).
+4. Numeric positivity: distance > 0; elevation_gain ≥ 0; average_heart_rate > 0 when present (align elevation with running’s `greater_than_or_equal_to: 0`). Require `elevation_unit` when `elevation_gain` is present.
 5. Parent `TrainingSession` rules unchanged (`session_date` required; `duration_seconds` integer > 0 when present).
 
 ### Activity UX (not a closed enum)
@@ -84,29 +88,31 @@ Product ethos ([`spec/product/spec.md`](../product/spec.md)): flexible manual en
 - Backend: store the string the user confirmed; do not reject unknown activities.
 - Do **not** add a separate activities table in this slice.
 
-### Naming collision: running tag `cross_training` vs sport type
+### Seed CSV mapping (not a product collision)
 
-Today:
+The spreadsheet used for seeds historically labeled non-run rows with `session_type=cross_training` (and sometimes `tags=treadmill`). That was **import vocabulary**, not “a run with a cross_training tag.”
 
-- `RunningTrainingSessionTag` enum includes `cross_training`.
-- Seed CSV uses `session_type=cross_training` for uphill-treadmill-style sessions (currently skipped in `db/seeds.rb`).
-- Factory examples use activities like `"Uphill Treadmill"` and `"Aqua Jogging"`.
+| Spreadsheet / seed signal | Means |
+| --- | --- |
+| Sport/type column value `cross_training` | Create a `CrossTrainingSession` (delegated sport details) |
+| `tags=treadmill` on those rows | Seed hint only (e.g. `location_type=indoor`, activity default) — **not** a `RunningTrainingSessionTag` |
 
-**Decision for this feature:**
+`RunningTrainingSessionTag` also happens to define a `cross_training` enum value in code. That is unrelated to these seed rows and **out of scope** for this feature (tags generally are). Do not create running tags when importing CT sessions.
 
-| Concept                           | Meaning                               | Use when                                                                                                            |
-| --------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| Sport type `CrossTrainingSession` | The session **is** cross training     | Logging bike, aqua jog, elliptical, uphill treadmill CT, etc.                                                       |
-| Running tag `cross_training`      | Legacy / ambiguous label on a **run** | Do not expose in new UI. Treat as deprecated for product purposes until a dedicated running-tags slice revisits it. |
+As part of the seed work, **rename CSV headers** so the file matches the importer:
 
-Seed rows with `session_type=cross_training` must be imported as `CrossTrainingSession` records (see Seeds), not as tagged runs.
+- Prefer `sport` (or `sport_details_type`) over overloaded `session_type`.
+- Prefer an explicit `location_type` (and/or `activity`) on CT rows instead of overloading `tags`.
+- Keep `running_tags` (or similar) only for actual running sessions when tags are seeded later.
+
+Factory examples (`"Uphill Treadmill"`, `"Aqua Jogging"`) remain valid `activity` strings on `CrossTrainingSession`.
 
 ### Weather, GPS, tags/types
 
 - Weather remains a parent `TrainingSession` concern (outdoor). Not implemented in API/UI for any sport; do not block cross training on weather.
 - No cross-training-specific tags/types tables (unlike running). Activity string covers categorization for v1.
 - No cadence field (not in schema).
-
+- Tags on other sports (including a future “cross training” tag meaning) are out of scope; see intent.
 ---
 
 ## API
@@ -263,13 +269,16 @@ Apply [`.agents/skills/design/SKILL.md`](../../.agents/skills/design/SKILL.md):
 
 ## Seeds & fixtures
 
-Update `backend/db/seeds.rb` to stop skipping `session_type=cross_training`. For those rows:
+Update `backend/db/seeds/training_sessions.csv` headers (and row values as needed) so columns map cleanly to the domain — see [Seed CSV mapping](#seed-csv-mapping-not-a-product-collision). Then update `backend/db/seeds.rb` to stop skipping cross-training rows and import them as `CrossTrainingSession`.
+
+For CT rows:
 
 1. Build `CrossTrainingSession` with:
-   - `activity`: default `"Uphill Treadmill"` when tags include `treadmill` and notes mention uphill/incline; otherwise `"Cross Training"` or derive a simple default — document the chosen heuristic in a seed comment. Prefer a single default `"Uphill Treadmill"` for current CSV CT rows (they are all treadmill CT).
-   - distance / unit / elevation / HR from CSV columns.
-2. Set `location_type` indoor when tags include `treadmill`.
+   - `activity` from an `activity` column when present; otherwise default `"Uphill Treadmill"` for current treadmill CT seed rows (document the heuristic in a seed comment).
+   - `distance` / `distance_unit` / `elevation_gain` / `elevation_unit` / HR from CSV columns (set a default `elevation_unit` when elevation is present but unit is omitted in legacy rows).
+2. Set `location_type` from an explicit column when present; otherwise indoor when the old treadmill hint applies.
 3. Attach as `sport_details` on `TrainingSession` with UUID seeding via existing `seed_id` helper (`cross_training_session` label).
+4. Never create `RunningTrainingSession` or running tags for these rows.
 
 Factories already cover `:cross_training` traits — keep them aligned with validations (activity required; minimal trait still valid via duration on parent).
 
@@ -299,7 +308,7 @@ Factories already cover `:cross_training` traits — keep them aligned with vali
 2. Add `CrossTrainingSessionSerializer`.
 3. Refactor `TrainingSessionsController` create/update to instantiate by `kind`; expand strong params; freeze kind on update.
 4. Align running create path to use `kind: "running"` explicitly (fix silent hard-code).
-5. Update seeds to import CT rows.
+5. Update seed CSV headers/columns and `seeds.rb` to import CT rows as `CrossTrainingSession`.
 6. Expand model + request specs.
 
 ### Frontend
@@ -313,7 +322,7 @@ Factories already cover `:cross_training` traits — keep them aligned with vali
 ### Docs (this PR / follow-up)
 
 1. Keep this file as the living design for CT.
-2. Apply the parent-spec edits listed below in `spec/training_sessions/spec.md` (and a small note in running spec if tags are deprecated).
+2. Apply the parent-spec edits listed below in `spec/training_sessions/spec.md`.
 
 ---
 
@@ -322,10 +331,10 @@ Factories already cover `:cross_training` traits — keep them aligned with vali
 When implementing, update the parent spec to reflect current reality and this feature. Suggested changes:
 
 1. **Clarify delegated types status**  
-   Note that `RunningTrainingSession` and `CrossTrainingSession` are implemented end-to-end (after this work); `StrengthTrainingSession` exists at model layer but is not user-facing yet; `SupplementaryTrainingSession` is named in `delegated_type` but **has no model/table yet** — treat as future, or remove from the delegated list until built (see Concerns).
+   Note that `RunningTrainingSession` and `CrossTrainingSession` are implemented end-to-end (after this work); `StrengthTrainingSession` exists at model layer but is not user-facing yet. Do **not** resolve `SupplementaryTrainingSession` in the CT slice — leave that for strength-training intent/spec work.
 
 2. **Cross training bullet**  
-   Add an explicit subsection or pointer: “Cross training details are specified in `spec/cross_training_sessions/spec.md` (activity required; optional distance/HR/elevation; duration-or-distance).”
+   Add an explicit subsection or pointer: “Cross training details are specified in `spec/cross_training_sessions/spec.md` (activity required; optional distance/HR/elevation with units; duration-or-distance).”
 
 3. **Duration wording**  
    Parent text currently implies every session has a duration. Align with implementation: duration is stored on the parent when present; running and cross training allow duration **or** distance. Strength may later require duration only.
@@ -341,48 +350,40 @@ When implementing, update the parent spec to reflect current reality and this fe
 
 ### Related note for `spec/running_training_sessions/spec.md`
 
-Add a short clarification under tags:
+Optional, only if that doc discusses seed/tag vocabulary:
 
-- Tag value `cross_training` is **not** the same as logging a `CrossTrainingSession`.
-- Product direction: prefer the dedicated sport type for non-run sessions; do not surface the running tag in UI until tags are fully implemented and revisited.
+- Spreadsheet/seed values of `cross_training` refer to the `CrossTrainingSession` sport type, not a running tag.
+- A future “cross training” **tag** on other sports (per CT intent) is a separate concept and out of scope here.
 
 ---
 
 ## Areas of concern / policy conflicts
 
-### 1. Thin intent vs existing schema (resolved by this spec, confirm before build)
+### 1. Seed CSV headers still overloaded
 
-The intent only requires CRUD for cross training. The DB already includes `activity`, distance, elevation, and HR. This spec **adopts the existing schema** rather than inventing a duration-only CT model. If product intent was literally “notes + duration only,” the extra columns would be unused — confirm that activity + optional metrics are desired (recommended: yes; matches seeds and factories).
+Until the CSV is renamed (`sport`, `activity`, `location_type`, etc.), `seeds.rb` must map legacy `session_type` / `tags` carefully so CT rows never become tagged runs. Prefer updating the CSV in the same change as the importer.
 
-### 2. Running tag `cross_training` vs sport type (product ambiguity)
-
-Two concepts share a name. This spec deprecates the tag for UI purposes and uses the sport type for seed `session_type=cross_training`. A future running-tags feature must not reintroduce user-facing confusion without copy that distinguishes them.
-
-### 3. `SupplementaryTrainingSession` referenced but missing
-
-`TrainingSession` `delegated_type` lists `SupplementaryTrainingSession`, but no model/migration exists. That is a pre-existing landmine (constantize/load errors if ever selected). **Out of scope to implement supplementary**, but implementers should avoid adding a `kind` for it. Prefer a follow-up to remove it from the delegated list until real, or add a stub — do not silently ignore in CT work if tests assert the full type list.
-
-### 4. Design skill vs marketing frontend rules
+### 2. Design skill vs marketing frontend rules
 
 User/marketing design rules discourage cards and push brand-hero layouts. In-app session list already uses `Card` as the interaction container, and the design skill + `frontend/AGENTS.md` govern app UI. **Resolution:** preserve existing session list patterns; apply the design skill’s typography/color/action hierarchy. Do not redesign the training sessions index as a marketing page in this feature.
 
-### 5. Security policy skill missing
+### 3. Security policy skill missing
 
-There is no in-repo security skill or threat-model doc. This spec encodes ownership, auth, and param-filtering requirements from existing controller patterns. If organizational security policies (e.g. rate limits, audit logs, PII retention for notes) exist outside the repo, they are **not applied here** because they are unavailable to the agent. Prioritize a security skill (below).
+There is no in-repo security skill or threat-model doc. This spec encodes ownership, auth, and param-filtering requirements from existing controller patterns. If organizational security policies (e.g. rate limits, audit logs, PII retention for notes) exist outside the repo, they are **not applied here** because they are unavailable to the agent.
 
-### 6. Elevation unit ambiguity (inherited)
+### 4. Elevation units (in scope for CT; may diverge from running briefly)
 
-Running and CT store `elevation_gain` as an integer with no unit. Do not “fix” units only for CT — would contradict running. Track as shared parent-domain debt.
+Intent requires selectable elevation units (`ft` | `m`) for cross training. Running today stores `elevation_gain` with no unit. CT should add `elevation_unit` (and UI) even if running is not updated in the same slice; align running later rather than blocking CT.
 
-### 7. Kind string inconsistency (`run` vs `running` vs `cross-training`)
+### 5. Kind string inconsistency (`run` vs `running` vs `cross-training`)
 
 Frontend form enum uses `run` and commented `cross-training`; API request specs use `running`; sport selector comment uses `cross_training`. CT work must pick a single API contract and map UI → API in one place. Recommended API: `running` | `cross_training`.
 
-### 8. Weather conditions “normalize on backend” (parent spec)
+### 6. Weather conditions “normalize on backend” (parent spec)
 
 Parent training-sessions spec asks for weather condition normalization. Unimplemented. CT outdoor sessions will not collect weather until that parent work lands — **not a CT blocker**, but outdoor CT will look incomplete relative to the parent doc until then.
 
-### 9. Positive-number rule vs elevation ≥ 0
+### 7. Positive-number rule vs elevation ≥ 0
 
 Parent says “all numeric values need to be positive.” Running allows `elevation_gain >= 0`. CT should match running (allow 0), and the parent spec should eventually say “positive unless explicitly non-negative (e.g. elevation).”
 
