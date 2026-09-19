@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Spinner } from '@/components/ui/spinner';
 import {
   HeartPulse,
   Metronome,
@@ -179,6 +180,7 @@ export const TrainingSessionCard = ({
                 onClick={handleDelete}
                 aria-labelledby={confirmDeleteLabelId}
               >
+                {isDeleting && <Spinner data-icon="inline-start" />}
                 <span id={confirmDeleteLabelId}>
                   {isDeleting ? 'Deleting...' : 'Delete'}
                 </span>

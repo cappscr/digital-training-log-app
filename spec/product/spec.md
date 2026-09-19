@@ -1,6 +1,6 @@
 # Digital Training Log App
 
-The digital training log app is a web application that is meant to be a digital analog to a paper based log for planning, logging, and analyzing athletic training.
+The digital training log app is a web application for planning, logging, and analyzing athletic training. It is a digital analog to a paper-based training journal — not a coaching platform, not a social network, and not a GPS data aggregator.
 
 It is rooted in training for long distance running; however, will encompass other sports as well. Strength training for example, will be a first class citizen in digital training log even though it is not well suited to GPS watch metrics.
 

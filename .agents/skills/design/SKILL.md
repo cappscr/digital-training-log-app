@@ -1,6 +1,6 @@
 ---
 name: design
-description: This outlines the design system for Digital Training Log and how to design the experience
+description: How to apply the design system for Digital Training Log to the app.
 ---
 
 ## Visual Hierarchy
@@ -8,11 +8,13 @@ description: This outlines the design system for Digital Training Log and how to
 Don't rely on `font-size` alone to create visual hierarchy. Making a primary element bolder lets you use a more reasonable font size, and often does a better job at communicating its importance. Using a softer color for supporting text instead of a tiny font size makes it clear that the text is secondary while sacrificing less on readability.
 
 These are the three primary text colors in the app
+
 - A dark color named ink-700 for primary content: `--ink: oklch(0.3 0.008 75)` this same color is also aliased in `--foreground` which is used by shadcn and `--color-foreground`, the Tailwind classes are `text-text-primary`, `text-foreground` or `color-foreground`.
 - A grey named ink-500 for secondary content: `--ink-500: oklch(0.45 0.008 75)`, the Tailwind class: `text-muted-foreground` or `color-muted-foreground`.
 - A lighter grey named ink-300 for tertiary content: `--ink-300: oklch(0.6 0.008 75)`. Tailwind class: `text-text-tertiary` or `color-text-tertiary`
 
 ### Font Weight
+
 - Use class `font-normal` (`font-weight: 400`) for most text
 - Use class `font-bold` for text that should be emphasized (`font-weight: 700`)
 
@@ -23,11 +25,13 @@ Don't use grey text on colored backgrounds. Instead choose the color with the cl
 Emphasize by de-emphasizing. Sometimes the main element of an interface isn't standing out enough, but there's nothing to add for emphasis. Figure out how to de-emphasize the elements that are competing with it.
 
 Labels are a last resort
+
 - You may not need labels at all
 - Clarifying text can be used instead
 - When you need a label treat it as secondary content and make it smaller, lighter, or a lighter font weight
 
 Balance weight and contrast
+
 - use a lighter color to de-emphasize heavy elements such as icons
 - increasing weight is a great way to add a bit of emphasis to low constrast elements
 
@@ -37,12 +41,12 @@ Primary actions should be obvious. Use the default variant from shadcn. Secondar
 
 ## Color
 
-| Palette | Stops | Role |
-|---|---|---|
-| `grey` | 100–900 | Text, borders, backgrounds, panels, form controls |
-| `terracotta` | 100–900 | Primary — buttons, links, elements that need to stand out |
-| `teal` | 100–900 | Secondary — supporting actions, less prominent than primary |
-| `rose` | 100–900 | Accent — hover/highlight states, flagged/attention items |
+| Palette      | Stops   | Role                                                        |
+| ------------ | ------- | ----------------------------------------------------------- |
+| `grey`       | 100–900 | Text, borders, backgrounds, panels, form controls           |
+| `terracotta` | 100–900 | Primary — buttons, links, elements that need to stand out   |
+| `teal`       | 100–900 | Secondary — supporting actions, less prominent than primary |
+| `rose`       | 100–900 | Accent — hover/highlight states, flagged/attention items    |
 
 All four are declared with the `color-` prefix in `@theme`, which generates the corresponding Tailwind utility classes (`bg-terracotta-500`, `text-grey-700`, etc.).
 
