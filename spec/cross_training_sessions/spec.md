@@ -92,10 +92,10 @@ Product ethos ([`spec/product/spec.md`](../product/spec.md)): flexible manual en
 
 The spreadsheet used for seeds historically labeled non-run rows with `session_type=cross_training` (and sometimes `tags=treadmill`). That was **import vocabulary**, not “a run with a cross_training tag.”
 
-| Spreadsheet / seed signal | Means |
-| --- | --- |
-| Sport/type column value `cross_training` | Create a `CrossTrainingSession` (delegated sport details) |
-| `tags=treadmill` on those rows | Seed hint only (e.g. `location_type=indoor`, activity default) — **not** a `RunningTrainingSessionTag` |
+| Spreadsheet / seed signal                | Means                                                                                                  |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Sport/type column value `cross_training` | Create a `CrossTrainingSession` (delegated sport details)                                              |
+| `tags=treadmill` on those rows           | Seed hint only (e.g. `location_type=indoor`, activity default) — **not** a `RunningTrainingSessionTag` |
 
 `RunningTrainingSessionTag` also happens to define a `cross_training` enum value in code. That is unrelated to these seed rows and **out of scope** for this feature (tags generally are). Do not create running tags when importing CT sessions.
 
@@ -113,6 +113,7 @@ Factory examples (`"Uphill Treadmill"`, `"Aqua Jogging"`) remain valid `activity
 - No cross-training-specific tags/types tables (unlike running). Activity string covers categorization for v1.
 - No cadence field (not in schema).
 - Tags on other sports (including a future “cross training” tag meaning) are out of scope; see intent.
+
 ---
 
 ## API
@@ -386,37 +387,3 @@ Parent training-sessions spec asks for weather condition normalization. Unimplem
 ### 7. Positive-number rule vs elevation ≥ 0
 
 Parent says “all numeric values need to be positive.” Running allows `elevation_gain >= 0`. CT should match running (allow 0), and the parent spec should eventually say “positive unless explicitly non-negative (e.g. elevation).”
-
----
-
-## Skill & agent guidance gaps (what to prioritize next)
-
-Only one app-specific skill exists today: **design** (visual hierarchy, color, actions). For prompts like this (“read intent → produce integration spec”), the highest-leverage additions are:
-
-### Priority 1 — `training-sessions` domain skill (or Cursor rule)
-
-Capture delegated types, `kind` mapping, shared vs sport-specific fields, ownership rules, form/page file locations, and “extend shared controller/serializer — don’t add parallel resources.” This is the knowledge that took the most exploration for this spec.
-
-### Priority 2 — Security / authz skill
-
-Document: Bearer session auth, `require_login`, always scope by `current_user`, never trust client `user_id`, UUID client generation rules, strong-params expectations, and forbidden patterns (IDOR via direct `TrainingSession.find`). Reference concrete controller concerns under `backend/app/controllers/concerns/authentication.rb`.
-
-### Priority 3 — Spec authoring skill
-
-How intent → spec works in this repo: acceptance outcomes, data model, API contract, UI behavior, test plan, explicit “edits to sibling specs,” and a **Concerns** section for contradictions. Include the product ethos constraints (no coaching advice, flexible manual entry, mobile-first).
-
-### Priority 4 — UX patterns skill (in-app, not marketing)
-
-Complement the design skill with interaction patterns: form field ordering, indoor/outdoor control, duration input, delete confirm dialogs, toast copy, list vs edit layouts, empty states. Point at canonical files (`LogTrainingSession.tsx`, `TrainingSessionCard.tsx`).
-
-### Priority 5 — Expand design skill lightly
-
-Add sport-accent guidance (how running vs CT vs strength should differ without rainbow UI) and when cards are appropriate in authenticated app chrome.
-
-### Lower priority for this prompt style
-
-Hook/CLI/repo meta-skills (`create-hook`, `origin`, etc.) do not help intent→spec work. Keep them; don’t prioritize them for domain design prompts.
-
-### Intent quality tip
-
-Future intents should state: primary objects & fields, required vs optional, what is explicitly out of scope, and any collisions with existing concepts (e.g. tags vs sport types). Even five extra bullets would have removed several concerns above.
