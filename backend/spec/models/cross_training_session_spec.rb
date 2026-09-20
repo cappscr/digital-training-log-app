@@ -66,7 +66,7 @@ RSpec.describe CrossTrainingSession, type: :model do
       expect(cross_training_session).not_to be_valid
     end
 
-    it "is invalid with an average_heart_rate less than 0" do
+    it "is invalid with an average_heart_rate less than or equal to 0" do
       cross_training_session = build(:cross_training_session, average_heart_rate: 0)
       expect(cross_training_session).not_to be_valid
     end
