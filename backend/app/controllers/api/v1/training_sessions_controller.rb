@@ -22,7 +22,7 @@ module Api
 
       def create
         training_session = current_user.training_sessions.build(training_session_create_params.except(:sport_details))
-        sport_details = build_sport_details(training_session_create_params)
+        sport_details = build_sport_details(training_session_create_params, training_session)
         training_session.sport_details = sport_details
         sport_details.training_session = training_session
         training_session.save!
@@ -95,7 +95,7 @@ module Api
         )
       end
 
-      def build_sport_details(params)
+      def build_sport_details(params, training_session)
         raise ActionController::ParameterMissing, :sport_details if params[:sport_details].nil?
         case params[:sport_details][:kind]
         when "running"
@@ -103,7 +103,8 @@ module Api
         when "cross_training"
           CrossTrainingSession.new(cross_training_create_params(params).except(:kind))
         else
-          raise BadRequestError, "Unknown sport kind: #{params[:sport_details][:kind]}"
+          training_session.errors.add(:"sport_details/kind", "Unknown sport kind: #{params[:sport_details][:kind]}")
+          raise ActiveRecord::RecordInvalid, training_session
         end
       end
 

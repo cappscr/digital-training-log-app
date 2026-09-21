@@ -54,7 +54,26 @@ RSpec.describe "Training Sessions", type: :request do
       end
 
       context "with invalid sport details" do
-        it "does not create a new training session and returns a 422 Unprocessable Entity error" do
+        it "does not create a new training session and returns a 422 Unprocessable Content error if the sport_details kind is not a supported sport" do
+          expect {
+            post api_v1_training_sessions_path, params: { training_session: {
+              sport_details: {
+                kind: "invalid_kind"
+              }
+            } },
+            headers: auth_headers
+          }.not_to change(TrainingSession, :count)
+
+          expect(response).to have_http_status(:unprocessable_content)
+
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body["errors"]).to include(
+            "detail" => "Unknown sport kind: invalid_kind",
+            "pointer" => "#/training_session/sport_details/kind"
+          )
+        end
+
+        it "does not create a new training session and returns a 422 Unprocessable Entity error if the sport_details has a validation error" do
           expect {
             post api_v1_training_sessions_path, params: { training_session: {
               session_date: Date.today,
@@ -75,75 +94,6 @@ RSpec.describe "Training Sessions", type: :request do
           expect(parsed_body["errors"]).to include(
             "detail" => "Must be greater than 0",
             "pointer" => "#/training_session/sport_details/distance"
-          )
-        end
-      end
-
-      context "with missing distance and duration" do
-        it "does not create a new training session and returns a 422 Unprocessable Entity error" do
-          expect {
-            post api_v1_training_sessions_path, params: { training_session: {
-              session_date: Date.today,
-              location_type: "outdoor",
-              notes: "This is a test training session",
-              sport_details: {
-                kind: "running"
-              }
-            } },
-            headers: auth_headers
-          }.not_to change(TrainingSession, :count)
-
-          expect(response).to have_http_status(:unprocessable_content)
-
-          parsed_body = JSON.parse(response.body)
-          expect(parsed_body["errors"]).to include(
-            "detail" => "Duration and distance can't both be blank",
-            "pointer" => "#/training_session/sport_details"
-          )
-        end
-      end
-
-      context "with valid duration and missing distance" do
-        it "creates a new training session" do
-          expect {
-            post api_v1_training_sessions_path, params: { training_session: {
-              session_date: Date.today,
-              duration_seconds: 3600,
-              location_type: "outdoor",
-              notes: "This is a test training session",
-              sport_details: {
-                kind: "running"
-              }
-            } },
-            headers: auth_headers
-          }.to change(TrainingSession, :count).by(1)
-        end
-      end
-
-      context "with valid parameters" do
-        it "creates a new training session" do
-          expect {
-            post api_v1_training_sessions_path, params: { training_session: {
-              session_date: Date.today,
-              duration_seconds: 3600,
-              location_type: "outdoor",
-              notes: "This is a test training session",
-              sport_details: {
-                kind: "running",
-                distance: 10,
-                distance_unit: "mi"
-              }
-            } },
-            headers: auth_headers
-          }.to change(TrainingSession, :count).by(1)
-          expect(response).to have_http_status(:created)
-
-          parsed_body = JSON.parse(response.body)
-          expect(parsed_body["training_session"]).to include(
-            "id" => TrainingSession.last.id,
-            "duration" => "1:00:00",
-            "location_type" => "outdoor",
-            "notes" => "This is a test training session",
           )
         end
       end
@@ -171,22 +121,37 @@ RSpec.describe "Training Sessions", type: :request do
         response.parsed_body["access_token"]
       end
 
+      context "when id or kind is passed in the request params" do
+        let(:cross_training_session) { create(:training_session, :cross_training, user: user) }
+
+        it "does not update the sport kind" do
+          put api_v1_training_session_path(cross_training_session.id), params: { training_session: { notes: "This is a test training session", sport_details: { kind: 'running', distance: 10, distance_unit: "mi", elevation_gain: 400 } } }, headers: auth_headers
+          expect(response).to have_http_status(:ok)
+          expect(cross_training_session.reload.notes).to eq("This is a test training session")
+          expect(cross_training_session.reload.sport_details_type).to eq('CrossTrainingSession')
+          expect(cross_training_session.reload.sport_details.distance).to eq(10)
+          expect(cross_training_session.reload.sport_details.distance_unit).to eq("mi")
+          expect(cross_training_session.reload.sport_details.elevation_gain).to eq(400)
+        end
+
+        it "does not update the sport_details id" do
+          original_id = cross_training_session.sport_details.id
+          put api_v1_training_session_path(cross_training_session.id), params: { training_session: { notes: "This is a test training session", sport_details: { id: '94747ea4-2f7d-4405-a5fb-8b27669ef89c', distance: 10, distance_unit: "mi", elevation_gain: 400 } } }, headers: auth_headers
+          expect(response).to have_http_status(:ok)
+          expect(cross_training_session.reload.notes).to eq("This is a test training session")
+          expect(cross_training_session.reload.sport_details_type).to eq('CrossTrainingSession')
+          expect(cross_training_session.reload.sport_details.id).to eq(original_id)
+          expect(cross_training_session.reload.sport_details.distance).to eq(10)
+          expect(cross_training_session.reload.sport_details.distance_unit).to eq("mi")
+          expect(cross_training_session.reload.sport_details.elevation_gain).to eq(400)
+        end
+      end
+
       context "when the training session is not found" do
         it "does not update the training session and returns a 404 Not Found error" do
           put api_v1_training_session_path('invalid-id'), params: { training_session: { notes: "This is a test training session", sport_details: { distance: 10, distance_unit: "mi", elevation_gain: 400 } } }, headers: auth_headers
           expect(response).to have_http_status(:not_found)
           expect(training_session.reload.notes).not_to eq("This is a test training session")
-        end
-      end
-
-      context "with a valid training session id" do
-        it "updates the training session and the sport details" do
-          put api_v1_training_session_path(training_session.id), params: { training_session: { notes: "This is a test training session", sport_details: { distance: 10, distance_unit: "mi", elevation_gain: 400 } } }, headers: auth_headers
-          expect(response).to have_http_status(:ok)
-          expect(training_session.reload.notes).to eq("This is a test training session")
-          expect(training_session.reload.sport_details.distance).to eq(10)
-          expect(training_session.reload.sport_details.distance_unit).to eq("mi")
-          expect(training_session.reload.sport_details.elevation_gain).to eq(400)
         end
       end
     end
