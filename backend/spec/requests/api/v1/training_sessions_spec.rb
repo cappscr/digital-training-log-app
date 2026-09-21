@@ -53,8 +53,8 @@ RSpec.describe "Training Sessions", type: :request do
         end
       end
 
-      context "with invalid sport details" do
-        it "does not create a new training session and returns a 422 Unprocessable Content error if the sport_details kind is not a supported sport" do
+      context "with unsupported sport_details kind" do
+        it "does not create a new training session and returns a 422 Unprocessable Content error" do
           expect {
             post api_v1_training_sessions_path, params: { training_session: {
               sport_details: {
@@ -72,8 +72,10 @@ RSpec.describe "Training Sessions", type: :request do
             "pointer" => "#/training_session/sport_details/kind"
           )
         end
+      end
 
-        it "does not create a new training session and returns a 422 Unprocessable Entity error if the sport_details has a validation error" do
+      context "with invalid sport details" do
+        it "does not create a new training session and returns a 422 Unprocessable Entity error" do
           expect {
             post api_v1_training_sessions_path, params: { training_session: {
               session_date: Date.today,
