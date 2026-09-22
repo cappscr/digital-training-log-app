@@ -26,21 +26,35 @@ user = User.find_or_create_by(email: 'capps.christopher@gmail.com') do |user|
 end
 
 CSV.foreach(csv_path, headers: true) do |row|
-  # temporarily skip cross_training sessions until the models are ready
-  next if row["session_type"]&.strip == "cross_training"
-
   training_id = seed_id("training_session", row["id"])
-  running_id = seed_id("running_training_session", row["id"])
 
-  running = RunningTrainingSession.find_or_initialize_by(id: running_id)
-  running.assign_attributes(
-    distance: row["distance"].presence&.to_d,
-    distance_unit: row["distance_unit"].presence&.strip,
-    elevation_gain: row["elevation_gain"].presence&.to_i,
-    average_heart_rate: row["average_heart_rate"].presence&.to_i,
-    average_cadence: row["average_cadence"].presence&.to_i,
-    # in the future add tags and running session types
-  )
+  if row["sport"]&.strip == "running"
+    running_id = seed_id("running_training_session", row["id"])
+    sport_details = RunningTrainingSession.find_or_initialize_by(id: running_id)
+    sport_details.assign_attributes(
+      distance: row["distance"].presence&.to_d,
+      distance_unit: row["distance_unit"].presence&.strip,
+      elevation_gain: row["elevation_gain"].presence&.to_i,
+      # add elevation unit here
+      average_heart_rate: row["average_heart_rate"].presence&.to_i,
+      average_cadence: row["average_cadence"].presence&.to_i,
+      # in the future add tags and running session types
+    )
+  elsif row["sport"]&.strip == "cross_training"
+    cross_training_id = seed_id("cross_training_session", row["id"])
+    sport_details = CrossTrainingSession.find_or_initialize_by(id: cross_training_id)
+    sport_details.assign_attributes(
+      activity: row["activity"].presence&.strip || "Uphill Treadmill",
+      distance: row["distance"].presence&.to_d,
+      distance_unit: row["distance_unit"].presence&.strip,
+      elevation_gain: row["elevation_gain"].presence&.to_i,
+      elevation_unit: row["elevation_unit"].presence&.strip || "ft",
+      average_heart_rate: row["average_heart_rate"].presence&.to_i,
+    )
+  else
+    # skip any other sports
+    next
+  end
 
   session = TrainingSession.find_or_initialize_by(id: training_id)
   session.assign_attributes(
@@ -50,8 +64,8 @@ CSV.foreach(csv_path, headers: true) do |row|
     notes: row["notes"].presence&.strip,
     session_date: Date.iso8601(row["session_date"]),
     session_time: row["session_time"].presence&.strip,
-    location_type: row["tags"]&.strip&.include?("treadmill") ? "indoor" : "outdoor",
-    sport_details: running
+    location_type: row["location"].presence&.strip,
+    sport_details: sport_details
   )
   session.save!
 end
