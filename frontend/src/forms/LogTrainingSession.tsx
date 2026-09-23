@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { mutate } from 'swr';
@@ -12,41 +11,37 @@ import {
   FieldLabel,
   FieldSet,
 } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { DateAndTimePicker } from './DateAndTimePicker';
-import { DistanceInput } from './DistanceInput';
 import { DurationInput } from './DurationInput';
 import { IndoorOrOutdoorSelector } from './IndoorOrOutdoorSelector';
-import { IntegerInput } from './IntegerInput';
 import { RootFormErrorsAlert } from './RootFormErrorsAlert';
 import { SportSelectorField } from './SportSelectorField';
+import { RunningFields } from './RunningFields';
 import { UNEXPECTED_ERROR_MESSAGE } from './errors';
 import { apiClient, isApiError } from '@/lib/fetcher';
-import {
-  formatPace,
-  parseDuration,
-  toISODateString,
-  toSentenceCase,
-} from '@/lib/utils';
+import { parseDuration, toISODateString, toSentenceCase } from '@/lib/utils';
 import { successToast } from '@/lib/toasts';
 import {
   TRAINING_SESSIONS_KEY,
   type TrainingSession,
 } from '@/hooks/useTrainingSessions';
 
-const formSchema = z
-  .object({
-    date: z.date({ error: 'Select a date' }),
-    time: z.string().optional(),
-    type: z.enum(['run' /*, 'strength', 'cross-training' */]),
-    indoor_or_outdoor: z.enum(['indoor', 'outdoor']),
-    duration: z
-      .string()
-      .refine((value) => !value.trim() || parseDuration(value) !== null, {
-        message: 'Enter a valid duration (e.g. 1:30:00 or 45:30)',
-      }),
-    notes: z.string().optional(),
+const shared = z.object({
+  date: z.date({ error: 'Select a date' }),
+  time: z.string().optional(),
+  indoor_or_outdoor: z.enum(['indoor', 'outdoor']),
+  duration: z
+    .string()
+    .refine((value) => !value.trim() || parseDuration(value) !== null, {
+      message: 'Enter a valid duration (e.g. 1:30:00 or 45:30)',
+    }),
+  notes: z.string().optional(),
+});
+
+const runningSchema = shared
+  .extend({
+    type: z.literal('running'),
     distance: z
       .number({ error: 'Enter a distance' })
       .positive('Distance must be greater than 0')
@@ -77,6 +72,44 @@ const formSchema = z
     },
   );
 
+const crossTrainingSchema = shared
+  .extend({
+    type: z.literal('cross_training'),
+    activity: z.string().trim().min(1).max(100),
+    distance: z
+      .number({ error: 'Enter a distance' })
+      .positive('Distance must be greater than 0')
+      .optional()
+      .refine((n) => n === undefined || Math.round(n * 100) / 100 === n, {
+        message: 'Use at most two decimal places',
+      }),
+    unit: z.enum(['mi', 'km']),
+    elevation_gain: z
+      .number({ error: 'Enter an elevation gain' })
+      .positive('Elevation gain must be greater than 0')
+      .optional(),
+    elevation_unit: z.enum(['ft', 'm']).optional(),
+    average_heart_rate: z
+      .number({ error: 'Enter a heart rate' })
+      .positive('Heart rate must be greater than 0')
+      .optional(),
+  })
+  .refine(
+    (data) =>
+      parseDuration(data.duration) !== null || data.distance !== undefined,
+    {
+      message: "Duration and distance can't both be blank",
+      path: ['duration'],
+    },
+  );
+
+const formSchema = z.discriminatedUnion('type', [
+  runningSchema,
+  crossTrainingSchema,
+]);
+
+export type LogTrainingSessionFormValues = z.infer<typeof formSchema>;
+
 interface LogTrainingSessionFormProps {
   trainingSessionToEdit?: TrainingSession | null;
 }
@@ -86,7 +119,7 @@ export const LogTrainingSessionForm = ({
 }: LogTrainingSessionFormProps) => {
   const navigate = useNavigate();
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<LogTrainingSessionFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: trainingSessionToEdit
       ? {
@@ -118,27 +151,12 @@ export const LogTrainingSessionForm = ({
     mode: 'onTouched',
   });
 
-  const [duration, distance, unit] = useWatch({
+  const [sport] = useWatch({
     control: form.control,
-    name: ['duration', 'distance', 'unit'],
+    name: ['type'],
   });
 
-  const paceDisplay = useMemo(() => {
-    const durationInSeconds = parseDuration(duration);
-    if (!durationInSeconds || !distance || distance <= 0) return '';
-
-    const paceSecondsPerUnit = durationInSeconds / distance;
-    const minutes = Math.floor(paceSecondsPerUnit / 60);
-    const seconds = Math.round(paceSecondsPerUnit % 60);
-
-    if (seconds === 60) {
-      return formatPace(minutes + 1, 0, unit);
-    }
-
-    return formatPace(minutes, seconds, unit);
-  }, [duration, distance, unit]);
-
-  async function handleSubmit(data: z.infer<typeof formSchema>) {
+  async function handleSubmit(data: LogTrainingSessionFormValues) {
     const trainingSessionId = trainingSessionToEdit?.id ?? crypto.randomUUID();
     const runningSessionId =
       trainingSessionToEdit?.sport_details.id ?? crypto.randomUUID();
@@ -223,7 +241,6 @@ export const LogTrainingSessionForm = ({
                 control={form.control}
                 formId="log-workout-form"
                 name="type"
-                disabled={true} // TODO: remove this once strength and cross training are supported
               />
               <IndoorOrOutdoorSelector
                 control={form.control}
@@ -255,40 +272,7 @@ export const LogTrainingSessionForm = ({
                   </Field>
                 )}
               />
-              <DistanceInput
-                control={form.control}
-                formId="log-workout-form"
-                distanceName="distance"
-                unitName="unit"
-              />
-              <Field>
-                <FieldLabel htmlFor="log-workout-form-pace">Pace</FieldLabel>
-                <Input
-                  type="text"
-                  id="log-workout-form-pace"
-                  disabled
-                  value={paceDisplay}
-                  placeholder="-"
-                />
-              </Field>
-              <IntegerInput
-                control={form.control}
-                formId="log-workout-form"
-                label="Elevation Gain"
-                name="elevation_gain"
-              />
-              <IntegerInput
-                control={form.control}
-                formId="log-workout-form"
-                label="Average Heart Rate"
-                name="average_heart_rate"
-              />
-              <IntegerInput
-                control={form.control}
-                formId="log-workout-form"
-                label="Average Cadence"
-                name="average_cadence"
-              />
+              {sport === 'running' && <RunningFields form={form} />}
             </FieldGroup>
           </FieldSet>
           <Field orientation="horizontal">

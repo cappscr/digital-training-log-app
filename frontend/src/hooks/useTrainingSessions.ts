@@ -3,7 +3,17 @@ import useSWRMutation from 'swr/mutation';
 import { apiClient, type ApiError } from '@/lib/fetcher';
 
 type LocationType = 'outdoor' | 'indoor';
-type SportDetailsType = 'RunningTrainingSession';
+type SportDetailsType = 'RunningTrainingSession' | 'CrossTrainingSession';
+
+export type CrossTrainingSession = {
+  id: string;
+  activity: string;
+  distance: number | null;
+  distance_unit: 'mi' | 'km' | null;
+  elevation_gain: number | null;
+  elevation_unit: 'ft' | 'm' | null;
+  average_heart_rate: number | null;
+};
 
 export type RunningTrainingSession = {
   id: string;
@@ -23,7 +33,7 @@ export type TrainingSession = {
   location_type: LocationType;
   notes: string | null;
   sport_details_type: SportDetailsType;
-  sport_details: RunningTrainingSession;
+  sport_details: RunningTrainingSession | CrossTrainingSession;
 };
 
 type TrainingSessionsResponse = {
