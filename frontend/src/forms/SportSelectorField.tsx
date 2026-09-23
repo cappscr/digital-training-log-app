@@ -16,9 +16,9 @@ import {
 } from '@/components/ui/select';
 
 const typeOptions = [
-  { label: 'Running', value: 'run' },
-  /*{ label: 'Strength Training', value: 'strength' },
-  { label: 'Cross Training', value: 'cross_training' },*/
+  { label: 'Running', value: 'running' },
+  /*{ label: 'Strength Training', value: 'strength' },*/
+  { label: 'Cross Training', value: 'cross_training' },
 ];
 
 interface SportSelectorFieldProps<TFieldValues extends FieldValues> {
@@ -26,6 +26,7 @@ interface SportSelectorFieldProps<TFieldValues extends FieldValues> {
   formId: string;
   name: FieldPath<TFieldValues>;
   disabled?: boolean;
+  onSportChange?: (value: string) => void;
 }
 
 export const SportSelectorField = <TFieldValues extends FieldValues>({
@@ -33,6 +34,7 @@ export const SportSelectorField = <TFieldValues extends FieldValues>({
   formId,
   name,
   disabled,
+  onSportChange,
 }: SportSelectorFieldProps<TFieldValues>) => {
   return (
     <Controller
@@ -44,7 +46,10 @@ export const SportSelectorField = <TFieldValues extends FieldValues>({
           <Select
             {...field}
             id={`${formId}-${name}`}
-            onValueChange={field.onChange}
+            onValueChange={(value) => {
+              field.onChange(value);
+              onSportChange?.(value);
+            }}
             items={typeOptions}
             disabled={disabled}
           >

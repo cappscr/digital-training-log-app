@@ -24,6 +24,8 @@ import { parseDuration, toISODateString, toSentenceCase } from '@/lib/utils';
 import { successToast } from '@/lib/toasts';
 import {
   TRAINING_SESSIONS_KEY,
+  type CrossTrainingSession,
+  type RunningTrainingSession,
   type TrainingSession,
 } from '@/hooks/useTrainingSessions';
 
@@ -103,6 +105,77 @@ const crossTrainingSchema = shared
     },
   );
 
+const defaultValuesFromSession = (
+  session?: TrainingSession | null,
+): LogTrainingSessionFormValues => {
+  if (!session)
+    return {
+      date: new Date(),
+      time: '',
+      indoor_or_outdoor: 'outdoor',
+      duration: '',
+      notes: '',
+      type: 'running',
+      distance: undefined,
+      unit: 'mi',
+    };
+
+  const shared = {
+    date: new Date(session.session_date + 'T00:00:00'),
+    time: session.session_time ?? '',
+    indoor_or_outdoor: session.location_type,
+    duration: session.duration ?? '',
+    notes: session.notes ?? '',
+  };
+
+  if (session.sport_details_type === 'CrossTrainingSession') {
+    const d = session.sport_details as CrossTrainingSession;
+    return {
+      ...shared,
+      type: 'cross_training',
+      activity: d.activity,
+      distance: d.distance ?? undefined,
+      unit: d.distance_unit ?? 'mi',
+      elevation_gain: d.elevation_gain ?? undefined,
+      elevation_unit: d.elevation_unit ?? undefined,
+      average_heart_rate: d.average_heart_rate ?? undefined,
+    };
+  }
+
+  const d = session.sport_details as RunningTrainingSession;
+  return {
+    ...shared,
+    type: 'running',
+    distance: d.distance ?? undefined,
+    unit: d.distance_unit ?? 'mi',
+    elevation_gain: d.elevation_gain ?? undefined,
+    average_heart_rate: d.average_heart_rate ?? undefined,
+    average_cadence: d.average_cadence ?? undefined,
+  };
+};
+
+const defaultsForSport = (type: string) => {
+  const shared = {
+    distance: undefined,
+    distance_unit: 'mi',
+    elevation_gain: undefined,
+    average_heart_rate: undefined,
+  };
+  switch (type) {
+    case 'cross_training':
+      return {
+        ...shared,
+        type: 'cross_training',
+        elevation_gain_unit: undefined,
+      };
+    case 'running':
+      return { ...shared, type: 'running', average_cadence: undefined };
+    default:
+      console.warn('Unsupported sport type');
+      return {};
+  }
+};
+
 const formSchema = z.discriminatedUnion('type', [
   runningSchema,
   crossTrainingSchema,
@@ -118,37 +191,11 @@ export const LogTrainingSessionForm = ({
   trainingSessionToEdit = null,
 }: LogTrainingSessionFormProps) => {
   const navigate = useNavigate();
+  const isEditMode = !!trainingSessionToEdit;
 
   const form = useForm<LogTrainingSessionFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: trainingSessionToEdit
-      ? {
-          date: new Date(trainingSessionToEdit.session_date + 'T00:00:00'),
-          time: trainingSessionToEdit.session_time ?? '',
-          indoor_or_outdoor: trainingSessionToEdit.location_type,
-          duration: trainingSessionToEdit.duration ?? '',
-          notes: trainingSessionToEdit.notes ?? '',
-          type: 'run',
-          distance: trainingSessionToEdit.sport_details.distance ?? undefined,
-          unit: trainingSessionToEdit.sport_details.distance_unit ?? 'mi',
-          elevation_gain:
-            trainingSessionToEdit.sport_details.elevation_gain ?? undefined,
-          average_heart_rate:
-            trainingSessionToEdit.sport_details.average_heart_rate ?? undefined,
-          average_cadence:
-            trainingSessionToEdit.sport_details.average_cadence ?? undefined,
-        }
-      : {
-          date: new Date(),
-          indoor_or_outdoor: 'outdoor',
-          duration: '',
-          notes: '',
-          time: '',
-          type: 'run',
-          distance: undefined,
-          unit: 'mi',
-        },
-    mode: 'onTouched',
+    defaultValues: defaultValuesFromSession(trainingSessionToEdit),
   });
 
   const [sport] = useWatch({
@@ -241,6 +288,18 @@ export const LogTrainingSessionForm = ({
                 control={form.control}
                 formId="log-workout-form"
                 name="type"
+                disabled={isEditMode}
+                onSportChange={(nextSport) => {
+                  const current = form.getValues();
+                  form.reset({
+                    date: current.date,
+                    time: current.time,
+                    indoor_or_outdoor: current.indoor_or_outdoor,
+                    duration: current.duration,
+                    notes: current.notes,
+                    ...defaultsForSport(nextSport),
+                  });
+                }}
               />
               <IndoorOrOutdoorSelector
                 control={form.control}
