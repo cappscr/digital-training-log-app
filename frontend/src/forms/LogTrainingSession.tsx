@@ -18,6 +18,7 @@ import { IndoorOrOutdoorSelector } from './IndoorOrOutdoorSelector';
 import { RootFormErrorsAlert } from './RootFormErrorsAlert';
 import { SportSelectorField } from './SportSelectorField';
 import { RunningFields } from './RunningFields';
+import { CrossTrainingFields } from './CrossTrainingFields';
 import { UNEXPECTED_ERROR_MESSAGE } from './errors';
 import { apiClient, isApiError } from '@/lib/fetcher';
 import { parseDuration, toISODateString, toSentenceCase } from '@/lib/utils';
@@ -371,6 +372,9 @@ export const LogTrainingSessionForm = ({
                 )}
               />
               {sport === 'running' && <RunningFields form={form} />}
+              {sport === 'cross_training' && (
+                <CrossTrainingFields form={form} />
+              )}
             </FieldGroup>
           </FieldSet>
           <Field orientation="horizontal">
