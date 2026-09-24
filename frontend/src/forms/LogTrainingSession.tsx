@@ -176,6 +176,59 @@ const defaultsForSport = (type: string) => {
   }
 };
 
+const buildSportDetailsSubmit = (values: LogTrainingSessionFormValues) => {
+  const sport = values.type;
+
+  switch (sport) {
+    case 'cross_training':
+      return {
+        activity: values.activity,
+        elevation_unit: values.elevation_unit ?? null,
+      };
+    case 'running':
+      return {
+        average_cadence: values.average_cadence ?? null,
+      };
+    default:
+      console.warn('Unsupported sport type');
+      return {};
+  }
+};
+
+const buildSubmitPayload = (
+  values: LogTrainingSessionFormValues,
+  id: string,
+  sportDetailsId: string,
+) => {
+  const sport = values.type;
+
+  const shared = {
+    id,
+    session_date: toISODateString(values.date),
+    session_time: values.time ?? null,
+    duration_seconds: parseDuration(values.duration),
+    location_type: values.indoor_or_outdoor,
+    notes: values.notes,
+  };
+
+  const sharedSportDetails = {
+    distance: values.distance ?? null,
+    distance_unit: values.unit ?? null,
+    elevation_gain: values.elevation_gain ?? null,
+    average_heart_rate: values.average_heart_rate ?? null,
+  };
+
+  return {
+    ...shared,
+    sport_details: {
+      id: sportDetailsId,
+      kind: sport,
+      ...sharedSportDetails,
+      ...buildSportDetailsSubmit(values),
+    },
+  };
+};
+
 const formSchema = z.discriminatedUnion('type', [
   runningSchema,
   crossTrainingSchema,
@@ -205,7 +258,7 @@ export const LogTrainingSessionForm = ({
 
   async function handleSubmit(data: LogTrainingSessionFormValues) {
     const trainingSessionId = trainingSessionToEdit?.id ?? crypto.randomUUID();
-    const runningSessionId =
+    const sportDetailsId =
       trainingSessionToEdit?.sport_details.id ?? crypto.randomUUID();
 
     try {
@@ -216,21 +269,7 @@ export const LogTrainingSessionForm = ({
           : '/training_sessions',
         {
           training_session: {
-            id: trainingSessionId,
-            session_date: toISODateString(data.date),
-            session_time: data.time ?? null,
-            duration_seconds: parseDuration(data.duration),
-            location_type: data.indoor_or_outdoor,
-            notes: data.notes,
-            sport_details: {
-              id: runningSessionId,
-              kind: data.type,
-              distance: data.distance ?? null,
-              distance_unit: data.unit,
-              elevation_gain: data.elevation_gain ?? null,
-              average_heart_rate: data.average_heart_rate ?? null,
-              average_cadence: data.average_cadence ?? null,
-            },
+            ...buildSubmitPayload(data, trainingSessionId, sportDetailsId),
           },
         },
       );

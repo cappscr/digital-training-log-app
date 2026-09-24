@@ -15,18 +15,25 @@ import {
   SelectItem,
 } from '@/components/ui/select';
 
-const typeOptions = [
+const SPORT_KINDS = ['running', 'cross_training'];
+export type SportKind = (typeof SPORT_KINDS)[number];
+
+const typeOptions: { label: string; value: SportKind }[] = [
   { label: 'Running', value: 'running' },
   /*{ label: 'Strength Training', value: 'strength' },*/
   { label: 'Cross Training', value: 'cross_training' },
 ];
+
+const isSportKind = (value: unknown): value is SportKind => {
+  return typeof value === 'string' && SPORT_KINDS.includes(value as SportKind);
+};
 
 interface SportSelectorFieldProps<TFieldValues extends FieldValues> {
   control: Control<TFieldValues>;
   formId: string;
   name: FieldPath<TFieldValues>;
   disabled?: boolean;
-  onSportChange?: (value: string) => void;
+  onSportChange?: (value: SportKind) => void;
 }
 
 export const SportSelectorField = <TFieldValues extends FieldValues>({
@@ -47,6 +54,7 @@ export const SportSelectorField = <TFieldValues extends FieldValues>({
             {...field}
             id={`${formId}-${name}`}
             onValueChange={(value) => {
+              if (!isSportKind(value)) return;
               field.onChange(value);
               onSportChange?.(value);
             }}
