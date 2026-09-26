@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useWatch, type UseFormReturn } from 'react-hook-form';
 import { DistanceInput } from './DistanceInput';
 import { IntegerInput } from './IntegerInput';
+import { CrossTrainingActivityField } from './CrossTrainingActivityField';
 import { ElevationGainInput } from './ElevationGainInput';
 import { Field, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
@@ -35,6 +36,11 @@ export const CrossTrainingFields = ({ form }: CrossTrainingFieldsProps) => {
 
   return (
     <>
+      <CrossTrainingActivityField
+        control={form.control}
+        formId="log-workout-form"
+        name="activity"
+      />
       <DistanceInput
         control={form.control}
         formId="log-workout-form"
