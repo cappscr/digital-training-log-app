@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { useWatch, type UseFormReturn } from 'react-hook-form';
-import { DistanceInput } from './DistanceInput';
-import { IntegerInput } from './IntegerInput';
-import { CrossTrainingActivityField } from './CrossTrainingActivityField';
-import { ElevationGainInput } from './ElevationGainInput';
+import { DistanceInput } from '../DistanceInput';
+import { IntegerInput } from '../IntegerInput';
+import { CrossTrainingActivityField } from '../CrossTrainingActivityField';
+import { ElevationGainInput } from '../ElevationGainInput';
 import { Field, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { formatPace, parseDuration } from '@/lib/utils';
