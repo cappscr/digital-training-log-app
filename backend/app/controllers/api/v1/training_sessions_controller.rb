@@ -14,17 +14,17 @@ module Api
       def update
         training_session = current_user.training_sessions.find(params[:id])
         training_session.assign_attributes(update_params.except(:sport_details))
-        training_session.sport_details.assign_attributes(sport_details_params(update_params).except(:kind, :id))
+        # Pass in the existing sport_details_type so that the update action cannot mutate it
+        training_session.sport_details.assign_attributes(update_sport_details(update_params, training_session.sport_details_type))
         training_session.save!
         render json: training_session, serializer: TrainingSessionSerializer
       end
 
       def create
-        training_session = current_user.training_sessions.build(create_params.except(:sport_details))
-        # condition the sport details based on the params[:sport_details][:kind]
-        details = RunningTrainingSession.new(sport_details_params(create_params).except(:kind))
-        training_session.sport_details = details
-        details.training_session = training_session
+        training_session = current_user.training_sessions.build(training_session_create_params.except(:sport_details))
+        sport_details = build_sport_details(training_session_create_params, training_session)
+        training_session.sport_details = sport_details
+        sport_details.training_session = training_session
         training_session.save!
         render json: training_session, status: :created
       end
@@ -42,7 +42,7 @@ module Api
 
       private
 
-      def create_params
+      def training_session_create_params
         params.expect(
           training_session: [
             :id,
@@ -54,9 +54,11 @@ module Api
             sport_details: [
               :id,
               :kind,
+              :activity,
               :distance,
               :distance_unit,
               :elevation_gain,
+              :elevation_unit,
               :average_cadence,
               :average_heart_rate
             ]
@@ -64,7 +66,7 @@ module Api
         )
       end
 
-      def sport_details_params(root)
+      def running_create_params(root)
         root.expect(
           sport_details: [
             :id,
@@ -78,6 +80,34 @@ module Api
         )
       end
 
+      def cross_training_create_params(root)
+        root.expect(
+          sport_details: [
+            :id,
+            :kind,
+            :activity,
+            :distance,
+            :distance_unit,
+            :elevation_gain,
+            :elevation_unit,
+            :average_heart_rate
+          ]
+        )
+      end
+
+      def build_sport_details(params, training_session)
+        raise ActionController::ParameterMissing, :sport_details if params[:sport_details].nil?
+        case params[:sport_details][:kind]
+        when "running"
+          RunningTrainingSession.new(running_create_params(params).except(:kind))
+        when "cross_training"
+          CrossTrainingSession.new(cross_training_create_params(params).except(:kind))
+        else
+          training_session.errors.add(:"sport_details/kind", "Unknown sport kind: #{params[:sport_details][:kind]}")
+          raise ActiveRecord::RecordInvalid, training_session
+        end
+      end
+
       def update_params
         params.expect(
           training_session: [
@@ -87,16 +117,51 @@ module Api
             :location_type,
             :notes,
             sport_details: [
-              :id,
-              :kind,
+              :activity,
               :distance,
               :distance_unit,
               :elevation_gain,
+              :elevation_unit,
               :average_cadence,
               :average_heart_rate
             ]
           ]
         )
+      end
+
+      def running_update_params(root)
+        root.expect(
+          sport_details: [
+            :distance,
+            :distance_unit,
+            :elevation_gain,
+            :average_cadence,
+            :average_heart_rate
+          ]
+        )
+      end
+
+      def cross_training_update_params(root)
+        root.expect(
+          sport_details: [
+            :activity,
+            :distance,
+            :distance_unit,
+            :elevation_gain,
+            :elevation_unit,
+            :average_heart_rate
+          ]
+        )
+      end
+
+      def update_sport_details(params, kind)
+        raise ActionController::ParameterMissing, :sport_details if params[:sport_details].nil?
+        case kind
+        when "RunningTrainingSession"
+          running_update_params(params)
+        when "CrossTrainingSession"
+          cross_training_update_params(params)
+        end
       end
     end
   end

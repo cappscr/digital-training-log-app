@@ -2,7 +2,7 @@ import { useParams } from 'react-router';
 // import { Button } from '@/components/ui/button';
 import { Loading } from '@/components/Loading';
 import { useTrainingSession } from '@/hooks/useTrainingSessions';
-import { LogTrainingSessionForm } from '@/forms/LogTrainingSession';
+import { LogTrainingSessionForm } from '@/forms/log-training-session/LogTrainingSession';
 
 export const CreateOrEditTrainingSessionPage = () => {
   const { trainingSessionId } = useParams<{ trainingSessionId?: string }>();

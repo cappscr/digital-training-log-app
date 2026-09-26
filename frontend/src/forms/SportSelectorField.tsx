@@ -4,7 +4,12 @@ import {
   type FieldPath,
   type FieldValues,
 } from 'react-hook-form';
-import { Field, FieldLabel, FieldError } from '@/components/ui/field';
+import {
+  Field,
+  FieldDescription,
+  FieldLabel,
+  FieldError,
+} from '@/components/ui/field';
 import {
   Select,
   SelectContent,
@@ -15,17 +20,25 @@ import {
   SelectItem,
 } from '@/components/ui/select';
 
-const typeOptions = [
-  { label: 'Running', value: 'run' },
-  /*{ label: 'Strength Training', value: 'strength' },
-  { label: 'Cross Training', value: 'cross_training' },*/
+const SPORT_KINDS = ['running', 'cross_training'];
+export type SportKind = (typeof SPORT_KINDS)[number];
+
+const typeOptions: { label: string; value: SportKind }[] = [
+  { label: 'Running', value: 'running' },
+  /*{ label: 'Strength Training', value: 'strength' },*/
+  { label: 'Cross Training', value: 'cross_training' },
 ];
+
+const isSportKind = (value: unknown): value is SportKind => {
+  return typeof value === 'string' && SPORT_KINDS.includes(value as SportKind);
+};
 
 interface SportSelectorFieldProps<TFieldValues extends FieldValues> {
   control: Control<TFieldValues>;
   formId: string;
   name: FieldPath<TFieldValues>;
   disabled?: boolean;
+  onSportChange?: (value: SportKind) => void;
 }
 
 export const SportSelectorField = <TFieldValues extends FieldValues>({
@@ -33,6 +46,7 @@ export const SportSelectorField = <TFieldValues extends FieldValues>({
   formId,
   name,
   disabled,
+  onSportChange,
 }: SportSelectorFieldProps<TFieldValues>) => {
   return (
     <Controller
@@ -44,7 +58,11 @@ export const SportSelectorField = <TFieldValues extends FieldValues>({
           <Select
             {...field}
             id={`${formId}-${name}`}
-            onValueChange={field.onChange}
+            onValueChange={(value) => {
+              if (!isSportKind(value)) return;
+              field.onChange(value);
+              onSportChange?.(value);
+            }}
             items={typeOptions}
             disabled={disabled}
           >
@@ -65,6 +83,12 @@ export const SportSelectorField = <TFieldValues extends FieldValues>({
               </SelectGroup>
             </SelectContent>
           </Select>
+          {disabled && (
+            <FieldDescription>
+              To change the sport delete this training session and create a new
+              one with the correct sport
+            </FieldDescription>
+          )}
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
         </Field>
       )}
