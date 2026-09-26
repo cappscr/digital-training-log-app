@@ -1,7 +1,7 @@
 ---
 title: cross training sessions
 author: Chris Capps
-status: draft
+status: in-progress
 issue: 375
 ---
 
@@ -31,7 +31,7 @@ Cross training sessions will appear in the same training sessions list as Runnin
 
 Weather and tags. Eventually I want specific sports to be able to carry a cross training tag, which will be different from a cross training session.
 
-Letting the user switch the sport while editing a training session. There should however, be a tooltip over the disabled select telling the user to delete the training session if they wish to the change the sport.
+Letting the user switch the sport while editing a training session. There should however, be a field description with the disabled select telling the user to delete the training session if they wish to the change the sport.
 
 Non-run modalities (bike, aqua jog, uphill treadmill) log at cross training not as a tagged run.
 

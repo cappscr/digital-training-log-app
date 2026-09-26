@@ -57,7 +57,7 @@ export const defaultValuesFromSession = (
 export const defaultsForSport = (type: string) => {
   const shared = {
     distance: undefined,
-    distance_unit: 'mi',
+    unit: 'mi',
     elevation_gain: undefined,
     average_heart_rate: undefined,
   };
@@ -66,7 +66,8 @@ export const defaultsForSport = (type: string) => {
       return {
         ...shared,
         type: 'cross_training',
-        elevation_gain_unit: undefined,
+        activity: '',
+        elevation_unit: undefined,
       };
     case 'running':
       return { ...shared, type: 'running', average_cadence: undefined };

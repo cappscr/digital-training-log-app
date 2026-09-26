@@ -26,7 +26,7 @@ const runningSchema = shared
     unit: z.enum(['mi', 'km']),
     elevation_gain: z
       .number({ error: 'Enter an elevation gain' })
-      .positive('Elevation gain must be greater than 0')
+      .nonnegative('Elevation gain must be 0 or greater')
       .optional(),
     average_heart_rate: z
       .number({ error: 'Enter a heart rate' })
@@ -60,7 +60,7 @@ const crossTrainingSchema = shared
     unit: z.enum(['mi', 'km']),
     elevation_gain: z
       .number({ error: 'Enter an elevation gain' })
-      .positive('Elevation gain must be greater than 0')
+      .nonnegative('Elevation gain must be  0 or greater')
       .optional(),
     elevation_unit: z.enum(['ft', 'm']).optional(),
     average_heart_rate: z
@@ -74,6 +74,14 @@ const crossTrainingSchema = shared
     {
       message: "Duration and distance can't both be blank",
       path: ['duration'],
+    },
+  )
+  .refine(
+    (data) =>
+      data.elevation_gain === undefined || data.elevation_unit !== undefined,
+    {
+      message: 'Elevation unit must be specified if elevation gain is provided',
+      path: ['elevation_unit'],
     },
   );
 

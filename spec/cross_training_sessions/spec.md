@@ -235,7 +235,7 @@ Use a type guard or `sport_details_type` discriminant everywhere the UI branches
 2. Add Cross Training to `typeOptions` (`value: 'cross_training'`).
 3. Zod schema: discriminated union (or equivalent) on sport type:
    - **Running**: existing fields + duration-or-distance refine; cadence allowed.
-   - **Cross training**: `activity` required non-empty string ≤ 100; distance/unit/elevation/HR optional with same numeric rules; duration-or-distance refine; **no** cadence; **no** computed pace field (pace is run-specific).
+   - **Cross training**: `activity` required non-empty string ≤ 100; distance/unit/elevation/HR optional with same numeric rules; duration-or-distance refine; **no** cadence.
 4. Conditional field visibility:
    - Always: date/time, sport, indoor/outdoor, duration, notes.
    - Cross training: activity (primary sport field), then optional distance, elevation, HR.
