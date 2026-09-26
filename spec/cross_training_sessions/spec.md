@@ -37,7 +37,7 @@ Out of scope for this slice:
 - Cycling/swimming as distinct sport types (beyond enabling the cross-training catch-all path).
 - Weather capture UI/API (still specified on the parent domain; not wired for any sport yet).
 - GPS watch links.
-- Changing sport type on edit (e.g. converting a run into cross training). Create as the chosen sport; edit stays within that sport. Disabled sport select should show a tooltip telling the user to delete the session if they want a different sport.
+- Changing sport type on edit (e.g. converting a run into cross training). Create as the chosen sport; edit stays within that sport. Disabled sport select should show a field description telling the user to delete the session if they want a different sport.
 - Summaries / aggregation of cross training volume.
 - Coaching/share views.
 - Tags (including any future “cross training” tag on other sports).
