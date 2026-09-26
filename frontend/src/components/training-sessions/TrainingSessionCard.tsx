@@ -15,22 +15,13 @@ import {
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
-import {
-  HeartPulse,
-  Metronome,
-  Mountain,
-  Trash,
-  PencilIcon,
-  SportShoe,
-} from 'lucide-react';
+import { TrainingSessionCardMetricsRow } from './TrainingSessionCardMetricsRow';
+import { TrainingSessionSportIcon } from './TrainingSessionSportIcon';
+import { Trash, PencilIcon } from 'lucide-react';
 import { isApiError } from '@/lib/fetcher';
 import { errorToast } from '@/lib/toasts';
-import {
-  formatSportName,
-  formatTime,
-  isoDateStringToMonthDayString,
-  toSentenceCase,
-} from '@/lib/utils';
+import { getTrainingSessionTitle } from './getTrainingSessionTitle';
+import { formatTime, isoDateStringToMonthDayString } from '@/lib/utils';
 import {
   useDeleteTrainingSession,
   type TrainingSession,
@@ -84,12 +75,10 @@ export const TrainingSessionCard = ({
         </div>
       </div>
 
-      <span className="flex size-8 items-center justify-center rounded-full bg-rose-400 sm:size-10">
-        <SportShoe className="size-5 text-rose-900 sm:size-6" />
-      </span>
+      <TrainingSessionSportIcon trainingSession={training_session} />
 
       <div className="text-foreground text-base font-medium sm:text-2xl">
-        {`${toSentenceCase(training_session.location_type)} ${formatSportName(training_session.sport_details_type)}`}
+        {getTrainingSessionTitle(training_session)}
       </div>
 
       <div className="font-numeric flex h-full flex-col items-end justify-center gap-2">
@@ -108,35 +97,7 @@ export const TrainingSessionCard = ({
         {training_session.notes}
       </p>
 
-      <div className="col-span-4 flex flex-row gap-3">
-        {training_session.sport_details.average_heart_rate && (
-          <span
-            aria-label="Average heart rate"
-            className="flex flex-row items-center gap-1"
-          >
-            <HeartPulse className="text-muted-foreground size-4" />
-            {training_session.sport_details.average_heart_rate}
-          </span>
-        )}
-        {training_session.sport_details.elevation_gain && (
-          <span
-            aria-label="Elevation gain"
-            className="flex flex-row items-center gap-1"
-          >
-            <Mountain className="text-muted-foreground size-4" />
-            {training_session.sport_details.elevation_gain}
-          </span>
-        )}
-        {training_session.sport_details.average_cadence && (
-          <span
-            aria-label="Average cadence"
-            className="flex flex-row items-center gap-1"
-          >
-            <Metronome className="text-muted-foreground size-4" />
-            {training_session.sport_details.average_cadence}
-          </span>
-        )}
-      </div>
+      <TrainingSessionCardMetricsRow trainingSession={training_session} />
 
       <div className="col-span-4 flex flex-row items-end justify-end gap-2 border-t pt-2">
         <Link
