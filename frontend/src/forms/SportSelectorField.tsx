@@ -4,7 +4,12 @@ import {
   type FieldPath,
   type FieldValues,
 } from 'react-hook-form';
-import { Field, FieldLabel, FieldError } from '@/components/ui/field';
+import {
+  Field,
+  FieldDescription,
+  FieldLabel,
+  FieldError,
+} from '@/components/ui/field';
 import {
   Select,
   SelectContent,
@@ -78,6 +83,12 @@ export const SportSelectorField = <TFieldValues extends FieldValues>({
               </SelectGroup>
             </SelectContent>
           </Select>
+          {disabled && (
+            <FieldDescription>
+              To change the sport delete this training session and create a new
+              one with the correct sport
+            </FieldDescription>
+          )}
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
         </Field>
       )}
