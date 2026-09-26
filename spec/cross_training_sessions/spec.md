@@ -247,7 +247,7 @@ Use a type guard or `sport_details_type` discriminant everywhere the UI branches
 ### List card (`TrainingSessionCard.tsx`)
 
 1. `formatSportName`: map `CrossTrainingSession` → `"Cross Training"` explicitly (today the default branch already returns that string — make it intentional).
-2. Icon treatment: do not reuse `SportShoe` for CT. Use a distinct Lucide icon (e.g. `Bike`, `Dumbbell`, or `Waves` — pick one generic CT icon and use it for all CT activities in v1). Keep the existing circular badge pattern; prefer a secondary/teal-leaning treatment over the run’s rose accent so sports are distinguishable without relying on color alone (icon + text label). Follow design skill: de-emphasize icon with softer color if it competes with primary metrics.
+2. Icon treatment: do not reuse `SportShoe` for CT. Use a distinct Lucide icon (e.g. `Bike`, `Dumbbell`, or `Waves` — pick one generic CT icon and use it for all CT activities in v1). Keep the existing circular badge pattern; Follow design skill: de-emphasize icon with softer color if it competes with primary metrics.
 3. Primary metric hierarchy for CT:
    - Prefer showing **activity** as the title-adjacent signal (e.g. replace or supplement `"Indoor Cross Training"` with activity name in the primary text line).
    - Numeric column: distance+unit when present; else duration; if both, distance primary and duration secondary (same visual hierarchy as runs).
