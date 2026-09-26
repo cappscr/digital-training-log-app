@@ -19,13 +19,15 @@ export const TrainingSessionCardMetricsRow = ({
           {trainingSession.sport_details.average_heart_rate}
         </span>
       )}
-      {trainingSession.sport_details.elevation_gain && (
+      {trainingSession.sport_details.elevation_gain != null && (
         <span
           aria-label="Elevation gain"
           className="flex flex-row items-center gap-1"
         >
           <Mountain className="text-muted-foreground size-4" />
-          {trainingSession.sport_details.elevation_gain}
+          {trainingSession.sport_details.elevation_unit
+            ? `${trainingSession.sport_details.elevation_gain} ${trainingSession.sport_details.elevation_unit}`
+            : trainingSession.sport_details.elevation_gain}
         </span>
       )}
       {trainingSession.sport_details_type === 'RunningTrainingSession' &&

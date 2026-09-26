@@ -212,6 +212,7 @@ RSpec.describe "Training Sessions", type: :request do
             "id" => training_session.sport_details.id,
             "distance" => training_session.sport_details.distance,
             "elevation_gain" => training_session.sport_details.elevation_gain,
+            "elevation_unit" => training_session.sport_details.elevation_unit,
             "average_heart_rate" => training_session.sport_details.average_heart_rate,
             "average_cadence" => training_session.sport_details.average_cadence,
           )
@@ -309,6 +310,7 @@ RSpec.describe "Training Sessions", type: :request do
             "id" => training_session.sport_details.id,
             "distance" => training_session.sport_details.distance,
             "elevation_gain" => training_session.sport_details.elevation_gain,
+            "elevation_unit" => training_session.sport_details.elevation_unit,
             "average_heart_rate" => training_session.sport_details.average_heart_rate,
             "average_cadence" => training_session.sport_details.average_cadence,
           )

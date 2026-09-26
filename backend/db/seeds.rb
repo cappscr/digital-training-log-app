@@ -35,7 +35,7 @@ CSV.foreach(csv_path, headers: true) do |row|
       distance: row["distance"].presence&.to_d,
       distance_unit: row["distance_unit"].presence&.strip,
       elevation_gain: row["elevation_gain"].presence&.to_i,
-      # add elevation unit here
+      elevation_unit: row["elevation_unit"].presence&.strip || "ft",
       average_heart_rate: row["average_heart_rate"].presence&.to_i,
       average_cadence: row["average_cadence"].presence&.to_i,
       # in the future add tags and running session types

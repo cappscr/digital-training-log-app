@@ -21,6 +21,7 @@ export type RunningTrainingSession = {
   distance: number | null;
   distance_unit: 'mi' | 'km';
   elevation_gain: number | null;
+  elevation_unit: 'ft' | 'm' | null;
   average_heart_rate: number | null;
   average_cadence: number | null;
 };

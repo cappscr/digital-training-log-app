@@ -5,7 +5,7 @@ status: ready for implementation
 issues:
   - 375
   - 240 # parent
-  - 410 # shared elevation gain + unit (running follow-up)
+  - 410 # shared elevation gain concern
 ---
 
 # Cross Training Sessions
@@ -32,7 +32,6 @@ A signed-in user can:
 
 Out of scope for this slice:
 
-- Extracting elevation gain + unit into a shared concern and applying it to running (#410; CT implements `elevation_unit` on `cross_training_sessions` only for now).
 - Strength training and supplementary training (including any decision about the unfinished `SupplementaryTrainingSession` delegated type — that belongs with strength training, not CT).
 - Cycling/swimming as distinct sport types (beyond enabling the cross-training catch-all path).
 - Weather capture UI/API (still specified on the parent domain; not wired for any sport yet).
@@ -55,7 +54,7 @@ Cross training is one delegated sport type under `TrainingSession`:
 | `TrainingSession`      | Ownership (`user`), `session_date`, `session_time`, `duration_seconds`, `location_type`, `notes`, weather association                  |
 | `CrossTrainingSession` | Activity-specific fields: `activity`, optional `distance` / `distance_unit`, `elevation_gain` / `elevation_unit`, `average_heart_rate` |
 
-Table `cross_training_sessions` already exists (string UUID PK) with most of these columns. **Add a migration for `elevation_unit`** (`ft` \| `m`); distance unit already exists.
+Table `cross_training_sessions` (string UUID PK) includes `elevation_unit` (`ft` | `m`). Distance unit already exists. Elevation gain and unit rules are shared with running through `ElevationGainValidatable`.
 
 ### Fields
 
@@ -65,7 +64,7 @@ Table `cross_training_sessions` already exists (string UUID PK) with most of the
 | `distance`                | No                   | Positive decimal; at most 2 decimal places (matches running / existing `precision: 5, scale: 2`).                                                   |
 | `distance_unit`           | If distance present  | `mi` or `km` via shared `DistanceValidatable`.                                                                                                      |
 | `elevation_gain`          | No                   | Non-negative integer.                                                                                                                               |
-| `elevation_unit`          | If elevation present | `ft` or `m` (selectable in UI; new column on `cross_training_sessions`).                                                                            |
+| `elevation_unit`          | If elevation present | `ft` or `m` via shared `ElevationGainValidatable` (also used by running).                                                                           |
 | `average_heart_rate`      | No                   | Positive integer (bpm).                                                                                                                             |
 | Parent `duration_seconds` | Conditionally        | See validations.                                                                                                                                    |
 | Parent `session_date`     | Yes                  | Inherited.                                                                                                                                          |
@@ -362,4 +361,4 @@ What remains in-doc only:
 
 1. **Parent numeric wording** — When editing `spec/training_sessions/spec.md`, clarify that elevation may be non-negative (≥ 0) while other numerics stay strictly positive. CT should match running’s current elevation validation.
 
-**Already accounted for (out of scope here):** sharing elevation gain + unit as a reusable concern and applying it to running is #410. This slice only adds `elevation_unit` on `cross_training_sessions`.
+Elevation gain and unit are shared by running and cross training through `ElevationGainValidatable` (#410).

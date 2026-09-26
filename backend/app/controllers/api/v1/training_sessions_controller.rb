@@ -74,6 +74,7 @@ module Api
             :distance,
             :distance_unit,
             :elevation_gain,
+            :elevation_unit,
             :average_cadence,
             :average_heart_rate
           ]
@@ -135,6 +136,7 @@ module Api
             :distance,
             :distance_unit,
             :elevation_gain,
+            :elevation_unit,
             :average_cadence,
             :average_heart_rate
           ]
