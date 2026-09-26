@@ -7,7 +7,7 @@ import { ElevationGainInput } from '../ElevationGainInput';
 import { Field, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { formatPace, parseDuration } from '@/lib/utils';
-import type { LogTrainingSessionFormValues } from './LogTrainingSession';
+import type { LogTrainingSessionFormValues } from './logTrainingSessionSchemas';
 
 interface CrossTrainingFieldsProps {
   form: UseFormReturn<LogTrainingSessionFormValues>;
