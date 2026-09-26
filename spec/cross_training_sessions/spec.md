@@ -295,12 +295,6 @@ Factories already cover `:cross_training` traits — keep them aligned with vali
 - Request: create cross training happy path; create with activity blank → 422; create with unknown kind → error; index includes CT sessions for current user only; show/update/destroy ownership 404 for other users’ IDs; update cannot change kind.
 - Serializer: activity and metrics present; distance as float.
 
-### Frontend
-
-- Form: selecting Cross Training shows activity, hides cadence/pace; validation blocks submit without activity and without duration+distance.
-- Card: renders activity / CT icon; does not show cadence.
-- Hook types: compile against union sport details.
-
 ---
 
 ## Implementation checklist (handoff)
