@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useWatch, type UseFormReturn } from 'react-hook-form';
 import { DistanceInput } from '../DistanceInput';
+import { ElevationGainInput } from '../ElevationGainInput';
 import { IntegerInput } from '../IntegerInput';
 import { Field, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
@@ -50,11 +51,11 @@ export const RunningFields = ({ form }: RunningFieldsProps) => {
           placeholder="-"
         />
       </Field>
-      <IntegerInput
+      <ElevationGainInput<LogTrainingSessionFormValues>
         control={form.control}
         formId="log-workout-form"
-        label="Elevation Gain"
-        name="elevation_gain"
+        elevationGainName="elevation_gain"
+        unitName="elevation_unit"
       />
       <IntegerInput
         control={form.control}

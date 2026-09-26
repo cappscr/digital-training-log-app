@@ -3,6 +3,7 @@ FactoryBot.define do
     distance { 8.0 }
     distance_unit { 'mi' }
     elevation_gain { 100 }
+    elevation_unit { "ft" }
     average_heart_rate { 130 }
     average_cadence { 180 }
 

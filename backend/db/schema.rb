@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_19_201911) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_26_121100) do
   create_table "cross_training_sessions", id: :string, force: :cascade do |t|
     t.string "activity", null: false
     t.integer "average_heart_rate"
@@ -45,6 +45,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_19_201911) do
     t.decimal "distance", precision: 5, scale: 2
     t.string "distance_unit"
     t.integer "elevation_gain"
+    t.string "elevation_unit"
     t.datetime "updated_at", null: false
   end
 

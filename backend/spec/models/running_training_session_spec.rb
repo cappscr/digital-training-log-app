@@ -41,6 +41,23 @@ RSpec.describe RunningTrainingSession, type: :model do
     expect(running_training_session.errors.full_messages).to include("Elevation gain must be greater than or equal to 0")
   end
 
+  it "is valid without elevation_gain" do
+    running_training_session = build(:running_training_session, elevation_gain: nil, elevation_unit: nil)
+    expect(running_training_session).to be_valid
+  end
+
+  it "is invalid with elevation_gain but no elevation_unit" do
+    running_training_session = build(:running_training_session, elevation_gain: 100, elevation_unit: nil)
+    expect(running_training_session).not_to be_valid
+    expect(running_training_session.errors.full_messages).to include("Elevation unit can't be blank")
+  end
+
+  it "is invalid with an invalid elevation_unit" do
+    running_training_session = build(:running_training_session, elevation_unit: "invalid")
+    expect(running_training_session).not_to be_valid
+    expect(running_training_session.errors.full_messages).to include("Elevation unit is not included in the list")
+  end
+
   it "validates the average_cadence" do
     running_training_session = build(:running_training_session, average_cadence: -1)
     expect(running_training_session).not_to be_valid

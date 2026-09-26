@@ -49,6 +49,7 @@ export const defaultValuesFromSession = (
     distance: d.distance ?? undefined,
     unit: d.distance_unit ?? 'mi',
     elevation_gain: d.elevation_gain ?? undefined,
+    elevation_unit: d.elevation_unit ?? undefined,
     average_heart_rate: d.average_heart_rate ?? undefined,
     average_cadence: d.average_cadence ?? undefined,
   };
@@ -59,6 +60,7 @@ export const defaultsForSport = (type: string) => {
     distance: undefined,
     unit: 'mi',
     elevation_gain: undefined,
+    elevation_unit: undefined,
     average_heart_rate: undefined,
   };
   switch (type) {
@@ -67,7 +69,6 @@ export const defaultsForSport = (type: string) => {
         ...shared,
         type: 'cross_training',
         activity: '',
-        elevation_unit: undefined,
       };
     case 'running':
       return { ...shared, type: 'running', average_cadence: undefined };

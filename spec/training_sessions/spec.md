@@ -32,7 +32,7 @@ Every training session has:
 
 - Parent `duration_seconds`, when present, must be an integer **> 0**
 - Most sport-specific numerics must be **> 0** when present
-- **Elevation gain** may be **≥ 0** (non-negative) when present; clarify this exception when validating elevation
+- **Elevation gain** may be **≥ 0** (non-negative) when present. Running and cross training share this rule, plus an `elevation_unit` of `ft` or `m` that is required when a gain is present, through `ElevationGainValidatable`. The app does not convert between units.
 - Sport-specific rules live on the delegated models (see sport specs)
 
 ## Data model
@@ -66,4 +66,4 @@ Shared resource: `POST/GET/PUT/DELETE /api/v1/training_sessions` (scoped to the 
 ## Related specs
 
 - [`spec/running_training_sessions/spec.md`](../running_training_sessions/spec.md)
-- [`spec/cross_training_sessions/spec.md`](../cross_training_sessions/spec.md) — activity required; optional distance / HR / elevation with units; duration-or-distance; elevation unit on CT only until shared concern #410
+- [`spec/cross_training_sessions/spec.md`](../cross_training_sessions/spec.md) — activity required; optional distance / HR / elevation with units; duration-or-distance. Elevation unit is shared with running via `ElevationGainValidatable`.

@@ -8,7 +8,6 @@ const buildSportDetailsSubmit = (values: LogTrainingSessionFormValues) => {
     case 'cross_training':
       return {
         activity: values.activity,
-        elevation_unit: values.elevation_unit ?? null,
       };
     case 'running':
       return {
@@ -40,6 +39,7 @@ export const buildSubmitPayload = (
     distance: values.distance ?? null,
     distance_unit: values.unit ?? null,
     elevation_gain: values.elevation_gain ?? null,
+    elevation_unit: values.elevation_unit ?? null,
     average_heart_rate: values.average_heart_rate ?? null,
   };
 
