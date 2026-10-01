@@ -4,10 +4,11 @@ module Api
       before_action :require_login, only: [ :create, :destroy, :index, :show, :update ]
 
       def index
-        @training_sessions = TrainingSession
-          .where(user_id: current_user.id)
+        @training_sessions = current_user.training_sessions
           .includes(:sport_details)
+          .then { |scope| apply_date_range(scope) }
           .order(session_date: :desc, session_time: :desc)
+
         render json: @training_sessions, each_serializer: TrainingSessionSerializer
       end
 
@@ -41,6 +42,24 @@ module Api
       end
 
       private
+
+      def apply_date_range(scope)
+        start_date = parse_date_param(:start_date)
+        end_date = parse_date_param(:end_date)
+
+        scope = scope.where(session_date: start_date..) if start_date
+        scope = scope.where(session_date: ..end_date) if end_date
+        scope
+      end
+
+      def parse_date_param(key)
+        value = params[key].presence
+        return if value.blank?
+
+        Date.iso8601(value)
+      rescue Date::Error
+        raise ActionController::BadRequest, "#{key} must be YYYY-MM-DD"
+      end
 
       def training_session_create_params
         params.expect(
