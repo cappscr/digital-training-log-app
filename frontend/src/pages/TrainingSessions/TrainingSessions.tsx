@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import { cn } from 'cn';
 import { buttonVariants } from '@/components/ui/button';
 import { Loading } from '@/components/Loading';
+import { TrainingSessionsPagination } from '@/components/training-sessions/TrainingSessionsPagination';
 import { EmptyTrainingSessions } from '@/components/training-sessions/EmptyTrainingSessions';
 import { TrainingSessionCard } from '@/components/training-sessions/TrainingSessionCard';
 import { PlusIcon } from 'lucide-react';
@@ -15,7 +16,8 @@ export const TrainingSessionsPage = () => {
   return (
     <>
       {training_sessions.length > 0 && (
-        <div className="m-4 flex flex-row items-center justify-end">
+        <div className="m-4 flex flex-row items-center justify-between">
+          <TrainingSessionsPagination />
           <Link
             to="/training-sessions/new"
             className={cn(
