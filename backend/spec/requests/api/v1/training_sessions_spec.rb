@@ -268,6 +268,15 @@ RSpec.describe "Training Sessions", type: :request do
               .to eq([ old_training_session.id ])
           end
 
+          it "clamps the to date to today and does not return future training sessions" do
+            get api_v1_training_sessions_path, params: { to: Date.today + 3.days }, headers: auth_headers
+            expect(response).to have_http_status(:ok)
+
+            parsed_body = JSON.parse(response.body)
+            expect(parsed_body["training_sessions"].map { |session| session["id"] })
+              .to eq([ training_session.id, old_training_session.id ])
+          end
+
           it "returns a bad request error if the to param is not a valid date" do
             get api_v1_training_sessions_path, params: { to: "invalid-date" }, headers: auth_headers
             expect(response).to have_http_status(:bad_request)
