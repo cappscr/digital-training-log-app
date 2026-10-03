@@ -24,9 +24,12 @@ Users are able to log, view, edit, and delete strength training sessions in the 
 - Individual exercises should be supported consisting of a name, reps, sets, and weight
 - Name, reps, and sets are required
 - Either bodyweight is true or weight and weight units are required
+- An exercise can have both bodyweight and weigthed sets in the same session
+- The order of the exercises within a session is important and be implicitly derived from the form in the UI but should be explicitly supported by the API
 - Weight should be a positive number and updated to support 1 decimal place
 - Reps and sets are positive integer values
 - Weight unit is required if weight is present
+- Calculating a total volume load, omitting any body weight exercises
 
 # UX Expectations
 
