@@ -1,13 +1,16 @@
 module Api
   module V1
     class TrainingSessionsController < Api::ApplicationController
+      NUMBER_OF_DAYS_IN_RANGE = 21
+
       before_action :require_login, only: [ :create, :destroy, :index, :show, :update ]
 
       def index
-        @training_sessions = TrainingSession
-          .where(user_id: current_user.id)
+        @training_sessions = current_user.training_sessions
           .includes(:sport_details)
+          .then { |scope| apply_date_range(scope) }
           .order(session_date: :desc, session_time: :desc)
+
         render json: @training_sessions, each_serializer: TrainingSessionSerializer
       end
 
@@ -41,6 +44,23 @@ module Api
       end
 
       private
+
+      def apply_date_range(scope)
+        end_date = parse_date_param(:to) || Date.current
+        end_date = Date.current if end_date > Date.current
+        start_date = end_date - (NUMBER_OF_DAYS_IN_RANGE - 1)
+
+        scope.where(session_date: start_date..end_date)
+      end
+
+      def parse_date_param(key)
+        value = params[key].presence
+        return if value.blank?
+
+        Date.iso8601(value)
+      rescue Date::Error
+        raise ActionController::BadRequest, "#{key} must be YYYY-MM-DD"
+      end
 
       def training_session_create_params
         params.expect(

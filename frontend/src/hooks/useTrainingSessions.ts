@@ -1,6 +1,7 @@
 import useSWR, { mutate } from 'swr';
 import useSWRMutation from 'swr/mutation';
 import { apiClient, type ApiError } from '@/lib/fetcher';
+import { toISODateString } from '@/lib/utils';
 
 type LocationType = 'outdoor' | 'indoor';
 export type SportDetailsType =
@@ -55,9 +56,9 @@ type TrainingSessionResponse = {
 
 export const TRAINING_SESSIONS_KEY = '/training_sessions';
 
-export const useTrainingSessions = () => {
+export const useTrainingSessions = ({ to }: { to: Date }) => {
   const { data, error, isLoading, mutate } = useSWR<TrainingSessionsResponse>(
-    TRAINING_SESSIONS_KEY,
+    `${TRAINING_SESSIONS_KEY}?to=${toISODateString(to)}`,
   );
 
   return {
@@ -93,7 +94,10 @@ export const useDeleteTrainingSession = (trainingSessionId: string) => {
       populateCache: false,
       revalidate: false,
       onSuccess: async () => {
-        await mutate(TRAINING_SESSIONS_KEY);
+        await mutate(
+          (key) =>
+            typeof key === 'string' && key.startsWith(TRAINING_SESSIONS_KEY),
+        );
         await mutate(
           `${TRAINING_SESSIONS_KEY}/${trainingSessionId}`,
           undefined,

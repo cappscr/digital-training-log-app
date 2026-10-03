@@ -29,7 +29,7 @@ import {
 import { buildSubmitPayload } from './logTrainingSessionBuildSubmitPayload';
 import { UNEXPECTED_ERROR_MESSAGE } from '../errors';
 import { apiClient, isApiError } from '@/lib/fetcher';
-import { toSentenceCase } from '@/lib/utils';
+import { toISODateString, toSentenceCase } from '@/lib/utils';
 import { successToast } from '@/lib/toasts';
 import {
   TRAINING_SESSIONS_KEY,
@@ -76,13 +76,16 @@ export const LogTrainingSessionForm = ({
       if (trainingSessionToEdit) {
         await mutate(`/training_sessions/${trainingSessionId}`);
       }
-      await mutate(TRAINING_SESSIONS_KEY);
+      await mutate(
+        (key) =>
+          typeof key === 'string' && key.startsWith(TRAINING_SESSIONS_KEY),
+      );
       successToast(
         trainingSessionToEdit
           ? 'Training session updated successfully'
           : 'Training session logged successfully',
       );
-      navigate('/training-sessions');
+      navigate(`/training-sessions?to=${toISODateString(data.date)}`);
     } catch (apiError) {
       if (isApiError(apiError) && apiError.status === 422) {
         const errors = apiError.data?.errors;
@@ -121,6 +124,7 @@ export const LogTrainingSessionForm = ({
                 formId="log-workout-form"
                 dateName="date"
                 timeName="time"
+                allowFutureDates={false}
               />
 
               <SportSelectorField

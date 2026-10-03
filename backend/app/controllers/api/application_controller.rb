@@ -6,7 +6,8 @@ module Api
     rescue_from ActiveRecord::RecordNotFound,       with: :render_not_found
     rescue_from ActiveRecord::RecordInvalid,        with: :render_record_invalid
     rescue_from ApplicationError,                   with: :render_problem_detail
-    rescue_from ActionController::ParameterMissing, with: :render_bad_request
+    rescue_from ActionController::BadRequest,       with: :render_bad_request
+    rescue_from ActionController::ParameterMissing, with: :render_param_missing
 
     def not_found
       raise NotFoundError.new(
@@ -50,9 +51,17 @@ module Api
       end
 
 
-      def render_bad_request(error)
+      def render_param_missing(error)
         bad_request = BadRequestError.new(
           detail: "Required parameter missing: #{error.param}",
+          instance: request.path
+        )
+        render_problem_detail(bad_request)
+      end
+
+      def render_bad_request(error)
+        bad_request = BadRequestError.new(
+          detail: error.message,
           instance: request.path
         )
         render_problem_detail(bad_request)

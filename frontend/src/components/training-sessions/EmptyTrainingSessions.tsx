@@ -31,7 +31,7 @@ export const EmptyTrainingSessions = () => {
           to="/training-sessions/new"
           className={cn(
             buttonVariants({
-              variant: 'outline',
+              variant: 'default',
               size: 'lg',
             }),
           )}
