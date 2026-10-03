@@ -20,7 +20,8 @@ export const TrainingSessionsPagination = ({
   endDate,
 }: TrainingSessionsPaginationProps) => {
   const [searchParams] = useSearchParams();
-  const to = endDate;
+  const to =
+    endDate > startOfDay(new Date()) ? startOfDay(new Date()) : endDate;
   const from = subDays(to, THREE_WEEKS - 1);
 
   const canGoNext = !isToday(to) && to < startOfDay(new Date());
@@ -36,15 +37,17 @@ export const TrainingSessionsPagination = ({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            to={paginationHrefFor(subDays(to, THREE_WEEKS - 1))}
+            to={paginationHrefFor(subDays(to, THREE_WEEKS))}
           />
         </PaginationItem>
-        <span className="inline-flex items-center gap-1.5 px-2.5 text-sm">
-          <CalendarIcon aria-hidden className="size-4" />
-          <span>
-            {format(from, 'LLL dd, y')} – {format(to, 'LLL dd, y')}
+        <PaginationItem>
+          <span className="inline-flex items-center gap-1.5 px-2.5 text-sm">
+            <CalendarIcon aria-hidden className="size-4" />
+            <span>
+              {format(from, 'LLL dd, y')} – {format(to, 'LLL dd, y')}
+            </span>
           </span>
-        </span>
+        </PaginationItem>
         <PaginationItem>
           <PaginationNext
             aria-disabled={!canGoNext}

@@ -94,7 +94,10 @@ export const useDeleteTrainingSession = (trainingSessionId: string) => {
       populateCache: false,
       revalidate: false,
       onSuccess: async () => {
-        await mutate(TRAINING_SESSIONS_KEY);
+        await mutate(
+          (key) =>
+            typeof key === 'string' && key.startsWith(TRAINING_SESSIONS_KEY),
+        );
         await mutate(
           `${TRAINING_SESSIONS_KEY}/${trainingSessionId}`,
           undefined,

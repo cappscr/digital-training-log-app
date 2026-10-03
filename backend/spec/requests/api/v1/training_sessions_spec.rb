@@ -256,11 +256,12 @@ RSpec.describe "Training Sessions", type: :request do
         end
 
         context "when to is passed in the request params" do
+          let!(:really_old_training_session) { create(:training_session, user: user, session_date: Date.today - 30.days) }
           let!(:old_training_session) { create(:training_session, user: user, session_date: Date.today - 14.days) }
           let!(:new_training_session) { create(:training_session, user: user, session_date: Date.today + 2.days) }
 
           it "returns training sessions within the 21 day window ending with the to date" do
-            get api_v1_training_sessions_path, params: { to: Date.today - 10.days }, headers: auth_headers
+            get api_v1_training_sessions_path, params: { to: Date.today - 4.days }, headers: auth_headers
             expect(response).to have_http_status(:ok)
 
             parsed_body = JSON.parse(response.body)
