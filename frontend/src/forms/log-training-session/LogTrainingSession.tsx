@@ -76,7 +76,10 @@ export const LogTrainingSessionForm = ({
       if (trainingSessionToEdit) {
         await mutate(`/training_sessions/${trainingSessionId}`);
       }
-      await mutate(TRAINING_SESSIONS_KEY);
+      await mutate(
+        (key) =>
+          typeof key === 'string' && key.startsWith(TRAINING_SESSIONS_KEY),
+      );
       successToast(
         trainingSessionToEdit
           ? 'Training session updated successfully'

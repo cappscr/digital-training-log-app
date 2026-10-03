@@ -1,6 +1,8 @@
 module Api
   module V1
     class TrainingSessionsController < Api::ApplicationController
+      NUMBER_OF_DAYS_IN_RANGE = 21
+
       before_action :require_login, only: [ :create, :destroy, :index, :show, :update ]
 
       def index
@@ -44,12 +46,11 @@ module Api
       private
 
       def apply_date_range(scope)
-        start_date = parse_date_param(:start_date)
-        end_date = parse_date_param(:end_date)
+        end_date = parse_date_param(:to) || Date.current
+        end_date = Date.current if end_date > Date.current
+        start_date = end_date - (NUMBER_OF_DAYS_IN_RANGE - 1)
 
-        scope = scope.where(session_date: start_date..) if start_date
-        scope = scope.where(session_date: ..end_date) if end_date
-        scope
+        scope.where(session_date: start_date..end_date)
       end
 
       def parse_date_param(key)

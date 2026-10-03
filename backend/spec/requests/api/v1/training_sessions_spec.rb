@@ -228,7 +228,7 @@ RSpec.describe "Training Sessions", type: :request do
         end
 
         context "on multiple days" do
-          let!(:later_training_session) { create(:training_session, user: user, session_date: Date.today + 1.day) }
+          let!(:earlier_training_session) { create(:training_session, user: user, session_date: Date.today - 1.day) }
 
           it "returns training sessions with the most recent first" do
             get api_v1_training_sessions_path, headers: auth_headers
@@ -236,7 +236,7 @@ RSpec.describe "Training Sessions", type: :request do
 
             parsed_body = JSON.parse(response.body)
             expect(parsed_body["training_sessions"].map { |session| session["id"] })
-              .to eq([ later_training_session.id, training_session.id ])
+              .to eq([ training_session.id, earlier_training_session.id ])
           end
         end
 
@@ -255,33 +255,25 @@ RSpec.describe "Training Sessions", type: :request do
           end
         end
 
-        context "when start_date and end_date are passed in the request params" do
-          let!(:old_training_session) { create(:training_session, user: user, session_date: Date.today - 7.days) }
+        context "when to is passed in the request params" do
+          let!(:old_training_session) { create(:training_session, user: user, session_date: Date.today - 14.days) }
           let!(:new_training_session) { create(:training_session, user: user, session_date: Date.today + 2.days) }
 
-          it "returns training sessions within the date range" do
-            get api_v1_training_sessions_path, params: { start_date: Date.today - 6.days, end_date: Date.today }, headers: auth_headers
+          it "returns training sessions within the 21 day window ending with the to date" do
+            get api_v1_training_sessions_path, params: { to: Date.today - 10.days }, headers: auth_headers
             expect(response).to have_http_status(:ok)
 
             parsed_body = JSON.parse(response.body)
             expect(parsed_body["training_sessions"].map { |session| session["id"] })
-              .to eq([ training_session.id ])
+              .to eq([ old_training_session.id ])
           end
 
-          it "returns a bad request error if the start_date is not a valid date" do
-            get api_v1_training_sessions_path, params: { start_date: "invalid-date", end_date: Date.today }, headers: auth_headers
+          it "returns a bad request error if the to param is not a valid date" do
+            get api_v1_training_sessions_path, params: { to: "invalid-date" }, headers: auth_headers
             expect(response).to have_http_status(:bad_request)
 
             parsed_body = JSON.parse(response.body)
-            expect(parsed_body["detail"]).to eq("start_date must be YYYY-MM-DD")
-          end
-          
-          it "returns a bad request error if the end_date is not a valid date" do
-            get api_v1_training_sessions_path, params: { start_date: Date.today - 6.days, end_date: "invalid-date" }, headers: auth_headers
-            expect(response).to have_http_status(:bad_request)
-
-            parsed_body = JSON.parse(response.body)
-            expect(parsed_body["detail"]).to eq("end_date must be YYYY-MM-DD")
+            expect(parsed_body["detail"]).to eq("to must be YYYY-MM-DD")
           end
         end
       end

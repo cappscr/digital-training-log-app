@@ -1,5 +1,6 @@
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 import { cn } from 'cn';
+import { startOfDay } from 'date-fns';
 import { buttonVariants } from '@/components/ui/button';
 import { Loading } from '@/components/Loading';
 import { TrainingSessionsPagination } from '@/components/training-sessions/TrainingSessionsPagination';
@@ -7,31 +8,34 @@ import { EmptyTrainingSessions } from '@/components/training-sessions/EmptyTrain
 import { TrainingSessionCard } from '@/components/training-sessions/TrainingSessionCard';
 import { PlusIcon } from 'lucide-react';
 import { useTrainingSessions } from '@/hooks/useTrainingSessions';
+import { parseISODate } from '@/lib/utils';
+
+export const THREE_WEEKS = 21;
 
 export const TrainingSessionsPage = () => {
-  const { training_sessions, isLoading, error } = useTrainingSessions();
+  const [searchParams] = useSearchParams();
+  const to = parseISODate(searchParams.get('to')) ?? startOfDay(new Date());
+  const { training_sessions, isLoading, error } = useTrainingSessions({ to });
 
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>
-      {training_sessions.length > 0 && (
-        <div className="m-4 flex flex-row items-center justify-between">
-          <TrainingSessionsPagination />
-          <Link
-            to="/training-sessions/new"
-            className={cn(
-              buttonVariants({
-                variant: 'outline',
-                size: 'lg',
-              }),
-            )}
-          >
-            <PlusIcon className="h-4 w-4" />
-            Add Training Session
-          </Link>
-        </div>
-      )}
+      <div className="m-4 flex flex-row items-center justify-between">
+        <TrainingSessionsPagination endDate={to} />
+        <Link
+          to="/training-sessions/new"
+          className={cn(
+            buttonVariants({
+              variant: 'outline',
+              size: 'lg',
+            }),
+          )}
+        >
+          <PlusIcon className="h-4 w-4" />
+          Add Training Session
+        </Link>
+      </div>
       <section className="mx-auto my-4 max-w-2xl px-4">
         <h1 className="text-primary mb-8">Training Sessions</h1>
         {isLoading && <Loading />}
