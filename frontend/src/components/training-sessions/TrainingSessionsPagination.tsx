@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router';
 import { cn } from 'cn';
-import { addDays, format, isToday, startOfDay, subDays } from 'date-fns';
+import { addDays, format, min, isToday, startOfDay, subDays } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import {
   Pagination,
@@ -52,7 +52,9 @@ export const TrainingSessionsPagination = ({
           <PaginationNext
             aria-disabled={!canGoNext}
             tabIndex={canGoNext ? 0 : -1}
-            to={paginationHrefFor(addDays(to, THREE_WEEKS))}
+            to={paginationHrefFor(
+              min([addDays(to, THREE_WEEKS), startOfDay(new Date())]),
+            )}
             className={cn(!canGoNext && 'pointer-events-none opacity-50')}
           />
         </PaginationItem>

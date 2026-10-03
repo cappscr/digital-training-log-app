@@ -124,6 +124,7 @@ export const LogTrainingSessionForm = ({
                 formId="log-workout-form"
                 dateName="date"
                 timeName="time"
+                allowFutureDates={false}
               />
 
               <SportSelectorField

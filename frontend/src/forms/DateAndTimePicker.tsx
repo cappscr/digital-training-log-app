@@ -28,6 +28,7 @@ interface DateAndTimePickerProps<TFieldValues extends FieldValues> {
   formId: string;
   dateName: FieldPath<TFieldValues>;
   timeName: FieldPath<TFieldValues>;
+  allowFutureDates?: boolean;
 }
 
 export const DateAndTimePicker = <TFieldValues extends FieldValues>({
@@ -35,6 +36,7 @@ export const DateAndTimePicker = <TFieldValues extends FieldValues>({
   formId,
   dateName,
   timeName,
+  allowFutureDates = true,
 }: DateAndTimePickerProps<TFieldValues>) => {
   const [open, setOpen] = useState(false);
 
@@ -68,6 +70,10 @@ export const DateAndTimePicker = <TFieldValues extends FieldValues>({
                   selected={field.value}
                   captionLayout="dropdown"
                   defaultMonth={field.value}
+                  endMonth={allowFutureDates ? undefined : new Date()}
+                  disabled={
+                    allowFutureDates ? undefined : { after: new Date() }
+                  }
                   onSelect={(date) => {
                     field.onChange(date);
                     setOpen(false);
