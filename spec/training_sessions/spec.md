@@ -8,18 +8,18 @@ Users can view, log (create), edit, and delete their own training sessions. Sess
 | --- | --- |
 | Running (`RunningTrainingSession`) | Implemented end-to-end (API + UI) |
 | Cross training (`CrossTrainingSession`) | Implemented end-to-end (API + UI). Details: [`spec/cross_training_sessions/spec.md`](../cross_training_sessions/spec.md) |
-| Strength (`StrengthTrainingSession`) | Model layer only; not user-facing yet |
-| Supplementary (`SupplementaryTrainingSession`) | Named in `delegated_type` but unfinished — resolve with strength-training work, not ad hoc |
+| Strength (`StrengthTrainingSession`) | Specified; implement per [`spec/strength_training_sessions/spec.md`](../strength_training_sessions/spec.md). Model/tables exist; not user-facing yet |
+| Supplementary (`SupplementaryTrainingSession`) | Placeholder only — remove from `delegated_type` as part of strength work (absorbed by strength) |
 
-Future specific sports (e.g. cycling, swimming) may be added as additional delegated types. Until then, non-run work is logged as cross training.
+Future specific sports (e.g. cycling, swimming) may be added as additional delegated types. Until then, non-run work that is not strength is logged as cross training.
 
 ## Shared session fields
 
 Every training session has:
 
 - `session_date` (required) and optional `session_time`
-- Optional `duration_seconds` (stored in seconds; displayed as S, SS, M:SS, MM:SS, H:MM:SS, or HH:MM:SS). Duration is **not** always required: running and cross training allow **duration or distance** (at least one). Other sports may differ later.
-- `location_type`: `indoor` \| `outdoor`
+- Optional `duration_seconds` (stored in seconds; displayed as S, SS, M:SS, MM:SS, H:MM:SS, or HH:MM:SS). Duration is **not** always required: running and cross training allow **duration or distance** (at least one). Strength has no distance; duration is optional and exercises are required.
+- `location_type`: `indoor` \| `outdoor`. Database default remains `outdoor`. Form defaults: running → outdoor; cross training and strength → indoor.
 - Optional notes
 - Belongs to a user (ownership enforced on all API actions)
 
@@ -42,7 +42,7 @@ Every training session has:
 - `RunningTrainingSession`
 - `CrossTrainingSession`
 - `StrengthTrainingSession`
-- `SupplementaryTrainingSession` (placeholder — see status table)
+- `SupplementaryTrainingSession` (placeholder — delete with the strength slice)
 
 Weather is a separate `TrainingSessionWeather` model associated to the parent session (implemented at the model/table layer; not wired through the training-sessions API/UI yet).
 
@@ -53,6 +53,7 @@ Shared resource: `POST/GET/PUT/DELETE /api/v1/training_sessions` (scoped to the 
 - **Create** uses `sport_details.kind` to instantiate the delegated type:
   - `running` → `RunningTrainingSession`
   - `cross_training` → `CrossTrainingSession`
+  - `strength_training` → `StrengthTrainingSession` (specified; wire in the strength slice)
   - Unknown kind → validation error (422) with pointer `#/training_session/sport_details/kind`
 - **Update** does **not** change sport type. The persisted `sport_details_type` selects which attributes are applied; client-supplied `kind` / sport-details `id` are ignored for mutation.
 - Clients may supply UUIDs for session and sport-detail ids on create (local-first ready).
@@ -61,9 +62,10 @@ Shared resource: `POST/GET/PUT/DELETE /api/v1/training_sessions` (scoped to the 
 
 - List, create, and edit share routes under `/training-sessions`
 - Sport selector on create; on edit the sport is disabled with copy explaining the user must delete and recreate to change sport
-- Sport-specific fields are conditional (running vs cross training panels)
+- Sport-specific fields are conditional (running vs cross training vs strength panels)
 
 ## Related specs
 
 - [`spec/running_training_sessions/spec.md`](../running_training_sessions/spec.md)
 - [`spec/cross_training_sessions/spec.md`](../cross_training_sessions/spec.md) — activity required; optional distance / HR / elevation with units; duration-or-distance. Elevation unit is shared with running via `ElevationGainValidatable`.
+- [`spec/strength_training_sessions/spec.md`](../strength_training_sessions/spec.md) — nested exercises (name, sets, reps, bodyweight and/or weight); optional duration and HR; computed volume load; remove supplementary placeholder.
