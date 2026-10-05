@@ -8,4 +8,6 @@ class StrengthTrainingExercise < ApplicationRecord
     lbs: "lbs",
     kg: "kg"
   }, prefix: :weight_in
+
+  validates :name, presence: true
 end

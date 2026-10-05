@@ -1,6 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe StrengthTrainingSession, type: :model do
+  describe "validations" do
+    it "is invalid with an average heart rate less than 1" do
+      strength_training_session = build(:strength_training_session, average_heart_rate: 0)
+      expect(strength_training_session).to be_invalid
+      expect(strength_training_session.errors[:average_heart_rate]).to include("must be greater than 0")
+    end
+
+    it "is invalid with exercises that are invalid" do
+      strength_training_session = build(:strength_training_session)
+      strength_training_session.exercises = [
+        build(:strength_training_exercise, session: strength_training_session, name: nil),
+      ]
+      expect(strength_training_session).to be_invalid
+      expect(strength_training_session.errors[:"exercises/0/name"]).to include("can't be blank")
+    end
+  end
+
   describe "valid record" do
     it "is valid with valid attributes" do
       strength_training_session = build(:strength_training_session)
