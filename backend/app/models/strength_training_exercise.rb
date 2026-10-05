@@ -7,7 +7,7 @@ class StrengthTrainingExercise < ApplicationRecord
   enum :weight_units, {
     lbs: "lbs",
     kg: "kg"
-  }, prefix: :weight_in
+  }, validate: { allow_nil: true }, prefix: :weight_in
 
   normalizes :name, with: ->(value) { value&.strip }
 

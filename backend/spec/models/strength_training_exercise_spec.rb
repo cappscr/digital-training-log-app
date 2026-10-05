@@ -38,6 +38,12 @@ RSpec.describe StrengthTrainingExercise, type: :model do
       expect(strength_training_exercise.errors[:weight_units]).to include("can't be blank")
     end
 
+    it "is invalid with invalid weight units" do
+      strength_training_exercise = build(:strength_training_exercise, weight: 100, weight_units: "invalid")
+      expect(strength_training_exercise).to be_invalid
+      expect(strength_training_exercise.errors[:weight_units]).to include("is not included in the list")
+    end
+
     it "is invalid with position less than 1" do
       strength_training_exercise = build(:strength_training_exercise, position: 0)
       expect(strength_training_exercise).to be_invalid
