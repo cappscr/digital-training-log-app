@@ -1,6 +1,62 @@
 require 'rails_helper'
 
 RSpec.describe StrengthTrainingExercise, type: :model do
+  describe "validations" do
+    it "is invalid without a name" do
+      strength_training_exercise = build(:strength_training_exercise, name: nil)
+      expect(strength_training_exercise).to be_invalid
+      expect(strength_training_exercise.errors[:name]).to include("can't be blank")
+    end
+
+    it "is invalid with a name longer than 100 characters" do
+      strength_training_exercise = build(:strength_training_exercise, name: "a" * 101)
+      expect(strength_training_exercise).to be_invalid
+      expect(strength_training_exercise.errors[:name]).to include("is too long (maximum is 100 characters)")
+    end
+
+    it "is invalid with sets less than 1" do
+      strength_training_exercise = build(:strength_training_exercise, sets: 0)
+      expect(strength_training_exercise).to be_invalid
+      expect(strength_training_exercise.errors[:sets]).to include("must be greater than 0")
+    end
+
+    it "is invalid with reps less than 1" do
+      strength_training_exercise = build(:strength_training_exercise, reps: 0)
+      expect(strength_training_exercise).to be_invalid
+      expect(strength_training_exercise.errors[:reps]).to include("must be greater than 0")
+    end
+
+    it "is invalid with weight less than 0" do
+      strength_training_exercise = build(:strength_training_exercise, weight: -1, weight_units: "lbs")
+      expect(strength_training_exercise).to be_invalid
+      expect(strength_training_exercise.errors[:weight]).to include("must be greater than 0")
+    end
+
+    it "is invalid with weight but no weight units" do
+      strength_training_exercise = build(:strength_training_exercise, weight: 100, weight_units: nil)
+      expect(strength_training_exercise).to be_invalid
+      expect(strength_training_exercise.errors[:weight_units]).to include("can't be blank")
+    end
+
+    it "is invalid with position less than 1" do
+      strength_training_exercise = build(:strength_training_exercise, position: 0)
+      expect(strength_training_exercise).to be_invalid
+      expect(strength_training_exercise.errors[:position]).to include("must be greater than 0")
+    end
+
+    it "is invalid with both weight and bodyweight" do
+      strength_training_exercise = build(:strength_training_exercise, weight: 100, weight_units: "lbs", bodyweight: true)
+      expect(strength_training_exercise).to be_invalid
+      expect(strength_training_exercise.errors[:base]).to include("Cannot have both weight and bodyweight")
+    end
+
+    it "is invalid without weight or bodyweight" do
+      strength_training_exercise = build(:strength_training_exercise, weight: nil, weight_units: nil, bodyweight: false)
+      expect(strength_training_exercise).to be_invalid
+      expect(strength_training_exercise.errors[:base]).to include("Either weight or bodyweight must be present")
+    end
+  end
+
   describe "valid record" do
     it "is valid with valid attributes" do
       strength_training_exercise = build(:strength_training_exercise)
@@ -56,7 +112,7 @@ RSpec.describe StrengthTrainingExercise, type: :model do
     it "is destroyed when the strength training session is destroyed" do
       strength_training_session = create(:strength_training_session)
       strength_training_exercise = create(:strength_training_exercise, session: strength_training_session)
-      expect { strength_training_session.destroy }.to change(StrengthTrainingExercise, :count).by(-1)
+      expect { strength_training_session.destroy }.to change(StrengthTrainingExercise, :count).by(-2)
       expect(StrengthTrainingExercise.exists?(strength_training_exercise.id)).to be false
     end
   end
