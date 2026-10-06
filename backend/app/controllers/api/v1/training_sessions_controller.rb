@@ -81,6 +81,16 @@ module Api
               :elevation_unit,
               :average_cadence,
               :average_heart_rate
+              exercises: [[
+                :id,
+                :name,
+                :sets,
+                :reps,
+                :weight,
+                :weight_units,
+                :bodyweight,
+                :position
+              ]]
             ]
           ]
         )
@@ -116,6 +126,26 @@ module Api
         )
       end
 
+      def strength_training_create_params(root)
+        root.expect(
+          sport_details: [
+            :id,
+            :kind,
+            :average_heart_rate,
+            exercises: [[
+              :id,
+              :name,
+              :sets,
+              :reps,
+              :weight,
+              :weight_units,
+              :bodyweight,
+              :position
+            ]]
+          ]
+        )
+      end
+
       def build_sport_details(params, training_session)
         raise ActionController::ParameterMissing, :sport_details if params[:sport_details].nil?
         case params[:sport_details][:kind]
@@ -123,6 +153,8 @@ module Api
           RunningTrainingSession.new(running_create_params(params).except(:kind))
         when "cross_training"
           CrossTrainingSession.new(cross_training_create_params(params).except(:kind))
+        when "strength_training"
+          StrengthTrainingSession.new(strength_training_create_params(params).except(:kind))
         else
           training_session.errors.add(:"sport_details/kind", "Unknown sport kind: #{params[:sport_details][:kind]}")
           raise ActiveRecord::RecordInvalid, training_session
@@ -145,6 +177,16 @@ module Api
               :elevation_unit,
               :average_cadence,
               :average_heart_rate
+              exercises: [[
+                :id,
+                :name,
+                :sets,
+                :reps,
+                :weight,
+                :weight_units,
+                :bodyweight,
+                :position
+              ]]
             ]
           ]
         )
@@ -176,6 +218,24 @@ module Api
         )
       end
 
+      def strength_training_update_params(root)
+        root.expect(
+          sport_details: [
+            :average_heart_rate
+            exercises: [[
+              :id,
+              :name,
+              :sets,
+              :reps,
+              :weight,
+              :weight_units,
+              :bodyweight,
+              :position
+            ]]
+          ]
+        )
+      end
+
       def update_sport_details(params, kind)
         raise ActionController::ParameterMissing, :sport_details if params[:sport_details].nil?
         case kind
@@ -183,6 +243,8 @@ module Api
           running_update_params(params)
         when "CrossTrainingSession"
           cross_training_update_params(params)
+        when "StrengthTrainingSession"
+          strength_training_update_params(params)
         end
       end
     end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :strength_training_exercise do
-    association :session, factory: :strength_training_session
+    association :session, factory: :strength_training_session, with_exercises: false
     name { "squats" }
     sets { 1 }
     reps { 6 }

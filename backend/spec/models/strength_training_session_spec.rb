@@ -54,4 +54,23 @@ RSpec.describe StrengthTrainingSession, type: :model do
       expect(association.options[:dependent]).to eq(:destroy)
     end
   end
+
+  describe "volume load" do
+    it "returns the volume load of the session" do
+      three_squat_sets = create(:strength_training_exercise, :multiple_sets)
+      expect(three_squat_sets.session.volume_load).to eq(1800.0)
+      expect(three_squat_sets.session.volume_load_units).to eq("lbs")
+    end
+
+    it "returns volume load units that matches the weight units of the exercises" do
+      three_squat_sets_in_kg = create(:strength_training_exercise, :multiple_sets, :weight_in_kg)
+      expect(three_squat_sets_in_kg.session.volume_load).to eq(1800.0)
+      expect(three_squat_sets_in_kg.session.volume_load_units).to eq("kg")
+    end
+
+    it "returns nil for the volume load units if the exercises have different weight units" do
+      mixed_weight_units_session = create(:strength_training_session, :mixed_weight_units)
+      expect(mixed_weight_units_session.volume_load_units).to be_nil
+    end
+  end
 end
