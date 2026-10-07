@@ -26,6 +26,33 @@ class StrengthTrainingSession < ApplicationRecord
     exercises_weight_units.first
   end
 
+  # Syncs the exercises with the session.
+  def sync_exercises(exercise_params)
+    incoming = Array(exercise_params)
+    keep_ids = []
+
+    incoming.each_with_index do |params, index|
+      attrs = params.to_h.symbolize_keys.except(:strength_training_session_id)
+      attrs[:position] = index + 1 if attrs[:position].blank?
+
+      exercise =
+        if attrs[:id].present?
+          exercises.find(attrs[:id])
+        else
+          exercises.build(attrs)
+        end
+
+      exercise.assign_attributes(attrs)
+      exercise.session = self
+      keep_ids << exercise.id
+    end
+  
+    exercises.each do |exercise|
+      next if keep_ids.include?(exercise.id)
+      exercise.mark_for_destruction
+    end
+  end
+
   private
   # Validates that all exercises are valid.
   def exercises_must_be_valid

@@ -7,7 +7,7 @@ module Api
 
       def index
         @training_sessions = current_user.training_sessions
-          .includes(:sport_details)
+          .includes(sport_details: :exercises)
           .then { |scope| apply_date_range(scope) }
           .order(session_date: :desc, session_time: :desc)
 
@@ -18,7 +18,11 @@ module Api
         training_session = current_user.training_sessions.find(params[:id])
         training_session.assign_attributes(update_params.except(:sport_details))
         # Pass in the existing sport_details_type so that the update action cannot mutate it
-        training_session.sport_details.assign_attributes(update_sport_details(update_params, training_session.sport_details_type))
+        sport_details = update_sport_details(update_params, training_session.sport_details_type)
+        training_session.sport_details.assign_attributes(sport_details.except(:exercises))
+        if training_session.sport_details_type == "StrengthTrainingSession"
+          training_session.sport_details.sync_exercises(sport_details[:exercises])
+        end
         training_session.save!
         render json: training_session, serializer: TrainingSessionSerializer
       end
@@ -154,7 +158,9 @@ module Api
         when "cross_training"
           CrossTrainingSession.new(cross_training_create_params(params).except(:kind))
         when "strength_training"
-          StrengthTrainingSession.new(strength_training_create_params(params).except(:kind))
+          details = StrengthTrainingSession.new(strength_training_create_params(params).except(:kind, :exercises))
+          details.sync_exercises(strength_training_create_params(params)[:exercises])
+          details
         else
           training_session.errors.add(:"sport_details/kind", "Unknown sport kind: #{params[:sport_details][:kind]}")
           raise ActiveRecord::RecordInvalid, training_session
