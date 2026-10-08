@@ -5,7 +5,7 @@ FactoryBot.define do
     sets { 1 }
     reps { 6 }
     weight { 100 }
-    weight_units { "lbs" }
+    weight_unit { "lbs" }
     bodyweight { false }
     position { 1 }
 
@@ -14,13 +14,13 @@ FactoryBot.define do
     end
 
     trait :weight_in_kg do
-      weight_units { "kg" }
+      weight_unit { "kg" }
     end
 
     trait :bodyweight do
       bodyweight { true }
       weight { nil }
-      weight_units { nil }
+      weight_unit { nil }
     end
   end
 end

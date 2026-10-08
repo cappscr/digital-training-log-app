@@ -17,8 +17,8 @@ FactoryBot.define do
 
     trait :mixed_weight_units do
       exercises { [
-        build(:strength_training_exercise, weight_units: "lbs"),
-        build(:strength_training_exercise, weight_units: "kg")
+        build(:strength_training_exercise, weight_unit: "lbs"),
+        build(:strength_training_exercise, weight_unit: "kg")
       ] }
     end
   end
