@@ -12,6 +12,43 @@ RSpec.describe "Strength Training Sessions", type: :request do
         response.parsed_body["access_token"]
       end
 
+      context "with invalid params" do
+        it "returns a 422 status code" do
+          expect {
+            post api_v1_training_sessions_path, params: { training_session: {
+              session_date: Date.today,
+              location_type: "indoor",
+              sport_details: {
+                kind: "strength_training",
+                average_heart_rate: 0,
+                exercises: [
+                  {
+                    sets: 0,
+                    reps: 0,
+                    weight: 0,
+                    weight_unit: "invalid",
+                    bodyweight: "",
+                  }
+                ]
+              }
+            } },
+            headers: auth_headers
+          }.to change(TrainingSession, :count).by(0)
+          expect(response).to have_http_status(:unprocessable_content)
+
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body["errors"]).to include(
+            { "pointer" => "#/training_session/sport_details/average_heart_rate", "detail" => "Must be greater than 0" },
+            { "pointer" => "#/training_session/sport_details/exercises/0/name", "detail" => "Can't be blank" },
+            { "pointer" => "#/training_session/sport_details/exercises/0/sets", "detail" => "Must be greater than 0" },
+            { "pointer" => "#/training_session/sport_details/exercises/0/reps", "detail" => "Must be greater than 0" },
+            { "pointer" => "#/training_session/sport_details/exercises/0/weight", "detail" => "Must be greater than 0" },
+            { "pointer" => "#/training_session/sport_details/exercises/0/weight_unit", "detail" => "Is not included in the list" },
+            { "pointer" => "#/training_session/sport_details/exercises/0/bodyweight", "detail" => "Is not included in the list" }
+          )
+        end
+      end
+
       context "with valid parameters" do
         it "creates a new strength training session" do
           expect {
@@ -61,6 +98,43 @@ RSpec.describe "Strength Training Sessions", type: :request do
             "bodyweight" => false,
             "position" => 1
           )
+        end
+
+        it "returns a nil volume load unit if the exercises have different weight units" do
+          expect {
+            post api_v1_training_sessions_path, params: { training_session: {
+              session_date: Date.today,
+              location_type: "indoor",
+              sport_details: {
+                kind: "strength_training",
+                exercises: [
+                  {
+                    name: "Bench Press",
+                    sets: 1,
+                    reps: 10,
+                    weight: 100,
+                    weight_unit: "lbs",
+                    bodyweight: false,
+                    position: 1
+                  },
+                  {
+                    name: "Bench Press",
+                    sets: 2,
+                    reps: 10,
+                    weight: 50,
+                    weight_unit: "kg",
+                    bodyweight: false,
+                    position: 2
+                  }
+                ]
+              }
+            } },
+            headers: auth_headers
+          }.to change(TrainingSession, :count).by(1)
+          expect(response).to have_http_status(:created)
+
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body["training_session"]["sport_details"]["volume_load_unit"]).to be_nil
         end
       end
     end
