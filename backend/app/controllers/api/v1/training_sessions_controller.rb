@@ -84,14 +84,14 @@ module Api
               :elevation_gain,
               :elevation_unit,
               :average_cadence,
-              :average_heart_rate
+              :average_heart_rate,
               exercises: [[
                 :id,
                 :name,
                 :sets,
                 :reps,
                 :weight,
-                :weight_units,
+                :weight_unit,
                 :bodyweight,
                 :position
               ]]
@@ -142,7 +142,7 @@ module Api
               :sets,
               :reps,
               :weight,
-              :weight_units,
+              :weight_unit,
               :bodyweight,
               :position
             ]]
@@ -182,14 +182,14 @@ module Api
               :elevation_gain,
               :elevation_unit,
               :average_cadence,
-              :average_heart_rate
+              :average_heart_rate,
               exercises: [[
                 :id,
                 :name,
                 :sets,
                 :reps,
                 :weight,
-                :weight_units,
+                :weight_unit,
                 :bodyweight,
                 :position
               ]]
@@ -227,14 +227,14 @@ module Api
       def strength_training_update_params(root)
         root.expect(
           sport_details: [
-            :average_heart_rate
+            :average_heart_rate,
             exercises: [[
               :id,
               :name,
               :sets,
               :reps,
               :weight,
-              :weight_units,
+              :weight_unit,
               :bodyweight,
               :position
             ]]

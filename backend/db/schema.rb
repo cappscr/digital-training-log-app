@@ -55,7 +55,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_094548) do
     t.integer "sets", null: false
     t.integer "reps", null: false
     t.decimal "weight", precision: 6, scale: 1
-    t.string "weight_units"
+    t.string "weight_unit"
     t.boolean "bodyweight", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

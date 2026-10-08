@@ -20,10 +20,10 @@ class StrengthTrainingSession < ApplicationRecord
   end
 
   # Returns the units of the volume load.
-  def volume_load_units
+  def volume_load_unit
     return nil unless exercises_all_in_same_units?
-    exercises_weight_units = exercises.filter_map(&:weight_units)
-    exercises_weight_units.first
+    exercises_weight_unit = exercises.filter_map(&:weight_unit)
+    exercises_weight_unit.first
   end
 
   # Syncs the exercises with the session.
@@ -74,7 +74,7 @@ class StrengthTrainingSession < ApplicationRecord
 
   # Returns true if all non-bodyweight exercises have the same weight units.
   def exercises_all_in_same_units?
-    exercises_weight_units = exercises.filter_map(&:weight_units)
-    exercises_weight_units.any? && exercises_weight_units.uniq.length == 1
+    exercises_weight_unit = exercises.filter_map(&:weight_unit)
+    exercises_weight_unit.any? && exercises_weight_unit.uniq.length == 1
   end
 end

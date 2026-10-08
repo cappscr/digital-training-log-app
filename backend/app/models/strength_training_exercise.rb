@@ -4,7 +4,7 @@ class StrengthTrainingExercise < ApplicationRecord
              foreign_key: :strength_training_session_id,
              inverse_of: :exercises
 
-  enum :weight_units, {
+  enum :weight_unit, {
     lbs: "lbs",
     kg: "kg"
   }, validate: { allow_nil: true }, prefix: :weight_in
@@ -15,7 +15,7 @@ class StrengthTrainingExercise < ApplicationRecord
   validates :sets, numericality: { only_integer: true, greater_than: 0 }
   validates :reps, numericality: { only_integer: true, greater_than: 0 }
   validates :weight, numericality: { greater_than: 0 }, allow_nil: true
-  validates :weight_units, presence: true, if: -> { weight.present? }
+  validates :weight_unit, presence: true, if: -> { weight.present? }
   validates :bodyweight, inclusion: { in: [true, false] }
   validates :position, numericality: { only_integer: true, greater_than: 0 }
   validate :has_weight_or_bodyweight?
@@ -24,7 +24,7 @@ class StrengthTrainingExercise < ApplicationRecord
   private
 
   def has_weight_or_bodyweight?
-    return if weight.present? && weight_units.present? || bodyweight
+    return if weight.present? && weight_unit.present? || bodyweight
 
     errors.add(:base, "Either weight or bodyweight must be present")
   end

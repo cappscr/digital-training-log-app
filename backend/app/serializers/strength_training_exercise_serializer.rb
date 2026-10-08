@@ -1,5 +1,5 @@
 class StrengthTrainingExerciseSerializer < ActiveModel::Serializer
-  attributes :id, :name, :sets, :reps, :weight, :weight_units, :bodyweight, :position
+  attributes :id, :name, :sets, :reps, :weight, :weight_unit, :bodyweight, :position
 
   def weight
     object.weight&.to_f
