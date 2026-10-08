@@ -101,8 +101,7 @@ All three of these are valid:
 | `bodyweight` | `weight` + units | Meaning |
 | --- | --- | --- |
 | `true` | absent | Bodyweight-only (push-ups, unweighted pull-ups) |
-| `false` | present | External load only (barbell squat) |
-| `true` | present | Bodyweight movement plus load (weighted pull-up, vest) |
+| `false` | present | Includes an external load (barbell squat) |
 
 Invalid: `bodyweight: false` and no weight. Invalid: weight without units, or units without weight.
 
