@@ -16,6 +16,13 @@ RSpec.describe StrengthTrainingSession, type: :model do
       expect(strength_training_session).to be_invalid
       expect(strength_training_session.errors[:"exercises/0/name"]).to include("can't be blank")
     end
+
+    it "is invalid with no exercises" do
+      strength_training_session = build(:strength_training_session, with_exercises: false)
+
+      expect(strength_training_session).to be_invalid
+      expect(strength_training_session.errors[:exercises]).to include("must have at least one exercise")
+    end
   end
 
   describe "valid record" do
@@ -57,20 +64,26 @@ RSpec.describe StrengthTrainingSession, type: :model do
 
   describe "volume load" do
     it "returns the volume load of the session" do
-      three_squat_sets = create(:strength_training_exercise, :multiple_sets)
-      expect(three_squat_sets.session.volume_load).to eq(1800.0)
-      expect(three_squat_sets.session.volume_load_units).to eq("lbs")
+      three_squat_set_session = create(:strength_training_session, exercises: [
+        build(:strength_training_exercise, :multiple_sets, session: nil)
+      ])
+
+      expect(three_squat_set_session.volume_load).to eq(1800.0)
+      expect(three_squat_set_session.volume_load_unit).to eq("lbs")
     end
 
     it "returns volume load units that matches the weight units of the exercises" do
-      three_squat_sets_in_kg = create(:strength_training_exercise, :multiple_sets, :weight_in_kg)
-      expect(three_squat_sets_in_kg.session.volume_load).to eq(1800.0)
-      expect(three_squat_sets_in_kg.session.volume_load_units).to eq("kg")
+      three_squat_set_in_kg_session = create(:strength_training_session, exercises: [
+        build(:strength_training_exercise, :multiple_sets, :weight_in_kg, session: nil)
+      ])
+
+      expect(three_squat_set_in_kg_session.volume_load).to eq(1800.0)
+      expect(three_squat_set_in_kg_session.volume_load_unit).to eq("kg")
     end
 
     it "returns nil for the volume load units if the exercises have different weight units" do
       mixed_weight_units_session = create(:strength_training_session, :mixed_weight_units)
-      expect(mixed_weight_units_session.volume_load_units).to be_nil
+      expect(mixed_weight_units_session.volume_load_unit).to be_nil
     end
   end
 end

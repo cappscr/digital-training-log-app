@@ -9,6 +9,7 @@ class StrengthTrainingSession < ApplicationRecord
 
   validates :average_heart_rate, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
   validate :exercises_must_be_valid
+  validate :at_least_one_exercise
 
   # Returns the volume load of the session.
   def volume_load
@@ -54,6 +55,13 @@ class StrengthTrainingSession < ApplicationRecord
   end
 
   private
+  # Validates that there is at least one exercise.
+  def at_least_one_exercise
+    return if exercises.length > 0
+
+    errors.add(:exercises, "must have at least one exercise")
+  end
+
   # Validates that all exercises are valid.
   def exercises_must_be_valid
     exercises.each_with_index do |exercise, index|
