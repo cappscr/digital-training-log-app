@@ -23,6 +23,16 @@ RSpec.describe StrengthTrainingSession, type: :model do
       expect(strength_training_session).to be_invalid
       expect(strength_training_session.errors[:exercises]).to include("must have at least one exercise")
     end
+
+    it "is invalid with two exercises in the same position" do
+      strength_training_session = build(:strength_training_session)
+      strength_training_session.exercises = [
+        build(:strength_training_exercise, session: strength_training_session, position: 1),
+        build(:strength_training_exercise, session: strength_training_session, position: 1),
+      ]
+      expect(strength_training_session).to be_invalid
+      expect(strength_training_session.errors[:exercises]).to include("must have unique positions")
+    end
   end
 
   describe "valid record" do

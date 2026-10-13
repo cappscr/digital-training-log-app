@@ -10,6 +10,7 @@ class StrengthTrainingSession < ApplicationRecord
   validates :average_heart_rate, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
   validate :exercises_must_be_valid
   validate :at_least_one_exercise
+  validate :no_exercises_in_same_position
 
   # Returns the volume load of the session.
   def volume_load
@@ -60,6 +61,13 @@ class StrengthTrainingSession < ApplicationRecord
     return if exercises.length > 0
 
     errors.add(:exercises, "must have at least one exercise")
+  end
+
+  # Validates that there are no exercises in the same position.
+  def no_exercises_in_same_position
+    return if exercises.map(&:position).uniq.size == exercises.size
+
+    errors.add(:exercises, "must have unique positions")
   end
 
   # Validates that all exercises are valid.

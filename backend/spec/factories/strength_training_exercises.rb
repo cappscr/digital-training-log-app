@@ -7,7 +7,7 @@ FactoryBot.define do
     weight { 100 }
     weight_unit { "lbs" }
     bodyweight { false }
-    position { 1 }
+    sequence(:position) { |n| n }
 
     trait :multiple_sets do
       sets { 3 }
