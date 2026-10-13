@@ -70,6 +70,14 @@ RSpec.describe StrengthTrainingSession, type: :model do
       expect(association.macro).to eq(:has_many)
       expect(association.options[:dependent]).to eq(:destroy)
     end
+
+    it "returns the exercises in the correct order" do
+      session = create(:strength_training_session, exercises: [
+        build(:strength_training_exercise, session: nil, position: 2),
+        build(:strength_training_exercise, session: nil, position: 1),
+      ])
+      expect(session.exercises.reload.map(&:position)).to eq([1, 2])
+    end
   end
 
   describe "volume load" do
@@ -91,9 +99,19 @@ RSpec.describe StrengthTrainingSession, type: :model do
       expect(three_squat_set_in_kg_session.volume_load_unit).to eq("kg")
     end
 
-    it "returns nil for the volume load units if the exercises have different weight units" do
+    it "returns nil for the volume load and volume load unit if the exercises have different weight units" do
       mixed_weight_units_session = create(:strength_training_session, :mixed_weight_units)
+      expect(mixed_weight_units_session.volume_load).to be_nil
       expect(mixed_weight_units_session.volume_load_unit).to be_nil
+    end
+
+    it "does not factor in bodyweight exercises to the volume load" do
+      session_with_bodyweight_exercise = create(:strength_training_session, exercises: [
+        build(:strength_training_exercise, :multiple_sets, session: nil),
+        build(:strength_training_exercise, :bodyweight, session: nil)
+      ])
+      expect(session_with_bodyweight_exercise.volume_load).to eq(1800.0)
+      expect(session_with_bodyweight_exercise.volume_load_unit).to eq("lbs")
     end
   end
 end
