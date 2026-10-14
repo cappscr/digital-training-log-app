@@ -17,7 +17,7 @@ class StrengthTrainingExercise < ApplicationRecord
   validates :weight, numericality: { greater_than: 0 }, allow_nil: true
   validates :weight, presence: true, if: -> { weight_unit.present? }
   validates :weight_unit, presence: true, if: -> { weight.present? }
-  validates :bodyweight, inclusion: { in: [true, false] }
+  validates :bodyweight, inclusion: { in: [ true, false ] }
   validates :position, numericality: { only_integer: true, greater_than: 0 }
   validate :has_weight_or_bodyweight?
   validate :does_not_have_weight_and_bodyweight?

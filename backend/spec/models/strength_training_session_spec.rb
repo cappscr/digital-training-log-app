@@ -11,7 +11,7 @@ RSpec.describe StrengthTrainingSession, type: :model do
     it "is invalid with exercises that are invalid" do
       strength_training_session = build(:strength_training_session)
       strength_training_session.exercises = [
-        build(:strength_training_exercise, session: strength_training_session, name: nil),
+        build(:strength_training_exercise, session: strength_training_session, name: nil)
       ]
       expect(strength_training_session).to be_invalid
       expect(strength_training_session.errors[:"exercises/0/name"]).to include("can't be blank")
@@ -28,7 +28,7 @@ RSpec.describe StrengthTrainingSession, type: :model do
       strength_training_session = build(:strength_training_session)
       strength_training_session.exercises = [
         build(:strength_training_exercise, session: strength_training_session, position: 1),
-        build(:strength_training_exercise, session: strength_training_session, position: 1),
+        build(:strength_training_exercise, session: strength_training_session, position: 1)
       ]
       expect(strength_training_session).to be_invalid
       expect(strength_training_session.errors[:exercises]).to include("must have unique positions")
@@ -74,9 +74,9 @@ RSpec.describe StrengthTrainingSession, type: :model do
     it "returns the exercises in the correct order" do
       session = create(:strength_training_session, exercises: [
         build(:strength_training_exercise, session: nil, position: 2),
-        build(:strength_training_exercise, session: nil, position: 1),
+        build(:strength_training_exercise, session: nil, position: 1)
       ])
-      expect(session.exercises.reload.map(&:position)).to eq([1, 2])
+      expect(session.exercises.reload.map(&:position)).to eq([ 1, 2 ])
     end
   end
 

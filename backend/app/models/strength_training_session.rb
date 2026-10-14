@@ -1,7 +1,7 @@
 class StrengthTrainingSession < ApplicationRecord
   include TrainingSessionable
 
-  has_many :exercises, -> { order(:position)},
+  has_many :exercises, -> { order(:position) },
            class_name: "StrengthTrainingExercise",
            inverse_of: :session,
            dependent: :destroy,

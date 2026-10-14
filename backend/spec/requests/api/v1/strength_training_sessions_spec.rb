@@ -27,7 +27,7 @@ RSpec.describe "Strength Training Sessions", type: :request do
                     reps: 0,
                     weight: 0,
                     weight_unit: "invalid",
-                    bodyweight: "",
+                    bodyweight: ""
                   }
                 ]
               }
@@ -55,7 +55,7 @@ RSpec.describe "Strength Training Sessions", type: :request do
                 session_date: Date.today,
                 location_type: "indoor",
                 sport_details: {
-                  kind: "strength_training",
+                  kind: "strength_training"
                 }
               } },
               headers: auth_headers
@@ -84,7 +84,7 @@ RSpec.describe "Strength Training Sessions", type: :request do
                       reps: 3,
                       weight: 100,
                       weight_unit: "lbs",
-                      bodyweight: true,
+                      bodyweight: true
                     }
                   ]
                 }
@@ -275,7 +275,7 @@ RSpec.describe "Strength Training Sessions", type: :request do
     let!(:session) { create(:training_session, user: user, sport_details:
       build(:strength_training_session, exercises: [
         build(:strength_training_exercise, name: "Bench Press", position: 1),
-        build(:strength_training_exercise, name: "Deadlift", position: 2),
+        build(:strength_training_exercise, name: "Deadlift", position: 2)
       ])
     ) }
     let!(:other_user) { create(:user, :activated, email: "other@example.com") }
@@ -291,7 +291,7 @@ RSpec.describe "Strength Training Sessions", type: :request do
       it "replaces the exercise list" do
         kept = session.sport_details.exercises.find_by!(name: "Bench Press")
         removed = session.sport_details.exercises.find_by!(name: "Deadlift")
-      
+
         put api_v1_training_session_path(session.id), params: { training_session: {
           sport_details: {
             exercises: [
@@ -322,14 +322,14 @@ RSpec.describe "Strength Training Sessions", type: :request do
         } }, headers: auth_headers
 
         expect(response).to have_http_status(:ok)
-      
+
         exercises = JSON.parse(response.body).dig("training_session", "sport_details", "exercises")
         expect(exercises).to contain_exactly(
           a_hash_including("name" => "Pull-Ups", "position" => 1),
           a_hash_including("id" => kept.id, "name" => "Back Squat", "position" => 2)
         )
         expect(exercises.map { |exercise| exercise["id"] }).not_to include(removed.id)
-        expect(session.sport_details.exercises.reload.map(&:position)).to eq([1, 2])
+        expect(session.sport_details.exercises.reload.map(&:position)).to eq([ 1, 2 ])
       end
 
       it "does not update strength training sessions for other users" do

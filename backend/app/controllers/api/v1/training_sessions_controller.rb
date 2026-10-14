@@ -85,7 +85,7 @@ module Api
               :elevation_unit,
               :average_cadence,
               :average_heart_rate,
-              exercises: [[
+              exercises: [ [
                 :id,
                 :name,
                 :sets,
@@ -94,7 +94,7 @@ module Api
                 :weight_unit,
                 :bodyweight,
                 :position
-              ]]
+              ] ]
             ]
           ]
         )
@@ -136,7 +136,7 @@ module Api
             :id,
             :kind,
             :average_heart_rate,
-            exercises: [[
+            exercises: [ [
               :id,
               :name,
               :sets,
@@ -145,7 +145,7 @@ module Api
               :weight_unit,
               :bodyweight,
               :position
-            ]]
+            ] ]
           ]
         )
       end
@@ -183,7 +183,7 @@ module Api
               :elevation_unit,
               :average_cadence,
               :average_heart_rate,
-              exercises: [[
+              exercises: [ [
                 :id,
                 :name,
                 :sets,
@@ -192,7 +192,7 @@ module Api
                 :weight_unit,
                 :bodyweight,
                 :position
-              ]]
+              ] ]
             ]
           ]
         )
@@ -228,7 +228,7 @@ module Api
         root.expect(
           sport_details: [
             :average_heart_rate,
-            exercises: [[
+            exercises: [ [
               :id,
               :name,
               :sets,
@@ -237,7 +237,7 @@ module Api
               :weight_unit,
               :bodyweight,
               :position
-            ]]
+            ] ]
           ]
         )
       end
