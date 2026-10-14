@@ -76,7 +76,11 @@ RSpec.describe StrengthTrainingExercise, type: :model do
     end
 
     it "can be persisted" do
-      strength_training_exercise = create(:strength_training_exercise)
+      strength_training_session = create(:strength_training_session, exercises: [
+        build(:strength_training_exercise, session: nil)
+      ])
+      strength_training_exercise = strength_training_session.exercises.first
+
       expect(strength_training_exercise).to be_persisted
       expect(strength_training_exercise.session).to be_present
     end

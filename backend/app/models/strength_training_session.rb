@@ -61,7 +61,7 @@ class StrengthTrainingSession < ApplicationRecord
 
   # Validates that there is at least one exercise.
   def at_least_one_exercise
-    return if exercises.length > 0
+    return if active_exercises.length > 0
 
     errors.add(:exercises, "must have at least one exercise")
   end
