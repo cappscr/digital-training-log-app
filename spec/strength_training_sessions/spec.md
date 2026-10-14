@@ -27,7 +27,7 @@ A signed-in user can:
 1. Choose **Strength Training** when logging a new training session.
 2. Enter shared session fields. Duration is optional. Indoor/outdoor defaults to **indoor** on the form (DB default stays `outdoor`; do not migrate it).
 3. Optionally enter average heart rate on the strength session.
-4. Add one or more exercises: name, sets, reps, and either bodyweight, external weight (+ unit), or both.
+4. Add one or more exercises: name, sets, reps, and either bodyweight or external weight (+ unit).
 5. See exercises persist in the order they appear in the form; the API stores that order explicitly.
 6. See strength sessions in the training sessions list with a distinct icon, title, and volume (when computable).
 7. Edit exercises (add, change, reorder via form order, remove) and edit/delete their own strength sessions.
@@ -101,9 +101,9 @@ All three of these are valid:
 | `bodyweight` | `weight` + units | Meaning |
 | --- | --- | --- |
 | `true` | absent | Bodyweight-only (push-ups, unweighted pull-ups) |
-| `false` | present | Includes an external load (barbell squat) |
+| `false` | present | Includes any external load (barbell squat) |
 
-Invalid: `bodyweight: false` and no weight. Invalid: weight without units, or units without weight.
+Invalid: `bodyweight: true` and `weight`. Invalid: `bodyweight: false` and no weight. Invalid: weight without units, or units without weight.
 
 A **session** may mix bodyweight-only and weighted exercises. That is what the intent means by “an exercise can have both bodyweight and weighted sets in the same session.” One named movement done both ways is two rows (e.g. Pull-Ups bodyweight + Pull-Ups weighted), not a richer set schema.
 
@@ -126,7 +126,7 @@ Session volume is derived, never a column.
 volume = Σ (sets × reps × weight)
 ```
 
-for exercises that have a `weight`. Bodyweight-only rows (no weight) are omitted. A bodyweight+weight row counts **external load only** (not body mass).
+for exercises that have a `weight`. Bodyweight-only rows (no weight) are omitted.
 
 If those weighted rows do not all share the same `weight_units`, do **not** emit a single total (no lbs↔kg conversion). Serializer then omits `volume_load` / `volume_unit` (or returns them null).
 
@@ -340,7 +340,7 @@ Discriminate on `sport_details_type`. `formatSportName` currently defaults to `"
    - Per exercise: name (trim, 1–100), sets/reps integers > 0, `bodyweight` boolean, weight optional positive with 1 decimal refine, `weight_units` required iff weight present, refine bodyweight-or-weight.
 3. `StrengthFields` + `useFieldArray`: add exercise, remove exercise (keep at least one row in the UI, or allow zero rows and let Zod fail).
 4. Exercise name: reuse the CT autocomplete pattern (`CrossTrainingActivityField` as a model; new `StrengthExerciseNameField` with the suggestion list).
-5. Weight row: checkbox or toggle for bodyweight; number + unit (`lbs` / `kg`) when they enter load. Both can be set.
+5. Weight row: checkbox or toggle for bodyweight; number + unit (`lbs` / `kg`) when they enter load. Toggling bodyweight hides inputs for weight + unit.
 6. Conditional panels: `{sport === 'strength_training' && <StrengthFields />}`. Hide distance, pace, elevation, cadence, activity.
 7. Submit: `kind: 'strength_training'`; mint UUIDs for the session, sport details, and each new exercise; send `position` from array index + 1; `weight: null` when cleared.
 8. Edit: prefill exercises sorted by `position`; sport selector disabled.
@@ -384,7 +384,7 @@ Factories: keep `:strength_training` on `TrainingSession` (already sets `locatio
 
 ### Backend
 
-- Exercise model: name/sets/reps; weight 1 decimal; units iff weight; bodyweight-only; weighted-only; bodyweight+weight; invalid neither; position uniqueness per session.
+- Exercise model: name/sets/reps; weight 1 decimal; units if weight; bodyweight-only; weighted-only; invalid neither; position uniqueness per session.
 - Session model: HR bounds; at least one exercise; volume omits bodyweight-only; volume nil when units mixed; exercises destroyed with session; ordered by position.
 - Request: create strength happy path; create with zero exercises → 422; create unknown kind still 422; index includes strength for current user only; show/update/destroy ownership 404; update replaces exercise list (add/remove/reorder); update cannot change kind; nested error pointer for invalid exercise.
 - Serializer: exercises + volume fields.
@@ -442,7 +442,7 @@ The CT “out of scope” bullet that deferred Supplementary to strength is done
 
 1. **API kind** is `strength_training`, not `strength`.
 2. **At least one exercise** is required in API and UI.
-3. **Mixed load** is per session (and optionally on one row: bodyweight + weight). Not a per-set schema.
+3. **Mixed load** is per session. Not a per-set schema.
 4. **Volume** uses external weight only; mixed units → no combined total.
 5. **Exercise sync on PUT** is replace-by-full-list (destroy omitted ids).
 6. **HR** stays on `StrengthTrainingSession` for this slice.
