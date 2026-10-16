@@ -5,7 +5,26 @@ import { toISODateString } from '@/lib/utils';
 
 type LocationType = 'outdoor' | 'indoor';
 export type SportDetailsType =
-  'RunningTrainingSession' | 'CrossTrainingSession';
+  'RunningTrainingSession' | 'CrossTrainingSession' | 'StrengthTrainingSession';
+
+export type StrengthTrainingExercise = {
+  id: string;
+  name: string;
+  sets: number;
+  reps: number;
+  bodyweight: boolean;
+  weight: number | null;
+  weight_unit: 'lbs' | 'kg' | null;
+  position: number;
+};
+
+export type StrengthTrainingSession = {
+  id: string;
+  average_heart_rate: number | null;
+  volume_load: number | null;
+  volume_load_unit: 'lbs' | 'kg' | null;
+  exercises: StrengthTrainingExercise[];
+};
 
 export type CrossTrainingSession = {
   id: string;
@@ -43,6 +62,10 @@ export type TrainingSession = {
   | {
       sport_details_type: 'CrossTrainingSession';
       sport_details: CrossTrainingSession;
+    }
+  | {
+      sport_details_type: 'StrengthTrainingSession';
+      sport_details: StrengthTrainingSession;
     }
 );
 
