@@ -55,11 +55,11 @@ Out of scope for this slice:
 | --- | --- |
 | `TrainingSession` | Ownership (`user`), `session_date`, `session_time`, `duration_seconds` (optional), `location_type`, `notes`, weather association |
 | `StrengthTrainingSession` | Optional `average_heart_rate`; `has_many :exercises` |
-| `StrengthTrainingExercise` | `name`, `sets`, `reps`, `bodyweight`, `weight`, `weight_units`, `position` |
+| `StrengthTrainingExercise` | `name`, `sets`, `reps`, `bodyweight`, `weight`, `weight_unit`, `position` |
 
 `strength_training_sessions` currently has only timestamps. Add `average_heart_rate` (nullable integer).
 
-`strength_training_exercises` already has name/sets/reps/weight/weight_units/bodyweight. Changes:
+`strength_training_exercises` already has name/sets/reps/weight/weight_unit/bodyweight. Changes:
 
 - Add `position` (integer, not null) — explicit order, unique per session.
 - Change `weight` from integer to decimal with **1 decimal place** (e.g. `precision: 6, scale: 1`).
@@ -86,7 +86,7 @@ Out of scope for this slice:
 | `reps` | Yes | Integer > 0. |
 | `bodyweight` | Yes | Boolean, default `false`. |
 | `weight` | Conditional | Positive decimal; at most 1 decimal place. |
-| `weight_units` | If weight present | `lbs` \| `kg`. Existing enum (`prefix: :weight_in`). Use `validate: { allow_nil: true }` so nil is allowed when there is no weight. |
+| `weight_unit` | If weight present | `lbs` \| `kg`. Existing enum (`prefix: :weight_in`). Use `validate: { allow_nil: true }` so nil is allowed when there is no weight. |
 | `position` | Yes (persisted) | Integer ≥ 1. Unique per `strength_training_session_id`. |
 
 ### Load rules (bodyweight vs weight)
@@ -94,7 +94,7 @@ Out of scope for this slice:
 Per exercise, **at least one** of the following must be true:
 
 1. `bodyweight` is `true`, or
-2. `weight` and `weight_units` are both present.
+2. `weight` and `weight_unit` are both present.
 
 All three of these are valid:
 
@@ -128,13 +128,13 @@ volume = Σ (sets × reps × weight)
 
 for exercises that have a `weight`. Bodyweight-only rows (no weight) are omitted.
 
-If those weighted rows do not all share the same `weight_units`, do **not** emit a single total (no lbs↔kg conversion). Serializer then omits `volume_load` / `volume_unit` (or returns them null).
+If those weighted rows do not all share the same `weight_unit`, do **not** emit a single total (no lbs↔kg conversion). Serializer then omits `volume_load` / `volume_load_unit` (or returns them null).
 
 When computable:
 
 ```json
 "volume_load": 1230.0,
-"volume_unit": "lbs"
+"volume_load_unit": "lbs"
 ```
 
 ### Validations (summary)
@@ -151,7 +151,7 @@ When computable:
 1. `name` presence, max 100, strip before validate.
 2. `sets` / `reps` integers > 0.
 3. `weight` > 0 when present; at most 1 decimal place.
-4. `weight_units` present iff `weight` present; inclusion `lbs` / `kg`.
+4. `weight_unit` present iff `weight` present; inclusion `lbs` / `kg`.
 5. Bodyweight-or-weight rule above (`validate` on the model).
 6. `position` integer ≥ 1; uniqueness scoped to `strength_training_session_id`.
 
@@ -238,7 +238,7 @@ Create example:
           "reps": 6,
           "bodyweight": false,
           "weight": 185.5,
-          "weight_units": "lbs",
+          "weight_unit": "lbs",
           "position": 2
         }
       ]
@@ -262,7 +262,7 @@ Do not use a separate exercises resource in this slice. Add/remove happens insid
 
 ```ruby
 exercises: [[
-  :id, :name, :sets, :reps, :bodyweight, :weight, :weight_units, :position
+  :id, :name, :sets, :reps, :bodyweight, :weight, :weight_unit, :position
 ]]
 ```
 
@@ -272,11 +272,11 @@ Kind-aware permit lists: running/CT params must not be required on strength; str
 
 Add `StrengthTrainingSessionSerializer`:
 
-- `id`, `average_heart_rate`, `volume_load`, `volume_unit`, `exercises`, `created_at`, `updated_at`
+- `id`, `average_heart_rate`, `volume_load`, `volume_load_unit`, `exercises`, `created_at`, `updated_at`
 
 `StrengthTrainingExerciseSerializer` (or inline in the parent):
 
-- `id`, `name`, `sets`, `reps`, `bodyweight`, `weight` (float / decimal), `weight_units`, `position`
+- `id`, `name`, `sets`, `reps`, `bodyweight`, `weight` (float / decimal), `weight_unit`, `position`
 
 Parent `TrainingSessionSerializer` already constantizes `"#{sport_details.class}Serializer"`. `sport_details_type` will be `"StrengthTrainingSession"`.
 
@@ -310,7 +310,7 @@ type StrengthTrainingExercise = {
   reps: number;
   bodyweight: boolean;
   weight: number | null;
-  weight_units: 'lbs' | 'kg' | null;
+  weight_unit: 'lbs' | 'kg' | null;
   position: number;
 };
 
@@ -318,7 +318,7 @@ type StrengthTrainingSession = {
   id: string;
   average_heart_rate: number | null;
   volume_load: number | null;
-  volume_unit: 'lbs' | 'kg' | null;
+  volume_load_unit: 'lbs' | 'kg' | null;
   exercises: StrengthTrainingExercise[];
 };
 
@@ -337,7 +337,7 @@ Discriminate on `sport_details_type`. `formatSportName` currently defaults to `"
    - Shared date/time/notes/duration (duration optional; **no** duration-or-distance refine).
    - `average_heart_rate` optional, positive integer.
    - `exercises`: array min 1.
-   - Per exercise: name (trim, 1–100), sets/reps integers > 0, `bodyweight` boolean, weight optional positive with 1 decimal refine, `weight_units` required iff weight present, refine bodyweight-or-weight.
+   - Per exercise: name (trim, 1–100), sets/reps integers > 0, `bodyweight` boolean, weight optional positive with 1 decimal refine, `weight_unit` required iff weight present, refine bodyweight-or-weight.
 3. `StrengthFields` + `useFieldArray`: add exercise, remove exercise (keep at least one row in the UI, or allow zero rows and let Zod fail).
 4. Exercise name: reuse the CT autocomplete pattern (`CrossTrainingActivityField` as a model; new `StrengthExerciseNameField` with the suggestion list).
 5. Weight row: checkbox or toggle for bodyweight; number + unit (`lbs` / `kg`) when they enter load. Toggling bodyweight hides inputs for weight + unit.
@@ -353,7 +353,7 @@ Discriminate on `sport_details_type`. `formatSportName` currently defaults to `"
 
 1. Icon: `Dumbbell` in the existing circular badge (`TrainingSessionSportIcon`). Do not reuse `SportShoe` or CT `Activity`.
 2. Title: `Indoor Strength Training` / `Outdoor Strength Training` via `getTrainingSessionTitle` + `formatSportName` (no activity string).
-3. Numeric column: `volume_load` + `volume_unit` when present; else duration; if both, volume primary and duration secondary.
+3. Numeric column: `volume_load` + `volume_load_unit` when present; else duration; if both, volume primary and duration secondary.
 4. Metric chips: HR when present. No elevation/cadence. Optional tertiary: exercise count (not required).
 5. Edit/delete unchanged.
 
