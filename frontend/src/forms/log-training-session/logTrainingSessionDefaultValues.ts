@@ -1,6 +1,7 @@
 import {
   type CrossTrainingSession,
   type RunningTrainingSession,
+  type StrengthTrainingSession,
   type TrainingSession,
 } from '@/hooks/useTrainingSessions';
 import type { LogTrainingSessionFormValues } from './logTrainingSessionSchemas';
@@ -42,6 +43,16 @@ export const defaultValuesFromSession = (
     };
   }
 
+  if (session.sport_details_type === 'StrengthTrainingSession') {
+    const d = session.sport_details as StrengthTrainingSession;
+    return {
+      ...shared,
+      type: 'strength_training',
+      average_heart_rate: d.average_heart_rate ?? undefined,
+      exercises: d.exercises,
+    };
+  }
+
   const d = session.sport_details as RunningTrainingSession;
   return {
     ...shared,
@@ -69,6 +80,13 @@ export const defaultsForSport = (type: string) => {
         ...shared,
         type: 'cross_training',
         activity: '',
+      };
+    case 'strength_training':
+      return {
+        ...shared,
+        type: 'strength_training',
+        average_heart_rate: undefined,
+        exercises: [],
       };
     case 'running':
       return { ...shared, type: 'running', average_cadence: undefined };

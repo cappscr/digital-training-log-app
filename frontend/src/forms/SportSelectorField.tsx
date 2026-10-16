@@ -20,12 +20,12 @@ import {
   SelectItem,
 } from '@/components/ui/select';
 
-const SPORT_KINDS = ['running', 'cross_training'];
+const SPORT_KINDS = ['running', 'cross_training', 'strength_training'];
 export type SportKind = (typeof SPORT_KINDS)[number];
 
 const typeOptions: { label: string; value: SportKind }[] = [
   { label: 'Running', value: 'running' },
-  /*{ label: 'Strength Training', value: 'strength' },*/
+  { label: 'Strength Training', value: 'strength_training' },
   { label: 'Cross Training', value: 'cross_training' },
 ];
 

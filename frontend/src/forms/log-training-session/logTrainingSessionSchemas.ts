@@ -94,9 +94,25 @@ const crossTrainingSchema = shared
     },
   );
 
+const strengthTrainingSchema = shared.extend({
+  type: z.literal('strength_training'),
+  average_heart_rate: z
+    .number({ error: 'Enter a heart rate' })
+    .positive('Heart rate must be greater than 0')
+    .optional(),
+  exercises: z.array(
+    z.object({
+      name: z.string().trim().min(1).max(100),
+      sets: z.number().positive('Sets must be greater than 0'),
+      reps: z.number().positive('Reps must be greater than 0'),
+    }),
+  ),
+});
+
 export const logTrainingSessionFormSchema = z.discriminatedUnion('type', [
   runningSchema,
   crossTrainingSchema,
+  strengthTrainingSchema,
 ]);
 
 export type LogTrainingSessionFormValues = z.infer<
