@@ -18,6 +18,7 @@ import { RootFormErrorsAlert } from '../RootFormErrorsAlert';
 import { SportSelectorField } from '../SportSelectorField';
 import { RunningFields } from './RunningFields';
 import { CrossTrainingFields } from './CrossTrainingFields';
+import { StrengthFields } from './StrengthFields';
 import {
   logTrainingSessionFormSchema,
   type LogTrainingSessionFormValues,
@@ -178,6 +179,7 @@ export const LogTrainingSessionForm = ({
               {sport === 'cross_training' && (
                 <CrossTrainingFields form={form} />
               )}
+              {sport === 'strength_training' && <StrengthFields form={form} />}
             </FieldGroup>
           </FieldSet>
           <Field orientation="horizontal">
