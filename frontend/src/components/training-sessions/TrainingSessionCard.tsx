@@ -18,6 +18,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { TrainingSessionCardMetricsRow } from './TrainingSessionCardMetricsRow';
 import { TrainingSessionCardPrimaryMetric } from './TrainingSessionCardPrimaryMetric';
 import { TrainingSessionSportIcon } from './TrainingSessionSportIcon';
+import { StrengthTrainingExercises } from './StrengthTrainingExercises';
 import { Trash, PencilIcon } from 'lucide-react';
 import { isApiError } from '@/lib/fetcher';
 import { errorToast } from '@/lib/toasts';
@@ -38,6 +39,9 @@ const UNEXPECTED_ERROR_MESSAGE =
 export const TrainingSessionCard = ({
   training_session,
 }: TrainingSessionCardProps) => {
+  const isStrengthTrainingSession =
+    training_session.sport_details_type === 'StrengthTrainingSession';
+
   const { deleteTrainingSession, isDeleting } = useDeleteTrainingSession(
     training_session.id,
   );
@@ -83,6 +87,10 @@ export const TrainingSessionCard = ({
       </div>
 
       <TrainingSessionCardPrimaryMetric trainingSession={training_session} />
+
+      {isStrengthTrainingSession && (
+        <StrengthTrainingExercises trainingSession={training_session} />
+      )}
 
       <p className="text-muted-foreground col-span-4 text-base">
         {training_session.notes}

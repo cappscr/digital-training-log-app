@@ -12,7 +12,7 @@ export const TrainingSessionCardPrimaryMetric = ({
       <span className="text-primary text-xl font-medium sm:text-2xl">
         {trainingSession.sport_details_type === 'StrengthTrainingSession' ? (
           <>
-            {trainingSession.sport_details.volume_load}{' '}
+            {trainingSession.sport_details.volume_load?.toLocaleString()}{' '}
             {trainingSession.sport_details.volume_load_unit}
           </>
         ) : (
