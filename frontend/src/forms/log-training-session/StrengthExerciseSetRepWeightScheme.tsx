@@ -6,7 +6,7 @@ import {
 } from 'react-hook-form';
 import { TrashIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Field, FieldLabel, FieldSet } from '@/components/ui/field';
+import { Field } from '@/components/ui/field';
 import { Switch } from '@/components/ui/switch';
 import { IntegerInputWithHiddenLabel } from '../IntegerInputWithHiddenLabel';
 import { WeightInput } from '../WeightInput';
@@ -33,7 +33,7 @@ export const StrengthExerciseSetRepWeightScheme = ({
   const bodyweight = useWatch({ control, name: `${schemePath}.bodyweight` });
 
   return (
-    <FieldSet className="flex flex-row items-center justify-center gap-2">
+    <div className="col-span-full grid grid-cols-subgrid">
       <IntegerInputWithHiddenLabel
         control={control}
         formId="log-workout-form"
@@ -50,7 +50,7 @@ export const StrengthExerciseSetRepWeightScheme = ({
         control={control}
         name={`${schemePath}.bodyweight`}
         render={({ field }) => (
-          <Field className="flex flex-row items-center gap-2">
+          <Field className="col-span-1 items-center justify-center">
             <Switch
               id={bodyweightId}
               checked={field.value ?? false}
@@ -62,11 +62,12 @@ export const StrengthExerciseSetRepWeightScheme = ({
                 }
               }}
             />
-            <FieldLabel htmlFor={bodyweightId}>Bodyweight</FieldLabel>
           </Field>
         )}
       />
-      {!bodyweight && (
+      {bodyweight ? (
+        <div className="col-span-2" />
+      ) : (
         <WeightInput
           control={control}
           formId={formId}
@@ -83,6 +84,6 @@ export const StrengthExerciseSetRepWeightScheme = ({
       >
         <TrashIcon />
       </Button>
-    </FieldSet>
+    </div>
   );
 };

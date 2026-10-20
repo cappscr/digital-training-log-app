@@ -5,7 +5,7 @@ import {
 } from 'react-hook-form';
 import { PlusIcon, TrashIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { FieldSet } from '@/components/ui/field';
+import { FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
 import { StrengthTrainingExerciseNameField } from '../StrengthTrainingExerciseNameField';
 import { StrengthExerciseSetRepWeightScheme } from './StrengthExerciseSetRepWeightScheme';
 import type { StrengthFormValues } from './logTrainingSessionSchemas';
@@ -30,21 +30,39 @@ export const StrengthTrainingExerciseGroup = ({
 
   return (
     <FieldSet>
-      <StrengthTrainingExerciseNameField
-        control={control}
-        formId="log-workout-form"
-        name={`exercises.${index}.name`}
-      />
-      {fields.map((field, schemeIndex) => (
-        <StrengthExerciseSetRepWeightScheme
-          key={field.id}
+      <div className="flex flex-row items-center justify-between">
+        <StrengthTrainingExerciseNameField
           control={control}
-          schemePath={`exercises.${index}.schemes.${schemeIndex}`}
           formId="log-workout-form"
-          setValue={setValue}
-          onRemove={() => remove(schemeIndex)}
+          name={`exercises.${index}.name`}
         />
-      ))}
+        <Button
+          type="button"
+          size="icon"
+          variant="outline"
+          aria-label="Remove Exercise"
+          onClick={onRemove}
+        >
+          <TrashIcon />
+        </Button>
+      </div>
+      <FieldGroup className="grid grid-cols-[minmax(3.25rem,0.8fr)_minmax(3.25rem,0.8fr)_minmax(5.75rem,1.4fr)_minmax(0,1fr)_minmax(3.5rem,1fr)_auto] gap-2 sm:grid-cols-[4.5rem_4.5rem_max-content_minmax(0,1.5fr)_minmax(0,1fr)_auto]">
+        <FieldLabel>Sets</FieldLabel>
+        <FieldLabel>Reps</FieldLabel>
+        <FieldLabel>Bodyweight</FieldLabel>
+        <FieldLabel>Weight</FieldLabel>
+        <FieldLabel>Units</FieldLabel>
+        {fields.map((field, schemeIndex) => (
+          <StrengthExerciseSetRepWeightScheme
+            key={field.id}
+            control={control}
+            schemePath={`exercises.${index}.schemes.${schemeIndex}`}
+            formId="log-workout-form"
+            setValue={setValue}
+            onRemove={() => remove(schemeIndex)}
+          />
+        ))}
+      </FieldGroup>
       <Button
         type="button"
         variant="outline"
@@ -52,15 +70,6 @@ export const StrengthTrainingExerciseGroup = ({
       >
         <PlusIcon data-icon="inline-start" />
         Add Set(s)
-      </Button>
-      <Button
-        type="button"
-        size="icon"
-        variant="outline"
-        aria-label="Remove Exercise"
-        onClick={onRemove}
-      >
-        <TrashIcon />
       </Button>
     </FieldSet>
   );

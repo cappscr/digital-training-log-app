@@ -35,7 +35,7 @@ export const WeightInput = <TFieldValues extends FieldValues>({
   unitName,
 }: WeightInputProps<TFieldValues>) => {
   return (
-    <FieldGroup className="flex flex-row items-center gap-2">
+    <FieldGroup className="contents">
       <Controller
         name={weightName}
         control={control}
