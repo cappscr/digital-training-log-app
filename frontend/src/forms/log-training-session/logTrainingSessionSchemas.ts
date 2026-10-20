@@ -121,9 +121,7 @@ const strengthTrainingSchema = shared.extend({
           })
           .refine(
             (data) =>
-              data.bodyweight
-                ? data.weight === undefined
-                : data.weight !== undefined,
+              data.bodyweight ? data.weight == null : data.weight != null,
             {
               message: 'Weight must be specified or bodyweight must be toggled',
               path: ['weight'],

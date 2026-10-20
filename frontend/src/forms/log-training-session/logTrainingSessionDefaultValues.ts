@@ -119,5 +119,5 @@ export const blankStrengthExerciseScheme = () => ({
   reps: 0,
   bodyweight: false,
   weight: undefined,
-  weight_unit: undefined,
+  weight_unit: 'lbs',
 });
