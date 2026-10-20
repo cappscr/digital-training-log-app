@@ -2,6 +2,7 @@ import {
   type CrossTrainingSession,
   type RunningTrainingSession,
   type StrengthTrainingSession,
+  type StrengthTrainingExercise,
   type TrainingSession,
 } from '@/hooks/useTrainingSessions';
 import type { LogTrainingSessionFormValues } from './logTrainingSessionSchemas';
@@ -45,11 +46,27 @@ export const defaultValuesFromSession = (
 
   if (session.sport_details_type === 'StrengthTrainingSession') {
     const d = session.sport_details as StrengthTrainingSession;
+    const setsByExercise = new Map<
+      string,
+      Omit<StrengthTrainingExercise, 'name'>[]
+    >();
+
+    for (const { name, ...scheme } of d.exercises) {
+      const schemes = setsByExercise.get(name);
+      if (schemes) schemes.push(scheme);
+      else setsByExercise.set(name, [scheme]);
+    }
+
     return {
       ...shared,
       type: 'strength_training',
       average_heart_rate: d.average_heart_rate ?? undefined,
-      exercises: d.exercises,
+      exercises: Array.from(setsByExercise.entries()).map(
+        ([name, schemes]) => ({
+          name,
+          schemes,
+        }),
+      ),
     };
   }
 
@@ -95,3 +112,12 @@ export const defaultsForSport = (type: string) => {
       return {};
   }
 };
+
+export const blankStrengthExerciseScheme = () => ({
+  id: crypto.randomUUID(),
+  sets: 0,
+  reps: 0,
+  bodyweight: false,
+  weight: undefined,
+  weight_unit: undefined,
+});

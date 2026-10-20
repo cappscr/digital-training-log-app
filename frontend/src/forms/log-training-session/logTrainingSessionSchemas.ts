@@ -101,32 +101,36 @@ const strengthTrainingSchema = shared.extend({
     .positive('Heart rate must be greater than 0')
     .optional(),
   exercises: z.array(
-    z
-      .object({
-        name: z.string().trim().min(1).max(100),
-        sets: z.int().positive('Sets must be greater than 0'),
-        reps: z.int().positive('Reps must be greater than 0'),
-        bodyweight: z.boolean().optional(),
-        weight: z
-          .number()
-          .positive('Weight must be greater than 0')
-          .refine((n) => Math.round(n * 10) / 10 === n, {
-            message: 'Use at most one decimal place',
+    z.object({
+      name: z.string().trim().min(1).max(100),
+      schemes: z.array(
+        z
+          .object({
+            sets: z.int().positive('Sets must be greater than 0'),
+            reps: z.int().positive('Reps must be greater than 0'),
+            bodyweight: z.boolean().optional(),
+            weight: z
+              .number()
+              .positive('Weight must be greater than 0')
+              .refine((n) => Math.round(n * 10) / 10 === n, {
+                message: 'Use at most one decimal place',
+              })
+              .nullable()
+              .optional(),
+            weight_unit: z.enum(['kg', 'lbs']).nullable().optional(),
           })
-          .nullable()
-          .optional(),
-        weight_unit: z.enum(['kg', 'lbs']).nullable().optional(),
-      })
-      .refine(
-        (data) =>
-          data.bodyweight
-            ? data.weight === undefined
-            : data.weight !== undefined,
-        {
-          message: 'Weight must be specified or bodyweight must be toggled',
-          path: ['weight'],
-        },
+          .refine(
+            (data) =>
+              data.bodyweight
+                ? data.weight === undefined
+                : data.weight !== undefined,
+            {
+              message: 'Weight must be specified or bodyweight must be toggled',
+              path: ['weight'],
+            },
+          ),
       ),
+    }),
   ),
 });
 
@@ -138,4 +142,9 @@ export const logTrainingSessionFormSchema = z.discriminatedUnion('type', [
 
 export type LogTrainingSessionFormValues = z.infer<
   typeof logTrainingSessionFormSchema
+>;
+
+export type StrengthFormValues = Extract<
+  LogTrainingSessionFormValues,
+  { type: 'strength_training' }
 >;
