@@ -4,14 +4,40 @@ import { toISODateString, parseDuration } from '@/lib/utils';
 const buildSportDetailsSubmit = (values: LogTrainingSessionFormValues) => {
   const sport = values.type;
 
+  const sharedCrossTrainingAndRunningDetails =
+    sport === 'cross_training' || sport === 'running'
+      ? {
+          distance: values.distance ?? null,
+          distance_unit: values.unit ?? null,
+          elevation_gain: values.elevation_gain ?? null,
+          elevation_unit: values.elevation_unit ?? null,
+        }
+      : null;
+
   switch (sport) {
     case 'cross_training':
       return {
+        ...sharedCrossTrainingAndRunningDetails,
         activity: values.activity,
       };
     case 'running':
       return {
+        ...sharedCrossTrainingAndRunningDetails,
         average_cadence: values.average_cadence ?? null,
+      };
+    case 'strength_training':
+      return {
+        exercises: values.exercises
+          .flatMap((exercise) =>
+            exercise.schemes.map((scheme) => ({
+              name: exercise.name,
+              ...scheme,
+            })),
+          )
+          .map((exercise, index) => ({
+            ...exercise,
+            position: index + 1,
+          })),
       };
     default:
       console.warn('Unsupported sport type');
@@ -36,10 +62,6 @@ export const buildSubmitPayload = (
   };
 
   const sharedSportDetails = {
-    distance: values.distance ?? null,
-    distance_unit: values.unit ?? null,
-    elevation_gain: values.elevation_gain ?? null,
-    elevation_unit: values.elevation_unit ?? null,
     average_heart_rate: values.average_heart_rate ?? null,
   };
 
