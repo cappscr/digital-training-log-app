@@ -1,11 +1,18 @@
 import {
+  get,
   useFieldArray,
+  useFormState,
   type Control,
   type UseFormSetValue,
 } from 'react-hook-form';
 import { PlusIcon, TrashIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
+import {
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldSet,
+} from '@/components/ui/field';
 import { StrengthTrainingExerciseNameField } from '../StrengthTrainingExerciseNameField';
 import { StrengthExerciseSetRepWeightScheme } from './StrengthExerciseSetRepWeightScheme';
 import type { StrengthFormValues } from './logTrainingSessionSchemas';
@@ -27,6 +34,15 @@ export const StrengthTrainingExerciseGroup = ({
     control,
     name: `exercises.${index}.schemes`,
   });
+
+  const { errors } = useFormState({
+    control,
+    name: `exercises.${index}.schemes`,
+  });
+  const schemeError = get(errors, `exercises.${index}.schemes`);
+  const schemesMessage = schemeError?.root?.message ?? schemeError?.message;
+
+  console.log('DEBUG, ', schemeError);
 
   return (
     <FieldSet>
@@ -52,6 +68,15 @@ export const StrengthTrainingExerciseGroup = ({
         <FieldLabel>Bodyweight</FieldLabel>
         <FieldLabel>Weight</FieldLabel>
         <FieldLabel>Units</FieldLabel>
+        {schemeError && (
+          <FieldError errors={[schemeError]} className="col-span-6" />
+        )}
+        {schemesMessage && (
+          <FieldError
+            errors={[{ message: schemesMessage }]}
+            className="col-span-6"
+          />
+        )}
         {fields.map((field, schemeIndex) => (
           <StrengthExerciseSetRepWeightScheme
             key={field.id}
@@ -66,7 +91,16 @@ export const StrengthTrainingExerciseGroup = ({
       <Button
         type="button"
         variant="outline"
-        onClick={() => append({ sets: 1, reps: 1, bodyweight: false })}
+        onClick={() =>
+          append({
+            sets: 1,
+            reps: 1,
+            bodyweight: true,
+            weight: null,
+            weight_unit: 'lbs', // customize this once user settings are implemented
+            id: crypto.randomUUID(),
+          })
+        }
       >
         <PlusIcon data-icon="inline-start" />
         Add Set(s)

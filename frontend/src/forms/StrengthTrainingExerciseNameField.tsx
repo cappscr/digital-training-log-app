@@ -1,5 +1,7 @@
+import { useRef } from 'react';
 import {
   Controller,
+  useFormState,
   type Control,
   type FieldPath,
   type FieldValues,
@@ -42,40 +44,51 @@ export const StrengthTrainingExerciseNameField = <
   name,
   disabled,
 }: StrengthTrainingExerciseNameField<TFieldValues>) => {
+  const { submitCount } = useFormState({
+    control,
+    name,
+  });
+  const submitCountOnMount = useRef(submitCount);
+
   return (
     <Controller
       name={name}
       control={control}
-      render={({ field, fieldState }) => (
-        <Field data-invalid={fieldState.invalid}>
-          <FieldLabel htmlFor={`${formId}-${name}`}>Name</FieldLabel>
-          <Autocomplete
-            items={STRENGTH_TRAINING_EXERCISE_NAMES}
-            disabled={disabled}
-            value={field.value ?? ''}
-            onValueChange={field.onChange}
-            autoHighlight
-          >
-            <AutocompleteInput
-              id={`${formId}-${name}`}
-              className="w-full max-w-48"
-              onBlur={field.onBlur}
-            />
+      render={({ field, fieldState }) => {
+        const showError =
+          fieldState.invalid &&
+          (fieldState.isTouched || submitCount > submitCountOnMount.current);
+        return (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel htmlFor={`${formId}-${name}`}>Name</FieldLabel>
+            <Autocomplete
+              items={STRENGTH_TRAINING_EXERCISE_NAMES}
+              disabled={disabled}
+              value={field.value ?? ''}
+              onValueChange={field.onChange}
+              autoHighlight
+            >
+              <AutocompleteInput
+                id={`${formId}-${name}`}
+                className="w-full max-w-48"
+                onBlur={field.onBlur}
+              />
 
-            <AutocompleteContent>
-              <AutocompleteEmpty>No exercises found.</AutocompleteEmpty>
-              <AutocompleteList>
-                {(exercise) => (
-                  <AutocompleteItem key={exercise} value={exercise}>
-                    {exercise}
-                  </AutocompleteItem>
-                )}
-              </AutocompleteList>
-            </AutocompleteContent>
-          </Autocomplete>
-          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-        </Field>
-      )}
+              <AutocompleteContent>
+                <AutocompleteEmpty>No exercises found.</AutocompleteEmpty>
+                <AutocompleteList>
+                  {(exercise) => (
+                    <AutocompleteItem key={exercise} value={exercise}>
+                      {exercise}
+                    </AutocompleteItem>
+                  )}
+                </AutocompleteList>
+              </AutocompleteContent>
+            </Autocomplete>
+            {showError && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        );
+      }}
     />
   );
 };

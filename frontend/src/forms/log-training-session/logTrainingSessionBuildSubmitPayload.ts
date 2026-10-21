@@ -32,6 +32,7 @@ const buildSportDetailsSubmit = (values: LogTrainingSessionFormValues) => {
             exercise.schemes.map((scheme) => ({
               name: exercise.name,
               ...scheme,
+              weight_unit: scheme.bodyweight ? null : scheme.weight_unit,
             })),
           )
           .map((exercise, index) => ({
