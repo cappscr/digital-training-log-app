@@ -8,8 +8,7 @@ Users can view, log (create), edit, and delete their own training sessions. Sess
 | --- | --- |
 | Running (`RunningTrainingSession`) | Implemented end-to-end (API + UI) |
 | Cross training (`CrossTrainingSession`) | Implemented end-to-end (API + UI). Details: [`spec/cross_training_sessions/spec.md`](../cross_training_sessions/spec.md) |
-| Strength (`StrengthTrainingSession`) | Specified; implement per [`spec/strength_training_sessions/spec.md`](../strength_training_sessions/spec.md). Model/tables exist; not user-facing yet |
-| Supplementary (`SupplementaryTrainingSession`) | Placeholder only — remove from `delegated_type` as part of strength work (absorbed by strength) |
+| Strength (`StrengthTrainingSession`) | Implemented end-to-end (API + UI). Details: [`spec/strength_training_sessions/spec.md`](../strength_training_sessions/spec.md) |
 
 Future specific sports (e.g. cycling, swimming) may be added as additional delegated types. Until then, non-run work that is not strength is logged as cross training.
 
@@ -42,7 +41,6 @@ Every training session has:
 - `RunningTrainingSession`
 - `CrossTrainingSession`
 - `StrengthTrainingSession`
-- `SupplementaryTrainingSession` (placeholder — delete with the strength slice)
 
 Weather is a separate `TrainingSessionWeather` model associated to the parent session (implemented at the model/table layer; not wired through the training-sessions API/UI yet).
 
@@ -53,10 +51,10 @@ Shared resource: `POST/GET/PUT/DELETE /api/v1/training_sessions` (scoped to the 
 - **Create** uses `sport_details.kind` to instantiate the delegated type:
   - `running` → `RunningTrainingSession`
   - `cross_training` → `CrossTrainingSession`
-  - `strength_training` → `StrengthTrainingSession` (specified; wire in the strength slice)
+  - `strength_training` → `StrengthTrainingSession`
   - Unknown kind → validation error (422) with pointer `#/training_session/sport_details/kind`
 - **Update** does **not** change sport type. The persisted `sport_details_type` selects which attributes are applied; client-supplied `kind` / sport-details `id` are ignored for mutation.
-- Clients may supply UUIDs for session and sport-detail ids on create (local-first ready).
+- Clients may supply UUIDs for the session, sport details, and each strength exercise on create (local-first ready).
 
 ## UI
 
@@ -68,4 +66,4 @@ Shared resource: `POST/GET/PUT/DELETE /api/v1/training_sessions` (scoped to the 
 
 - [`spec/running_training_sessions/spec.md`](../running_training_sessions/spec.md)
 - [`spec/cross_training_sessions/spec.md`](../cross_training_sessions/spec.md) — activity required; optional distance / HR / elevation with units; duration-or-distance. Elevation unit is shared with running via `ElevationGainValidatable`.
-- [`spec/strength_training_sessions/spec.md`](../strength_training_sessions/spec.md) — nested exercises (name, sets, reps, bodyweight and/or weight); optional duration and HR; computed volume load; remove supplementary placeholder.
+- [`spec/strength_training_sessions/spec.md`](../strength_training_sessions/spec.md) — exercises (name, sets, reps, bodyweight or weight); optional duration and HR; computed volume load. Supplementary training is absorbed by strength.
