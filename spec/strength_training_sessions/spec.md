@@ -389,12 +389,6 @@ Factories: keep `:strength_training` on `TrainingSession` (already sets `locatio
 - Request: create strength happy path; create with zero exercises → 422; create unknown kind still 422; index includes strength for current user only; show/update/destroy ownership 404; update replaces exercise list (add/remove/reorder); update cannot change kind; nested error pointer for invalid exercise.
 - Serializer: exercises + volume fields.
 
-### Frontend
-
-- Schema: strength duration-only and duration-blank both allowed when exercises valid; reject empty exercises; reject neither-bodyweight-nor-weight.
-- `formatSportName` / `getTrainingSessionTitle` for strength.
-- Payload builder includes `kind: 'strength_training'` and positions.
-
 ---
 
 ## Implementation checklist (handoff)
@@ -414,7 +408,6 @@ Factories: keep `:strength_training` on `TrainingSession` (already sets `locatio
 1. Sport option + indoor default for strength and CT.
 2. Discriminated schema, `StrengthFields`, name autocomplete, field array.
 3. Types, payload, card icon/title/volume, `formatSportName`.
-4. Tests under `frontend/tests/`.
 
 ### Docs
 
