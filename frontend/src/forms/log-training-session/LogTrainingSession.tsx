@@ -138,7 +138,8 @@ export const LogTrainingSessionForm = ({
                   form.reset({
                     date: current.date,
                     time: current.time,
-                    indoor_or_outdoor: current.indoor_or_outdoor,
+                    indoor_or_outdoor:
+                      nextSport === 'running' ? 'outdoor' : 'indoor',
                     duration: current.duration,
                     notes: current.notes,
                     ...defaultsForSport(nextSport),
