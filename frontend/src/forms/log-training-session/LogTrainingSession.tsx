@@ -18,6 +18,7 @@ import { RootFormErrorsAlert } from '../RootFormErrorsAlert';
 import { SportSelectorField } from '../SportSelectorField';
 import { RunningFields } from './RunningFields';
 import { CrossTrainingFields } from './CrossTrainingFields';
+import { StrengthFields } from './StrengthFields';
 import {
   logTrainingSessionFormSchema,
   type LogTrainingSessionFormValues,
@@ -137,7 +138,8 @@ export const LogTrainingSessionForm = ({
                   form.reset({
                     date: current.date,
                     time: current.time,
-                    indoor_or_outdoor: current.indoor_or_outdoor,
+                    indoor_or_outdoor:
+                      nextSport === 'running' ? 'outdoor' : 'indoor',
                     duration: current.duration,
                     notes: current.notes,
                     ...defaultsForSport(nextSport),
@@ -178,6 +180,7 @@ export const LogTrainingSessionForm = ({
               {sport === 'cross_training' && (
                 <CrossTrainingFields form={form} />
               )}
+              {sport === 'strength_training' && <StrengthFields form={form} />}
             </FieldGroup>
           </FieldSet>
           <Field orientation="horizontal">

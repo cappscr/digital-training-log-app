@@ -16,7 +16,9 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
 import { TrainingSessionCardMetricsRow } from './TrainingSessionCardMetricsRow';
+import { TrainingSessionCardPrimaryMetric } from './TrainingSessionCardPrimaryMetric';
 import { TrainingSessionSportIcon } from './TrainingSessionSportIcon';
+import { StrengthTrainingExercises } from './StrengthTrainingExercises';
 import { Trash, PencilIcon } from 'lucide-react';
 import { isApiError } from '@/lib/fetcher';
 import { errorToast } from '@/lib/toasts';
@@ -37,6 +39,9 @@ const UNEXPECTED_ERROR_MESSAGE =
 export const TrainingSessionCard = ({
   training_session,
 }: TrainingSessionCardProps) => {
+  const isStrengthTrainingSession =
+    training_session.sport_details_type === 'StrengthTrainingSession';
+
   const { deleteTrainingSession, isDeleting } = useDeleteTrainingSession(
     training_session.id,
   );
@@ -81,17 +86,11 @@ export const TrainingSessionCard = ({
         {getTrainingSessionTitle(training_session)}
       </div>
 
-      <div className="font-numeric flex h-full flex-col items-end justify-center gap-2">
-        <span className="text-primary text-xl font-medium sm:text-2xl">
-          {training_session.sport_details.distance}{' '}
-          {training_session.sport_details.distance_unit}
-        </span>
-        {training_session.duration && (
-          <span className="text-secondary-foreground text-lg font-medium sm:text-xl">
-            {training_session.duration}
-          </span>
-        )}
-      </div>
+      <TrainingSessionCardPrimaryMetric trainingSession={training_session} />
+
+      {isStrengthTrainingSession && (
+        <StrengthTrainingExercises trainingSession={training_session} />
+      )}
 
       <p className="text-muted-foreground col-span-4 text-base">
         {training_session.notes}

@@ -1,25 +1,26 @@
 FactoryBot.define do
   factory :strength_training_exercise do
-    association :session, factory: :strength_training_session
+    association :session, factory: :strength_training_session, with_exercises: false
     name { "squats" }
     sets { 1 }
     reps { 6 }
     weight { 100 }
-    weight_units { "lbs" }
+    weight_unit { "lbs" }
     bodyweight { false }
+    sequence(:position) { |n| n }
 
     trait :multiple_sets do
       sets { 3 }
     end
 
     trait :weight_in_kg do
-      weight_units { "kg" }
+      weight_unit { "kg" }
     end
 
     trait :bodyweight do
       bodyweight { true }
       weight { nil }
-      weight_units { nil }
+      weight_unit { nil }
     end
   end
 end

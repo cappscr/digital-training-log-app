@@ -63,6 +63,8 @@ export const formatSportName = (sportDetailsType: string): string => {
   switch (sportDetailsType) {
     case 'RunningTrainingSession':
       return 'Run';
+    case 'StrengthTrainingSession':
+      return 'Strength Training';
     default:
       return 'Cross Training';
   }

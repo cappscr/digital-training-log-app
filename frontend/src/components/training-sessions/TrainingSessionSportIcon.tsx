@@ -1,5 +1,5 @@
 import type { TrainingSession } from '@/hooks/useTrainingSessions';
-import { Activity, SportShoe } from 'lucide-react';
+import { Activity, Dumbbell, SportShoe } from 'lucide-react';
 
 interface TrainingSessionSportIconProps {
   trainingSession: TrainingSession;
@@ -15,6 +15,9 @@ export const TrainingSessionSportIcon = ({
       )}
       {trainingSession.sport_details_type === 'CrossTrainingSession' && (
         <Activity className="size-5 text-rose-900 sm:size-6" />
+      )}
+      {trainingSession.sport_details_type === 'StrengthTrainingSession' && (
+        <Dumbbell className="size-5 text-rose-900 sm:size-6" />
       )}
     </span>
   );

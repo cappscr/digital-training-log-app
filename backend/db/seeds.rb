@@ -18,14 +18,33 @@ def seed_id(label, import_id)
   Digest::UUID.uuid_v5(SEED_NAMESPACE, "#{label}:#{import_id}")
 end
 
-csv_path = Rails.root.join('db', 'seeds', 'training_sessions.csv')
+training_sessions_csv_path = Rails.root.join('db', 'seeds', 'training_sessions.csv')
+strength_training_exercises_csv_path = Rails.root.join('db', 'seeds', 'strength_training_exercises.csv')
 
 user = User.find_or_create_by(email: 'capps.christopher@gmail.com') do |user|
   user.name = "Chris Capps"
   user.password = "Passw0rd!" # dev-only
 end
 
-CSV.foreach(csv_path, headers: true) do |row|
+exercises_by_session_id = Hash.new { |sessions, id| sessions[id] = [] }
+
+CSV.foreach(strength_training_exercises_csv_path, headers: true) do |row|
+  strength_training_exercise_id = seed_id("strength_training_exercise", row["id"])
+  strength_training_exercise = StrengthTrainingExercise.find_or_initialize_by(id: strength_training_exercise_id)
+  strength_training_exercise.assign_attributes(
+    name: row["name"].presence&.strip,
+    sets: row["sets"].presence&.to_i,
+    reps: row["reps"].presence&.to_i,
+    weight: row["weight"].presence&.to_d,
+    weight_unit: row["weight_unit"].presence&.strip,
+    bodyweight: row["bodyweight"].presence || false,
+    position: row["position"].presence&.to_i,
+  )
+  session_id = seed_id("strength_training_session", row["training_session_id"])
+  exercises_by_session_id[session_id] << strength_training_exercise
+end
+
+CSV.foreach(training_sessions_csv_path, headers: true) do |row|
   training_id = seed_id("training_session", row["id"])
 
   if row["sport"]&.strip == "running"
@@ -51,6 +70,13 @@ CSV.foreach(csv_path, headers: true) do |row|
       elevation_unit: row["elevation_unit"].presence&.strip || "ft",
       average_heart_rate: row["average_heart_rate"].presence&.to_i,
     )
+  elsif row["sport"]&.strip == "strength_training"
+    strength_training_id = seed_id("strength_training_session", row["id"])
+    sport_details = StrengthTrainingSession.find_or_initialize_by(id: strength_training_id)
+    sport_details.assign_attributes(
+      average_heart_rate: row["average_heart_rate"].presence&.to_i,
+    )
+    sport_details.exercises = exercises_by_session_id[strength_training_id]
   else
     # skip any other sports
     next

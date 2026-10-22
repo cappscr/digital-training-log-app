@@ -34,7 +34,6 @@ RSpec.describe TrainingSession, type: :model do
         "RunningTrainingSession",
         "CrossTrainingSession",
         "StrengthTrainingSession",
-        "SupplementaryTrainingSession"
       )
     end
 

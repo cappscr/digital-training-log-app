@@ -1,7 +1,7 @@
 ---
 title: cross training sessions
 author: Chris Capps
-status: in-progress
+status: completed
 issue: 375
 ---
 

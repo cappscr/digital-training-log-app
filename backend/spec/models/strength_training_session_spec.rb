@@ -1,6 +1,40 @@
 require 'rails_helper'
 
 RSpec.describe StrengthTrainingSession, type: :model do
+  describe "validations" do
+    it "is invalid with an average heart rate less than 1" do
+      strength_training_session = build(:strength_training_session, average_heart_rate: 0)
+      expect(strength_training_session).to be_invalid
+      expect(strength_training_session.errors[:average_heart_rate]).to include("must be greater than 0")
+    end
+
+    it "is invalid with exercises that are invalid" do
+      strength_training_session = build(:strength_training_session)
+      strength_training_session.exercises = [
+        build(:strength_training_exercise, session: strength_training_session, name: nil)
+      ]
+      expect(strength_training_session).to be_invalid
+      expect(strength_training_session.errors[:"exercises/0/name"]).to include("can't be blank")
+    end
+
+    it "is invalid with no exercises" do
+      strength_training_session = build(:strength_training_session, with_exercises: false)
+
+      expect(strength_training_session).to be_invalid
+      expect(strength_training_session.errors[:exercises]).to include("must have at least one exercise")
+    end
+
+    it "is invalid with two exercises in the same position" do
+      strength_training_session = build(:strength_training_session)
+      strength_training_session.exercises = [
+        build(:strength_training_exercise, session: strength_training_session, position: 1),
+        build(:strength_training_exercise, session: strength_training_session, position: 1)
+      ]
+      expect(strength_training_session).to be_invalid
+      expect(strength_training_session.errors[:exercises]).to include("must have unique positions")
+    end
+  end
+
   describe "valid record" do
     it "is valid with valid attributes" do
       strength_training_session = build(:strength_training_session)
@@ -35,6 +69,49 @@ RSpec.describe StrengthTrainingSession, type: :model do
       association = described_class.reflect_on_association(:exercises)
       expect(association.macro).to eq(:has_many)
       expect(association.options[:dependent]).to eq(:destroy)
+    end
+
+    it "returns the exercises in the correct order" do
+      session = create(:strength_training_session, exercises: [
+        build(:strength_training_exercise, session: nil, position: 2),
+        build(:strength_training_exercise, session: nil, position: 1)
+      ])
+      expect(session.exercises.reload.map(&:position)).to eq([ 1, 2 ])
+    end
+  end
+
+  describe "volume load" do
+    it "returns the volume load of the session" do
+      three_squat_set_session = create(:strength_training_session, exercises: [
+        build(:strength_training_exercise, :multiple_sets, session: nil)
+      ])
+
+      expect(three_squat_set_session.volume_load).to eq(1800.0)
+      expect(three_squat_set_session.volume_load_unit).to eq("lbs")
+    end
+
+    it "returns volume load units that matches the weight units of the exercises" do
+      three_squat_set_in_kg_session = create(:strength_training_session, exercises: [
+        build(:strength_training_exercise, :multiple_sets, :weight_in_kg, session: nil)
+      ])
+
+      expect(three_squat_set_in_kg_session.volume_load).to eq(1800.0)
+      expect(three_squat_set_in_kg_session.volume_load_unit).to eq("kg")
+    end
+
+    it "returns nil for the volume load and volume load unit if the exercises have different weight units" do
+      mixed_weight_units_session = create(:strength_training_session, :mixed_weight_units)
+      expect(mixed_weight_units_session.volume_load).to be_nil
+      expect(mixed_weight_units_session.volume_load_unit).to be_nil
+    end
+
+    it "does not factor in bodyweight exercises to the volume load" do
+      session_with_bodyweight_exercise = create(:strength_training_session, exercises: [
+        build(:strength_training_exercise, :multiple_sets, session: nil),
+        build(:strength_training_exercise, :bodyweight, session: nil)
+      ])
+      expect(session_with_bodyweight_exercise.volume_load).to eq(1800.0)
+      expect(session_with_bodyweight_exercise.volume_load_unit).to eq("lbs")
     end
   end
 end

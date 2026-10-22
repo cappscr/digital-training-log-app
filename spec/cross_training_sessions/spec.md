@@ -32,7 +32,7 @@ A signed-in user can:
 
 Out of scope for this slice:
 
-- Strength training and supplementary training (including any decision about the unfinished `SupplementaryTrainingSession` delegated type — that belongs with strength training, not CT).
+- Strength training and supplementary training (including any decision about the unfinished `SupplementaryTrainingSession` delegated type — specified in [`spec/strength_training_sessions/spec.md`](../strength_training_sessions/spec.md)).
 - Cycling/swimming as distinct sport types (beyond enabling the cross-training catch-all path).
 - Weather capture UI/API (still specified on the parent domain; not wired for any sport yet).
 - GPS watch links.

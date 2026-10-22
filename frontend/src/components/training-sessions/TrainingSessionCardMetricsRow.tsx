@@ -8,6 +8,11 @@ interface TrainingSessionCardMetricsRowProps {
 export const TrainingSessionCardMetricsRow = ({
   trainingSession,
 }: TrainingSessionCardMetricsRowProps) => {
+  const showElevationGain =
+    (trainingSession.sport_details_type === 'RunningTrainingSession' ||
+      trainingSession.sport_details_type === 'CrossTrainingSession') &&
+    trainingSession.sport_details.elevation_gain !== null;
+
   return (
     <div className="col-span-4 flex flex-row gap-3">
       {trainingSession.sport_details.average_heart_rate && (
@@ -19,7 +24,7 @@ export const TrainingSessionCardMetricsRow = ({
           {trainingSession.sport_details.average_heart_rate}
         </span>
       )}
-      {trainingSession.sport_details.elevation_gain != null && (
+      {showElevationGain && (
         <span
           aria-label="Elevation gain"
           className="flex flex-row items-center gap-1"
