@@ -26,7 +26,7 @@ user = User.find_or_create_by(email: 'capps.christopher@gmail.com') do |user|
   user.password = "Passw0rd!" # dev-only
 end
 
-exercises_by_date = Hash.new { |dates, date| dates[date] = [] }
+exercises_by_session_id = Hash.new { |sessions, id| sessions[id] = [] }
 
 CSV.foreach(strength_training_exercises_csv_path, headers: true) do |row|
   strength_training_exercise_id = seed_id("strength_training_exercise", row["id"])
@@ -40,7 +40,8 @@ CSV.foreach(strength_training_exercises_csv_path, headers: true) do |row|
     bodyweight: row["bodyweight"].presence || false,
     position: row["position"].presence&.to_i,
   )
-  exercises_by_date[row["session_date"]] << strength_training_exercise
+  session_id = seed_id("strength_training_session", row["training_session_id"])
+  exercises_by_session_id[session_id] << strength_training_exercise
 end
 
 CSV.foreach(training_sessions_csv_path, headers: true) do |row|
@@ -75,7 +76,7 @@ CSV.foreach(training_sessions_csv_path, headers: true) do |row|
     sport_details.assign_attributes(
       average_heart_rate: row["average_heart_rate"].presence&.to_i,
     )
-    sport_details.exercises = exercises_by_date[row["session_date"]]
+    sport_details.exercises = exercises_by_session_id[strength_training_id]
   else
     # skip any other sports
     next

@@ -1,210 +1,210 @@
-id,session_date,name,sets,reps,weight,weight_unit,bodyweight,position
-1,2026-06-12,Deadlifts,1,6,65,lbs,,1
-2,2026-06-12,Deadlifts,1,6,85,lbs,,2
-3,2026-06-12,Deadlifts,1,6,105,lbs,,3
-4,2026-06-12,Deadlifts,2,6,125,lbs,,4
-5,2026-06-12,Overhead Press,1,6,60,lbs,,5
-6,2026-06-12,Overhead Press,1,5,70,lbs,,6
-7,2026-06-12,Pull-Ups,1,7, , ,TRUE,7
-8,2026-06-12,Single Leg Calf Raises,2,8,29,lbs,,8
-9,2026-06-12,Single Leg Calf Raises,1,8,31.5,lbs,,9
-10,2026-06-15,Squats,1,6,65,lbs,,1
-11,2026-06-15,Squats,1,6,85,lbs,,2
-12,2026-06-15,Squats,1,6,100,lbs,,3
-13,2026-06-15,Squats,1,4,110,lbs,,4
-14,2026-06-15,Squats,1,4,115,lbs,,5
-15,2026-06-15,Bench Press,1,6,70,lbs,,6
-16,2026-06-15,Bench Press,1,6,85,lbs,,7
-17,2026-06-15,Bench Press,2,6,100,lbs,,8
-18,2026-06-15,Single Leg Calf Raises,3,8,31.5,lbs,,9
-19,2026-06-19,Deadlifts,1,6,85,lbs,,1
-20,2026-06-19,Deadlifts,1,6,105,lbs,,2
-21,2026-06-19,Deadlifts,1,6,120,lbs,,3
-22,2026-06-19,Deadlifts,1,6,130,lbs,,4
-23,2026-06-19,Deadlifts,1,6,140,lbs,,5
-24,2026-06-19,Overhead Press,1,6,65,lbs,,6
-25,2026-06-19,Overhead Press,2,4,75,lbs,,7
-26,2026-06-19,Single Leg Calf Raises,3,8,31.5,lbs,,8
-27,2026-06-25,Squats,1,6,65,lbs,,1
-28,2026-06-25,Squats,1,6,80,lbs,,2
-29,2026-06-25,Squats,1,6,95,lbs,,3
-30,2026-06-25,Squats,1,6,105,lbs,,4
-31,2026-06-25,Squats,1,4,120,lbs,,5
-32,2026-06-25,Bench Press,1,6,70,lbs,,6
-33,2026-06-25,Bench Press,1,6,85,lbs,,7
-34,2026-06-25,Bench Press,1,6,95,lbs,,8
-35,2026-06-25,Single Leg Calf Raises,1,8,31.5,lbs,,9
-36,2026-06-25,Single Leg Calf Raises,2,8,34,lbs,,10
-37,2026-06-29,Trap Bar Deadlifts,1,6,102,lbs,,1
-38,2026-06-29,Trap Bar Deadlifts,1,5,117,lbs,,2
-39,2026-06-29,Trap Bar Deadlifts,1,5,132,lbs,,3
-40,2026-06-29,Trap Bar Deadlifts,1,5,147,lbs,,4
-41,2026-06-29,Bench Press,1,6,80,lbs,,5
-42,2026-06-29,Bench Press,1,6,90,lbs,,6
-43,2026-06-29,Bench Press,1,6,100,lbs,,7
-44,2026-06-29,Single Leg Calf Raises,3,8,34,lbs,,8
-45,2026-07-06,Squats,1,6,65,lbs,,1
-46,2026-07-06,Squats,1,6,80,lbs,,2
-47,2026-07-06,Squats,1,5,95,lbs,,3
-48,2026-07-06,Squats,1,5,105,lbs,,4
-49,2026-07-06,Squats,1,5,110,lbs,,5
-50,2026-07-06,Overhead Press,1,5,60,lbs,,6
-51,2026-07-06,Overhead Press,2,4,70,lbs,,7
-52,2026-07-06,Single Leg Calf Raises,3,8,34,lbs,,8
-53,2026-07-10,Deadlifts,1,6,75,lbs,,1
-54,2026-07-10,Deadlifts,1,6,105,lbs,,2
-55,2026-07-10,Deadlifts,1,6,135,lbs,,3
-56,2026-07-10,Deadlifts,2,5,150,lbs,,4
-57,2026-07-10,Bench Press,1,6,80,lbs,,5
-58,2026-07-10,Bench Press,1,6,90,lbs,,6
-59,2026-07-10,Bench Press,2,6,100,lbs,,7
-60,2026-07-10,Single Leg Calf Raises,3,8,38,lbs,,8
-61,2026-07-16,Squats,1,6,65,lbs,,1
-62,2026-07-16,Squats,1,6,80,lbs,,2
-63,2026-07-16,Squats,1,4,95,lbs,,3
-64,2026-07-16,Squats,2,4,110,lbs,,4
-65,2026-07-16,Overhead Press,1,5,65,lbs,,5
-66,2026-07-16,Overhead Press,1,5,70,lbs,,6
-67,2026-07-16,Banded Arm Circles,1,10, , ,TRUE,7
-68,2026-07-16,Pull-Aparts,1,10, , ,TRUE,8
-69,2026-07-16,Single Leg Calf Raises,3,8,38,lbs,,9
-70,2026-07-23,Squats,1,6,65,lbs,,1
-71,2026-07-23,Squats,1,6,80,lbs,,2
-72,2026-07-23,Squats,1,5,95,lbs,,3
-73,2026-07-23,Squats,2,5,105,lbs,,4
-74,2026-07-23,Overhead Press,1,6,55,lbs,,5
-75,2026-07-23,Overhead Press,2,4,70,lbs,,6
-76,2026-07-23,Single Leg Calf Raises,3,8,38,lbs,,7
-77,2026-07-27,Deadlifts,1,6,85,lbs,,1
-78,2026-07-27,Deadlifts,1,6,105,lbs,,2
-79,2026-07-27,Deadlifts,1,6,125,lbs,,3
-80,2026-07-27,Deadlifts,1,6,140,lbs,,4
-81,2026-07-27,Bench Press,2,6,85,lbs,,5
-82,2026-07-27,Single Leg Calf Raises,3,8,38,lbs,,6
-83,2026-08-03,RDLs,1,5,65,lbs,,1
-84,2026-08-03,RDLs,1,5,80,lbs,,2
-85,2026-08-03,RDLs,2,6,95,lbs,,3
-86,2026-08-03,Bench Press,1,6,85,lbs,,4
-87,2026-08-03,Bench Press,1,6,100,lbs,,5
-88,2026-08-03,Bench Press,1,6,110,lbs,,6
-89,2026-08-03,Split Squats,1,6,65,lbs,,7
-90,2026-08-03,Split Squats,1,6,70,lbs,,8
-91,2026-08-03,Single Leg Calf Raises,3,8,38,lbs,,9
-92,2026-08-06,Squats,1,6,65,lbs,,1
-93,2026-08-06,Squats,1,6,80,lbs,,2
-94,2026-08-06,Squats,1,4,90,lbs,,3
-95,2026-08-06,Squats,1,5,105,lbs,,4
-96,2026-08-06,Squats,1,5,110,lbs,,5
-97,2026-08-06,Overhead Press,1,6,60,lbs,,6
-98,2026-08-06,Overhead Press,1,6,70,lbs,,7
-99,2026-08-06,Single Leg Calf Raises,3,8,38,lbs,,8
-100,2026-08-10,RDLs,1,5,85,lbs,,1
-101,2026-08-10,RDLs,1,5,90,lbs,,2
-102,2026-08-10,RDLs,1,5,95,lbs,,3
-103,2026-08-10,Bench Press,1,6,85,lbs,,4
-104,2026-08-10,Bench Press,1,6,100,lbs,,5
-105,2026-08-10,Bench Press,1,4,115,lbs,,6
-106,2026-08-10,Split Squats,2,6,75,lbs,,7
-107,2026-08-10,Single Leg Calf Raises,3,8,38,lbs,,8
-108,2026-08-13,Squats,1,6,65,lbs,,1
-109,2026-08-13,Squats,1,6,80,lbs,,2
-110,2026-08-13,Squats,1,6,95,lbs,,3
-111,2026-08-13,Squats,1,6,100,lbs,,4
-112,2026-08-13,Overhead Press,1,6,55,lbs,,5
-113,2026-08-13,Overhead Press,1,4,70,lbs,,6
-114,2026-08-13,Single Leg Calf Raises,2,8,38,lbs,,7
-115,2026-08-13,Single Leg Calf Raises,1,8,40.5,lbs,,8
-116,2026-08-17,RDLs,1,6,65,lbs,,1
-117,2026-08-17,RDLs,1,6,80,lbs,,2
-118,2026-08-17,RDLs,1,6,95,lbs,,3
-119,2026-08-17,RDLs,1,6,100,lbs,,4
-120,2026-08-17,Bench Press,1,6,85,lbs,,5
-121,2026-08-17,Bench Press,1,6,100,lbs,,6
-122,2026-08-17,Bench Press,1,5,110,lbs,,7
-123,2026-08-17,Split Squats,2,6,70,lbs,,8
-124,2026-08-17,Single Leg Calf Raises,3,8,40.5,lbs,,9
-125,2026-08-23,Squats,1,6,65,lbs,,1
-126,2026-08-23,Squats,1,6,80,lbs,,2
-127,2026-08-23,Squats,1,5,95,lbs,,3
-128,2026-08-23,Squats,1,5,105,lbs,,4
-129,2026-08-23,Overhead Press,2,6,65,lbs,,5
-130,2026-08-23,Single Leg Calf Raises,3,8,40.5,lbs,,6
-131,2026-08-23,Pull-Ups,1,7, , ,TRUE,7
-132,2026-08-26,Trap Bar Deadlifts,1,5,102,lbs,,1
-133,2026-08-26,Trap Bar Deadlifts,1,5,117,lbs,,2
-134,2026-08-26,Trap Bar Deadlifts,2,5,132,lbs,,3
-135,2026-08-26,Bench Press,1,6,85,lbs,,4
-136,2026-08-26,Bench Press,2,6,100,lbs,,5
-137,2026-08-26,Single Leg Calf Raises,3,8,40.5,lbs,,6
-138,2026-09-03,RDLs,1,5,65,lbs,,1
-139,2026-09-03,RDLs,2,5,80,lbs,,2
-140,2026-09-03,Bench Press,1,6,80,lbs,,3
-141,2026-09-03,Bench Press,2,6,85,lbs,,4
-142,2026-09-03,Single Leg Calf Raises,3,7,40.5,lbs,,5
-143,2026-09-03,Pull-Ups,1,6, , ,TRUE,6
-144,2026-09-07,Squats,1,6,65,lbs,,1
-145,2026-09-07,Squats,1,6,80,lbs,,2
-146,2026-09-07,Squats,1,5,95,lbs,,3
-147,2026-09-07,Squats,1,5,100,lbs,,4
-148,2026-09-07,Overhead Press,1,6,55,lbs,,5
-149,2026-09-07,Overhead Press,2,5,65,lbs,,6
-150,2026-09-07,Single Leg Calf Raises,3,8,40.5,lbs,,7
-151,2026-09-07,Pull-Ups,1,6, , ,TRUE,8
-152,2026-09-11,Trap Bar Deadlifts,1,6,82,lbs,,1
-153,2026-09-11,Trap Bar Deadlifts,1,6,102,lbs,,2
-154,2026-09-11,Trap Bar Deadlifts,1,5,122,lbs,,3
-155,2026-09-11,Trap Bar Deadlifts,1,5,142,lbs,,4
-156,2026-09-11,Bench Press,1,6,70,lbs,,5
-157,2026-09-11,Bench Press,1,6,85,lbs,,6
-158,2026-09-11,Bench Press,1,6,100,lbs,,7
-159,2026-09-11,Bench Press,1,4,115,lbs,,8
-160,2026-09-11,Single Leg Calf Raises,1,8,40.5,lbs,,9
-161,2026-09-11,Single Leg Calf Raises,2,8,43,lbs,,10
-162,2026-09-11,Pull-Ups,1,6, , ,TRUE,11
-163,2026-09-13,Split Squats,1,6,35,lbs,,1
-164,2026-09-13,Split Squats,1,6,50,lbs,,2
-165,2026-09-13,Split Squats,2,6,65,lbs,,3
-166,2026-09-13,Pull-Ups,1,6, , ,TRUE,4
-167,2026-09-13,RDLs,2,5,85,lbs,,5
-168,2026-09-13,Single Leg Calf Raises,3,8,43,lbs,,6
-169,2026-09-15,Single Leg Calf Raises,3,8,43,lbs,,1
-170,2026-09-19,Squats,1,6,55,lbs,,1
-171,2026-09-19,Squats,1,6,70,lbs,,2
-172,2026-09-19,Squats,1,5,85,lbs,,3
-173,2026-09-19,Squats,2,5,95,lbs,,4
-174,2026-09-19,Overhead Press,1,6,55,lbs,,5
-175,2026-09-19,Overhead Press,2,6,60,lbs,,6
-176,2026-09-19,Single Leg Calf Raises,3,8,43,lbs,,7
-177,2026-09-19,Sternum Pull-Ups,1,5, , ,TRUE,8
-178,2026-09-21,Single Leg Calf Raises,3,8,43,lbs,,1
-179,2026-09-23,Deadlifts,1,6,85,lbs,,1
-180,2026-09-23,Deadlifts,1,6,100,lbs,,2
-181,2026-09-23,Deadlifts,1,6,125,lbs,,3
-182,2026-09-23,Deadlifts,1,6,140,lbs,,4
-183,2026-09-23,Bench Press,1,6,85,lbs,,5
-184,2026-09-23,Bench Press,2,5,100,lbs,,6
-185,2026-09-23,Single Leg Calf Raises,3,8,43,lbs,,7
-186,2026-09-23,Pull-Ups,1,7, , ,TRUE,8
-187,2026-09-28,Deadlifts,1,6,85,lbs,,1
-188,2026-09-28,Deadlifts,1,6,105,lbs,,2
-189,2026-09-28,Deadlifts,1,5,125,lbs,,3
-190,2026-09-28,Deadlifts,2,5,145,lbs,,4
-191,2026-09-28,Overhead Press,1,6,55,lbs,,5
-192,2026-09-28,Overhead Press,2,4,70,lbs,,6
-193,2026-09-28,Single Leg Calf Raises,3,8,43,lbs,,7
-194,2026-09-28,Pull-Ups,1,7, , ,TRUE,8
-195,2026-10-02,Squats,1,6,65,lbs,,1
-196,2026-10-02,Squats,1,6,80,lbs,,2
-197,2026-10-02,Squats,1,5,95,lbs,,3
-198,2026-10-02,Squats,1,5,100,lbs,,4
-199,2026-10-02,Bench Press,1,6,75,lbs,,5
-200,2026-10-02,Bench Press,1,6,90,lbs,,6
-201,2026-10-02,Bench Press,1,6,100,lbs,,7
-202,2026-10-02,Single Leg Calf Raises,3,8,43,lbs,,8
-203,2026-10-05,Deadlifts,1,6,80,lbs,,1
-204,2026-10-05,Deadlifts,1,6,105,lbs,,2
-205,2026-10-05,Deadlifts,1,5,135,lbs,,3
-206,2026-10-05,Deadlifts,1,3,150,lbs,,4
-207,2026-10-05,Overhead Press,2,5,65,lbs,,5
-208,2026-10-05,Single Leg Calf Raises,3,8,43,lbs,,6
-209,2026-10-05,Pull-Ups,1,5, , ,TRUE,7
+id,training_session_id,name,sets,reps,weight,weight_unit,bodyweight,position
+1,6,Deadlifts,1,6,65,lbs,,1
+2,6,Deadlifts,1,6,85,lbs,,2
+3,6,Deadlifts,1,6,105,lbs,,3
+4,6,Deadlifts,2,6,125,lbs,,4
+5,6,Overhead Press,1,6,60,lbs,,5
+6,6,Overhead Press,1,5,70,lbs,,6
+7,6,Pull-Ups,1,7, , ,TRUE,7
+8,6,Single Leg Calf Raises,2,8,29,lbs,,8
+9,6,Single Leg Calf Raises,1,8,31.5,lbs,,9
+10,9,Squats,1,6,65,lbs,,1
+11,9,Squats,1,6,85,lbs,,2
+12,9,Squats,1,6,100,lbs,,3
+13,9,Squats,1,4,110,lbs,,4
+14,9,Squats,1,4,115,lbs,,5
+15,9,Bench Press,1,6,70,lbs,,6
+16,9,Bench Press,1,6,85,lbs,,7
+17,9,Bench Press,2,6,100,lbs,,8
+18,9,Single Leg Calf Raises,3,8,31.5,lbs,,9
+19,13,Deadlifts,1,6,85,lbs,,1
+20,13,Deadlifts,1,6,105,lbs,,2
+21,13,Deadlifts,1,6,120,lbs,,3
+22,13,Deadlifts,1,6,130,lbs,,4
+23,13,Deadlifts,1,6,140,lbs,,5
+24,13,Overhead Press,1,6,65,lbs,,6
+25,13,Overhead Press,2,4,75,lbs,,7
+26,13,Single Leg Calf Raises,3,8,31.5,lbs,,8
+27,20,Squats,1,6,65,lbs,,1
+28,20,Squats,1,6,80,lbs,,2
+29,20,Squats,1,6,95,lbs,,3
+30,20,Squats,1,6,105,lbs,,4
+31,20,Squats,1,4,120,lbs,,5
+32,20,Bench Press,1,6,70,lbs,,6
+33,20,Bench Press,1,6,85,lbs,,7
+34,20,Bench Press,1,6,95,lbs,,8
+35,20,Single Leg Calf Raises,1,8,31.5,lbs,,9
+36,20,Single Leg Calf Raises,2,8,34,lbs,,10
+37,24,Trap Bar Deadlifts,1,6,102,lbs,,1
+38,24,Trap Bar Deadlifts,1,5,117,lbs,,2
+39,24,Trap Bar Deadlifts,1,5,132,lbs,,3
+40,24,Trap Bar Deadlifts,1,5,147,lbs,,4
+41,24,Bench Press,1,6,80,lbs,,5
+42,24,Bench Press,1,6,90,lbs,,6
+43,24,Bench Press,1,6,100,lbs,,7
+44,24,Single Leg Calf Raises,3,8,34,lbs,,8
+45,31,Squats,1,6,65,lbs,,1
+46,31,Squats,1,6,80,lbs,,2
+47,31,Squats,1,5,95,lbs,,3
+48,31,Squats,1,5,105,lbs,,4
+49,31,Squats,1,5,110,lbs,,5
+50,31,Overhead Press,1,5,60,lbs,,6
+51,31,Overhead Press,2,4,70,lbs,,7
+52,31,Single Leg Calf Raises,3,8,34,lbs,,8
+53,35,Deadlifts,1,6,75,lbs,,1
+54,35,Deadlifts,1,6,105,lbs,,2
+55,35,Deadlifts,1,6,135,lbs,,3
+56,35,Deadlifts,2,5,150,lbs,,4
+57,35,Bench Press,1,6,80,lbs,,5
+58,35,Bench Press,1,6,90,lbs,,6
+59,35,Bench Press,2,6,100,lbs,,7
+60,35,Single Leg Calf Raises,3,8,38,lbs,,8
+61,41,Squats,1,6,65,lbs,,1
+62,41,Squats,1,6,80,lbs,,2
+63,41,Squats,1,4,95,lbs,,3
+64,41,Squats,2,4,110,lbs,,4
+65,41,Overhead Press,1,5,65,lbs,,5
+66,41,Overhead Press,1,5,70,lbs,,6
+67,41,Banded Arm Circles,1,10, , ,TRUE,7
+68,41,Pull-Aparts,1,10, , ,TRUE,8
+69,41,Single Leg Calf Raises,3,8,38,lbs,,9
+70,47,Squats,1,6,65,lbs,,1
+71,47,Squats,1,6,80,lbs,,2
+72,47,Squats,1,5,95,lbs,,3
+73,47,Squats,2,5,105,lbs,,4
+74,47,Overhead Press,1,6,55,lbs,,5
+75,47,Overhead Press,2,4,70,lbs,,6
+76,47,Single Leg Calf Raises,3,8,38,lbs,,7
+77,51,Deadlifts,1,6,85,lbs,,1
+78,51,Deadlifts,1,6,105,lbs,,2
+79,51,Deadlifts,1,6,125,lbs,,3
+80,51,Deadlifts,1,6,140,lbs,,4
+81,51,Bench Press,2,6,85,lbs,,5
+82,51,Single Leg Calf Raises,3,8,38,lbs,,6
+83,57,RDLs,1,5,65,lbs,,1
+84,57,RDLs,1,5,80,lbs,,2
+85,57,RDLs,2,6,95,lbs,,3
+86,57,Bench Press,1,6,85,lbs,,4
+87,57,Bench Press,1,6,100,lbs,,5
+88,57,Bench Press,1,6,110,lbs,,6
+89,57,Split Squats,1,6,65,lbs,,7
+90,57,Split Squats,1,6,70,lbs,,8
+91,57,Single Leg Calf Raises,3,8,38,lbs,,9
+92,60,Squats,1,6,65,lbs,,1
+93,60,Squats,1,6,80,lbs,,2
+94,60,Squats,1,4,90,lbs,,3
+95,60,Squats,1,5,105,lbs,,4
+96,60,Squats,1,5,110,lbs,,5
+97,60,Overhead Press,1,6,60,lbs,,6
+98,60,Overhead Press,1,6,70,lbs,,7
+99,60,Single Leg Calf Raises,3,8,38,lbs,,8
+100,64,RDLs,1,5,85,lbs,,1
+101,64,RDLs,1,5,90,lbs,,2
+102,64,RDLs,1,5,95,lbs,,3
+103,64,Bench Press,1,6,85,lbs,,4
+104,64,Bench Press,1,6,100,lbs,,5
+105,64,Bench Press,1,4,115,lbs,,6
+106,64,Split Squats,2,6,75,lbs,,7
+107,64,Single Leg Calf Raises,3,8,38,lbs,,8
+108,67,Squats,1,6,65,lbs,,1
+109,67,Squats,1,6,80,lbs,,2
+110,67,Squats,1,6,95,lbs,,3
+111,67,Squats,1,6,100,lbs,,4
+112,67,Overhead Press,1,6,55,lbs,,5
+113,67,Overhead Press,1,4,70,lbs,,6
+114,67,Single Leg Calf Raises,2,8,38,lbs,,7
+115,67,Single Leg Calf Raises,1,8,40.5,lbs,,8
+116,72,RDLs,1,6,65,lbs,,1
+117,72,RDLs,1,6,80,lbs,,2
+118,72,RDLs,1,6,95,lbs,,3
+119,72,RDLs,1,6,100,lbs,,4
+120,72,Bench Press,1,6,85,lbs,,5
+121,72,Bench Press,1,6,100,lbs,,6
+122,72,Bench Press,1,5,110,lbs,,7
+123,72,Split Squats,2,6,70,lbs,,8
+124,72,Single Leg Calf Raises,3,8,40.5,lbs,,9
+125,78,Squats,1,6,65,lbs,,1
+126,78,Squats,1,6,80,lbs,,2
+127,78,Squats,1,5,95,lbs,,3
+128,78,Squats,1,5,105,lbs,,4
+129,78,Overhead Press,2,6,65,lbs,,5
+130,78,Single Leg Calf Raises,3,8,40.5,lbs,,6
+131,78,Pull-Ups,1,7, , ,TRUE,7
+132,82,Trap Bar Deadlifts,1,5,102,lbs,,1
+133,82,Trap Bar Deadlifts,1,5,117,lbs,,2
+134,82,Trap Bar Deadlifts,2,5,132,lbs,,3
+135,82,Bench Press,1,6,85,lbs,,4
+136,82,Bench Press,2,6,100,lbs,,5
+137,82,Single Leg Calf Raises,3,8,40.5,lbs,,6
+138,89,RDLs,1,5,65,lbs,,1
+139,89,RDLs,2,5,80,lbs,,2
+140,89,Bench Press,1,6,80,lbs,,3
+141,89,Bench Press,2,6,85,lbs,,4
+142,89,Single Leg Calf Raises,3,7,40.5,lbs,,5
+143,89,Pull-Ups,1,6, , ,TRUE,6
+144,93,Squats,1,6,65,lbs,,1
+145,93,Squats,1,6,80,lbs,,2
+146,93,Squats,1,5,95,lbs,,3
+147,93,Squats,1,5,100,lbs,,4
+148,93,Overhead Press,1,6,55,lbs,,5
+149,93,Overhead Press,2,5,65,lbs,,6
+150,93,Single Leg Calf Raises,3,8,40.5,lbs,,7
+151,93,Pull-Ups,1,6, , ,TRUE,8
+152,97,Trap Bar Deadlifts,1,6,82,lbs,,1
+153,97,Trap Bar Deadlifts,1,6,102,lbs,,2
+154,97,Trap Bar Deadlifts,1,5,122,lbs,,3
+155,97,Trap Bar Deadlifts,1,5,142,lbs,,4
+156,97,Bench Press,1,6,70,lbs,,5
+157,97,Bench Press,1,6,85,lbs,,6
+158,97,Bench Press,1,6,100,lbs,,7
+159,97,Bench Press,1,4,115,lbs,,8
+160,97,Single Leg Calf Raises,1,8,40.5,lbs,,9
+161,97,Single Leg Calf Raises,2,8,43,lbs,,10
+162,97,Pull-Ups,1,6, , ,TRUE,11
+163,99,Split Squats,1,6,35,lbs,,1
+164,99,Split Squats,1,6,50,lbs,,2
+165,99,Split Squats,2,6,65,lbs,,3
+166,99,Pull-Ups,1,6, , ,TRUE,4
+167,99,RDLs,2,5,85,lbs,,5
+168,99,Single Leg Calf Raises,3,8,43,lbs,,6
+169,102,Single Leg Calf Raises,3,8,43,lbs,,1
+170,107,Squats,1,6,55,lbs,,1
+171,107,Squats,1,6,70,lbs,,2
+172,107,Squats,1,5,85,lbs,,3
+173,107,Squats,2,5,95,lbs,,4
+174,107,Overhead Press,1,6,55,lbs,,5
+175,107,Overhead Press,2,6,60,lbs,,6
+176,107,Single Leg Calf Raises,3,8,43,lbs,,7
+177,107,Sternum Pull-Ups,1,5, , ,TRUE,8
+178,109,Single Leg Calf Raises,3,8,43,lbs,,1
+179,112,Deadlifts,1,6,85,lbs,,1
+180,112,Deadlifts,1,6,100,lbs,,2
+181,112,Deadlifts,1,6,125,lbs,,3
+182,112,Deadlifts,1,6,140,lbs,,4
+183,112,Bench Press,1,6,85,lbs,,5
+184,112,Bench Press,2,5,100,lbs,,6
+185,112,Single Leg Calf Raises,3,8,43,lbs,,7
+186,112,Pull-Ups,1,7, , ,TRUE,8
+187,118,Deadlifts,1,6,85,lbs,,1
+188,118,Deadlifts,1,6,105,lbs,,2
+189,118,Deadlifts,1,5,125,lbs,,3
+190,118,Deadlifts,2,5,145,lbs,,4
+191,118,Overhead Press,1,6,55,lbs,,5
+192,118,Overhead Press,2,4,70,lbs,,6
+193,118,Single Leg Calf Raises,3,8,43,lbs,,7
+194,118,Pull-Ups,1,7, , ,TRUE,8
+195,123,Squats,1,6,65,lbs,,1
+196,123,Squats,1,6,80,lbs,,2
+197,123,Squats,1,5,95,lbs,,3
+198,123,Squats,1,5,100,lbs,,4
+199,123,Bench Press,1,6,75,lbs,,5
+200,123,Bench Press,1,6,90,lbs,,6
+201,123,Bench Press,1,6,100,lbs,,7
+202,123,Single Leg Calf Raises,3,8,43,lbs,,8
+203,126,Deadlifts,1,6,80,lbs,,1
+204,126,Deadlifts,1,6,105,lbs,,2
+205,126,Deadlifts,1,5,135,lbs,,3
+206,126,Deadlifts,1,3,150,lbs,,4
+207,126,Overhead Press,2,5,65,lbs,,5
+208,126,Single Leg Calf Raises,3,8,43,lbs,,6
+209,126,Pull-Ups,1,5, , ,TRUE,7
