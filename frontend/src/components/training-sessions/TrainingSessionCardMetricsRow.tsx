@@ -9,8 +9,9 @@ export const TrainingSessionCardMetricsRow = ({
   trainingSession,
 }: TrainingSessionCardMetricsRowProps) => {
   const showElevationGain =
-    trainingSession.sport_details_type === 'RunningTrainingSession' ||
-    trainingSession.sport_details_type === 'CrossTrainingSession';
+    (trainingSession.sport_details_type === 'RunningTrainingSession' ||
+      trainingSession.sport_details_type === 'CrossTrainingSession') &&
+    trainingSession.sport_details.elevation_gain !== null;
 
   return (
     <div className="col-span-4 flex flex-row gap-3">
