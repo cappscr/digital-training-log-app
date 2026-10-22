@@ -42,8 +42,6 @@ export const StrengthTrainingExerciseGroup = ({
   const schemeError = get(errors, `exercises.${index}.schemes`);
   const schemesMessage = schemeError?.root?.message ?? schemeError?.message;
 
-  console.log('DEBUG, ', schemeError);
-
   return (
     <FieldSet>
       <div className="flex flex-row items-center justify-between">
