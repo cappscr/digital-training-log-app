@@ -11,26 +11,30 @@ asdf plugin update nodejs
 asdf plugin update ruby
 asdf nodejs update-nodebuild
 
-asdf latest nodejs major_version
-asdf latest ruby major_version
+asdf latest nodejs <major>
+asdf latest ruby <major>
 ```
 
-The install the new versions:
+## Install the new versions
+
+Next run:
 
 ```bash
-asdf install nodejs latest:major_version
-asdf install ruby latest:major_version
+asdf install nodejs latest:<major>
+asdf install ruby latest:<major>
 ```
+
+## Pin the new versions in `.tool-versions`
 
 Then pin them from the repo root so asdf writes the updated versions to the `.tool-versions` file:
 
 ```bash
-asdf set nodejs major_version.x.x
-asdf set ruby major_version.x.x
+asdf set nodejs <version>
+asdf set ruby <version>
 ```
 
 The run again from `backend` to update the `.tool-versions` file there:
 
 ```bash
-asdf set ruby major_version.x.x
+asdf set ruby <version>
 ```
