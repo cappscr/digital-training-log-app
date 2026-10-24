@@ -7,11 +7,10 @@ description: How to apply the design system for Digital Training Log to the app.
 
 Don't rely on `font-size` alone to create visual hierarchy. Making a primary element bolder lets you use a more reasonable font size, and often does a better job at communicating its importance. Using a softer color for supporting text instead of a tiny font size makes it clear that the text is secondary while sacrificing less on readability.
 
-These are the three primary text colors in the app
+These are the two primary text colors in the app
 
-- A dark color named ink-700 for primary content: `--ink: oklch(0.3 0.008 75)` this same color is also aliased in `--foreground` which is used by shadcn and `--color-foreground`, the Tailwind classes are `text-text-primary`, `text-foreground` or `color-foreground`.
-- A grey named ink-500 for secondary content: `--ink-500: oklch(0.45 0.008 75)`, the Tailwind class: `text-muted-foreground` or `color-muted-foreground`.
-- A lighter grey named ink-300 for tertiary content: `--ink-300: oklch(0.6 0.008 75)`. Tailwind class: `text-text-tertiary` or `color-text-tertiary`
+- Primary text uses `zinc-950` from the Tailwind palette, this same color is aliased in `--foreground` which is used by shadcn and `--color-foreground`, the Tailwind classes are `text-foreground` or `color-foreground`.
+- Secondary text is a lighter `zinc-700` color, this is aliased in `--muted-foreground`, the Tailwind class: `text-muted-foreground` or `color-muted-foreground`.
 
 ### Font Weight
 
@@ -41,21 +40,20 @@ Primary actions should be obvious. Use the default variant from shadcn. Secondar
 
 ## Color
 
-| Palette      | Stops   | Role                                                        |
-| ------------ | ------- | ----------------------------------------------------------- |
-| `grey`       | 100–900 | Text, borders, backgrounds, panels, form controls           |
-| `terracotta` | 100–900 | Primary — buttons, links, elements that need to stand out   |
-| `teal`       | 100–900 | Secondary — supporting actions, less prominent than primary |
-| `rose`       | 100–900 | Accent — hover/highlight states, flagged/attention items    |
+| Palette      | Stops  | Role                                                        |
+| ------------ | ------ | ----------------------------------------------------------- |
+| `zinc`       | 50–950 | Text, borders, backgrounds, panels, form controls           |
+| `volt`       | 50–950 | Primary — buttons, links, elements that need to stand out   |
+| `iris`       | 50-950 | Secondary — supporting actions, less prominent than primary |
 
-All four are declared with the `color-` prefix in `@theme`, which generates the corresponding Tailwind utility classes (`bg-terracotta-500`, `text-grey-700`, etc.).
+All three are declared with the `color-` prefix in `@theme`, which generates the corresponding Tailwind utility classes (`bg-volt-500`, `text-zinc-700`, etc.).
 
 Don't rely on color alone to communicate meaning. Use icons, text, and contrast to make sure your interface is accessible to everyone.
 
 ### Heuristics
 
 - **Reserve high-saturation color for small areas.** Large surfaces should stay closer to grey/tinted-neutral; saturated color is for buttons, links, and accents — not backgrounds or panels.
-- **Don't reach for the raw scale directly in components.** Use semantic tokens (`--primary`, `--border`, `--muted-foreground`, etc.) wherever one exists; they carry the light/dark mapping automatically. Reach for `grey-500` etc. directly only for one-off cases with no existing semantic role.
+- **Don't reach for the raw scale directly in components.** Use semantic tokens (`--primary`, `--border`, `--muted-foreground`, etc.) wherever one exists; they carry the light/dark mapping automatically. Reach for `zinc-500` etc. directly only for one-off cases with no existing semantic role.
 
 ### Dark mode
 
