@@ -38,3 +38,5 @@ The run again from `backend` to update the `.tool-versions` file there:
 ```bash
 asdf set ruby <version>
 ```
+
+Also update the `backend/.ruby-version` file to the same `<version>` as this file is used by Railway to determine the ruby version to use in the production build.
