@@ -40,3 +40,14 @@ asdf set ruby <version>
 ```
 
 Also update the `backend/.ruby-version` file to the same `<version>` as this file is used by Railway to determine the ruby version to use in the production build.
+
+## Updating yarn after upgrading NodeJS
+
+After the NodeJS version is updated the following is required to re-enable the `yarn` package manager
+
+```bash
+corepack enable
+asdf reshim nodejs
+```
+
+The next `yarn` command from the `frontend` directory will pickup the version of yarn specified in the `package.json`'s `"packageManager"` key.

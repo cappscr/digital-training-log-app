@@ -2,35 +2,20 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 @import '@fontsource-variable/dm-sans';
-@import '@fontsource-variable/bricolage-grotesque/wght.css';
+@import '@fontsource/barlow-condensed/400.css';
+@import '@fontsource/barlow-condensed/700.css';
 @import './palette.css';
-
-@font-face {
-  font-family: 'Satoshi-Variable';
-  src: url('/fonts/Satoshi-Variable.woff2') format('woff2');
-  font-weight: 300 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi-VariableItalic';
-  src: url('/fonts/Satoshi-VariableItalic.woff2') format('woff2');
-  font-weight: 300 900;
-  font-style: italic;
-  font-display: swap;
-}
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   /** Font tokens */
-  --font-satoshi: 'Satoshi-Variable', system-ui, sans-serif;
-  --font-heading: var(--font-satoshi);
+  --font-barlow-condensed: 'Barlow Condensed', system-ui, sans-serif;
   --font-sans: 'DM Sans Variable', system-ui, sans-serif;
+
+  --font-heading: var(--font-barlow-condensed);
   --font-body: var(--font-sans);
-  --font-bricolage: 'Bricolage Grotesque Variable', system-ui, sans-serif;
-  --font-numeric: var(--font-bricolage);
+  --font-numeric: var(--font-barlow-condensed);
 
   /** Create utility classes for shadcn */
   --color-background: var(--background);
