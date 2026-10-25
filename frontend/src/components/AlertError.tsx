@@ -11,11 +11,7 @@ export const AlertError = ({
   description: string;
 }) => {
   return (
-    <Alert
-      variant="destructive"
-      className="border-error-border bg-error max-w-md"
-      {...rest}
-    >
+    <Alert className="border-error-border bg-error max-w-md" {...rest}>
       <AlertCircleIcon className="stroke-error-foreground" />
       <AlertTitle className="text-error-foreground font-bold">
         {title}
