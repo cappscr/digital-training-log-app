@@ -1,6 +1,6 @@
 export const ComingSoonBadge = () => {
   return (
-    <span className="bg-grey-700 text-grey-200 rounded-xs px-2 py-1 text-xs font-bold tracking-widest uppercase">
+    <span className="rounded-xs bg-zinc-700 px-2 py-1 text-xs font-bold tracking-widest text-zinc-200 uppercase">
       Soon
     </span>
   );

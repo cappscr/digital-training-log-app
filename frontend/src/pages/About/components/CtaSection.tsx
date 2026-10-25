@@ -34,14 +34,14 @@ export const CtaSection = () => {
           <Button
             variant="ghost"
             disabled
-            className="border-grey-700 text-muted-foreground gap-2 border border-solid data-[disabled]:opacity-100"
+            className="text-muted-foreground gap-2 border border-solid border-zinc-700 data-[disabled]:opacity-100"
             aria-label="Contribution link coming soon"
           >
             Support the project
             <ComingSoonBadge />
           </Button>
         </div>
-        <div className="border-grey-700 text-muted-foreground mt-8 border-t pt-8 text-sm">
+        <div className="text-muted-foreground mt-8 border-t border-zinc-700 pt-8 text-sm">
           By using Digital Training Log you agree to our{' '}
           <Link
             to="/terms"
