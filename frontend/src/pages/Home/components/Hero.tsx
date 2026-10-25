@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button';
 import { Eyebrow } from '@/components/Eyebrow';
 import { Link } from 'react-router';
 
+const SIGN_UP_OPEN = false;
+
 export const Hero = () => {
   return (
     <section className="mx-auto my-0 max-w-215 px-5 pt-12 pb-10 sm:px-8 sm:pt-20 sm:pb-16">
@@ -21,14 +23,12 @@ export const Hero = () => {
       </p>
       <div className="flex flex-wrap items-center gap-6">
         <Button
-          size="xl"
-          radius="none"
-          uppercase
-          disabled
-          nativeButton={false}
-          render={<Link to="/signup" />}
+          className="uppercase"
+          disabled={!SIGN_UP_OPEN}
+          nativeButton={SIGN_UP_OPEN ? false : true}
+          render={SIGN_UP_OPEN ? <Link to="/signup" /> : undefined}
         >
-          Coming soon
+          {SIGN_UP_OPEN ? 'Get started' : 'Coming soon'}
         </Button>
         <span className="text-muted-foreground text-sm tracking-wide">
           Free to use &nbsp;·&nbsp;No credit card

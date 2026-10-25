@@ -124,11 +124,8 @@ export const SignupForm = () => {
       <Button
         type="submit"
         form="signup-form"
-        size="xl"
-        radius="none"
-        uppercase
         disabled={form.formState.isSubmitting || !form.formState.isValid}
-        className="mt-8 w-full"
+        className="mt-8 w-full uppercase"
       >
         Create account
       </Button>

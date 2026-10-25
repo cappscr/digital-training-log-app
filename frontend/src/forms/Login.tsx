@@ -153,11 +153,8 @@ export const LoginForm = () => {
       <Button
         type="submit"
         form="login-form"
-        size="xl"
-        radius="none"
-        uppercase
         disabled={form.formState.isSubmitting}
-        className="mt-8 w-full"
+        className="mt-8 w-full uppercase"
       >
         Log in
       </Button>

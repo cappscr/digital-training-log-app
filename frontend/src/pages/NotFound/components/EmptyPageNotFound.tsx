@@ -31,18 +31,12 @@ export const EmptyPageNotFound = () => {
             to="/"
             className={buttonVariants({
               variant: 'default',
-              size: 'xl',
-              radius: 'none',
+              size: 'default',
             })}
           >
             Go to dashboard
           </Link>
-          <Button
-            variant="ghost"
-            size="xl"
-            radius="none"
-            onClick={() => navigate(-1)}
-          >
+          <Button variant="ghost" size="default" onClick={() => navigate(-1)}>
             Go back
           </Button>
         </div>
