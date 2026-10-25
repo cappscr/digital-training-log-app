@@ -25,9 +25,7 @@ export const ConfirmEmailPage = () => {
           </div>
           <div className="flex flex-col gap-4">
             <Button
-              size="xl"
-              radius="none"
-              uppercase
+              className="uppercase"
               nativeButton={false}
               render={<a href="mailto:" />}
             >
@@ -41,7 +39,7 @@ export const ConfirmEmailPage = () => {
               >
                 Try signing up again
               </Link>{' '}
-              or c*/}
+              */}
               Check your spam folder.
             </p>
           </div>

@@ -6,6 +6,8 @@ import { Menu, X } from 'lucide-react';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { useLogout } from '@/hooks/useLogout';
 
+const SIGN_UP_OPEN = false;
+
 const NAV_LINKS = [
   { name: 'About', to: '/about' },
   { name: 'Pace Calculator', to: '/pace-calculator' },
@@ -56,17 +58,16 @@ export const PrimaryNav = () => {
           <ModeToggle />
           {!user && (
             <Button
-              uppercase
-              disabled
-              radius="xs"
-              nativeButton={false}
-              render={<Link to="/signup" />}
+              className="uppercase"
+              disabled={!SIGN_UP_OPEN}
+              nativeButton={SIGN_UP_OPEN ? false : true}
+              render={SIGN_UP_OPEN ? <Link to="/signup" /> : undefined}
             >
-              Coming soon
+              {SIGN_UP_OPEN ? 'Get started' : 'Coming soon'}
             </Button>
           )}
           {user && (
-            <Button uppercase radius="xs" onClick={logout}>
+            <Button className="uppercase" onClick={logout}>
               Logout
             </Button>
           )}
@@ -101,19 +102,17 @@ export const PrimaryNav = () => {
             <ModeToggle />
             {!user && (
               <Button
-                uppercase
-                disabled
-                radius="xs"
-                nativeButton={false}
-                render={<Link to="/signup" />}
+                className="uppercase"
+                disabled={!SIGN_UP_OPEN}
+                nativeButton={SIGN_UP_OPEN ? false : true}
+                render={SIGN_UP_OPEN ? <Link to="/signup" /> : undefined}
               >
-                Coming soon
+                {SIGN_UP_OPEN ? 'Get started' : 'Coming soon'}
               </Button>
             )}
             {user && (
               <Button
-                uppercase
-                radius="xs"
+                className="uppercase"
                 onClick={() => {
                   logout();
                   setMenuOpen(false);

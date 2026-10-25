@@ -2,35 +2,20 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 @import '@fontsource-variable/dm-sans';
-@import '@fontsource-variable/bricolage-grotesque/wght.css';
+@import '@fontsource/barlow-condensed/400.css';
+@import '@fontsource/barlow-condensed/700.css';
 @import './palette.css';
-
-@font-face {
-  font-family: 'Satoshi-Variable';
-  src: url('/fonts/Satoshi-Variable.woff2') format('woff2');
-  font-weight: 300 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi-VariableItalic';
-  src: url('/fonts/Satoshi-VariableItalic.woff2') format('woff2');
-  font-weight: 300 900;
-  font-style: italic;
-  font-display: swap;
-}
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   /** Font tokens */
-  --font-satoshi: 'Satoshi-Variable', system-ui, sans-serif;
-  --font-heading: var(--font-satoshi);
+  --font-barlow-condensed: 'Barlow Condensed', system-ui, sans-serif;
   --font-sans: 'DM Sans Variable', system-ui, sans-serif;
+
+  --font-heading: var(--font-barlow-condensed);
   --font-body: var(--font-sans);
-  --font-bricolage: 'Bricolage Grotesque Variable', system-ui, sans-serif;
-  --font-numeric: var(--font-bricolage);
+  --font-numeric: var(--font-barlow-condensed);
 
   /** Create utility classes for shadcn */
   --color-background: var(--background);
@@ -48,11 +33,11 @@
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
 
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
 
   --color-destructive: var(--destructive);
   --color-border: var(--border);
@@ -100,18 +85,6 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  --grid-paper: radial-gradient(
-    circle,
-    oklch(from var(--color-grey-900) l c h / 8%) 1px,
-    transparent 1px
-  );
-  --grid-paper-dark: radial-gradient(
-    circle,
-    oklch(from var(--color-grey-100) l c h / 10%) 1px,
-    transparent 1px
-  );
-  --grid-md: 24px 24px;
-
   --animate-fade-up: fadeUp 0.7s ease both;
 
   @keyframes fadeUp {
@@ -127,14 +100,10 @@
 }
 
 :root {
-  /** Raw light mode tokens */
-  --paper-50: oklch(0.99 0.006 75); /* #fefbf7 */
-
   /** semantic tokens */
-  --background: var(--paper-50);
-  --text-primary: var(--color-grey-900);
-  --text-secondary: var(--color-grey-600);
-  --text-tertiary: var(--color-grey-500);
+  --background: var(--color-zinc-50);
+  --text-primary: var(--color-zinc-950);
+  --text-secondary: var(--color-zinc-700);
 
   /**
    * Colors to express semantic states
@@ -158,31 +127,28 @@
    */
   --foreground: var(--text-primary);
 
-  --card: var(--color-grey-100);
+  --card: var(--color-zinc-100);
   --card-foreground: var(--text-primary);
 
   --popover: var(--background);
   --popover-foreground: var(--text-primary);
 
-  --primary: var(--color-terracotta-500);
-  --primary-foreground: var(
-    --background
-  ); /* May need to revisit and increase the contrast */
+  --primary: var(--color-volt-300);
+  --primary-foreground: var(--color-volt-950);
 
-  --secondary: var(--color-teal-200);
-  --secondary-foreground: var(--color-teal-900);
+  --secondary: var(--color-iris-600);
+  --secondary-foreground: var(--color-iris-50);
 
-  /* May need to revisit */
-  --accent: var(--color-rose-200);
-  --accent-foreground: var(--color-rose-900);
-
-  --muted: var(--color-grey-100); /* This may need to be darker */
+  --muted: var(--color-zinc-100);
   --muted-foreground: var(--text-secondary);
 
+  --accent: var(--color-zinc-100);
+  --accent-foreground: var(--color-zinc-900);
+
   --destructive: var(--color-red-500);
-  --border: var(--color-grey-300);
-  --input: var(--color-grey-300);
-  --ring: var(--color-terracotta-400);
+  --border: var(--color-zinc-200);
+  --input: var(--color-zinc-200);
+  --ring: var(--color-volt-600);
 
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
@@ -238,31 +204,25 @@
 
 .dark {
   /** semantic tokens for dark mode */
-  --background: var(--color-grey-900);
-  --foreground: var(--color-grey-100);
+  --background: var(--color-zinc-950);
+  --foreground: var(--color-zinc-50);
 
-  --card: var(--color-grey-800);
-  --card-foreground: var(--color-grey-100);
+  --card: var(--color-zinc-800);
+  --card-foreground: var(--color-zinc-50);
 
-  --popover: var(--color-grey-800);
-  --popover-foreground: var(--color-grey-100);
+  --popover: var(--color-zinc-800);
+  --popover-foreground: var(--color-zinc-50);
 
-  --primary: var(--color-terracotta-400);
-  --primary-foreground: var(--color-grey-900);
+  --secondary: var(--color-iris-400);
+  --secondary-foreground: var(--color-iris-950);
 
-  --secondary: var(--color-teal-800);
-  --secondary-foreground: var(--color-teal-200);
-
-  --accent: var(--color-rose-800);
-  --accent-foreground: var(--color-rose-200);
-
-  --muted: var(--color-grey-800);
-  --muted-foreground: var(--color-grey-400);
+  --muted: var(--color-zinc-800);
+  --muted-foreground: var(--color-zinc-400);
 
   --destructive: var(--color-red-500);
-  --border: var(--color-grey-700);
-  --input: var(--color-grey-700);
-  --ring: var(--color-terracotta-300);
+  --border: var(--color-zinc-700);
+  --input: var(--color-zinc-700);
+  --ring: var(--color-volt-300);
 
   /**
    * Colors to express semantic states in dark mode

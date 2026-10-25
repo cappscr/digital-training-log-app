@@ -13,9 +13,8 @@ export function PaceResultCard() {
       <CardAction>
         <Button
           onClick={reset}
-          size="xl"
           variant="link"
-          className="text-secondary-foreground hover:text-primary mb-6 inline-flex items-center gap-1.5 p-0"
+          className="text-secondary hover:text-primary mb-6 inline-flex items-center gap-1.5 p-0"
         >
           <ChevronLeft />
           Recalculate

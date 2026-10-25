@@ -8,7 +8,7 @@ import {
   EmptyTitle,
   EmptyDescription,
 } from '@/components/ui/empty';
-import { JournalMark } from './JournalMark';
+import AppIcon from '@/assets/app-icon.svg';
 
 export const EmptyPageNotFound = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export const EmptyPageNotFound = () => {
     <Empty>
       <EmptyHeader>
         <EmptyMedia variant="icon" className="size-20 rounded-full">
-          <JournalMark />
+          <img src={AppIcon} alt="App Icon" className="size-20" />
         </EmptyMedia>
         <EmptyTitle className="text-4xl">Lost pace</EmptyTitle>
         <EmptyDescription>
@@ -31,18 +31,12 @@ export const EmptyPageNotFound = () => {
             to="/"
             className={buttonVariants({
               variant: 'default',
-              size: 'xl',
-              radius: 'none',
+              size: 'default',
             })}
           >
             Go to dashboard
           </Link>
-          <Button
-            variant="ghost"
-            size="xl"
-            radius="none"
-            onClick={() => navigate(-1)}
-          >
+          <Button variant="ghost" size="default" onClick={() => navigate(-1)}>
             Go back
           </Button>
         </div>

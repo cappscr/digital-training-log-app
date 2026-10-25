@@ -11,9 +11,7 @@ export const FooterCta = () => {
         Free to use. No credit card required.
       </p>
       <Button
-        size="xl"
-        radius="none"
-        uppercase
+        className="uppercase"
         nativeButton={false}
         render={<Link to="/signup" />}
       >

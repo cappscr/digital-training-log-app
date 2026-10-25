@@ -1,7 +1,7 @@
 ---
 title: strength training sessions
 author: Chris Capps
-status: in-progress
+status: complete
 issue: 376
 ---
 

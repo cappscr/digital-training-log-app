@@ -9,7 +9,7 @@ export const TrainingSessionCardPrimaryMetric = ({
 }: TrainingSessionCardPrimaryMetricProps) => {
   return (
     <div className="font-numeric flex h-full flex-col items-end justify-center gap-2">
-      <span className="text-primary text-xl font-medium sm:text-2xl">
+      <span className="text-primary text-xl font-bold sm:text-2xl">
         {trainingSession.sport_details_type === 'StrengthTrainingSession' ? (
           trainingSession.sport_details.volume_load ? (
             <>

@@ -108,9 +108,6 @@ export const AccountActivationPage = () => {
                 </p>
                 <Button
                   className="mt-4"
-                  size="xl"
-                  radius="none"
-                  uppercase
                   nativeButton={false}
                   render={<Link to="/" />}
                 >
@@ -118,9 +115,6 @@ export const AccountActivationPage = () => {
                 </Button>
                 <Button
                   variant="outline"
-                  size="xl"
-                  radius="none"
-                  uppercase
                   nativeButton={false}
                   onClick={handleGetNewActivationLink}
                 >
