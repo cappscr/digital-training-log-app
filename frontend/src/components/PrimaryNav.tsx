@@ -103,7 +103,7 @@ export const PrimaryNav = () => {
             {!user && (
               <Button
                 className="uppercase"
-                disabled
+                disabled={!SIGN_UP_OPEN}
                 nativeButton={SIGN_UP_OPEN ? false : true}
                 render={SIGN_UP_OPEN ? <Link to="/signup" /> : undefined}
               >
