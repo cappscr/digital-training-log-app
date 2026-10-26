@@ -14,7 +14,7 @@ export const Hero = () => {
       />
       <h1 className="font-heading text-foreground mb-6 max-w-180 text-[clamp(2.5rem,6vw,4rem)] font-medium tracking-tight">
         Built for athletes who are serious about their training —{' '}
-        <span className="text-primary">not their data.</span>
+        <span className="text-emphasis">not their data.</span>
       </h1>
       <p className="text-muted-foreground mb-10 max-w-135 text-base/[1.7] font-light">
         A flexible, private space to plan your sessions, record your workouts,

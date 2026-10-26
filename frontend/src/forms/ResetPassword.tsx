@@ -103,7 +103,7 @@ export const ResetPasswordForm = () => {
       <p className="mt-4 text-center text-sm">
         <Link
           to="/forgot-password"
-          className="text-muted-foreground hover:text-primary"
+          className="text-muted-foreground hover:text-emphasis"
         >
           Request a new password reset link
         </Link>

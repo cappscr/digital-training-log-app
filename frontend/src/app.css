@@ -39,6 +39,7 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
 
+  --color-emphasis: var(--emphasis);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
   --color-input: var(--input);
@@ -145,6 +146,7 @@
   --accent: var(--color-zinc-100);
   --accent-foreground: var(--color-zinc-900);
 
+  --emphasis: var(--color-iris-600);
   --destructive: var(--color-red-500);
   --border: var(--color-zinc-200);
   --input: var(--color-zinc-200);
@@ -219,6 +221,7 @@
   --muted: var(--color-zinc-800);
   --muted-foreground: var(--color-zinc-400);
 
+  --emphasis: var(--color-volt-300);
   --destructive: var(--color-red-500);
   --border: var(--color-zinc-700);
   --input: var(--color-zinc-700);

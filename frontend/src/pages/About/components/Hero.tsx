@@ -8,7 +8,7 @@ export const Hero = () => {
         <h1 className="font-heading mb-7 text-[clamp(2.4rem,5.5vw,3.75rem)] leading-none tracking-tight">
           A training log built by a runner,
           <br />
-          <span className="text-primary">for runners.</span>
+          <span className="text-emphasis">for runners.</span>
         </h1>
         <p className="text-muted-foreground max-w-140 text-lg/[1.7]">
           Digital Training Log is a personal project. Not a startup, not a

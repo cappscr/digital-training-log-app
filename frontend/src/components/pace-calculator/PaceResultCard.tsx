@@ -14,7 +14,7 @@ export function PaceResultCard() {
         <Button
           onClick={reset}
           variant="link"
-          className="text-secondary hover:text-primary mb-6 inline-flex items-center gap-1.5 p-0"
+          className="text-secondary hover:text-emphasis/80 mb-6 inline-flex items-center gap-1.5 p-0"
         >
           <ChevronLeft />
           Recalculate
@@ -22,7 +22,7 @@ export function PaceResultCard() {
       </CardAction>
       <Eyebrow text="Adjusted pace" variant="muted" className="mb-2" />
       <div className="mb-4 flex items-baseline gap-3">
-        <span className="font-numeric text-primary mb-1 text-5xl font-medium">
+        <span className="font-numeric text-emphasis mb-1 text-5xl font-medium">
           {result?.calculated_pace}
         </span>
         <span className="text-muted-foreground">

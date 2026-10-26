@@ -3,12 +3,12 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const eyebrowVariants = cva(
-  'text-primary font-medium block text-xs tracking-widest uppercase',
+  'text-emphasis font-medium block text-xs tracking-widest uppercase',
   {
     variants: {
       variant: {
-        default: 'text-primary',
-        emphasized: 'text-primary font-semibold',
+        default: 'text-emphasis',
+        emphasized: 'text-emphasis font-semibold',
         muted: 'text-muted-foreground',
       },
       size: {

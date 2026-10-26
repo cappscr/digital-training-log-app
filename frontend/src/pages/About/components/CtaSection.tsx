@@ -9,11 +9,11 @@ export const CtaSection = () => {
       className="animate-fade-up mx-auto my-0 max-w-225 px-5 pt-14 pb-32 [animation-delay:var(--animation-delay)] sm:px-8 sm:pt-20"
       style={{ '--animation-delay': '0.35s' } as CSSProperties}
     >
-      <div className="text-primary-foreground rounded-sm bg-zinc-900 px-6 py-9 sm:p-12 dark:bg-zinc-800">
+      <div className="rounded-sm bg-zinc-900 px-6 py-9 sm:p-12 dark:bg-zinc-800">
         <h2 className="font-heading mb-4 text-[clamp(1.5rem,3vw,2rem)] leading-tight tracking-tight text-zinc-100">
           Get in touch or support the work
         </h2>
-        <p className="text-muted-foreground mb-9 max-w-135 text-base/[1.7]">
+        <p className="dark:text-muted-foreground mb-9 max-w-135 text-base/[1.7] text-zinc-400">
           Have a question, found a bug, or just want to say something? I read
           every message. If you find Digital Training Log valuable and want to
           support its continued development, contributions are always welcome.
@@ -34,18 +34,18 @@ export const CtaSection = () => {
           <Button
             variant="ghost"
             disabled
-            className="text-muted-foreground gap-2 border border-solid border-zinc-700 data-[disabled]:opacity-100"
+            className="dark:text-muted-foreground gap-2 border border-solid border-zinc-700 text-zinc-400 data-[disabled]:opacity-100"
             aria-label="Contribution link coming soon"
           >
             Support the project
             <ComingSoonBadge />
           </Button>
         </div>
-        <div className="text-muted-foreground mt-8 border-t border-zinc-700 pt-8 text-sm">
+        <div className="dark:text-muted-foreground mt-8 border-t border-zinc-700 pt-8 text-sm text-zinc-400">
           By using Digital Training Log you agree to our{' '}
           <Link
             to="/terms"
-            className="text-accent hover:text-muted whitespace-nowrap underline underline-offset-2 dark:text-rose-200 dark:hover:text-rose-400"
+            className="text-accent hover:text-emphasis whitespace-nowrap underline underline-offset-2"
           >
             Terms of Use
           </Link>

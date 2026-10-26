@@ -37,7 +37,7 @@ export const TrainingSessionsPage = () => {
         </Link>
       </div>
       <section className="mx-auto my-4 max-w-2xl px-4">
-        <h1 className="text-primary mb-8">Training Sessions</h1>
+        <h1 className="text-emphasis mb-8">Training Sessions</h1>
         {isLoading && <Loading />}
         {!isLoading && training_sessions.length === 0 && (
           <EmptyTrainingSessions />
