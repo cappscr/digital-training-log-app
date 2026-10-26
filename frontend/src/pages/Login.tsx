@@ -18,7 +18,7 @@ export const LoginPage = () => {
       caption={
         <>
           Don't have an account?{' '}
-          <Link to="/signup" className="text-primary font-medium">
+          <Link to="/signup" className="text-emphasis font-medium">
             Sign up
           </Link>
         </>

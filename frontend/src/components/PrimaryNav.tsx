@@ -46,8 +46,8 @@ export const PrimaryNav = () => {
           onClick={() => setMenuOpen(false)}
           className="font-heading text-foreground hover:bg-muted p-2 text-lg font-normal tracking-wide antialiased"
         >
-          Digital<span className="text-primary">.</span>Training
-          <span className="text-primary">.</span>Log
+          Digital<span className="text-emphasis">.</span>Training
+          <span className="text-emphasis">.</span>Log
         </Link>
         <div className="hidden items-center gap-6 sm:flex">
           {navLinks.map((link) => (

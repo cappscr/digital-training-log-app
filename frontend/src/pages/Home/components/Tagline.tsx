@@ -7,7 +7,7 @@ export const Tagline = () => {
       <span className="bg-primary h-1 w-1 shrink-0 rounded-[50%]"></span>
       <span className="font-heading text-foreground text-xl">Log</span>
       <span className="bg-primary h-1 w-1 shrink-0 rounded-[50%]"></span>
-      <span className="font-heading text-primary text-xl">
+      <span className="font-heading text-emphasis text-xl">
         All in one place.
       </span>
     </div>

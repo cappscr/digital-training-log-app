@@ -18,7 +18,7 @@ const PhoneEntry = ({ label, entry }: { label: string; entry: string }) => {
 const PhoneStat = ({ label, value }: { label: string; value: string }) => {
   return (
     <div className="bg-muted flex-1 rounded-sm px-1 py-1.25 text-center">
-      <span className="text-primary block text-[0.625rem] font-medium tracking-wider">
+      <span className="text-emphasis block text-[0.625rem] font-medium tracking-wider">
         {value}
       </span>
       <span className="text-muted-foreground text-[0.375rem] tracking-wider uppercase">
@@ -45,7 +45,7 @@ export const MobileCallout = () => {
           <h2 className="font-heading mb-5 text-[clamp(1.75rem,4vw,2.5rem)] text-zinc-100">
             Log a session
             <br />
-            <span className="text-primary opacity-90">at the track.</span>
+            <span className="text-emphasis opacity-90">at the track.</span>
             <br />
             Plan your week
             <br />

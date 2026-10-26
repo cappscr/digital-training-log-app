@@ -161,7 +161,7 @@ export const LoginForm = () => {
       <p className="font-body mt-4 text-center text-sm font-medium tracking-wide antialiased">
         <Link
           to="/forgot-password"
-          className="text-muted-foreground hover:text-primary text-sm underline-offset-4 hover:underline"
+          className="text-muted-foreground hover:text-emphasis text-sm underline-offset-4 hover:underline"
         >
           Forgot password?
         </Link>
@@ -170,7 +170,7 @@ export const LoginForm = () => {
         <div className="mt-2 text-center text-sm">
           <Button
             variant="link"
-            className="text-muted-foreground hover:text-primary text-sm"
+            className="text-muted-foreground hover:text-emphasis text-sm"
             onClick={handleGetNewActivationLink}
           >
             Send a new activation link?

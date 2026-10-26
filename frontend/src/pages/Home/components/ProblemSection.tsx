@@ -27,7 +27,7 @@ const FeatureCard = ({
 }) => {
   return (
     <div className="border-border border-r-0 border-b px-7 py-8 last:border-b-0 sm:border-r sm:last:border-r-0">
-      <span className="font-numeric text-primary mb-3 block text-3xl leading-none font-normal">
+      <span className="font-numeric text-emphasis mb-3 block text-3xl leading-none font-normal">
         {num}
       </span>
       <div className="font-heading text-foreground mb-3 text-xl">{title}</div>

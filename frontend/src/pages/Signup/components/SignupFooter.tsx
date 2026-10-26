@@ -10,7 +10,7 @@ const FooterTypography = ({ children }: { children: ReactNode }) => (
 const FooterLink = ({ to, children }: { to: string; children: ReactNode }) => (
   <Link
     to={to}
-    className="text-foreground text-decoration-border hover:text-primary hover:text-decoration-primary underline underline-offset-2"
+    className="text-foreground text-decoration-border hover:text-emphasis hover:text-decoration-primary underline underline-offset-2"
   >
     {children}
   </Link>

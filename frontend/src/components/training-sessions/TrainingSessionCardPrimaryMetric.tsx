@@ -9,7 +9,7 @@ export const TrainingSessionCardPrimaryMetric = ({
 }: TrainingSessionCardPrimaryMetricProps) => {
   return (
     <div className="font-numeric flex h-full flex-col items-end justify-center gap-2">
-      <span className="text-primary text-xl font-bold sm:text-2xl">
+      <span className="text-emphasis text-xl font-bold sm:text-2xl">
         {trainingSession.sport_details_type === 'StrengthTrainingSession' ? (
           trainingSession.sport_details.volume_load ? (
             <>
@@ -30,7 +30,7 @@ export const TrainingSessionCardPrimaryMetric = ({
         // only show duration separately for strength training sessions that don't have volume load
         (trainingSession.sport_details_type !== 'StrengthTrainingSession' ||
           trainingSession.sport_details.volume_load) && (
-          <span className="text-secondary-foreground text-lg font-medium sm:text-xl">
+          <span className="text-secondary text-lg font-medium sm:text-xl">
             {trainingSession.duration}
           </span>
         )}

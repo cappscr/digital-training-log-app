@@ -14,7 +14,7 @@ export const CreateOrEditTrainingSessionPage = () => {
 
   return (
     <section className="mx-auto my-4 max-w-2xl px-4">
-      <h1 className="text-primary mb-8">
+      <h1 className="text-emphasis mb-8">
         {isEditMode ? 'Edit Training Session' : 'Log Training Session'}
       </h1>
       {isLoading && <Loading />}

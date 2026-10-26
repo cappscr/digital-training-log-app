@@ -11,7 +11,7 @@ export const SignupHeader = () => {
       <h1 className="font-heading text-foreground mb-2.5 text-4xl tracking-tight">
         Start your
         <br />
-        <span className="text-primary">training log.</span>
+        <span className="text-emphasis">training log.</span>
       </h1>
       <p className="text-muted-foreground leading-relaxed font-light">
         No algorithms, no social feed, no GPS required. Just your training —
