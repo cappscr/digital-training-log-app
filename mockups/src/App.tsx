@@ -29,11 +29,22 @@ const FRAME_SIZE: Record<Viewport, string> = {
   desktop: 'w-full h-[calc(100svh-3rem)]',
 }
 
-const isEmbedded = new URLSearchParams(window.location.search).has('embed')
+const params = new URLSearchParams(window.location.search)
+const isEmbedded = params.has('embed')
 
+const isScreen = (id: string | null): id is Screen => SCREENS.some((s) => s.id === id)
+
+// `?screen=`, `?dark`, and `?scheme=` let tools that own the hash (like Figma capture) load a specific state.
 function screenFromHash(): Screen {
   const id = window.location.hash.replace('#', '')
-  return SCREENS.some((s) => s.id === id) ? (id as Screen) : 'landing'
+  if (isScreen(id)) return id
+  const fromQuery = params.get('screen')
+  return isScreen(fromQuery) ? fromQuery : 'landing'
+}
+
+if (isEmbedded) {
+  document.documentElement.classList.toggle('dark', params.has('dark'))
+  document.documentElement.classList.toggle('analogous', params.get('scheme') === 'analogous')
 }
 
 export default function App() {
