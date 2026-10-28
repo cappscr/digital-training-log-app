@@ -46,9 +46,9 @@ Out of scope for this slice:
 | Field | Type | Required | Default | Allowed values |
 | --- | --- | --- | --- | --- |
 | `microcycle_start_day` | string | Yes | `monday` | `sunday`, `monday` |
-| `weight_unit` | string | Yes | `lbs` | `lbs`, `kg` |
-| `distance_unit` | string | Yes | `mi` | `mi`, `km` |
-| `elevation_unit` | string | Yes | `ft` | `ft`, `m` |
+| `default_weight_unit` | string | Yes | `lbs` | `lbs`, `kg` |
+| `default_distance_unit` | string | Yes | `mi` | `mi`, `km` |
+| `default_elevation_unit` | string | Yes | `ft` | `ft`, `m` |
 | `theme` | string | Yes | `dark` | `light`, `dark`, `system` |
 
 Use the same unit strings the training forms already persist. Store `theme` so the next issue can move the toggle, and do not accept it on the update endpoint in this slice.
