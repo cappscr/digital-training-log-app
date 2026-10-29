@@ -5,7 +5,7 @@ watchPatterns = ["backend/**"]
 
 [deploy]
 # This runs BEFORE the new container starts
-preDeployCommand = "bin/rails db:prepare"
+preDeployCommand = "bin/rails db:prepare && bin/rails data:migrate"
 
 # This is ONLY for starting the server
 startCommand = "bin/rails server -b 0.0.0.0"
