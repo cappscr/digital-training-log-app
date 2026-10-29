@@ -1,5 +1,4 @@
 import {
-  get,
   useFieldArray,
   useFormState,
   type Control,
@@ -39,7 +38,7 @@ export const StrengthTrainingExerciseGroup = ({
     control,
     name: `exercises.${index}.schemes`,
   });
-  const schemeError = get(errors, `exercises.${index}.schemes`);
+  const schemeError = errors.exercises?.[index]?.schemes;
   const schemesMessage = schemeError?.root?.message ?? schemeError?.message;
 
   return (
