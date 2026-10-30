@@ -1193,9 +1193,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shadcn/registry@npm:0.2.0":
-  version: 0.2.0
-  resolution: "@shadcn/registry@npm:0.2.0"
+"@shadcn/registry@npm:0.2.1":
+  version: 0.2.1
+  resolution: "@shadcn/registry@npm:0.2.1"
   dependencies:
     "@babel/core": "npm:^7.28.0"
     "@babel/parser": "npm:^7.28.0"
@@ -1218,9 +1218,9 @@ __metadata:
     stringify-object: "npm:^5.0.0"
     tsconfig-paths: "npm:^4.2.0"
     type-fest: "npm:^4.41.0"
-    undici: "npm:^7.29.1"
+    undici: "npm:^7.30.1"
     zod: "npm:^4.2.0"
-  checksum: 10c0/82f8c9e7671c8dfae687e92977b6eeeafe7370bb0682855ae531489070719bf2dcd434d5a8f97116f3c1ba116f95e227514cc5a119b9a0f7a415827f557178f2
+  checksum: 10c0/c075d20f4efa0e15cda92483b898799f6be74720511d38108893b14c5cc5e0d8cad608c1c00e825b06bce00eb027f96ca21c34dbb49d274d397eaa9bd1e33777
   languageName: node
   linkType: hard
 
@@ -2425,7 +2425,7 @@ __metadata:
     react-error-boundary: "npm:^6.1.6"
     react-hook-form: "npm:^7.91.0"
     react-router: "npm:^8.5.0"
-    shadcn: "npm:^4.22.1"
+    shadcn: "npm:^4.22.2"
     sonner: "npm:^2.0.8"
     swr: "npm:^2.5.1"
     tailwind-merge: "npm:^3.7.0"
@@ -5146,9 +5146,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shadcn@npm:^4.22.1":
-  version: 4.22.1
-  resolution: "shadcn@npm:4.22.1"
+"shadcn@npm:^4.22.2":
+  version: 4.22.2
+  resolution: "shadcn@npm:4.22.2"
   dependencies:
     "@babel/core": "npm:^7.28.0"
     "@babel/parser": "npm:^7.28.0"
@@ -5156,7 +5156,7 @@ __metadata:
     "@babel/preset-typescript": "npm:^7.27.1"
     "@dotenvx/dotenvx": "npm:^1.48.4"
     "@modelcontextprotocol/sdk": "npm:^1.32.0"
-    "@shadcn/registry": "npm:0.2.0"
+    "@shadcn/registry": "npm:0.2.1"
     "@types/validate-npm-package-name": "npm:^4.0.2"
     browserslist: "npm:^4.29.3"
     cn: "npm:^0.2.4"
@@ -5179,12 +5179,12 @@ __metadata:
     stringify-object: "npm:^5.0.0"
     ts-morph: "npm:^26.0.0"
     tsconfig-paths: "npm:^4.2.0"
-    undici: "npm:^7.29.1"
+    undici: "npm:^7.30.1"
     validate-npm-package-name: "npm:^7.0.1"
     zod: "npm:^4.2.0"
   bin:
     shadcn: dist/index.js
-  checksum: 10c0/eb3529bb813bfdc6de2d123d83c0cef363c8da0b61a1bc813ec2f2733f29e222743d269f3176d283c8bd1840fa062cbea4f5655d5a77d468979d0f52b1b545d0
+  checksum: 10c0/fd9e45955a5404fddf084f48ceab817533094228b3e0091eb1a09258e679f33abf2b25321b435050d2364b5393bceb77a6a6156ef91d481a2c0abe362d528c8e
   languageName: node
   linkType: hard
 
@@ -5689,7 +5689,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^7.29.1":
+"undici@npm:^7.30.1":
   version: 7.30.1
   resolution: "undici@npm:7.30.1"
   checksum: 10c0/c838089b010e8e28a9a5358d4bf4621e0c8d7bb70058b23e819667349c4c0b6791a7c8bc9bbe94ff0923db132faae0d9d9592b9743eda4f2b49466fa57482213
