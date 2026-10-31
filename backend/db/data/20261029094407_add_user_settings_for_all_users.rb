@@ -5,7 +5,7 @@ DEFAULT_USER_SETTINGS = {
   default_weight_unit: "lbs",
   default_elevation_unit: "ft",
   microcycle_start_day: "monday",
-  theme: "dark",
+  theme: "dark"
 }.freeze
 
 class AddUserSettingsForAllUsers < ActiveRecord::Migration[8.1]

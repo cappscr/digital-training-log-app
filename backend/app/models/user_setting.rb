@@ -18,12 +18,12 @@ class UserSetting < ApplicationRecord
 
   enum :microcycle_start_day, {
     sunday: "sunday",
-    monday: "monday",
+    monday: "monday"
   }, validate: { allow_nil: false }
 
   enum :theme, {
     light: "light",
     dark: "dark",
-    system: "system",
+    system: "system"
   }, validate: { allow_nil: false }
 end
