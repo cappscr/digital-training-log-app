@@ -38,6 +38,14 @@ RSpec.describe "User settings", type: :request do
           patch api_v1_users_me_path(user), params: { user: { name: "New Name", microcycle_start_day: "tuesday" } }, headers: auth_headers
           expect(response).to have_http_status(:unprocessable_content)
           expect(user.reload.name).not_to eq("New Name")
+          expect(response.parsed_body["errors"]).to include(
+            { "pointer" => "#/user/microcycle_start_day", "detail" => "Is not included in the list" }
+          )
+          # ensure that the api response flattens the errors and does not nest them under user_setting or settings/
+          expect(response.parsed_body["errors"].map { |error| error["pointer"] }).not_to include(
+            a_string_including("user_setting"),
+            a_string_including("settings/")
+          )
         end
       end
 
@@ -48,10 +56,14 @@ RSpec.describe "User settings", type: :request do
           expect(user.reload.name).to eq("You Were Hacked") # the user's name is updated but not the other user's name
           expect(other_user.reload.name).not_to eq("You Were Hacked")
           expect(user.reload.id).not_to eq(other_user.id)
-          expect(user.reload.email).not_to eq("other@example.com")
-          expect(other_user.reload.email).not_to eq("you.were.hacked@example.com")
-          expect(user.reload.password).not_to eq("password123")
-          expect(other_user.reload.password).not_to eq("password123")
+
+          # ensure neither user's email was updated
+          expect(user.reload.email).to eq("user@example.com")
+          expect(other_user.reload.email).to eq("other@example.com")
+
+          # ensure neither user's password was updated
+          expect(user.reload.authenticate("password123")).not_to be_truthy
+          expect(other_user.reload.authenticate("password123")).not_to be_truthy
         end
       end
 

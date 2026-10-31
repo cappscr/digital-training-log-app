@@ -6,13 +6,15 @@ class UserSettingsForm
 
   def save
     user.assign_attributes(user_attributes)
-    user.user_setting.assign_attributes(user_settings_attributes)
-
     user.validate
-    user.user_setting.validate
-    user.user_setting.errors.each do |error|
-      user.errors.add(:"settings/#{error.attribute}", error.message)
+
+    settings = user.user_setting || user.build_user_setting
+    settings.assign_attributes(user_settings_attributes)
+    settings.validate
+    settings.errors.each do |error|
+      user.errors.add(error.attribute, error.message)
     end
+
     raise ActiveRecord::RecordInvalid, user if user.errors.any?
 
     User.transaction do
