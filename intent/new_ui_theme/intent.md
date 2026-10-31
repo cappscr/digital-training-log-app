@@ -1,7 +1,7 @@
 ---
 title: new ui theme
 author: Chris Capps
-status: in-progress
+status: completed
 issue: 490
 ---
 
