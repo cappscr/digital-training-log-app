@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+
+cd "$(dirname "$0")/.."
+
+bin/rails db:prepare
+bin/rails data:migrate

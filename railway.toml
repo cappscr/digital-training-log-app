@@ -4,11 +4,11 @@ builder = "railpack"
 watchPatterns = ["backend/**"]
 
 [deploy]
-# Schema only. This runs before the new container starts.
-preDeployCommand = "bin/rails db:prepare"
+# Schema and data migrations. This container must exit before the server starts.
+preDeployCommand = "bin/release"
 
-# Backfill in the new image, then serve. data:migrate no-ops once recorded.
-startCommand = "bin/rails data:migrate && bin/rails server -b 0.0.0.0"
+# The healthcheck targets this process, so it has to be the server.
+startCommand = "bin/rails server -b 0.0.0.0"
 
 # Highly recommended: Railway will wait for this to return 200 before switching traffic
 healthcheckPath = "/up" 
