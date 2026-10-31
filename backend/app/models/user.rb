@@ -15,7 +15,8 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     uniqueness: true, format: { with: VALID_EMAIL_REGEX }
   has_secure_password
-  validates :password, presence: true, length: { minimum: 8 }
+  validates :password, presence: true, length: { minimum: 8 }, on: :create
+  validates :password, length: { minimum: 8 }, allow_nil: true, on: :update
 
   scope :active, -> { where(deleted_at: nil) }
   scope :deleted, -> { where.not(deleted_at: nil) }
