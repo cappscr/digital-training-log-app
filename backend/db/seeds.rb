@@ -26,6 +26,14 @@ user = User.find_or_create_by(email: 'capps.christopher@gmail.com') do |user|
   user.password = "Passw0rd!" # dev-only
 end
 
+user_setting = UserSetting.find_or_create_by!(user: user) do |user_setting|
+  user_setting.microcycle_start_day = "monday"
+  user_setting.default_weight_unit = "lbs"
+  user_setting.default_distance_unit = "mi"
+  user_setting.default_elevation_unit = "ft"
+  user_setting.theme = "dark"
+end
+
 exercises_by_session_id = Hash.new { |sessions, id| sessions[id] = [] }
 
 CSV.foreach(strength_training_exercises_csv_path, headers: true) do |row|
