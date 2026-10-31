@@ -41,7 +41,7 @@ Out of scope for this slice:
 
 ## Domain model
 
-`User` has one `UserSetting`. Create the row in the same transaction as the user. On deploy, the schema migration runs before the new process boots. The data migration runs in that process before it serves traffic, and skips users who already have a settings row.
+`User` has one `UserSetting`. Create the row in the same transaction as the user. On deploy, schema preparation and the data migration both finish before the new process boots. The data migration skips users who already have a settings row.
 
 | Field | Type | Required | Default | Allowed values |
 | --- | --- | --- | --- | --- |

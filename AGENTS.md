@@ -18,3 +18,4 @@
 
 - [Frontend architecture](./frontend/AGENTS.md#architecture)
 - [Backend architecture](./backend/AGENTS.md#architecture)
+- [Backend deploy](./backend/AGENTS.md#deploy)
