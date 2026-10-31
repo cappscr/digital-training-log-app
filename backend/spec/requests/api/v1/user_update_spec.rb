@@ -32,6 +32,12 @@ RSpec.describe "User update", type: :request do
           expect(response).to have_http_status(:unprocessable_content)
           expect(user.reload.name).not_to eq("a" * 101)
         end
+
+        it "rolls back the transaction if either the user or settings update fails" do
+          patch api_v1_users_me_path(user), params: { user: { name: "New Name", microcycle_start_day: "tuesday" } }, headers: auth_headers
+          expect(response).to have_http_status(:unprocessable_content)
+          expect(user.reload.name).not_to eq("New Name")
+        end
       end
 
       context "with valid user param" do
