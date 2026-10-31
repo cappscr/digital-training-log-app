@@ -10,6 +10,7 @@ module Api
 
       def create
         @user = User.new(user_params)
+        @user.user_setting = UserSetting.new(user: @user)
         @user.save!
         @user.send_activation_email
         render json: @user, status: :created

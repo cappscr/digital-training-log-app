@@ -65,6 +65,13 @@ RSpec.describe "User signup", type: :request do
         parsed_body = JSON.parse(response.body)
         expect(parsed_body["user"]["name"]).to eq("Example User")
         expect(parsed_body["user"]["email"]).to eq("example@user.com")
+        expect(parsed_body["user"]["settings"]).to include(
+          "microcycle_start_day" => "monday",
+          "default_weight_unit" => "lbs",
+          "default_distance_unit" => "mi",
+          "default_elevation_unit" => "ft",
+          "theme" => "dark"
+        )
       end
     end
   end
