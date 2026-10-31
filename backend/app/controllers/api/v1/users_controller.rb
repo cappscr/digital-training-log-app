@@ -19,10 +19,8 @@ module Api
       end
 
       def update
-        User.transaction do
-          current_user.update!(user_update_params.slice(:name))
-          current_user.user_setting.update!(user_update_params.except(:name))
-        end
+        UserSettingsForm.new(current_user, user_update_params).save
+
         render json: current_user
       end
 

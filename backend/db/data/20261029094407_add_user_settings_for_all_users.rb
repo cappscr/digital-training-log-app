@@ -10,7 +10,7 @@ DEFAULT_USER_SETTINGS = {
 
 class AddUserSettingsForAllUsers < ActiveRecord::Migration[8.1]
   def up
-    User.find_each do |user|
+    User.where.missing(:user_setting).find_each do |user|
       user.create_user_setting!(DEFAULT_USER_SETTINGS)
     end
   end

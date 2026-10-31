@@ -1,9 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "User update", type: :request do
+RSpec.describe "User settings", type: :request do
   describe "PATCH /api/v1/users/me" do
     let(:user) { create(:user, :activated) }
     let(:update_params) { { user: { name: "New Name" } } }
+    let(:other_user) { create(:user, :activated, email: "other@example.com") }
 
     context "when not logged in" do
       it "returns a 401 Unauthorized error" do
@@ -37,6 +38,20 @@ RSpec.describe "User update", type: :request do
           patch api_v1_users_me_path(user), params: { user: { name: "New Name", microcycle_start_day: "tuesday" } }, headers: auth_headers
           expect(response).to have_http_status(:unprocessable_content)
           expect(user.reload.name).not_to eq("New Name")
+        end
+      end
+
+      context "ignores id, email, and password fields" do
+        it "updates neither the user nor the other user" do
+          patch api_v1_users_me_path(user), params: { user: { id: other_user.id, name: "You Were Hacked", email: "you.were.hacked@example.com", password: "password123" } }, headers: auth_headers
+          expect(response).to have_http_status(:ok)
+          expect(user.reload.name).to eq("You Were Hacked") # the user's name is updated but not the other user's name
+          expect(other_user.reload.name).not_to eq("You Were Hacked")
+          expect(user.reload.id).not_to eq(other_user.id)
+          expect(user.reload.email).not_to eq("other@example.com")
+          expect(other_user.reload.email).not_to eq("you.were.hacked@example.com")
+          expect(user.reload.password).not_to eq("password123")
+          expect(other_user.reload.password).not_to eq("password123")
         end
       end
 
