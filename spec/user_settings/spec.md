@@ -72,9 +72,9 @@ Include `settings` on `UserSerializer`, so `GET /api/v1/users/me`, login, and si
   "email": "chris@example.com",
   "settings": {
     "microcycle_start_day": "monday",
-    "weight_unit": "lbs",
-    "distance_unit": "mi",
-    "elevation_unit": "ft",
+    "default_weight_unit": "lbs",
+    "default_distance_unit": "mi",
+    "default_elevation_unit": "ft",
     "theme": "dark"
   }
 }
@@ -88,12 +88,10 @@ Include `settings` on `UserSerializer`, so `GET /api/v1/users/me`, login, and si
 {
   "user": {
     "name": "Chris Capps",
-    "settings": {
-      "microcycle_start_day": "monday",
-      "weight_unit": "lbs",
-      "distance_unit": "mi",
-      "elevation_unit": "ft"
-    }
+    "microcycle_start_day": "monday",
+    "default_weight_unit": "lbs",
+    "default_distance_unit": "mi",
+    "default_elevation_unit": "ft"
   }
 }
 ```
