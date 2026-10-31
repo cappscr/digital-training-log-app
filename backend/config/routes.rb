@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get "/users/me", to: "users#me"
+      patch "/users/me", to: "users#update"
       resources :users, only: [ :show ]
       resources :users, only: [ :create ], path: "signup"
       post "/login", to: "sessions#create"

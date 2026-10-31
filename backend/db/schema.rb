@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_04_094548) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_28_101421) do
   create_table "cross_training_sessions", id: :string, force: :cascade do |t|
     t.integer "average_heart_rate"
     t.decimal "distance", precision: 5, scale: 2
@@ -107,6 +107,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_094548) do
     t.index ["user_id"], name: "index_user_sessions_on_user_id"
   end
 
+  create_table "user_settings", id: :string, force: :cascade do |t|
+    t.string "default_distance_unit", default: "mi", null: false
+    t.string "default_elevation_unit", default: "ft", null: false
+    t.string "default_weight_unit", default: "lbs", null: false
+    t.string "microcycle_start_day", default: "monday", null: false
+    t.string "theme", default: "dark", null: false
+    t.string "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_settings_on_user_id", unique: true
+  end
+
   create_table "users", id: :string, force: :cascade do |t|
     t.boolean "activated", default: false
     t.datetime "activated_at"
@@ -130,4 +142,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_094548) do
   add_foreign_key "training_session_weathers", "training_sessions"
   add_foreign_key "training_sessions", "users"
   add_foreign_key "user_sessions", "users"
+  add_foreign_key "user_settings", "users"
 end

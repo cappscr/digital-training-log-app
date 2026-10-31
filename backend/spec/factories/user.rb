@@ -7,6 +7,7 @@ FactoryBot.define do
     password_confirmation { "password" }
     activated { false }
     activated_at { nil }
+    user_setting { association(:user_setting, user: instance) }
   end
 
   trait :activated do
