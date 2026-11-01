@@ -3,7 +3,7 @@ import { useCurrentUser } from '../hooks/useCurrentUser';
 import { PageTitle } from '@/components/PageTitle';
 import { UserSidebar } from '@/components/UserSidebar';
 
-export function UserProfilePage() {
+export function UserSettingsPage() {
   const { user, error, isLoading } = useCurrentUser();
 
   return isLoading ? (
@@ -16,7 +16,7 @@ export function UserProfilePage() {
       <div className="flex flex-row">
         <UserSidebar />
         <h1 className="font-heading text-emphasis mt-10 px-8 text-4xl tracking-tight">
-          User Profile
+          Settings
         </h1>
       </div>
     </>
