@@ -11,12 +11,14 @@ interface EmailInputProps<TFieldValues extends FieldValues> {
   control: Control<TFieldValues>;
   name: FieldPath<TFieldValues>;
   formId: string;
+  disabled?: boolean;
 }
 
 export const EmailInput = <TFieldValues extends FieldValues>({
   control,
   formId,
   name,
+  disabled = false,
 }: EmailInputProps<TFieldValues>) => {
   return (
     <Controller
@@ -31,6 +33,7 @@ export const EmailInput = <TFieldValues extends FieldValues>({
             id={`${formId}-${name}`}
             aria-invalid={fieldState.invalid}
             autoComplete="email"
+            disabled={disabled}
           />
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
         </Field>
