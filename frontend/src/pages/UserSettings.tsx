@@ -2,7 +2,7 @@ import { useCurrentUser } from '../hooks/useCurrentUser';
 
 import { Loading } from '@/components/Loading';
 import { PageTitle } from '@/components/PageTitle';
-import { UserSettingsForm } from '@/forms/UserSettings';
+import { UserSettingsForm } from '@/forms/user-settings/UserSettings';
 
 export function UserSettingsPage() {
   const { user, error, isLoading } = useCurrentUser();
@@ -16,16 +16,20 @@ export function UserSettingsPage() {
   }
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-4">
+    <>
       <PageTitle pageName={user?.name || 'User Profile'} />
-      <h1 className="font-heading text-emphasis mt-10 px-8 text-4xl tracking-tight">
-        Settings
-      </h1>
-      <p className="text-muted-foreground px-8 text-sm">
-        Defaults for new sessions and calculations. Already logged sessions stay
-        as they are.
-      </p>
-      <UserSettingsForm currentUser={user} />
-    </div>
+      <div className="mx-auto my-12 flex max-w-3xl flex-col gap-4">
+        <h1 className="font-heading text-emphasis text-4xl tracking-tight">
+          Settings
+        </h1>
+        <p className="text-muted-foreground text-sm">
+          Defaults for new sessions and calculations. Already logged sessions
+          stay as they are.
+        </p>
+      </div>
+      <div className="mx-auto flex max-w-3xl flex-col gap-4">
+        <UserSettingsForm currentUser={user} />
+      </div>
+    </>
   );
 }

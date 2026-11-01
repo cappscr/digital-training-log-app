@@ -4,7 +4,12 @@ import {
   type FieldPath,
   type FieldValues,
 } from 'react-hook-form';
-import { Field, FieldLabel, FieldError } from '@/components/ui/field';
+import {
+  Field,
+  FieldDescription,
+  FieldLabel,
+  FieldError,
+} from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 
 interface EmailInputProps<TFieldValues extends FieldValues> {
@@ -12,12 +17,14 @@ interface EmailInputProps<TFieldValues extends FieldValues> {
   name: FieldPath<TFieldValues>;
   formId: string;
   disabled?: boolean;
+  description?: string;
 }
 
 export const EmailInput = <TFieldValues extends FieldValues>({
   control,
   formId,
   name,
+  description,
   disabled = false,
 }: EmailInputProps<TFieldValues>) => {
   return (
@@ -35,6 +42,7 @@ export const EmailInput = <TFieldValues extends FieldValues>({
             autoComplete="email"
             disabled={disabled}
           />
+          {description && <FieldDescription>{description}</FieldDescription>}
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
         </Field>
       )}

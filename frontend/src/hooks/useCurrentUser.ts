@@ -1,5 +1,13 @@
 import useSWR from 'swr';
 
+export type UserSettings = {
+  microcycle_start_day: 'sunday' | 'monday';
+  default_distance_unit: 'km' | 'mi';
+  default_weight_unit: 'kg' | 'lbs';
+  default_elevation_unit: 'm' | 'ft';
+  theme: 'light' | 'dark' | 'system';
+};
+
 export type User = {
   id: string;
   name: string;
@@ -9,6 +17,7 @@ export type User = {
   gravatar_id: string;
   activated: boolean;
   activated_at: string | null;
+  settings: UserSettings;
 };
 
 export const CURRENT_USER_KEY = '/users/me';
