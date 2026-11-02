@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button';
 import { EmailInput } from '../EmailInput';
 import { MicrocycleStartDayToggle } from './MicrocycleStartDayToggle';
 import { DefaultUnitToggle } from './DefaultUnitToggle';
-import { type User } from '@/hooks/useCurrentUser';
+import { useCurrentUser, type User } from '@/hooks/useCurrentUser';
 import { apiClient, isApiError } from '@/lib/fetcher';
 import { successToast } from '@/lib/toasts';
 import { toSentenceCase } from '@/lib/utils';
@@ -37,11 +37,21 @@ interface UserSettingsFormProps {
 }
 
 export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
+  const { mutate } = useCurrentUser();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: currentUser?.name ?? '',
       email: currentUser?.email ?? '',
+      microcycle_start_day:
+        currentUser?.settings.microcycle_start_day ?? 'sunday',
+      default_distance_unit:
+        currentUser?.settings.default_distance_unit ?? 'mi',
+      default_weight_unit: currentUser?.settings.default_weight_unit ?? 'lbs',
+      default_elevation_unit:
+        currentUser?.settings.default_elevation_unit ?? 'ft',
+      // theme: currentUser?.settings.theme ?? 'dark',
     },
     mode: 'onTouched',
   });
@@ -52,9 +62,14 @@ export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
         user: {
           name: data.name,
           microcycle_start_day: data.microcycle_start_day,
+          default_distance_unit: data.default_distance_unit,
+          default_weight_unit: data.default_weight_unit,
+          default_elevation_unit: data.default_elevation_unit,
+          // theme: data.theme,
         },
       });
       successToast('Settings saved successfully');
+      await mutate();
     } catch (apiError) {
       if (isApiError(apiError) && apiError.status === 422) {
         const errors = apiError.data?.errors;
