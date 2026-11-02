@@ -80,10 +80,7 @@ export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
         <FieldGroup>
           <FieldSet>
             <FieldLegend>Profile</FieldLegend>
-            <FieldDescription>
-              Update your account information here.
-            </FieldDescription>
-            <FieldGroup className="flex flex-row gap-4">
+            <FieldGroup className="flex flex-col gap-4 sm:flex-row">
               <Controller
                 name="name"
                 control={form.control}
@@ -132,10 +129,10 @@ export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
           <FieldSet>
             <FieldLegend>Units</FieldLegend>
             <FieldDescription>
-              Applied to new sessions, new sets, and pace calculations. Existing
-              entries keep the units they were logged with.
+              Applied as defaults for new sessions, new sets, and pace
+              calculations. Does not affect existing entries.
             </FieldDescription>
-            <FieldGroup>
+            <FieldGroup className="flex flex-col gap-4 sm:flex-row">
               <DefaultUnitToggle
                 control={form.control}
                 formId="user-settings-form"
@@ -179,8 +176,7 @@ export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
           <FieldSet>
             <FieldLegend>Appearance</FieldLegend>
             <FieldDescription>
-              Update the appearance of the app. We recommend using dark mode as
-              the site is designed for it.
+              Update the appearance of the app. Dark mode is recommended.
             </FieldDescription>
           </FieldSet>
         </FieldGroup>

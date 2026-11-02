@@ -21,7 +21,7 @@ export function AppLayout() {
     <>
       <PrimaryNav />
       <ErrorBoundary>
-        <main className="bg-background text-foreground font-body min-h-screen overflow-x-hidden leading-relaxed antialiased">
+        <main className="bg-background text-foreground font-body min-h-screen w-full overflow-x-hidden leading-relaxed antialiased">
           <Outlet />
         </main>
       </ErrorBoundary>

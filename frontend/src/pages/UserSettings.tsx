@@ -17,19 +17,21 @@ export function UserSettingsPage() {
 
   return (
     <>
-      <PageTitle pageName={user?.name || 'User Profile'} />
-      <div className="mx-auto my-12 flex max-w-3xl flex-col gap-4">
-        <h1 className="font-heading text-emphasis text-4xl tracking-tight">
-          Settings
-        </h1>
-        <p className="text-muted-foreground text-sm">
-          Defaults for new sessions and calculations. Already logged sessions
-          stay as they are.
-        </p>
-      </div>
-      <div className="mx-auto flex max-w-3xl flex-col gap-4">
-        <UserSettingsForm currentUser={user} />
-      </div>
+      <PageTitle pageName="User Settings" />
+      <section className="flex flex-1 flex-col items-center justify-center gap-8">
+        <div className="my-8 flex w-full max-w-xl flex-col gap-4 px-4 md:px-0">
+          <h1 className="font-heading text-emphasis text-4xl tracking-tight">
+            Settings
+          </h1>
+          <p className="text-muted-foreground text-sm">
+            Defaults for new sessions and calculations. Already logged sessions
+            stay as they are.
+          </p>
+        </div>
+        <div className="w-full max-w-xl px-4 md:px-0">
+          <UserSettingsForm currentUser={user} />
+        </div>
+      </section>
     </>
   );
 }
