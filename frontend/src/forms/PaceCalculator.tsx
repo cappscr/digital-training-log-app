@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/select';
 import { NumberField } from '@/components/NumberField';
 import { Button } from '@/components/ui/button';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { usePaceCalculator } from '@/hooks/usePaceCalculator';
 import { isApiError } from '@/lib/fetcher';
 
@@ -44,12 +45,15 @@ const paceUnitOptions = [
 ];
 
 export const PaceCalculatorForm = () => {
+  const { user } = useCurrentUser();
+  const defaultUnits = user?.settings.default_distance_unit ?? 'mi';
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       minutes: 5,
       seconds: 0,
-      units: 'per_mile',
+      units: defaultUnits === 'mi' ? 'per_mile' : 'per_km',
       percentage: 80,
     },
     mode: 'onTouched',

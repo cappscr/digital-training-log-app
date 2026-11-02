@@ -32,6 +32,7 @@ import { UNEXPECTED_ERROR_MESSAGE } from '../errors';
 import { apiClient, isApiError } from '@/lib/fetcher';
 import { toISODateString, toSentenceCase } from '@/lib/utils';
 import { successToast } from '@/lib/toasts';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 import {
   TRAINING_SESSIONS_KEY,
   type TrainingSession,
@@ -45,11 +46,12 @@ export const LogTrainingSessionForm = ({
   trainingSessionToEdit = null,
 }: LogTrainingSessionFormProps) => {
   const navigate = useNavigate();
+  const { user } = useCurrentUser();
   const isEditMode = !!trainingSessionToEdit;
 
   const form = useForm<LogTrainingSessionFormValues>({
     resolver: zodResolver(logTrainingSessionFormSchema),
-    defaultValues: defaultValuesFromSession(trainingSessionToEdit),
+    defaultValues: defaultValuesFromSession(trainingSessionToEdit, user),
   });
 
   const [sport] = useWatch({
@@ -142,7 +144,11 @@ export const LogTrainingSessionForm = ({
                       nextSport === 'running' ? 'outdoor' : 'indoor',
                     duration: current.duration,
                     notes: current.notes,
-                    ...defaultsForSport(nextSport),
+                    ...defaultsForSport(
+                      nextSport,
+                      user?.settings.default_distance_unit ?? 'mi',
+                      user?.settings.default_elevation_unit ?? 'ft',
+                    ),
                   });
                 }}
               />

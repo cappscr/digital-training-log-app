@@ -9,10 +9,24 @@ import type {
   LogTrainingSessionFormValues,
   StrengthFormValues,
 } from './logTrainingSessionSchemas';
+import type { User } from '@/hooks/useCurrentUser';
 
 export const defaultValuesFromSession = (
   session?: TrainingSession | null,
+  user?: User | null,
 ): LogTrainingSessionFormValues => {
+  const defaultUnits: {
+    distance: 'mi' | 'km';
+    elevation: 'ft' | 'm';
+    weight: 'lbs' | 'kg';
+  } = user
+    ? {
+        distance: user.settings.default_distance_unit,
+        elevation: user.settings.default_elevation_unit,
+        weight: user.settings.default_weight_unit,
+      }
+    : { distance: 'mi', elevation: 'ft', weight: 'lbs' };
+
   if (!session)
     return {
       date: new Date(),
@@ -22,8 +36,11 @@ export const defaultValuesFromSession = (
       notes: '',
       type: 'running',
       distance: undefined,
-      // customize this once user settings are implemented
-      unit: 'mi',
+      unit: defaultUnits.distance,
+      elevation_gain: undefined,
+      elevation_unit: defaultUnits.elevation,
+      average_heart_rate: undefined,
+      average_cadence: undefined,
     };
 
   const shared = {
@@ -41,9 +58,9 @@ export const defaultValuesFromSession = (
       type: 'cross_training',
       activity: d.activity,
       distance: d.distance ?? undefined,
-      unit: d.distance_unit ?? 'mi', // customize this once user settings are implemented
+      unit: d.distance_unit ?? defaultUnits.distance,
       elevation_gain: d.elevation_gain ?? undefined,
-      elevation_unit: d.elevation_unit ?? undefined,
+      elevation_unit: d.elevation_unit ?? defaultUnits.elevation,
       average_heart_rate: d.average_heart_rate ?? undefined,
     };
   }
@@ -79,20 +96,24 @@ export const defaultValuesFromSession = (
     ...shared,
     type: 'running',
     distance: d.distance ?? undefined,
-    unit: d.distance_unit ?? 'mi', // customize this once user settings are implemented
+    unit: d.distance_unit ?? defaultUnits.distance,
     elevation_gain: d.elevation_gain ?? undefined,
-    elevation_unit: d.elevation_unit ?? undefined,
+    elevation_unit: d.elevation_unit ?? defaultUnits.elevation,
     average_heart_rate: d.average_heart_rate ?? undefined,
     average_cadence: d.average_cadence ?? undefined,
   };
 };
 
-export const defaultsForSport = (type: string) => {
+export const defaultsForSport = (
+  type: string,
+  defaultDistanceUnit: 'mi' | 'km',
+  defaultElevationUnit: 'ft' | 'm',
+) => {
   const shared = {
     distance: undefined,
-    unit: 'mi', // customize this once user settings are implemented
+    unit: defaultDistanceUnit,
     elevation_gain: undefined,
-    elevation_unit: undefined,
+    elevation_unit: defaultElevationUnit,
     average_heart_rate: undefined,
   };
   switch (type) {
@@ -117,12 +138,13 @@ export const defaultsForSport = (type: string) => {
   }
 };
 
-export const blankStrengthExerciseScheme =
-  (): StrengthFormValues['exercises'][number]['schemes'][number] => ({
-    id: crypto.randomUUID(),
-    sets: 1,
-    reps: 1,
-    bodyweight: true,
-    weight: null,
-    weight_unit: 'lbs', // customize this once user settings are implemented
-  });
+export const blankStrengthExerciseScheme = (
+  defaultWeightUnit: 'lbs' | 'kg',
+): StrengthFormValues['exercises'][number]['schemes'][number] => ({
+  id: crypto.randomUUID(),
+  sets: 1,
+  reps: 1,
+  bodyweight: true,
+  weight: null,
+  weight_unit: defaultWeightUnit,
+});

@@ -15,6 +15,7 @@ import type {
   StrengthFormValues,
 } from './logTrainingSessionSchemas';
 import { blankStrengthExerciseScheme } from './logTrainingSessionDefaultValues';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 
 interface StrengthFieldsProps {
   form: UseFormReturn<LogTrainingSessionFormValues>;
@@ -25,6 +26,8 @@ export const StrengthFields = ({ form }: StrengthFieldsProps) => {
     control: form.control,
     name: 'exercises',
   });
+
+  const { user } = useCurrentUser();
 
   return (
     <>
@@ -56,7 +59,14 @@ export const StrengthFields = ({ form }: StrengthFieldsProps) => {
               type="button"
               variant="outline"
               onClick={() =>
-                append({ name: '', schemes: [blankStrengthExerciseScheme()] })
+                append({
+                  name: '',
+                  schemes: [
+                    blankStrengthExerciseScheme(
+                      user?.settings.default_weight_unit ?? 'lbs',
+                    ),
+                  ],
+                })
               }
             >
               <PlusIcon data-icon="inline-start" /> Add Exercise
