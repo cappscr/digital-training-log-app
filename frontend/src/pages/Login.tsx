@@ -5,10 +5,11 @@ import { useCurrentUser } from '@/hooks/useCurrentUser';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useCurrentUser();
+  const { isAuthenticated } = useCurrentUser();
 
   if (isAuthenticated) {
-    navigate(`/users/${user?.id}`);
+    // eventually redirect to the dashboard
+    navigate('/training-sessions');
   }
 
   return (
