@@ -42,7 +42,8 @@ const runningSchema = shared
   })
   .refine(
     (data) =>
-      parseDuration(data.duration) !== null || data.distance !== undefined,
+      parseDuration(data.duration) !== null ||
+      typeof data.distance === 'number',
     {
       message: "Duration and distance can't both be blank",
       path: ['duration'],
@@ -81,8 +82,9 @@ const crossTrainingSchema = shared
     distance: z
       .number({ error: 'Enter a distance' })
       .positive('Distance must be greater than 0')
+      .nullable()
       .optional()
-      .refine((n) => n === undefined || Math.round(n * 100) / 100 === n, {
+      .refine((n) => n == null || Math.round(n * 100) / 100 === n, {
         message: 'Use at most two decimal places',
       }),
     unit: z.enum(['mi', 'km']).nullable().optional(),
@@ -99,7 +101,8 @@ const crossTrainingSchema = shared
   })
   .refine(
     (data) =>
-      parseDuration(data.duration) !== null || data.distance !== undefined,
+      parseDuration(data.duration) !== null ||
+      typeof data.distance === 'number',
     {
       message: "Duration and distance can't both be blank",
       path: ['duration'],
