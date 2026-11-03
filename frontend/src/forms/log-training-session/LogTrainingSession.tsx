@@ -46,12 +46,24 @@ export const LogTrainingSessionForm = ({
   trainingSessionToEdit = null,
 }: LogTrainingSessionFormProps) => {
   const navigate = useNavigate();
-  const { user } = useCurrentUser();
   const isEditMode = !!trainingSessionToEdit;
+  const { user } = useCurrentUser();
+  const defaultDistanceUnit =
+    (trainingSessionToEdit?.sport_details_type !== 'StrengthTrainingSession'
+      ? trainingSessionToEdit?.sport_details.distance_unit
+      : null) ??
+    user?.settings.default_distance_unit ??
+    'mi';
+  const defaultElevationUnit =
+    (trainingSessionToEdit?.sport_details_type !== 'StrengthTrainingSession'
+      ? trainingSessionToEdit?.sport_details.elevation_unit
+      : null) ??
+    user?.settings.default_elevation_unit ??
+    'ft';
 
   const form = useForm<LogTrainingSessionFormValues>({
     resolver: zodResolver(logTrainingSessionFormSchema),
-    defaultValues: defaultValuesFromSession(trainingSessionToEdit, user),
+    defaultValues: defaultValuesFromSession(trainingSessionToEdit),
   });
 
   const [sport] = useWatch({
@@ -144,11 +156,7 @@ export const LogTrainingSessionForm = ({
                       nextSport === 'running' ? 'outdoor' : 'indoor',
                     duration: current.duration,
                     notes: current.notes,
-                    ...defaultsForSport(
-                      nextSport,
-                      user?.settings.default_distance_unit ?? 'mi',
-                      user?.settings.default_elevation_unit ?? 'ft',
-                    ),
+                    ...defaultsForSport(nextSport),
                   });
                 }}
               />
@@ -182,9 +190,23 @@ export const LogTrainingSessionForm = ({
                   </Field>
                 )}
               />
-              {sport === 'running' && <RunningFields form={form} />}
+              {sport === 'running' && (
+                <RunningFields
+                  form={form}
+                  defaultUnits={{
+                    distance: defaultDistanceUnit,
+                    elevation: defaultElevationUnit,
+                  }}
+                />
+              )}
               {sport === 'cross_training' && (
-                <CrossTrainingFields form={form} />
+                <CrossTrainingFields
+                  form={form}
+                  defaultUnits={{
+                    distance: defaultDistanceUnit,
+                    elevation: defaultElevationUnit,
+                  }}
+                />
               )}
               {sport === 'strength_training' && <StrengthFields form={form} />}
             </FieldGroup>

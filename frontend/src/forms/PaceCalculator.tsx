@@ -2,6 +2,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { AlertError } from '@/components/AlertError';
+import { Loading } from '@/components/Loading';
 import { FieldGroup, Field, FieldLabel } from '@/components/ui/field';
 import {
   Select,
@@ -45,7 +46,7 @@ const paceUnitOptions = [
 ];
 
 export const PaceCalculatorForm = () => {
-  const { user } = useCurrentUser();
+  const { user, isLoading } = useCurrentUser();
   const defaultUnits = user?.settings.default_distance_unit ?? 'mi';
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -73,6 +74,10 @@ export const PaceCalculatorForm = () => {
         form.setError('root', { message: UNEXPECTED_ERROR_MESSAGE });
       }
     }
+  }
+
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (

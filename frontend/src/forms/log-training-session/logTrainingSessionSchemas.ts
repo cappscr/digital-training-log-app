@@ -19,16 +19,18 @@ const runningSchema = shared
     distance: z
       .number({ error: 'Enter a distance' })
       .positive('Distance must be greater than 0')
+      .nullable()
       .optional()
-      .refine((n) => n === undefined || Math.round(n * 100) / 100 === n, {
+      .refine((n) => n == null || Math.round(n * 100) / 100 === n, {
         message: 'Use at most two decimal places',
       }),
-    unit: z.enum(['mi', 'km']),
+    unit: z.enum(['mi', 'km']).nullable().optional(),
     elevation_gain: z
       .number({ error: 'Enter an elevation gain' })
       .nonnegative('Elevation gain must be 0 or greater')
+      .nullable()
       .optional(),
-    elevation_unit: z.enum(['ft', 'm']).optional(),
+    elevation_unit: z.enum(['ft', 'm']).nullable().optional(),
     average_heart_rate: z
       .number({ error: 'Enter a heart rate' })
       .positive('Heart rate must be greater than 0')
@@ -46,12 +48,29 @@ const runningSchema = shared
       path: ['duration'],
     },
   )
+  .refine((data) => typeof data.distance !== 'number' || data.unit != null, {
+    message: 'Unit must be specified if distance is provided',
+    path: ['unit'],
+  })
+  .refine((data) => data.unit == null || typeof data.distance === 'number', {
+    message: 'Distance must be specified if unit is provided',
+    path: ['distance'],
+  })
   .refine(
     (data) =>
-      data.elevation_gain === undefined || data.elevation_unit !== undefined,
+      typeof data.elevation_gain !== 'number' ||
+      data.elevation_unit != undefined,
     {
       message: 'Elevation unit must be specified if elevation gain is provided',
       path: ['elevation_unit'],
+    },
+  )
+  .refine(
+    (data) =>
+      data.elevation_unit == null || typeof data.elevation_gain === 'number',
+    {
+      message: 'Elevation gain must be specified if elevation unit is provided',
+      path: ['elevation_gain'],
     },
   );
 
@@ -66,12 +85,13 @@ const crossTrainingSchema = shared
       .refine((n) => n === undefined || Math.round(n * 100) / 100 === n, {
         message: 'Use at most two decimal places',
       }),
-    unit: z.enum(['mi', 'km']),
+    unit: z.enum(['mi', 'km']).nullable().optional(),
     elevation_gain: z
       .number({ error: 'Enter an elevation gain' })
       .nonnegative('Elevation gain must be  0 or greater')
+      .nullable()
       .optional(),
-    elevation_unit: z.enum(['ft', 'm']).optional(),
+    elevation_unit: z.enum(['ft', 'm']).nullable().optional(),
     average_heart_rate: z
       .number({ error: 'Enter a heart rate' })
       .positive('Heart rate must be greater than 0')
@@ -85,12 +105,29 @@ const crossTrainingSchema = shared
       path: ['duration'],
     },
   )
+  .refine((data) => typeof data.distance !== 'number' || data.unit != null, {
+    message: 'Unit must be specified if distance is provided',
+    path: ['unit'],
+  })
+  .refine((data) => data.unit == null || typeof data.distance === 'number', {
+    message: 'Distance must be specified if unit is provided',
+    path: ['distance'],
+  })
   .refine(
     (data) =>
-      data.elevation_gain === undefined || data.elevation_unit !== undefined,
+      typeof data.elevation_gain !== 'number' ||
+      data.elevation_unit != undefined,
     {
       message: 'Elevation unit must be specified if elevation gain is provided',
       path: ['elevation_unit'],
+    },
+  )
+  .refine(
+    (data) =>
+      data.elevation_unit == null || typeof data.elevation_gain === 'number',
+    {
+      message: 'Elevation gain must be specified if elevation unit is provided',
+      path: ['elevation_gain'],
     },
   );
 
@@ -158,3 +195,8 @@ export type StrengthFormValues = Extract<
   LogTrainingSessionFormValues,
   { type: 'strength_training' }
 >;
+
+export type DefaultUnits = {
+  distance: 'mi' | 'km';
+  elevation: 'ft' | 'm';
+};

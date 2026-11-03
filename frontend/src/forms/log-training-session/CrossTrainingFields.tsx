@@ -7,13 +7,20 @@ import { ElevationGainInput } from '../ElevationGainInput';
 import { Field, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { formatPace, parseDuration } from '@/lib/utils';
-import type { LogTrainingSessionFormValues } from './logTrainingSessionSchemas';
+import type {
+  DefaultUnits,
+  LogTrainingSessionFormValues,
+} from './logTrainingSessionSchemas';
 
 interface CrossTrainingFieldsProps {
+  defaultUnits: DefaultUnits;
   form: UseFormReturn<LogTrainingSessionFormValues>;
 }
 
-export const CrossTrainingFields = ({ form }: CrossTrainingFieldsProps) => {
+export const CrossTrainingFields = ({
+  defaultUnits,
+  form,
+}: CrossTrainingFieldsProps) => {
   const [duration, distance, unit] = useWatch({
     control: form.control,
     name: ['duration', 'distance', 'unit'],
@@ -21,7 +28,7 @@ export const CrossTrainingFields = ({ form }: CrossTrainingFieldsProps) => {
 
   const paceDisplay = useMemo(() => {
     const durationInSeconds = parseDuration(duration);
-    if (!durationInSeconds || !distance || distance <= 0) return '';
+    if (!durationInSeconds || !distance || !unit || distance <= 0) return '';
 
     const paceSecondsPerUnit = durationInSeconds / distance;
     const minutes = Math.floor(paceSecondsPerUnit / 60);
@@ -43,8 +50,11 @@ export const CrossTrainingFields = ({ form }: CrossTrainingFieldsProps) => {
       />
       <DistanceInput
         control={form.control}
-        formId="log-workout-form"
+        defaultUnit={defaultUnits.distance}
         distanceName="distance"
+        formId="log-workout-form"
+        getValues={form.getValues}
+        setValue={form.setValue}
         unitName="unit"
       />
       <Field>
@@ -59,8 +69,11 @@ export const CrossTrainingFields = ({ form }: CrossTrainingFieldsProps) => {
       </Field>
       <ElevationGainInput<LogTrainingSessionFormValues>
         control={form.control}
-        formId="log-workout-form"
+        defaultUnit={defaultUnits.elevation}
         elevationGainName="elevation_gain"
+        formId="log-workout-form"
+        getValues={form.getValues}
+        setValue={form.setValue}
         unitName="elevation_unit"
       />
       <IntegerInput

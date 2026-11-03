@@ -24,7 +24,10 @@ import { toSentenceCase } from '@/lib/utils';
 import { UNEXPECTED_ERROR_MESSAGE } from '../errors';
 
 const formSchema = z.object({
-  name: z.string().min(1, 'Enter your name'),
+  name: z
+    .string()
+    .min(1, 'Enter your name')
+    .max(50, 'Name must be less than 50 characters'),
   email: z.email('Enter a valid email'),
   microcycle_start_day: z.enum(['sunday', 'monday']),
   default_distance_unit: z.enum(['km', 'mi']),
@@ -58,7 +61,7 @@ export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
-      await apiClient<{ user: User }>('PATCH', '/users/me', {
+      const response = await apiClient<{ user: User }>('PATCH', '/users/me', {
         user: {
           name: data.name,
           microcycle_start_day: data.microcycle_start_day,
@@ -69,7 +72,9 @@ export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
         },
       });
       successToast('Settings saved successfully');
-      await mutate();
+      if (response) {
+        await mutate(response, false);
+      }
     } catch (apiError) {
       if (isApiError(apiError) && apiError.status === 422) {
         const errors = apiError.data?.errors;
