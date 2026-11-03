@@ -32,7 +32,11 @@ export const MicrocycleStartDayToggle = <TFieldValues extends FieldValues>({
           <ToggleGroup
             defaultValue={[defaultValue]}
             multiple={false}
-            onValueChange={(value) => field.onChange(value[0])}
+            onValueChange={(value) => {
+              if (value.length === 1) {
+                field.onChange(value[0]);
+              }
+            }}
             spacing={0}
             value={field.value ? [field.value] : [defaultValue]}
             variant="outline"
