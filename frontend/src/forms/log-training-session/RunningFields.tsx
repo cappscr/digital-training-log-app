@@ -43,6 +43,7 @@ export const RunningFields = ({ defaultUnits, form }: RunningFieldsProps) => {
         control={form.control}
         defaultUnit={defaultUnits.distance}
         distanceName="distance"
+        durationName="duration"
         formId="log-workout-form"
         getValues={form.getValues}
         setValue={form.setValue}

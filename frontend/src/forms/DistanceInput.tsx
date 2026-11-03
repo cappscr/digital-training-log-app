@@ -34,6 +34,7 @@ interface DistanceInputProps<TFieldValues extends FieldValues> {
   control: Control<TFieldValues>;
   defaultUnit: 'mi' | 'km';
   distanceName: FieldPath<TFieldValues>;
+  durationName?: FieldPath<TFieldValues>;
   formId: string;
   getValues: UseFormGetValues<TFieldValues>;
   setValue: UseFormSetValue<TFieldValues>;
@@ -44,6 +45,7 @@ export const DistanceInput = <TFieldValues extends FieldValues>({
   control,
   defaultUnit,
   distanceName,
+  durationName,
   formId,
   getValues,
   setValue,
@@ -53,6 +55,7 @@ export const DistanceInput = <TFieldValues extends FieldValues>({
     <FieldGroup className="grid grid-cols-2 gap-4">
       <Controller
         name={distanceName}
+        rules={durationName ? { deps: [durationName] } : undefined}
         control={control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
