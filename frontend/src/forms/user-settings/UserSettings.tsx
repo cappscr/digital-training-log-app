@@ -106,7 +106,9 @@ export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="signup-form-name">Name</FieldLabel>
+                    <FieldLabel htmlFor="user-settings-form-name">
+                      Name
+                    </FieldLabel>
                     <Input
                       {...field}
                       id="user-settings-form-name"
