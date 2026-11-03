@@ -6,13 +6,17 @@ import { IntegerInput } from '../IntegerInput';
 import { Field, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { formatPace, parseDuration } from '@/lib/utils';
-import type { LogTrainingSessionFormValues } from './logTrainingSessionSchemas';
+import type {
+  LogTrainingSessionFormValues,
+  DefaultUnits,
+} from './logTrainingSessionSchemas';
 
 interface RunningFieldsProps {
+  defaultUnits: DefaultUnits;
   form: UseFormReturn<LogTrainingSessionFormValues>;
 }
 
-export const RunningFields = ({ form }: RunningFieldsProps) => {
+export const RunningFields = ({ defaultUnits, form }: RunningFieldsProps) => {
   const [duration, distance, unit] = useWatch({
     control: form.control,
     name: ['duration', 'distance', 'unit'],
@@ -20,7 +24,7 @@ export const RunningFields = ({ form }: RunningFieldsProps) => {
 
   const paceDisplay = useMemo(() => {
     const durationInSeconds = parseDuration(duration);
-    if (!durationInSeconds || !distance || distance <= 0) return '';
+    if (!durationInSeconds || !distance || !unit || distance <= 0) return '';
 
     const paceSecondsPerUnit = durationInSeconds / distance;
     const minutes = Math.floor(paceSecondsPerUnit / 60);
@@ -37,8 +41,12 @@ export const RunningFields = ({ form }: RunningFieldsProps) => {
     <>
       <DistanceInput
         control={form.control}
-        formId="log-workout-form"
+        defaultUnit={defaultUnits.distance}
         distanceName="distance"
+        durationName="duration"
+        formId="log-workout-form"
+        getValues={form.getValues}
+        setValue={form.setValue}
         unitName="unit"
       />
       <Field>
@@ -53,8 +61,11 @@ export const RunningFields = ({ form }: RunningFieldsProps) => {
       </Field>
       <ElevationGainInput<LogTrainingSessionFormValues>
         control={form.control}
-        formId="log-workout-form"
+        defaultUnit={defaultUnits.elevation}
         elevationGainName="elevation_gain"
+        formId="log-workout-form"
+        getValues={form.getValues}
+        setValue={form.setValue}
         unitName="elevation_unit"
       />
       <IntegerInput

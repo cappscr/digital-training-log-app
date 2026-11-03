@@ -32,6 +32,7 @@ import { UNEXPECTED_ERROR_MESSAGE } from '../errors';
 import { apiClient, isApiError } from '@/lib/fetcher';
 import { toISODateString, toSentenceCase } from '@/lib/utils';
 import { successToast } from '@/lib/toasts';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 import {
   TRAINING_SESSIONS_KEY,
   type TrainingSession,
@@ -46,6 +47,19 @@ export const LogTrainingSessionForm = ({
 }: LogTrainingSessionFormProps) => {
   const navigate = useNavigate();
   const isEditMode = !!trainingSessionToEdit;
+  const { user } = useCurrentUser();
+  const defaultDistanceUnit =
+    (trainingSessionToEdit?.sport_details_type !== 'StrengthTrainingSession'
+      ? trainingSessionToEdit?.sport_details.distance_unit
+      : null) ??
+    user?.settings.default_distance_unit ??
+    'mi';
+  const defaultElevationUnit =
+    (trainingSessionToEdit?.sport_details_type !== 'StrengthTrainingSession'
+      ? trainingSessionToEdit?.sport_details.elevation_unit
+      : null) ??
+    user?.settings.default_elevation_unit ??
+    'ft';
 
   const form = useForm<LogTrainingSessionFormValues>({
     resolver: zodResolver(logTrainingSessionFormSchema),
@@ -176,9 +190,23 @@ export const LogTrainingSessionForm = ({
                   </Field>
                 )}
               />
-              {sport === 'running' && <RunningFields form={form} />}
+              {sport === 'running' && (
+                <RunningFields
+                  form={form}
+                  defaultUnits={{
+                    distance: defaultDistanceUnit,
+                    elevation: defaultElevationUnit,
+                  }}
+                />
+              )}
               {sport === 'cross_training' && (
-                <CrossTrainingFields form={form} />
+                <CrossTrainingFields
+                  form={form}
+                  defaultUnits={{
+                    distance: defaultDistanceUnit,
+                    elevation: defaultElevationUnit,
+                  }}
+                />
               )}
               {sport === 'strength_training' && <StrengthFields form={form} />}
             </FieldGroup>

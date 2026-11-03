@@ -14,7 +14,7 @@ import { ForgotPasswordPage } from './pages/ForgotPassword';
 import { Layout } from './layouts/Layout';
 import { RootLayout } from './layouts/RootLayout';
 
-import { UserProfilePage } from './pages/UserProfile';
+import { UserSettingsPage } from './pages/UserSettings';
 import { TrainingSessionsPage } from './pages/TrainingSessions';
 import { CreateOrEditTrainingSessionPage } from './pages/TrainingSessions/CreateOrEditTrainingSession';
 
@@ -83,8 +83,8 @@ export const router = createBrowserRouter([
             path: '/training-sessions/:trainingSessionId/edit',
           },
           {
-            Component: UserProfilePage,
-            path: '/users/:id',
+            Component: UserSettingsPage,
+            path: '/settings',
           },
         ],
       },

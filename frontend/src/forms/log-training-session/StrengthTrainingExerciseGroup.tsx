@@ -15,6 +15,7 @@ import {
 import { StrengthTrainingExerciseNameField } from '../StrengthTrainingExerciseNameField';
 import { StrengthExerciseSetRepWeightScheme } from './StrengthExerciseSetRepWeightScheme';
 import type { StrengthFormValues } from './logTrainingSessionSchemas';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 
 interface StrengthTrainingExerciseGroupProps {
   control: Control<StrengthFormValues>;
@@ -33,6 +34,7 @@ export const StrengthTrainingExerciseGroup = ({
     control,
     name: `exercises.${index}.schemes`,
   });
+  const { user } = useCurrentUser();
 
   const { errors } = useFormState({
     control,
@@ -94,7 +96,7 @@ export const StrengthTrainingExerciseGroup = ({
             reps: 1,
             bodyweight: true,
             weight: null,
-            weight_unit: 'lbs', // customize this once user settings are implemented
+            weight_unit: user?.settings.default_weight_unit ?? 'lbs',
             id: crypto.randomUUID(),
           })
         }

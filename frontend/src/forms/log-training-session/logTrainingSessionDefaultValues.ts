@@ -22,8 +22,11 @@ export const defaultValuesFromSession = (
       notes: '',
       type: 'running',
       distance: undefined,
-      // customize this once user settings are implemented
-      unit: 'mi',
+      unit: null,
+      elevation_gain: undefined,
+      elevation_unit: null,
+      average_heart_rate: undefined,
+      average_cadence: undefined,
     };
 
   const shared = {
@@ -41,9 +44,9 @@ export const defaultValuesFromSession = (
       type: 'cross_training',
       activity: d.activity,
       distance: d.distance ?? undefined,
-      unit: d.distance_unit ?? 'mi', // customize this once user settings are implemented
+      unit: d.distance_unit ?? null,
       elevation_gain: d.elevation_gain ?? undefined,
-      elevation_unit: d.elevation_unit ?? undefined,
+      elevation_unit: d.elevation_unit ?? null,
       average_heart_rate: d.average_heart_rate ?? undefined,
     };
   }
@@ -79,9 +82,9 @@ export const defaultValuesFromSession = (
     ...shared,
     type: 'running',
     distance: d.distance ?? undefined,
-    unit: d.distance_unit ?? 'mi', // customize this once user settings are implemented
+    unit: d.distance_unit ?? null,
     elevation_gain: d.elevation_gain ?? undefined,
-    elevation_unit: d.elevation_unit ?? undefined,
+    elevation_unit: d.elevation_unit ?? null,
     average_heart_rate: d.average_heart_rate ?? undefined,
     average_cadence: d.average_cadence ?? undefined,
   };
@@ -90,9 +93,9 @@ export const defaultValuesFromSession = (
 export const defaultsForSport = (type: string) => {
   const shared = {
     distance: undefined,
-    unit: 'mi', // customize this once user settings are implemented
+    unit: null,
     elevation_gain: undefined,
-    elevation_unit: undefined,
+    elevation_unit: null,
     average_heart_rate: undefined,
   };
   switch (type) {
@@ -117,12 +120,13 @@ export const defaultsForSport = (type: string) => {
   }
 };
 
-export const blankStrengthExerciseScheme =
-  (): StrengthFormValues['exercises'][number]['schemes'][number] => ({
-    id: crypto.randomUUID(),
-    sets: 1,
-    reps: 1,
-    bodyweight: true,
-    weight: null,
-    weight_unit: 'lbs', // customize this once user settings are implemented
-  });
+export const blankStrengthExerciseScheme = (
+  defaultWeightUnit: 'lbs' | 'kg',
+): StrengthFormValues['exercises'][number]['schemes'][number] => ({
+  id: crypto.randomUUID(),
+  sets: 1,
+  reps: 1,
+  bodyweight: true,
+  weight: null,
+  weight_unit: defaultWeightUnit,
+});

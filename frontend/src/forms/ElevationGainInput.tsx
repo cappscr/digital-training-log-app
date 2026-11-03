@@ -2,7 +2,10 @@ import {
   Controller,
   type Control,
   type FieldPath,
+  type FieldPathValue,
   type FieldValues,
+  type UseFormGetValues,
+  type UseFormSetValue,
 } from 'react-hook-form';
 import {
   Field,
@@ -28,15 +31,21 @@ const unitOptions = [
 
 interface ElevationGainInputProps<TFieldValues extends FieldValues> {
   control: Control<TFieldValues>;
-  formId: string;
+  defaultUnit: 'ft' | 'm';
   elevationGainName: FieldPath<TFieldValues>;
+  formId: string;
+  getValues: UseFormGetValues<TFieldValues>;
+  setValue: UseFormSetValue<TFieldValues>;
   unitName: FieldPath<TFieldValues>;
 }
 
 export const ElevationGainInput = <TFieldValues extends FieldValues>({
   control,
-  formId,
+  defaultUnit,
   elevationGainName,
+  formId,
+  getValues,
+  setValue,
   unitName,
 }: ElevationGainInputProps<TFieldValues>) => {
   return (
@@ -58,7 +67,28 @@ export const ElevationGainInput = <TFieldValues extends FieldValues>({
               ref={field.ref}
               onChange={(e) => {
                 const { value, valueAsNumber } = e.target;
-                field.onChange(value === '' ? undefined : valueAsNumber);
+                const next = value === '' ? null : valueAsNumber;
+                field.onChange(next);
+
+                const setUnit = (unit: 'ft' | 'm' | null) => {
+                  setValue(
+                    unitName,
+                    unit as FieldPathValue<TFieldValues, typeof unitName>,
+                    {
+                      shouldDirty: true,
+                      shouldValidate: true,
+                    },
+                  );
+                };
+
+                if (next === null) {
+                  setUnit(null);
+                  return;
+                }
+
+                if (Number.isFinite(next) && getValues(unitName) == null) {
+                  setUnit(defaultUnit);
+                }
               }}
               onBlur={field.onBlur}
               value={field.value ?? ''}
@@ -70,6 +100,7 @@ export const ElevationGainInput = <TFieldValues extends FieldValues>({
       />
       <Controller
         name={unitName}
+        rules={{ deps: [elevationGainName] }}
         control={control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>

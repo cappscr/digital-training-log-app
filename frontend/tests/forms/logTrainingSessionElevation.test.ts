@@ -11,7 +11,6 @@ const runningBase = {
   duration: '45:30',
   notes: '',
   type: 'running' as const,
-  unit: 'mi' as const,
 };
 
 describe('running elevation gain', () => {
@@ -23,9 +22,9 @@ describe('running elevation gain', () => {
 
     expect(result.success).toBe(false);
     if (!result.success) {
-      expect(result.error.issues.map((issue) => issue.path.join('.'))).toContain(
-        'elevation_unit',
-      );
+      expect(
+        result.error.issues.map((issue) => issue.path.join('.')),
+      ).toContain('elevation_unit');
     }
   });
 

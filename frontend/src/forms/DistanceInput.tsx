@@ -2,7 +2,10 @@ import {
   Controller,
   type Control,
   type FieldPath,
+  type FieldPathValue,
   type FieldValues,
+  type UseFormGetValues,
+  type UseFormSetValue,
 } from 'react-hook-form';
 import {
   Field,
@@ -29,21 +32,30 @@ const unitOptions = [
 
 interface DistanceInputProps<TFieldValues extends FieldValues> {
   control: Control<TFieldValues>;
-  formId: string;
+  defaultUnit: 'mi' | 'km';
   distanceName: FieldPath<TFieldValues>;
+  durationName?: FieldPath<TFieldValues>;
+  formId: string;
+  getValues: UseFormGetValues<TFieldValues>;
+  setValue: UseFormSetValue<TFieldValues>;
   unitName: FieldPath<TFieldValues>;
 }
 
 export const DistanceInput = <TFieldValues extends FieldValues>({
   control,
-  formId,
+  defaultUnit,
   distanceName,
+  durationName,
+  formId,
+  getValues,
+  setValue,
   unitName,
 }: DistanceInputProps<TFieldValues>) => {
   return (
     <FieldGroup className="grid grid-cols-2 gap-4">
       <Controller
         name={distanceName}
+        rules={durationName ? { deps: [durationName] } : undefined}
         control={control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
@@ -59,7 +71,28 @@ export const DistanceInput = <TFieldValues extends FieldValues>({
               ref={field.ref}
               onChange={(e) => {
                 const { value, valueAsNumber } = e.target;
-                field.onChange(value === '' ? undefined : valueAsNumber);
+                const next = value === '' ? null : valueAsNumber;
+                field.onChange(next);
+
+                const setUnit = (unit: 'mi' | 'km' | null) => {
+                  setValue(
+                    unitName,
+                    unit as FieldPathValue<TFieldValues, typeof unitName>,
+                    {
+                      shouldDirty: true,
+                      shouldValidate: true,
+                    },
+                  );
+                };
+
+                if (next === null) {
+                  setUnit(null);
+                  return;
+                }
+
+                if (Number.isFinite(next) && getValues(unitName) == null) {
+                  setUnit(defaultUnit);
+                }
               }}
               onBlur={field.onBlur}
               value={field.value ?? ''}
@@ -74,6 +107,7 @@ export const DistanceInput = <TFieldValues extends FieldValues>({
       />
       <Controller
         name={unitName}
+        rules={{ deps: [distanceName] }}
         control={control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
@@ -81,6 +115,7 @@ export const DistanceInput = <TFieldValues extends FieldValues>({
             <Select
               {...field}
               id={`${formId}-${unitName}`}
+              value={field.value ?? null}
               onValueChange={field.onChange}
               items={unitOptions}
             >

@@ -26,7 +26,7 @@ export const PrimaryNav = () => {
   const navLinks = user
     ? [
         { name: 'Training Sessions', to: '/training-sessions' },
-        { name: 'Profile', to: `/users/${user.id}` },
+        { name: 'Settings', to: '/settings' },
         ...NAV_LINKS,
       ]
     : [...NAV_LINKS, { name: 'Log In', to: '/login' }];
