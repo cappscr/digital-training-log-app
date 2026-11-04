@@ -35,7 +35,14 @@ module Api
       end
 
       def user_update_params
-        params.expect(user: [ :name, :microcycle_start_day, :default_weight_unit, :default_distance_unit, :default_elevation_unit ])
+        params.expect(user: [
+          :name,
+          :microcycle_start_day,
+          :default_weight_unit,
+          :default_distance_unit,
+          :default_elevation_unit,
+          :theme
+        ])
       end
     end
   end
