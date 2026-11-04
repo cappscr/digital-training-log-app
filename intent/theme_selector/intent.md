@@ -17,7 +17,7 @@ The theme selector is removed from the app's primary navigation and relocated to
 
 ## UX
 
-The selector remains a ToggleGroup but the controls are moved from the navigation bar to the UserSettingsForm. The user's theme choice is still persisted to `localStorage` so that is available even when logged out.
+The selector remains a ToggleGroup but the controls are moved from the navigation bar to the UserSettingsForm. The user's theme choice is still persisted to `localStorage` so that is available even when logged out. The toggle is a form field, clicking it does not change the page. A successful save writes `theme` to the database and calls `setTheme`, which updates `localStorage`, and the document class. When the current user loads, apply `user.settings.theme`. If it differs from `localStorage`. With no `localStorage` value and no signed-in user, dark mode is used.
 
 ## In Scope
 
