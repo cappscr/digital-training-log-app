@@ -1,0 +1,233 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+@import "@fontsource/barlow-condensed/500.css";
+@import "@fontsource/barlow-condensed/600.css";
+@import "@fontsource/barlow-condensed/700.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: 'Barlow Condensed', sans-serif;
+    --font-sans: 'Inter Variable', sans-serif;
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-tertiary-foreground: var(--tertiary-foreground);
+    --color-tertiary: var(--tertiary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@theme static {
+    /* Primary accent, anchored at 300: oklch(0.9496 0.197 117.78) */
+    --color-volt-50: oklch(0.99 0.03 117.78);
+    --color-volt-100: oklch(0.98 0.063 117.78);
+    --color-volt-200: oklch(0.967 0.112 117.78);
+    --color-volt-300: oklch(0.9496 0.197 117.78);
+    --color-volt-400: oklch(0.905 0.211 118.6);
+    --color-volt-500: oklch(0.825 0.195 119.6);
+    --color-volt-600: oklch(0.69 0.164 120.6);
+    --color-volt-700: oklch(0.56 0.135 121.4);
+    --color-volt-800: oklch(0.465 0.112 122);
+    --color-volt-900: oklch(0.405 0.098 122.4);
+    --color-volt-950: oklch(0.275 0.067 123);
+
+    /* Secondary accent, anchored at 600: oklch(0.5556 0.2523 281.13) */
+    --color-iris-50: oklch(0.97 0.014 281.13);
+    --color-iris-100: oklch(0.94 0.029 281.13);
+    --color-iris-200: oklch(0.89 0.054 281.13);
+    --color-iris-300: oklch(0.81 0.097 281.13);
+    --color-iris-400: oklch(0.72 0.149 281.13);
+    --color-iris-500: oklch(0.635 0.2 281.13);
+    --color-iris-600: oklch(0.5556 0.2523 281.13);
+    --color-iris-700: oklch(0.49 0.236 281.5);
+    --color-iris-800: oklch(0.425 0.196 282);
+    --color-iris-900: oklch(0.37 0.15 282.6);
+    --color-iris-950: oklch(0.27 0.1 283.5);
+
+    /* Analogous warm neighbor, anchored at 300: #ffc04a */
+    --color-ember-50: oklch(0.987 0.011 79.65);
+    --color-ember-100: oklch(0.962 0.034 79.65);
+    --color-ember-200: oklch(0.925 0.069 79.65);
+    --color-ember-300: oklch(0.8452 0.1485 79.65);
+    --color-ember-400: oklch(0.8 0.166 75.08);
+    --color-ember-500: oklch(0.735 0.158 70.51);
+    --color-ember-600: oklch(0.645 0.143 65.94);
+    --color-ember-700: oklch(0.545 0.126 61.37);
+    --color-ember-800: oklch(0.47 0.114 56.8);
+    --color-ember-900: oklch(0.415 0.106 52.23);
+    --color-ember-950: oklch(0.285 0.077 47.65);
+
+    /* Analogous cool neighbor, anchored at 300: #89ff4a */
+    --color-fern-50: oklch(0.985 0.028 136.94);
+    --color-fern-100: oklch(0.97 0.058 136.94);
+    --color-fern-200: oklch(0.945 0.112 136.94);
+    --color-fern-300: oklch(0.897 0.238 136.94);
+    --color-fern-400: oklch(0.85 0.255 137.8);
+    --color-fern-500: oklch(0.78 0.236 138.65);
+    --color-fern-600: oklch(0.66 0.198 139.51);
+    --color-fern-700: oklch(0.54 0.164 140.37);
+    --color-fern-800: oklch(0.455 0.136 141.23);
+    --color-fern-900: oklch(0.395 0.119 142.08);
+    --color-fern-950: oklch(0.27 0.081 142.94);
+}
+
+:root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: var(--color-volt-300);
+    --primary-foreground: var(--color-volt-950);
+    --secondary: var(--color-iris-600);
+    --secondary-foreground: var(--color-iris-50);
+    --tertiary: var(--color-iris-100);
+    --tertiary-foreground: var(--color-iris-800);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: var(--color-volt-700);
+    --chart-1: var(--color-volt-600);
+    --chart-2: var(--color-iris-600);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: var(--color-volt-300);
+    --sidebar-primary-foreground: var(--color-volt-950);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: var(--color-volt-700);
+    /* Sport icon tiles are always dark, so these don't change with light/dark mode. */
+    --icon-hi: var(--color-volt-300);
+    --icon-mid: var(--color-volt-400);
+    --icon-lo: var(--color-volt-600);
+    --icon-accent: var(--color-iris-500);
+}
+
+.dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: var(--color-volt-300);
+    --primary-foreground: var(--color-volt-950);
+    --secondary: var(--color-iris-400);
+    --secondary-foreground: var(--color-iris-950);
+    --tertiary: var(--color-iris-900);
+    --tertiary-foreground: var(--color-iris-100);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: var(--color-volt-400);
+    --chart-1: var(--color-volt-300);
+    --chart-2: var(--color-iris-400);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: var(--color-volt-300);
+    --sidebar-primary-foreground: var(--color-volt-950);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: var(--color-volt-400);
+}
+
+/* Analogous scheme: volt flanked by ember and fern. Light mode leads with fern, which holds up on white. */
+.analogous {
+    --icon-mid: var(--color-fern-400);
+    --icon-lo: var(--color-fern-600);
+    --icon-accent: var(--color-ember-300);
+}
+
+.analogous:not(.dark) {
+    --primary: var(--color-fern-300);
+    --primary-foreground: var(--color-fern-950);
+    --secondary: var(--color-ember-300);
+    --secondary-foreground: var(--color-ember-950);
+    --tertiary: var(--color-volt-300);
+    --tertiary-foreground: var(--color-volt-950);
+    --ring: var(--color-fern-700);
+    --chart-1: var(--color-fern-600);
+    --chart-2: var(--color-ember-500);
+    --chart-3: var(--color-volt-600);
+    --sidebar-primary: var(--color-fern-300);
+    --sidebar-primary-foreground: var(--color-fern-950);
+    --sidebar-ring: var(--color-fern-700);
+}
+
+.analogous.dark {
+    --secondary: var(--color-ember-300);
+    --secondary-foreground: var(--color-ember-950);
+    --tertiary: var(--color-fern-300);
+    --tertiary-foreground: var(--color-fern-950);
+    --chart-2: var(--color-ember-300);
+    --chart-3: var(--color-fern-400);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
+    }
+  html {
+    @apply font-sans;
+    }
+  h1, h2, h3 {
+    @apply font-heading;
+    }
+}
