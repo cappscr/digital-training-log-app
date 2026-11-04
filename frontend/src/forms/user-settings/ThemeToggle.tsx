@@ -39,7 +39,7 @@ export function ThemeToggle<TFieldValues extends FieldValues>({
             }}
             spacing={0}
             value={field.value ? [field.value] : [defaultValue]}
-            aria-label="Theme toggle"
+            id={`${formId}-${name}`}
           >
             <ToggleGroupItem value="light" aria-label="Toggle light">
               <Sun /> Light
