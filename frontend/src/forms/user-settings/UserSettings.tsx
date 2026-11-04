@@ -17,7 +17,9 @@ import { Button } from '@/components/ui/button';
 import { EmailInput } from '../EmailInput';
 import { MicrocycleStartDayToggle } from './MicrocycleStartDayToggle';
 import { DefaultUnitToggle } from './DefaultUnitToggle';
+import { ThemeToggle } from './ThemeToggle';
 import { useCurrentUser, type User } from '@/hooks/useCurrentUser';
+import { useTheme } from '@/components/ThemeProvider';
 import { apiClient, isApiError } from '@/lib/fetcher';
 import { successToast } from '@/lib/toasts';
 import { toSentenceCase } from '@/lib/utils';
@@ -33,6 +35,7 @@ const formSchema = z.object({
   default_distance_unit: z.enum(['km', 'mi']),
   default_weight_unit: z.enum(['kg', 'lbs']),
   default_elevation_unit: z.enum(['m', 'ft']),
+  theme: z.enum(['light', 'dark', 'system']),
 });
 
 interface UserSettingsFormProps {
@@ -41,6 +44,7 @@ interface UserSettingsFormProps {
 
 export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
   const { mutate } = useCurrentUser();
+  const { theme, setTheme } = useTheme();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,7 +58,7 @@ export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
       default_weight_unit: currentUser?.settings.default_weight_unit ?? 'lbs',
       default_elevation_unit:
         currentUser?.settings.default_elevation_unit ?? 'ft',
-      // theme: currentUser?.settings.theme ?? 'dark',
+      theme: currentUser?.settings.theme ?? 'dark',
     },
     mode: 'onTouched',
   });
@@ -68,11 +72,14 @@ export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
           default_distance_unit: data.default_distance_unit,
           default_weight_unit: data.default_weight_unit,
           default_elevation_unit: data.default_elevation_unit,
-          // theme: data.theme,
+          theme: data.theme,
         },
       });
       successToast('Settings saved successfully');
       if (response) {
+        if (data.theme !== theme) {
+          setTheme(data.theme);
+        }
         await mutate(response, false);
       }
     } catch (apiError) {
@@ -200,6 +207,12 @@ export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
             <FieldDescription>
               Update the appearance of the app. Dark mode is recommended.
             </FieldDescription>
+            <ThemeToggle
+              control={form.control}
+              formId="user-settings-form"
+              name="theme"
+              defaultValue={currentUser?.settings.theme ?? 'dark'}
+            />
           </FieldSet>
         </FieldGroup>
       </form>

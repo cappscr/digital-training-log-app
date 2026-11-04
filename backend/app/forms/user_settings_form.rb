@@ -36,8 +36,8 @@ class UserSettingsForm
       :microcycle_start_day,
       :default_distance_unit,
       :default_weight_unit,
-      :default_elevation_unit
-      # :theme (not implemented yet)
+      :default_elevation_unit,
+      :theme
     )
   end
 end

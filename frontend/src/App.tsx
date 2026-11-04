@@ -7,7 +7,7 @@ import './app.css';
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="system" storageKey="dtl-ui-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="dtl-ui-theme">
       <SWRConfig
         value={{
           fetcher,
