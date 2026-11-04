@@ -19,6 +19,19 @@ type ThemeProviderState = {
   setTheme: (theme: Theme) => void;
 };
 
+function isTheme(value: string | null): value is Theme {
+  return value === 'light' || value === 'dark' || value === 'system';
+}
+
+function resolvedTheme(theme: Theme): 'light' | 'dark' {
+  if (theme === 'system') {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+  }
+  return theme;
+}
+
 const initialState: ThemeProviderState = {
   theme: 'system',
   setTheme: () => null,
@@ -29,29 +42,32 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 export function ThemeProvider({
   children,
   defaultTheme = 'dark',
-  storageKey = 'vite-ui-theme',
+  storageKey = 'dtl-ui-theme',
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
-  );
+  const [theme, setTheme] = useState<Theme>(() => {
+    const stored = localStorage.getItem(storageKey);
+    return isTheme(stored) ? stored : defaultTheme;
+  });
 
   useLayoutEffect(() => {
     const root = window.document.documentElement;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
 
-    root.classList.remove('light', 'dark');
+    const apply = () => {
+      const resolved = resolvedTheme(theme);
+      root.classList.remove('light', 'dark');
+      root.classList.add(resolved);
+      root.style.colorScheme = resolved;
+    };
 
-    if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-        .matches
-        ? 'dark'
-        : 'light';
-
-      root.classList.add(systemTheme);
+    apply();
+    if (theme !== 'system') {
       return;
     }
 
-    root.classList.add(theme);
+    media.addEventListener('change', apply);
+    return () => media.removeEventListener('change', apply);
   }, [theme]);
 
   const value = {

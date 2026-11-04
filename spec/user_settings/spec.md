@@ -4,17 +4,19 @@ author: Chris Capps
 status: ready for implementation
 issues:
   - 497
+  - 495
 ---
 
 # User Settings
 
 Related intent: [`intent/user_settings/intent.md`](../../intent/user_settings/intent.md)
+Related intent: [`intent/theme_selector/intent.md`](../../intent/theme_selector/intent.md)
 
 ## Summary
 
-Signed-in users get a Settings page in place of the current profile page. The page edits the user's name and four training preferences: the day a microcycle starts, and the default units for weight, distance, and elevation. One Save writes the name and those preferences together.
+Signed-in users get a Settings page in place of the current profile page. The page edits the user's name and four training preferences, and app theme: the day a microcycle starts, and the default units for weight, distance, and elevation. One Save writes the name and those preferences together.
 
-Preferences are defaults for new entry. They do not rewrite sessions already stored. Theme is stored on the settings row and is not shown or applied in this slice.
+Preferences are defaults for new entry. They do not rewrite sessions already stored.
 
 ## Outcomes (acceptance)
 
@@ -27,11 +29,11 @@ A signed-in user can:
 5. Open a new training session with those units already selected.
 6. Open the pace calculator, while signed in, with pace units that follow the distance setting.
 7. Add a new strength set or exercise that starts with their weight unit.
+8. Update their preference for the app's UI theme between light, dark, and the system default.
 
 Out of scope for this slice:
 
 - A collapsible sidebar.
-- Moving the theme toggle onto Settings, or reading `theme` from the API in `ThemeProvider`. Theme stays on `localStorage`.
 - Editing email or password.
 - Redesigning any other page.
 - Using `microcycle_start_day` in training-session pagination.
@@ -91,12 +93,13 @@ Include `settings` on `UserSerializer`, so `GET /api/v1/users/me`, login, and si
     "microcycle_start_day": "monday",
     "default_weight_unit": "lbs",
     "default_distance_unit": "mi",
-    "default_elevation_unit": "ft"
+    "default_elevation_unit": "ft",
+    "theme": "dark"
   }
 }
 ```
 
-Permit `name` and the four settings fields. Do not permit `email`, `password`, `password_confirmation`, `theme`, or `id`.
+Permit `name` and the four settings fields. Do not permit `email`, `password`, `password_confirmation`, or `id`.
 
 Success is 200 and the user payload above. Invalid name or settings values are 422 problem+json. A missing current user is the existing login failure.
 
@@ -138,8 +141,6 @@ Each control is a single-select `ToggleGroup`. A group always has one value; the
 | Elevation | ft, m |
 
 One Save button submits the name and the four groups. Disable it while the request is in flight. On success, stay on the page and show a success toast. On 422, show the field errors. Update the current-user cache from the response so open forms see the new defaults.
-
-Do not render a theme control.
 
 ### Where the defaults apply
 
