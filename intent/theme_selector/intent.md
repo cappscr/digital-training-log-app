@@ -1,5 +1,5 @@
 ---
-title: user settings
+title: theme selector
 author: Chris Capps
 status: in-progress
 issue: 495

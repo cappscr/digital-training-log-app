@@ -27,7 +27,7 @@ export function ThemeToggle<TFieldValues extends FieldValues>({
       control={control}
       render={({ field }) => (
         <Field>
-          <FieldLabel htmlFor={`${formId}-${name}`}>Theme</FieldLabel>
+          <FieldLabel htmlFor={`${formId}-${name}-label`}>Theme</FieldLabel>
           <ToggleGroup
             variant="outline"
             multiple={false}
@@ -39,7 +39,7 @@ export function ThemeToggle<TFieldValues extends FieldValues>({
             }}
             spacing={0}
             value={field.value ? [field.value] : [defaultValue]}
-            id={`${formId}-${name}`}
+            aria-labelledby={`${formId}-${name}-label`}
           >
             <ToggleGroupItem value="light" aria-label="Toggle light">
               <Sun /> Light
