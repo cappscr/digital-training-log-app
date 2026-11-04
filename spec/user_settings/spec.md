@@ -111,8 +111,8 @@ Success is 200 and the user payload above. Invalid name or settings values are 4
 Replace the `/users/:id` page with `/settings` inside `AppLayout`.
 
 - The signed-in nav item is labeled Settings and points at `/settings`. Desktop and mobile nav share that list.
-- A signed-in visit to `/login` redirects to `/settings` instead of `/users/:id`.
-- The login form still lands on `/training-sessions`.
+- A signed-in visit to `/login` redirects to `/training-sessions` instead of `/users/:id`.
+- The login form lands on `/training-sessions`.
 - Remove `UserProfilePage` and `UserSidebar`.
 
 A signed-out visit to `/settings` redirects to `/login`.
