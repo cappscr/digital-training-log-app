@@ -21,7 +21,7 @@ The page layout gains a context bar on the top that will contain a control for c
 
 ### Sidebar Header
 
-The sidebar header will contain two items. First, a static display containing a brand icon, the current microcycle, and the year. Clicking this will continue to navigate users to the home page (eventually that target will become the dashboard within the `AppLayout` and remain the homepage for calculator pages). Also, there will be a persistent button at the top of the sidebar for "Log session" that directs the user to the `/training-sessions/new` page.
+The sidebar header will contain two items. First, a static display containing a brand icon, the current date, and the year. Clicking this will continue to navigate users to the home page (eventually that target will become the dashboard within the `AppLayout` and remain the homepage for calculator pages). Also, there will be a persistent button at the top of the sidebar for "Log session" that directs the user to the `/training-sessions/new` page.
 
 ### Sidebar Footer
 
@@ -29,7 +29,7 @@ The sidebar footer will contain a clickable region that displays the user's name
 
 ## UX
 
-Primary navigation lives in the sidebar. The sidebar is divided into groups (Training Sessions, Calculators, Settings, etc) that are collapsible and contain lists of navigation links to individual pages (Log a session, all sessions, pace calculator, settings, etc). When the user is current on a page in the sidebar navigation that link should get an active styling treatment. For a group like "Settings" that today is just a single `/settings` route, the nav item does not need to be collapsible and can clickable directly from the sidebar. "Calculators" however should be collapsible and contain a single link to `/calculators/pace-calculator`.
+Primary navigation lives in the sidebar. The sidebar is divided into groups (Training Sessions, Calculators, Settings, etc) that are collapsible and contain lists of navigation links to individual pages (Log a session, all sessions, pace calculator, settings, etc). When the user is current on a page in the sidebar navigation that link should get an active styling treatment. For routes that do not contain a nav link in the sidebar (e.g. `/training-sessions/:trainingSessionId/edit`) only the route group should get the active styling. For a group like "Settings" that today is just a single `/settings` route, the nav item does not need to be collapsible and can clickable directly from the sidebar. "Calculators" however should be collapsible and contain a single link to `/calculators/pace-calculator`. For small screens the sidebar lives in an off-screen drawer that animates in from the left and overlays the page.
 
 ## In Scope
 
@@ -39,7 +39,7 @@ The sidebar that collapses to icons is implemented within `AppLayout`. A new con
 - When an authenticated user tries to hit `/pace-calculator` they are redirected to `/calculators/pace-calculator`.
 - When an unauthenticated user tries to hit `/calculators/pace-calculator` they are redirected to `/pace-calculator`.
 - If users logout from `/calculators/pace-calculator` they are directed to `/pace-calculator` otherwise to `/`.
-- The "Sessions" nav group should contain just the links for adding a new session (`/training-sessions-new`) and all sessions (`/training-sessions`).
+- The "Training Sessions" nav group should contain just the links for adding a new session (`/training-sessions/new`) and all sessions (`/training-sessions`).
 
 ## Out of scope
 
