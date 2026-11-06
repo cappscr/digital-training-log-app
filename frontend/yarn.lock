@@ -2050,12 +2050,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cn@npm:^0.5.1":
-  version: 0.5.1
-  resolution: "cn@npm:0.5.1"
+"cn@npm:^0.5.2":
+  version: 0.5.2
+  resolution: "cn@npm:0.5.2"
   bin:
     cn: bin/cn.mjs
-  checksum: 10c0/e8c5da432f38f9de54f5583e035b6ff5f3995105fa1286458c241f6ff03b638e01b2900c8cb3e407d6ea37d4058f0d748c7d66dd01900f03576ebe839f83ffd3
+  checksum: 10c0/8ace6457ae6094658f75c6795ad1ce73f4bd75e0134cc93a1d3514d83b1be1ab1bb75eba8c295b27302cf9a5dff6582ac105870e862aa2af2205b52a9371a353
   languageName: node
   linkType: hard
 
@@ -2264,7 +2264,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:^6.1.2"
     class-variance-authority: "npm:^0.7.1"
     clsx: "npm:^2.1.1"
-    cn: "npm:^0.5.1"
+    cn: "npm:^0.5.2"
     date-fns: "npm:^4.4.0"
     eslint: "npm:^10.14.0"
     eslint-config-prettier: "npm:^10.1.8"
