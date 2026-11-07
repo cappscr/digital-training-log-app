@@ -1,11 +1,14 @@
 import { mutate } from 'swr';
-import { useNavigate } from 'react-router';
+import { useMatches, useNavigate } from 'react-router';
+import { CURRENT_USER_KEY } from '@/hooks/useCurrentUser';
 import { apiClient } from '@/lib/fetcher';
 import { clearAccessToken } from '@/lib/auth';
-import { CURRENT_USER_KEY } from '@/hooks/useCurrentUser';
+import { hasHandle } from '@/lib/routeHelpers';
 
 export function useLogout() {
   const navigate = useNavigate();
+  const matches = useMatches();
+  const redirectTo = matches.findLast(hasHandle)?.handle.publicPath ?? '/';
 
   const logout = async () => {
     try {
@@ -15,7 +18,7 @@ export function useLogout() {
     } finally {
       clearAccessToken();
       await mutate(CURRENT_USER_KEY, null, false);
-      navigate('/');
+      navigate(redirectTo);
     }
   };
 
