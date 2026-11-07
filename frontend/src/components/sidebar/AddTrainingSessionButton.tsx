@@ -25,7 +25,7 @@ export const AddTrainingSessionButton = () => {
               <Link
                 to="/training-sessions/new"
                 className={cn(
-                  buttonVariants({ variant: 'default', size: 'default' }),
+                  buttonVariants({ variant: 'secondary', size: 'default' }),
                   'w-full group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:p-0',
                 )}
               />
