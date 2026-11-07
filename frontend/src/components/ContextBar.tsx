@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { useMatches } from 'react-router';
+import { Link, useMatches } from 'react-router';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -32,12 +32,14 @@ export const ContextBar = () => {
               return (
                 <Fragment key={breadcrumb.label}>
                   <BreadcrumbItem>
-                    {isLast ? (
+                    {isLast || !breadcrumb.to ? (
                       <BreadcrumbPage>{breadcrumb.label}</BreadcrumbPage>
                     ) : (
-                      <BreadcrumbLink href={breadcrumb.to}>
-                        {breadcrumb.label}
-                      </BreadcrumbLink>
+                      <BreadcrumbLink
+                        render={
+                          <Link to={breadcrumb.to}>{breadcrumb.label}</Link>
+                        }
+                      />
                     )}
                   </BreadcrumbItem>
                   {!isLast && <BreadcrumbSeparator />}
