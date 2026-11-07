@@ -6,6 +6,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from '@/components/ui/sidebar';
+import { AddTrainingSessionButton } from '@/components/sidebar/AddTrainingSessionButton';
 import { Header } from '@/components/sidebar/Header';
 import { NavMain } from '@/components/sidebar/NavMain';
 
@@ -52,6 +53,7 @@ export const AppSidebar = ({
         <Header />
       </SidebarHeader>
       <SidebarContent>
+        <AddTrainingSessionButton />
         <NavMain items={navMainItems} />
       </SidebarContent>
       <SidebarFooter>
