@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useMatches } from 'react-router';
-import { PrimaryNav } from '@/components/PrimaryNav';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { ContextBar } from '@/components/ContextBar';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Loading } from '@/components/Loading';
 import { Footer } from '@/components/Footer';
@@ -21,14 +22,16 @@ export function AppLayout() {
   }
 
   return (
-    <>
-      <PrimaryNav />
-      <ErrorBoundary>
-        <main className="bg-background text-foreground font-body min-h-screen w-full overflow-x-hidden leading-relaxed antialiased">
-          <Outlet />
-        </main>
-      </ErrorBoundary>
-      <Footer />
-    </>
+    <SidebarProvider>
+      <SidebarInset>
+        <ErrorBoundary>
+          <ContextBar />
+          <main className="bg-background text-foreground font-body min-h-screen w-full overflow-x-hidden leading-relaxed antialiased">
+            <Outlet />
+          </main>
+        </ErrorBoundary>
+        <Footer />
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
