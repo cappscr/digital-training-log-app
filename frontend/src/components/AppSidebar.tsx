@@ -1,3 +1,4 @@
+import { NotepadTextIcon, CalculatorIcon, SettingsIcon } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -6,6 +7,41 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar';
 import { Header } from '@/components/sidebar/Header';
+import { NavMain } from '@/components/sidebar/NavMain';
+
+const navMainItems = [
+  {
+    title: 'Training Sessions',
+    url: '/training-sessions',
+    icon: NotepadTextIcon,
+    items: [
+      {
+        title: 'All Training Sessions',
+        url: '/training-sessions',
+      },
+      {
+        title: 'Log a Session',
+        url: '/training-sessions/new',
+      },
+    ],
+  },
+  {
+    title: 'Calculators',
+    url: '/calculators',
+    icon: CalculatorIcon,
+    items: [
+      {
+        title: 'Pace Calculator',
+        url: '/calculators/pace-calculator',
+      },
+    ],
+  },
+  {
+    title: 'Settings',
+    url: '/settings',
+    icon: SettingsIcon,
+  },
+];
 
 export const AppSidebar = ({
   ...props
@@ -16,7 +52,7 @@ export const AppSidebar = ({
         <Header />
       </SidebarHeader>
       <SidebarContent>
-        <span>Content</span>
+        <NavMain items={navMainItems} />
       </SidebarContent>
       <SidebarFooter>
         <span>Footer</span>
