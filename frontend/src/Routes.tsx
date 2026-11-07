@@ -56,6 +56,9 @@ export const router = createBrowserRouter([
           {
             Component: PaceCalculatorPage,
             path: '/pace-calculator',
+            handle: {
+              signedInPath: '/calculators/pace-calculator',
+            },
           },
           {
             Component: ForgotPasswordPage,
@@ -73,18 +76,48 @@ export const router = createBrowserRouter([
           {
             Component: TrainingSessionsPage,
             path: '/training-sessions',
+            handle: {
+              breadcrumbs: [{ label: 'Training Sessions' }],
+            },
           },
           {
             Component: CreateOrEditTrainingSessionPage,
             path: '/training-sessions/new',
+            handle: {
+              breadcrumbs: [
+                { label: 'Training Sessions', to: '/training-sessions' },
+                { label: 'New Training Session' },
+              ],
+            },
           },
           {
             Component: CreateOrEditTrainingSessionPage,
             path: '/training-sessions/:trainingSessionId/edit',
+            handle: {
+              breadcrumbs: [
+                { label: 'Training Sessions', to: '/training-sessions' },
+                { label: 'Edit Training Session' },
+              ],
+            },
           },
           {
             Component: UserSettingsPage,
             path: '/settings',
+            handle: {
+              breadcrumbs: [{ label: 'Settings' }],
+            },
+          },
+          {
+            Component: PaceCalculatorPage,
+            path: '/calculators/pace-calculator',
+            handle: {
+              breadcrumbs: [
+                // TODO: Update this breadcrumb once a /calculators route is created
+                { label: 'Calculators', to: '/calculators/pace-calculator' },
+                { label: 'Pace Calculator' },
+              ],
+              publicPath: '/pace-calculator',
+            },
           },
         ],
       },
