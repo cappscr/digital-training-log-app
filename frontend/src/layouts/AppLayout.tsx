@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useMatches } from 'react-router';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/AppSidebar';
 import { ContextBar } from '@/components/ContextBar';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Loading } from '@/components/Loading';
@@ -23,6 +24,7 @@ export function AppLayout() {
 
   return (
     <SidebarProvider>
+      <AppSidebar />
       <SidebarInset>
         <ErrorBoundary>
           <ContextBar />

@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { useMatches } from 'react-router';
 import {
   Breadcrumb,
@@ -29,7 +30,7 @@ export const ContextBar = () => {
               const isLast = breadcrumb === breadcrumbs[breadcrumbs.length - 1];
 
               return (
-                <>
+                <Fragment key={breadcrumb.label}>
                   <BreadcrumbItem>
                     {isLast ? (
                       <BreadcrumbPage>{breadcrumb.label}</BreadcrumbPage>
@@ -40,7 +41,7 @@ export const ContextBar = () => {
                     )}
                   </BreadcrumbItem>
                   {!isLast && <BreadcrumbSeparator />}
-                </>
+                </Fragment>
               );
             })}
           </BreadcrumbList>

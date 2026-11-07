@@ -9,20 +9,14 @@ import { hasHandle } from '@/lib/routeHelpers';
 export const Layout = () => {
   const { isAuthenticated, isLoading } = useCurrentUser();
   const matches = useMatches();
+  const redirectPath = matches.findLast(hasHandle)?.handle.signedInPath ?? null;
 
   if (isLoading) {
     return <Loading />;
   }
 
-  if (isAuthenticated) {
-    return (
-      <Navigate
-        to={
-          matches.findLast(hasHandle)?.handle.signedInPath ?? '/pace-calculator'
-        }
-        replace
-      />
-    );
+  if (isAuthenticated && redirectPath) {
+    return <Navigate to={redirectPath} replace />;
   }
 
   return (
