@@ -1,7 +1,7 @@
 ---
 title: cross training sessions
 author: Chris Capps
-status: ready for implementation
+status: implemented
 issues:
   - 375
   - 240 # parent

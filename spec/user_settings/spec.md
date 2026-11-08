@@ -1,7 +1,7 @@
 ---
 title: user settings
 author: Chris Capps
-status: ready for implementation
+status: implemented
 issues:
   - 497
   - 495
