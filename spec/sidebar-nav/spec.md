@@ -108,7 +108,7 @@ Ancestor crumbs are links. The last crumb is the current page and is not a link.
 | --- | --- |
 | `/training-sessions` | Training Sessions → All sessions |
 | `/training-sessions/new` | Training Sessions → Log a session |
-| `/training-sessions/:trainingSessionId/edit` | Training Sessions → Edit Training Session |
+| `/training-sessions/:trainingSessionId/edit` | Training Sessions → Edit training session |
 | `/calculators/pace-calculator` | Calculators → Pace calculator |
 | `/settings` | Settings |
 

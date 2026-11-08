@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useMatches } from 'react-router';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { AppSidebar } from '@/components/AppSidebar';
 import { ContextBar } from '@/components/ContextBar';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
@@ -23,15 +24,17 @@ export function AppLayout() {
 
   return (
     <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <ErrorBoundary>
-          <ContextBar />
-          <main className="bg-background text-foreground font-body min-h-screen w-full overflow-x-hidden leading-relaxed antialiased">
-            <Outlet />
-          </main>
-        </ErrorBoundary>
-      </SidebarInset>
+      <TooltipProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <ErrorBoundary>
+            <ContextBar />
+            <div className="bg-background text-foreground font-body min-h-screen w-full overflow-x-hidden leading-relaxed antialiased">
+              <Outlet />
+            </div>
+          </ErrorBoundary>
+        </SidebarInset>
+      </TooltipProvider>
     </SidebarProvider>
   );
 }

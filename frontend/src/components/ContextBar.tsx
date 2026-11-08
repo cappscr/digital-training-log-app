@@ -23,13 +23,13 @@ export const ContextBar = () => {
         <SidebarTrigger className="-ml-1" />
         <Separator
           orientation="vertical"
-          className="mr-2 data-vertical:self-center data-[orientation=vertical]:h-4"
+          className="mr-2 data-vertical:h-4 data-vertical:self-center"
         />
         <Breadcrumb>
           <BreadcrumbList>
             {isMobile ? (
               <BreadcrumbPage>
-                {breadcrumbs?.[breadcrumbs.length - 1].label}
+                {breadcrumbs?.[breadcrumbs.length - 1]?.label ?? ''}
               </BreadcrumbPage>
             ) : (
               breadcrumbs?.map((breadcrumb) => {
