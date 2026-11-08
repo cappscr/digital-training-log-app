@@ -18,7 +18,7 @@ export function useLogout() {
     } finally {
       clearAccessToken();
       await mutate(CURRENT_USER_KEY, null, false);
-      navigate(redirectTo);
+      navigate(redirectTo, { replace: true });
     }
   };
 

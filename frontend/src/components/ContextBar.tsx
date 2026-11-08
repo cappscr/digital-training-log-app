@@ -9,12 +9,13 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
+import { SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
 import { hasHandle } from '@/lib/routeHelpers';
 
 export const ContextBar = () => {
   const matches = useMatches();
   const breadcrumbs = matches.findLast(hasHandle)?.handle.breadcrumbs;
+  const { isMobile } = useSidebar();
 
   return (
     <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
@@ -26,26 +27,33 @@ export const ContextBar = () => {
         />
         <Breadcrumb>
           <BreadcrumbList>
-            {breadcrumbs?.map((breadcrumb) => {
-              const isLast = breadcrumb === breadcrumbs[breadcrumbs.length - 1];
+            {isMobile ? (
+              <BreadcrumbPage>
+                {breadcrumbs?.[breadcrumbs.length - 1].label}
+              </BreadcrumbPage>
+            ) : (
+              breadcrumbs?.map((breadcrumb) => {
+                const isLast =
+                  breadcrumb === breadcrumbs[breadcrumbs.length - 1];
 
-              return (
-                <Fragment key={breadcrumb.label}>
-                  <BreadcrumbItem>
-                    {isLast || !breadcrumb.to ? (
-                      <BreadcrumbPage>{breadcrumb.label}</BreadcrumbPage>
-                    ) : (
-                      <BreadcrumbLink
-                        render={
-                          <Link to={breadcrumb.to}>{breadcrumb.label}</Link>
-                        }
-                      />
-                    )}
-                  </BreadcrumbItem>
-                  {!isLast && <BreadcrumbSeparator />}
-                </Fragment>
-              );
-            })}
+                return (
+                  <Fragment key={breadcrumb.label}>
+                    <BreadcrumbItem>
+                      {isLast || !breadcrumb.to ? (
+                        <BreadcrumbPage>{breadcrumb.label}</BreadcrumbPage>
+                      ) : (
+                        <BreadcrumbLink
+                          render={
+                            <Link to={breadcrumb.to}>{breadcrumb.label}</Link>
+                          }
+                        />
+                      )}
+                    </BreadcrumbItem>
+                    {!isLast && <BreadcrumbSeparator />}
+                  </Fragment>
+                );
+              })
+            )}
           </BreadcrumbList>
         </Breadcrumb>
       </div>
