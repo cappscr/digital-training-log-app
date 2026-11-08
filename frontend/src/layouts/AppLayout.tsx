@@ -4,7 +4,6 @@ import { AppSidebar } from '@/components/AppSidebar';
 import { ContextBar } from '@/components/ContextBar';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Loading } from '@/components/Loading';
-import { Footer } from '@/components/Footer';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { hasHandle } from '@/lib/routeHelpers';
 
@@ -32,7 +31,6 @@ export function AppLayout() {
             <Outlet />
           </main>
         </ErrorBoundary>
-        <Footer />
       </SidebarInset>
     </SidebarProvider>
   );

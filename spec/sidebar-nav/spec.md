@@ -58,7 +58,7 @@ The desktop collapsed state persists in the browser. The drawer starts closed an
 
 ### Sidebar header
 
-The header is a link to `/`. It shows a brand icon, the title "Training Log", and the local calendar date with the year, as in `Nov 6 · 2026`.
+The header is a link to `/`. It shows a brand icon, the title "Training Log", and the local calendar date with the year, as in `Nov 6, 2026`.
 
 Under that, a Log session button links to `/training-sessions/new`. It is an action, not a nav item, so it does not take the current-page style.
 

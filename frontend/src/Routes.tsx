@@ -77,7 +77,10 @@ export const router = createBrowserRouter([
             Component: TrainingSessionsPage,
             path: '/training-sessions',
             handle: {
-              breadcrumbs: [{ label: 'Training Sessions' }],
+              breadcrumbs: [
+                { label: 'Training Sessions', to: '/training-sessions' },
+                { label: 'All sessions' },
+              ],
             },
           },
           {
@@ -86,7 +89,7 @@ export const router = createBrowserRouter([
             handle: {
               breadcrumbs: [
                 { label: 'Training Sessions', to: '/training-sessions' },
-                { label: 'New Training Session' },
+                { label: 'Log a session' },
               ],
             },
           },
@@ -96,7 +99,7 @@ export const router = createBrowserRouter([
             handle: {
               breadcrumbs: [
                 { label: 'Training Sessions', to: '/training-sessions' },
-                { label: 'Edit Training Session' },
+                { label: 'Edit session' },
               ],
             },
           },
@@ -114,7 +117,7 @@ export const router = createBrowserRouter([
               breadcrumbs: [
                 // TODO: Update this breadcrumb once a /calculators route is created
                 { label: 'Calculators', to: '/calculators/pace-calculator' },
-                { label: 'Pace Calculator' },
+                { label: 'Pace calculator' },
               ],
               publicPath: '/pace-calculator',
             },

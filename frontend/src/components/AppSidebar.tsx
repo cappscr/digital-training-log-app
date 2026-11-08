@@ -6,7 +6,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from '@/components/ui/sidebar';
-import { AddTrainingSessionButton } from '@/components/sidebar/AddTrainingSessionButton';
+import { LogTrainingSessionButton } from '@/components/sidebar/LogTrainingSessionButton';
 import { Header } from '@/components/sidebar/Header';
 import { NavMain } from '@/components/sidebar/NavMain';
 import { NavUser } from '@/components/sidebar/NavUser';
@@ -19,11 +19,11 @@ const navMainItems = [
     icon: NotepadTextIcon,
     items: [
       {
-        title: 'All Training Sessions',
+        title: 'All sessions',
         url: '/training-sessions',
       },
       {
-        title: 'Log a Session',
+        title: 'Log a session',
         url: '/training-sessions/new',
       },
     ],
@@ -34,7 +34,7 @@ const navMainItems = [
     icon: CalculatorIcon,
     items: [
       {
-        title: 'Pace Calculator',
+        title: 'Pace calculator',
         url: '/calculators/pace-calculator',
       },
     ],
@@ -61,7 +61,7 @@ export const AppSidebar = ({
         <Header />
       </SidebarHeader>
       <SidebarContent>
-        <AddTrainingSessionButton />
+        <LogTrainingSessionButton />
         <NavMain items={navMainItems} />
       </SidebarContent>
       <SidebarFooter>

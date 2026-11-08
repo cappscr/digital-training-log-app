@@ -13,7 +13,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 
-export const AddTrainingSessionButton = () => {
+export const LogTrainingSessionButton = () => {
   const { state, isMobile } = useSidebar();
 
   return (
@@ -33,14 +33,14 @@ export const AddTrainingSessionButton = () => {
           >
             <PlusIcon />
             <span className="group-data-[collapsible=icon]:hidden">
-              Add Training Session
+              Log Session
             </span>
           </TooltipTrigger>
           <TooltipContent
             side="right"
             hidden={state !== 'collapsed' || isMobile}
           >
-            Add Training Session
+            Log Training Session
           </TooltipContent>
         </Tooltip>
       </SidebarMenuItem>

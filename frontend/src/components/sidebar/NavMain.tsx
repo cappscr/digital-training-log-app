@@ -41,7 +41,7 @@ export const NavMain = ({
           item.items ? (
             <Collapsible
               key={item.title}
-              defaultOpen={item.isActive}
+              defaultOpen={isActive(item.url)}
               className="group/collapsible"
               render={<SidebarMenuItem />}
             >
@@ -58,7 +58,10 @@ export const NavMain = ({
                 <SidebarMenuSub>
                   {item.items.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton render={<Link to={subItem.url} />}>
+                      <SidebarMenuSubButton
+                        isActive={isActive(subItem.url, true)}
+                        render={<Link to={subItem.url} />}
+                      >
                         {subItem.title}
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
