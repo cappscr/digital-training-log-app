@@ -9,6 +9,8 @@ import {
 import { AddTrainingSessionButton } from '@/components/sidebar/AddTrainingSessionButton';
 import { Header } from '@/components/sidebar/Header';
 import { NavMain } from '@/components/sidebar/NavMain';
+import { NavUser } from '@/components/sidebar/NavUser';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 
 const navMainItems = [
   {
@@ -47,6 +49,12 @@ const navMainItems = [
 export const AppSidebar = ({
   ...props
 }: React.ComponentProps<typeof Sidebar>) => {
+  const { user } = useCurrentUser();
+
+  if (!user) {
+    return null;
+  }
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -57,7 +65,7 @@ export const AppSidebar = ({
         <NavMain items={navMainItems} />
       </SidebarContent>
       <SidebarFooter>
-        <span>Footer</span>
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
