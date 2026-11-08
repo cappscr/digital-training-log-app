@@ -7,10 +7,7 @@ import { useLogout } from '@/hooks/useLogout';
 
 const SIGN_UP_OPEN = false;
 
-const NAV_LINKS = [
-  { name: 'About', to: '/about' },
-  { name: 'Pace Calculator', to: '/pace-calculator' },
-];
+const NAV_LINKS = [{ name: 'About', to: '/about' }];
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `text-sm font-medium transition-colors duration-200 ${
@@ -25,10 +22,15 @@ export const PrimaryNav = () => {
   const navLinks = user
     ? [
         { name: 'Training Sessions', to: '/training-sessions' },
+        { name: 'Pace Calculator', to: 'calculators/pace-calculator' },
         { name: 'Settings', to: '/settings' },
         ...NAV_LINKS,
       ]
-    : [...NAV_LINKS, { name: 'Log In', to: '/login' }];
+    : [
+        ...NAV_LINKS,
+        { name: 'Pace Calculator', to: '/pace-calculator' },
+        { name: 'Log In', to: '/login' },
+      ];
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';

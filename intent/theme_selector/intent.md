@@ -1,7 +1,7 @@
 ---
 title: theme selector
 author: Chris Capps
-status: in-progress
+status: completed
 issue: 495
 ---
 

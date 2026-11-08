@@ -128,7 +128,7 @@ export const LogTrainingSessionForm = ({
       <form
         key={trainingSessionToEdit?.id ?? 'new'}
         id="log-workout-form"
-        className="flex flex-col gap-4"
+        className="flex w-full flex-col gap-4"
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FieldGroup>
