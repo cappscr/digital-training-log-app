@@ -23,7 +23,7 @@ export const ContextBar = () => {
         <SidebarTrigger className="-ml-1" />
         <Separator
           orientation="vertical"
-          className="mr-2 data-vertical:h-4 data-vertical:self-center"
+          className="mr-2 data-vertical:self-center data-[orientation=vertical]:h-4"
         />
         <Breadcrumb>
           <BreadcrumbList>

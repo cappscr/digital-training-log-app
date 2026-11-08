@@ -11,8 +11,9 @@ import { Header } from '@/components/sidebar/Header';
 import { NavMain } from '@/components/sidebar/NavMain';
 import { NavUser } from '@/components/sidebar/NavUser';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
+import type { NavItem } from '@/components/sidebar/NavGroup';
 
-const navMainItems = [
+const navMainItems: NavItem[] = [
   {
     title: 'Training Sessions',
     url: '/training-sessions',

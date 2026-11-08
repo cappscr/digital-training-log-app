@@ -7,9 +7,9 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 
-import { NavGroup, type NavGroupItem } from './NavGroup';
+import { NavGroup, type NavItem } from './NavGroup';
 
-export const NavMain = ({ items }: { items: NavGroupItem[] }) => {
+export const NavMain = ({ items }: { items: NavItem[] }) => {
   const location = useLocation();
   const isActive = (url: string, exact: boolean = false) =>
     exact ? location.pathname === url : location.pathname.startsWith(url);
@@ -18,7 +18,7 @@ export const NavMain = ({ items }: { items: NavGroupItem[] }) => {
     <SidebarGroup>
       <SidebarMenu>
         {items.map((item) =>
-          item.items ? (
+          'items' in item ? (
             <NavGroup
               key={item.title}
               item={item}
