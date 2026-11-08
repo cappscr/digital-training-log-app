@@ -26,12 +26,10 @@ export function AppLayout() {
     <SidebarProvider>
       <TooltipProvider>
         <AppSidebar />
-        <SidebarInset>
+        <SidebarInset className="bg-background text-foreground font-body min-h-screen w-full overflow-x-hidden leading-relaxed antialiased">
           <ErrorBoundary>
             <ContextBar />
-            <div className="bg-background text-foreground font-body min-h-screen w-full overflow-x-hidden leading-relaxed antialiased">
-              <Outlet />
-            </div>
+            <Outlet />
           </ErrorBoundary>
         </SidebarInset>
       </TooltipProvider>
