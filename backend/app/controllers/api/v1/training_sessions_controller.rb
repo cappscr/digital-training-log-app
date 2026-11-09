@@ -51,7 +51,7 @@ module Api
           # If Sundays start microcycles, Saturday is the end of the microcycle including date
           date.end_of_week = 1.day
         else
-          # The default isMondays start new microcycles, Sunday is the end of the microcycle including date
+          # The default is Mondays start new microcycles, so Sunday is the end of the microcycle including date
           date.end_of_week - 1.day
         end
       end
