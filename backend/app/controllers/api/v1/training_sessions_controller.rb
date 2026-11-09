@@ -47,7 +47,7 @@ module Api
       private
 
       def microcycle_end_date(date)
-        if current_user.microcycle_start_day == 'sunday'
+        if current_user.user_setting.microcycle_start_day == 'sunday'
           # If Sundays start microcycles, Saturday is the end of the microcycle including date
           date.end_of_week = 1.day
         else
