@@ -17,11 +17,16 @@ Instead of just reaching back three weeks from the current date, the pagination 
 
 ## UX
 
-Nothing about the pagination UX will change as part of this intent save for the dates shown.
+The next button still becomes disabled once the date range shown between the pagination controls includes the current date; however, the date range no longer clamps onto today.
 
 ## In Scope
 
 Updaing the pagination logic
+
+- When no `to` is present, the current microcycle is determined using the user's `microcycle_start_day` setting and today's date. The sessions returned are from the current microcycle and the two previous.
+- When `to` is present, the microcycle that contains `to` is determined using the user's `microcycle_start_day` setting. The sessions returned are from that microcycle and the two previous.
+- The previous and next buttons in the UI, will always apply `to` dates at the boundaries of microcycles as determined by the user's `microcycle_start_day` setting.
+- When the visible date range includes today, the next pagination controls becomes disabled.
 
 ## Out of Scope
 
