@@ -256,26 +256,32 @@ RSpec.describe "Training Sessions", type: :request do
         end
 
         context "when to is passed in the request params" do
-          let!(:really_old_training_session) { create(:training_session, user: user, session_date: Date.today - 30.days) }
-          let!(:old_training_session) { create(:training_session, user: user, session_date: Date.today - 14.days) }
-          let!(:new_training_session) { create(:training_session, user: user, session_date: Date.today + 2.days) }
+          today = Date.today
+          end_of_current_microcycle = today.end_of_week
+          start_of_next_microcycle = end_of_current_microcycle + 1.day
+          end_of_previous_microcycle = end_of_current_microcycle - 7.days
 
-          it "returns training sessions within the 21 day window ending with the to date" do
-            get api_v1_training_sessions_path, params: { to: Date.today - 4.days }, headers: auth_headers
+          let!(:really_old_training_session) { create(:training_session, user: user, session_date: end_of_previous_microcycle - 21.days) }
+          let!(:old_training_session) { create(:training_session, user: user, session_date: end_of_previous_microcycle - 8.days) }
+          let!(:previous_microcycle_training_session) { create(:training_session, user: user, session_date: end_of_previous_microcycle) }
+          let!(:next_microcycle_training_session) { create(:training_session, user: user, session_date: start_of_next_microcycle) }
+
+          it "returns training sessions within the 21 day window ending at the end of the microcycle that includes the to date" do
+            get api_v1_training_sessions_path, params: { to: end_of_previous_microcycle }, headers: auth_headers
             expect(response).to have_http_status(:ok)
 
             parsed_body = JSON.parse(response.body)
             expect(parsed_body["training_sessions"].map { |session| session["id"] })
-              .to eq([ old_training_session.id ])
+              .to eq([ previous_microcycle_training_session.id, old_training_session.id ])
           end
 
-          it "clamps the to date to today and does not return future training sessions" do
+          it "clamps the to date to today and does not return sessions from future microcycles" do
             get api_v1_training_sessions_path, params: { to: Date.today + 3.days }, headers: auth_headers
             expect(response).to have_http_status(:ok)
 
             parsed_body = JSON.parse(response.body)
             expect(parsed_body["training_sessions"].map { |session| session["id"] })
-              .to eq([ training_session.id, old_training_session.id ])
+              .to eq([ training_session.id, previous_microcycle_training_session.id, old_training_session.id ])
           end
 
           it "returns a bad request error if the to param is not a valid date" do
