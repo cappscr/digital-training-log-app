@@ -1,7 +1,7 @@
 ---
 title: updated pagination
 author: Chris Capps
-status: in-progress
+status: completed
 issue: 535
 ---
 
