@@ -215,6 +215,14 @@ id,training_session_id,name,sets,reps,weight,weight_unit,bodyweight,position
 214,135,Bench Press,1,6,75,lbs,,5
 215,135,Bench Press,1,6,90,lbs,,6
 216,135,Bench Press,2,5,105,lbs,,7
-217,135,Single Leg Calf Raises,1,12,25,lbs,,8
-218,135,Single Leg Calf Raises,2,8,30,lbs,,9
+217,135,Single Leg Calf Raises,1,12,24,lbs,,8
+218,135,Single Leg Calf Raises,2,8,29,lbs,,9
 219,135,Pull-Ups,1,7,,,TRUE,10
+220,136,Squats,1,6,65,lbs,,1
+221,136,Squats,1,6,80,lbs,,2
+222,136,Squats,2,5,95,lbs,,3
+223,136,Overhead Press,1,6,50,lbs,,4
+224,136,Overhead Press,1,5,55,lbs,,5
+225,136,Overhead Press,1,5,60,lbs,,6
+226,136,Single Leg Calf Raises,2,10,29,lbs,,7
+227,136,Single Leg Calf Raises,1,8,34,lbs,,8

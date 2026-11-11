@@ -33,10 +33,8 @@ A signed-in user can:
 
 Out of scope for this slice:
 
-- A collapsible sidebar.
 - Editing email or password.
 - Redesigning any other page.
-- Using `microcycle_start_day` in training-session pagination.
 - Converting units on sessions, exercises, or pace results that are already saved.
 
 ---
@@ -167,4 +165,4 @@ Read settings from the current user. Logged-out screens keep today's hardcoded d
 | New strength set or exercise, including one added while editing a session | `weight_unit` from settings | An existing set keeps its stored `weight_unit`. |
 | Pace calculator | Signed in: `mi` → `per_mile`, `km` → `per_km`. Signed out: `per_mile` | The calculator does not edit a saved record. The user can still change the unit for that calculation. |
 
-`microcycle_start_day` is shown and saved only. Training-session pagination does not read it.
+`microcycle_start_day` is used in training-session pagination to lock the previous and next controls to microcyle boundaries.
