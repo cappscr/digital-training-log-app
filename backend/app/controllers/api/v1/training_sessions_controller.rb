@@ -46,9 +46,20 @@ module Api
 
       private
 
+      def microcycle_end_date(date)
+        if current_user.user_setting.microcycle_start_day == "sunday"
+          # If Sundays start microcycles, the following Saturday is the end of the microcycle
+          date.sunday? ? date + 6.days : date.end_of_week - 1.day
+        else
+          # The default is Mondays start new microcycles, so Sunday is the end of the microcycle including date
+          date.end_of_week
+        end
+      end
+
       def apply_date_range(scope)
-        end_date = parse_date_param(:to) || Date.current
-        end_date = Date.current if end_date > Date.current
+        to_date = parse_date_param(:to) || Date.current
+        to_date = Date.current if to_date > Date.current
+        end_date = microcycle_end_date(to_date)
         start_date = end_date - (NUMBER_OF_DAYS_IN_RANGE - 1)
 
         scope.where(session_date: start_date..end_date)

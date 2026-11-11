@@ -1,7 +1,7 @@
 ---
 title: strength training sessions
 author: Chris Capps
-status: ready for implementation
+status: implemented
 issues:
   - 376
   - 240 # parent

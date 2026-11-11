@@ -1,7 +1,7 @@
 ---
 title: sidebar nav
 author: Chris Capps
-status: ready for implementation
+status: implemented
 issues:
   - 496
 ---

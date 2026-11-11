@@ -1,6 +1,12 @@
 import { useSearchParams } from 'react-router';
 import { cn } from 'cn';
-import { addDays, format, min, isToday, startOfDay, subDays } from 'date-fns';
+import {
+  addDays,
+  differenceInCalendarDays,
+  format,
+  min,
+  subDays,
+} from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import {
   Pagination,
@@ -9,22 +15,24 @@ import {
   PaginationPrevious,
   PaginationNext,
 } from '@/components/ui/pagination';
-import { THREE_WEEKS } from '@/pages/TrainingSessions/TrainingSessions';
 import { toISODateString } from '@/lib/utils';
 
 interface TrainingSessionsPaginationProps {
   endDate: Date;
+  endOfCurrentMicrocycle: Date;
 }
+
+export const THREE_WEEKS = 21;
 
 export const TrainingSessionsPagination = ({
   endDate,
+  endOfCurrentMicrocycle,
 }: TrainingSessionsPaginationProps) => {
   const [searchParams] = useSearchParams();
-  const to =
-    endDate > startOfDay(new Date()) ? startOfDay(new Date()) : endDate;
-  const from = subDays(to, THREE_WEEKS - 1);
+  const from = subDays(endDate, THREE_WEEKS - 1);
 
-  const canGoNext = !isToday(to) && to < startOfDay(new Date());
+  const canGoNext =
+    differenceInCalendarDays(endOfCurrentMicrocycle, endDate) > 0;
 
   const paginationHrefFor = (to: Date) => {
     const next = new URLSearchParams(searchParams);
@@ -37,14 +45,14 @@ export const TrainingSessionsPagination = ({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            to={paginationHrefFor(subDays(to, THREE_WEEKS))}
+            to={paginationHrefFor(subDays(endDate, THREE_WEEKS))}
           />
         </PaginationItem>
         <PaginationItem>
           <span className="inline-flex items-center gap-1.5 px-2.5 text-sm">
             <CalendarIcon aria-hidden className="size-4" />
             <span>
-              {format(from, 'LLL dd, y')} – {format(to, 'LLL dd, y')}
+              {format(from, 'LLL dd, y')} – {format(endDate, 'LLL dd, y')}
             </span>
           </span>
         </PaginationItem>
@@ -53,7 +61,7 @@ export const TrainingSessionsPagination = ({
             aria-disabled={!canGoNext}
             tabIndex={canGoNext ? 0 : -1}
             to={paginationHrefFor(
-              min([addDays(to, THREE_WEEKS), startOfDay(new Date())]),
+              min([addDays(endDate, THREE_WEEKS), endOfCurrentMicrocycle]),
             )}
             className={cn(!canGoNext && 'pointer-events-none opacity-50')}
           />
