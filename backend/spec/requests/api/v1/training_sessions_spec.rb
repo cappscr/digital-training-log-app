@@ -255,6 +255,37 @@ RSpec.describe "Training Sessions", type: :request do
           end
         end
 
+
+        context "when the user's microcycle start day is Sunday" do
+          the_next_saturday = Date.today.saturday? ? Date.today : Date.today.next_occurring(:saturday)
+          the_next_sunday = the_next_saturday + 1.day
+          the_previous_sunday = the_next_sunday - 7.days
+
+          around { |example| travel_to(the_previous_sunday) { example.run } }
+
+          let(:sunday_user) do
+            create(:user, :activated, email: "sunday@example.com").tap do |user|
+              user.user_setting.update!(microcycle_start_day: "sunday")
+            end
+          end
+          let!(:this_microcycle_sunday_training_session) { create(:training_session, user: sunday_user, session_date: the_next_sunday - 7.days) }
+          let!(:this_microcycle_saturday_training_session) { create(:training_session, user: sunday_user, session_date: the_next_saturday) }
+          let!(:next_microcycle_training_session) { create(:training_session, user: sunday_user, session_date: the_next_sunday) }
+          let(:auth_headers) { { "Authorization" => "Bearer #{access_token}" } }
+          let(:access_token) do
+            post api_v1_login_path, params: { email: sunday_user.email, password: sunday_user.password }
+            response.parsed_body["access_token"]
+          end
+
+          it "returns training sessions within the current microcycle and 2 previous microcycles" do
+            get api_v1_training_sessions_path, headers: auth_headers
+            expect(response).to have_http_status(:ok)
+            parsed_body = JSON.parse(response.body)
+            expect(parsed_body["training_sessions"].map { |session| session["id"] })
+            .to eq([ this_microcycle_saturday_training_session.id, this_microcycle_sunday_training_session.id ])
+          end
+        end
+
         context "when to is passed in the request params" do
           today = Date.today
           end_of_current_microcycle = today.end_of_week
