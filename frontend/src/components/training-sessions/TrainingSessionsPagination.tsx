@@ -15,13 +15,14 @@ import {
   PaginationPrevious,
   PaginationNext,
 } from '@/components/ui/pagination';
-import { THREE_WEEKS } from '@/components/training-sessions/TrainingSessionsList';
 import { toISODateString } from '@/lib/utils';
 
 interface TrainingSessionsPaginationProps {
   endDate: Date;
   endOfCurrentMicrocycle: Date;
 }
+
+export const THREE_WEEKS = 21;
 
 export const TrainingSessionsPagination = ({
   endDate,
