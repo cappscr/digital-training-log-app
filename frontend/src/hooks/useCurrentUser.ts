@@ -1,4 +1,5 @@
 import useSWR from 'swr';
+import { addDays, endOfWeek, isSunday } from 'date-fns';
 
 export type UserSettings = {
   microcycle_start_day: 'sunday' | 'monday';
@@ -34,4 +35,17 @@ export function useCurrentUser() {
     isLoading,
     mutate,
   };
+}
+
+export function useUserEndOfMicrocycle(date: Date) {
+  const { user } = useCurrentUser();
+  if (!user) return null;
+
+  if (user?.settings.microcycle_start_day === 'monday' && isSunday(date)) {
+    return date;
+  }
+
+  return user?.settings.microcycle_start_day === 'sunday'
+    ? endOfWeek(date)
+    : addDays(endOfWeek(date), 1);
 }
