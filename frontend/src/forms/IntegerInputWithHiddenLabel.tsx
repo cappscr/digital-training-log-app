@@ -34,7 +34,7 @@ export const IntegerInputWithHiddenLabel = <TFieldValues extends FieldValues>({
             value={field.value ?? ''}
             onChange={(e) => {
               const { value, valueAsNumber } = e.target;
-              field.onChange(value === '' ? undefined : valueAsNumber);
+              field.onChange(value === '' ? '' : valueAsNumber);
             }}
             autoComplete="off"
           />

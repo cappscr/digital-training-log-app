@@ -29,18 +29,6 @@ export const TrainingSessionsPage = () => {
           endDate={to}
           endOfCurrentMicrocycle={endOfCurrentMicrocycle}
         />
-        <Link
-          to="/training-sessions/new"
-          className={cn(
-            buttonVariants({
-              variant: 'outline',
-              size: 'lg',
-            }),
-          )}
-        >
-          <PlusIcon className="h-4 w-4" />
-          Add Training Session
-        </Link>
       </div>
       <section className="mx-auto my-4 max-w-2xl px-4">
         <h1 className="text-emphasis mb-8">Training Sessions</h1>
@@ -49,6 +37,19 @@ export const TrainingSessionsPage = () => {
           endOfCurrentMicrocycle={endOfCurrentMicrocycle}
         />
       </section>
+      <Link
+        to="/training-sessions/new"
+        className={cn(
+          buttonVariants({
+            variant: 'default',
+            size: 'lg',
+          }),
+          'fixed right-4 bottom-4 z-40 shadow-lg',
+        )}
+      >
+        <PlusIcon className="h-4 w-4" />
+        <span className="sr-only sm:not-sr-only">Add Training Session</span>
+      </Link>
     </>
   );
 };
