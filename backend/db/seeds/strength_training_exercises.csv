@@ -226,3 +226,11 @@ id,training_session_id,name,sets,reps,weight,weight_unit,bodyweight,position
 225,136,Overhead Press,1,5,60,lbs,,6
 226,136,Single Leg Calf Raises,2,10,29,lbs,,7
 227,136,Single Leg Calf Raises,1,8,34,lbs,,8
+228,139,Deadlifts,1,6,85,lbs,,1
+229,139,Deadlifts,1,6,115,lbs,,2
+230,139,Deadlifts,2,5,135,lbs,,3
+231,139,Banded Arm Circles,1,10,,,TRUE,4
+232,139,Bench Press,1,6,75,lbs,,5
+233,139,Bench Press,1,6,95,lbs,,6
+234,139,Bench Press,1,6,100,lbs,,7
+235,139,Single Leg Calf Raises,3,8,33,lbs,,8
