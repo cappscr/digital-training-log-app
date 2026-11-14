@@ -17,8 +17,9 @@ Users are able to input weather conditions in the log training session form when
 
 ## In scope
 
-- Creating a new `WeatherConditions` model
-- Creating a new optional association on the `TrainingSession` model `has_one` `WeatherConditions`
+- Fully implementing the `TrainingSessionWeather` model
+- Add a temperature units column to `TrainingSessionWeather` model
+- Make any necessary updates to the `TrainingSession` model and its `has_one` `TrainingSessionWeather`
 - Adding `WeatherConditionsFields` to the `LogTrainingSessionForm` and render them when `indoorOrOutdoor` is `'outdoor'`
 - Display weather conditions on the `TrainingSessionCard`
 - Database seeding is updated to add weather conditions for training sessions when present in the `training_sessions.csv` file
