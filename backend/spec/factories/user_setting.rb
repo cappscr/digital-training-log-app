@@ -4,6 +4,7 @@ FactoryBot.define do
     default_distance_unit { "mi" }
     default_weight_unit { "lbs" }
     default_elevation_unit { "ft" }
+    default_temperature_unit { "f" }
     microcycle_start_day { "monday" }
     theme { "dark" }
   end
@@ -18,6 +19,10 @@ FactoryBot.define do
 
   trait :m_default_elevation_unit do
     default_elevation_unit { "m" }
+  end
+
+  trait :c_default_temperature_unit do
+    default_temperature_unit { "c" }
   end
 
   trait :sunday_microcycle_start_day do
