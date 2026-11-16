@@ -99,6 +99,38 @@ RSpec.describe "Training Sessions", type: :request do
           )
         end
       end
+
+      context "with weather conditions" do
+        it "creates a new training session with weather conditions" do
+          expect {
+            post api_v1_training_sessions_path, params: {
+              training_session: {
+                session_date: Date.today,
+                session_time: Time.now,
+                duration_seconds: 3600,
+                location_type: "outdoor",
+                notes: "This is a test training session",
+                sport_details: {
+                  kind: "running",
+                  distance: 10,
+                  distance_unit: "mi",
+                },
+                weather_conditions: {
+                  temperature: 20,
+                  temperature_unit: "c",
+                  humidity: 50,
+                  conditions: "Sunny"
+                }
+              }
+            }, headers: auth_headers
+          }.to change(TrainingSession, :count).by(1)
+          expect(response).to have_http_status(:created)
+          expect(TrainingSession.last.weather_conditions.temperature).to eq(20)
+          expect(TrainingSession.last.weather_conditions.temperature_unit).to eq("c")
+          expect(TrainingSession.last.weather_conditions.humidity).to eq(50)
+          expect(TrainingSession.last.weather_conditions.conditions).to eq("Sunny")
+        end
+      end
     end
   end
 
@@ -146,6 +178,29 @@ RSpec.describe "Training Sessions", type: :request do
           expect(cross_training_session.reload.sport_details.distance).to eq(10)
           expect(cross_training_session.reload.sport_details.distance_unit).to eq("mi")
           expect(cross_training_session.reload.sport_details.elevation_gain).to eq(400)
+        end
+      end
+
+      context "with weather conditions" do
+        let(:training_session) { create(:training_session, user: user ) }
+        let!(:weather_conditions) { create(:training_session_weather, training_session: training_session) }
+
+        it "updates the training session with weather conditions" do
+          put api_v1_training_session_path(training_session.id), params: {
+            training_session: {
+              weather_conditions: {
+                temperature: 20,
+                temperature_unit: "c",
+                humidity: 80,
+                conditions: "Rainy"
+              }
+            }
+          }, headers: auth_headers
+          expect(response).to have_http_status(:ok)
+          expect(training_session.reload.weather_conditions.temperature).to eq(20)
+          expect(training_session.reload.weather_conditions.temperature_unit).to eq("c")
+          expect(training_session.reload.weather_conditions.humidity).to eq(80)
+          expect(training_session.reload.weather_conditions.conditions).to eq("Rainy")
         end
       end
 

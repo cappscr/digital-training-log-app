@@ -7,6 +7,8 @@ class TrainingSessionForm
     "strength_training" => %i[id average_heart_rate]
   }.freeze
 
+  WEATHER_ATTRIBUTES = %i[id temperature temperature_unit humidity conditions].freeze
+
   SPORT_CLASSES = {
     "running" => RunningTrainingSession,
     "cross_training" => CrossTrainingSession,
@@ -24,8 +26,10 @@ class TrainingSessionForm
 
     if training_session.new_record?
       assign_create(sport_details_attributes)
+      training_session.build_weather_conditions(weather_attributes(include_id: true)) unless weather_attributes(include_id: true).nil?
     else
       assign_update(sport_details_attributes)
+      training_session.weather_conditions.assign_attributes(weather_attributes(include_id: false)) unless weather_attributes(include_id: false).nil?
     end
 
     training_session.save!
@@ -76,6 +80,12 @@ class TrainingSessionForm
     keys = SPORT_ATTRIBUTES.fetch(kind)
     keys -= [ :id ] unless include_id
     sport_details_attributes.slice(*keys)
+  end
+
+  def weather_attributes(include_id:)
+    return nil unless attributes[:weather_conditions].present?
+    keys = include_id ? [ :id, *WEATHER_ATTRIBUTES ] : WEATHER_ATTRIBUTES
+    attributes[:weather_conditions].slice(*keys)
   end
 
   def sync_strength_exercises(details, sport_details_attributes)

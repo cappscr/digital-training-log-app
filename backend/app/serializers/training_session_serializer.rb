@@ -1,6 +1,8 @@
 class TrainingSessionSerializer < ActiveModel::Serializer
   attributes :id, :duration, :day_of_week, :location_type, :notes, :session_date, :session_time, :sport_details_type, :user_id, :created_at, :updated_at
 
+  has_one :weather_conditions
+
   attribute :sport_details
 
   def day_of_week
