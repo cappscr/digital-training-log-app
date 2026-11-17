@@ -193,6 +193,10 @@ RSpec.describe "Training Sessions", type: :request do
                 temperature_unit: "c",
                 humidity: 80,
                 conditions: "Rainy"
+              },
+              sport_details: {
+                distance: training_session.sport_details.distance,
+                distance_unit: training_session.sport_details.distance_unit,
               }
             }
           }, headers: auth_headers
