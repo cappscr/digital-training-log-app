@@ -3,6 +3,8 @@ class TrainingSessionWeather < ApplicationRecord
 
   before_save :trim_conditions
 
+  before_validation :set_temperature_unit_to_nil
+
   enum :temperature_unit, {
     f: 'f',
     c: 'c'
@@ -29,5 +31,9 @@ class TrainingSessionWeather < ApplicationRecord
 
     errors.add(:temperature, 'must have at most one decimal place')
   rescue ArgumentError
+  end
+
+  def set_temperature_unit_to_nil
+    self.temperature_unit = nil if temperature.blank?
   end
 end
