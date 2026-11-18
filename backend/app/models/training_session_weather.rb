@@ -13,7 +13,6 @@ class TrainingSessionWeather < ApplicationRecord
   validates :humidity, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100, only_integer: true }, allow_nil: true
   validates :temperature, numericality: true, allow_nil: true
   validate :temperature_has_at_most_one_decimal_place
-  validates :temperature, presence: true, if: -> { temperature_unit.present? }
   validates :temperature_unit, presence: true, if: -> { temperature.present? }
 
   private

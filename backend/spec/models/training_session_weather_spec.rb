@@ -78,10 +78,10 @@ RSpec.describe TrainingSessionWeather, type: :model do
       expect(weather.errors[:temperature_unit]).to include("can't be blank")
     end
 
-    it "validates temperature when temperature unit is present" do
+    it "nullifies temperature unit when temperature is blank" do
       weather = build(:training_session_weather, temperature: nil)
-      expect(weather).not_to be_valid
-      expect(weather.errors[:temperature]).to include("can't be blank")
+      expect(weather).to be_valid
+      expect(weather.temperature_unit).to be_nil
     end
 
     it "validates humidity is an integer between 0 and 100" do
