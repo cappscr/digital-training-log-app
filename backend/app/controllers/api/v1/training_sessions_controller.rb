@@ -7,7 +7,7 @@ module Api
 
       def index
         @training_sessions = current_user.training_sessions
-          .includes(sport_details: :exercises)
+          .includes(:weather_conditions, sport_details: :exercises)
           .then { |scope| apply_date_range(scope) }
           .order(session_date: :desc, session_time: :desc)
 
