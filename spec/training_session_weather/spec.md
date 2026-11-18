@@ -68,7 +68,7 @@ No other normalization. `"Sunny"` and `"sunny"` both persist as entered.
 Weather is nested on the existing training-session resource. Create, update, show, and index use the same object. Index includes the association.
 
 ```json
-"training_session_weather": {
+"weather_conditions": {
   "id": "<uuid>",
   "temperature": "72.0",
   "temperature_unit": "f",
@@ -81,7 +81,7 @@ The key is `null` when the session has no weather row. `temperature` is a decima
 
 Permit `id`, `temperature`, `temperature_unit`, `humidity`, and `conditions`. On update, ignore a client-supplied weather `id` that does not match the persisted row. A missing `id` on create is fine.
 
-Invalid temperature, unit, or humidity is a 422 validation error on `training_session_weather/<field>`, using the same problem+json shape as other training-session fields.
+Invalid temperature, unit, or humidity is a 422 validation error on `weather_conditions/<field>`, using the same problem+json shape as other training-session fields.
 
 ---
 

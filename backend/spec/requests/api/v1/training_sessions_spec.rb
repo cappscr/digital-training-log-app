@@ -131,6 +131,43 @@ RSpec.describe "Training Sessions", type: :request do
           expect(TrainingSession.last.weather_conditions.conditions).to eq("Sunny")
         end
 
+        context "when the weather conditions are invalid" do
+          it "does not create a new training session and returns a 422 Unprocessable Entity error" do
+            expect {
+              post api_v1_training_sessions_path, params: {
+                training_session: {
+                  weather_conditions: {
+                    temperature: "hot",
+                    temperature_unit: "k",
+                    humidity: 101
+                  },
+                  sport_details: {
+                    kind: "running",
+                    distance: 10,
+                    distance_unit: "mi"
+                  }
+                }
+              }, headers: auth_headers
+            }.not_to change(TrainingSession, :count)
+
+            expect(response).to have_http_status(:unprocessable_content)
+
+            parsed_body = JSON.parse(response.body)
+            expect(parsed_body["errors"]).to include(
+              "detail" => "Is not a number",
+              "pointer" => "#/training_session/weather_conditions/temperature"
+            )
+            expect(parsed_body["errors"]).to include(
+              "detail" => "Is not included in the list",
+              "pointer" => "#/training_session/weather_conditions/temperature_unit"
+            )
+            expect(parsed_body["errors"]).to include(
+              "detail" => "Must be less than or equal to 100",
+              "pointer" => "#/training_session/weather_conditions/humidity"
+            )
+          end
+        end
+
         context "when the training session is indoor" do
           it "does not create a new weather conditions" do
             expect {
