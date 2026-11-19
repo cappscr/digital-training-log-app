@@ -234,3 +234,10 @@ id,training_session_id,name,sets,reps,weight,weight_unit,bodyweight,position
 233,139,Bench Press,1,6,95,lbs,,6
 234,139,Bench Press,1,6,100,lbs,,7
 235,139,Single Leg Calf Raises,3,8,33,lbs,,8
+236,144,Deadlifts,1,6,85,lbs,,1
+237,144,Deadlifts,1,6,115,lbs,,2
+238,144,Deadlifts,2,5,140,lbs,,3
+239,144,Banded Arm Circles,1,12, ,,TRUE,4
+240,144,Pull-Aparts,1,12,,,TRUE,5
+241,144,Single Leg Calf Raises,3,9,33,lbs,,6
+242,144,Chin-Ups,1,10,,,TRUE,7
