@@ -12,9 +12,9 @@ const shared = z.object({
     }),
   notes: z.string().optional(),
   temperature: z.number().optional(),
-  temperature_unit: z.enum(['f', 'c']).optional(),
+  temperature_unit: z.enum(['f', 'c']).nullable().optional(),
   humidity: z.number().min(0).max(100).nullable().optional(),
-  conditions: z.string().optional(),
+  conditions: z.string().nullable().optional(),
 });
 
 const runningSchema = shared
