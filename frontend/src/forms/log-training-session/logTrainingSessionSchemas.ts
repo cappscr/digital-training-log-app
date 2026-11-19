@@ -11,6 +11,10 @@ const shared = z.object({
       message: 'Enter a valid duration (e.g. 1:30:00 or 45:30)',
     }),
   notes: z.string().optional(),
+  temperature: z.number().optional(),
+  temperature_unit: z.enum(['f', 'c']).optional(),
+  humidity: z.number().min(0).max(100).nullable().optional(),
+  conditions: z.string().optional(),
 });
 
 const runningSchema = shared
