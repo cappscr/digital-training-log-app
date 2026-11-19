@@ -6,8 +6,8 @@ class TrainingSessionWeather < ApplicationRecord
   before_validation :set_temperature_unit_to_nil
 
   enum :temperature_unit, {
-    f: 'f',
-    c: 'c'
+    f: "f",
+    c: "c"
   }, validate: { allow_nil: true }
 
   validates :humidity, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100, only_integer: true }, allow_nil: true
@@ -28,7 +28,7 @@ class TrainingSessionWeather < ApplicationRecord
     value = raw_temp.is_a?(BigDecimal) ? raw_temp : BigDecimal(raw_temp.to_s)
     return if value == value.round(1)
 
-    errors.add(:temperature, 'must have at most one decimal place')
+    errors.add(:temperature, "must have at most one decimal place")
   rescue ArgumentError
   end
 

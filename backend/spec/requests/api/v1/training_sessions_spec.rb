@@ -113,7 +113,7 @@ RSpec.describe "Training Sessions", type: :request do
                 sport_details: {
                   kind: "running",
                   distance: 10,
-                  distance_unit: "mi",
+                  distance_unit: "mi"
                 },
                 weather_conditions: {
                   temperature: 20,
@@ -227,7 +227,7 @@ RSpec.describe "Training Sessions", type: :request do
       end
 
       context "with weather conditions" do
-        let(:training_session) { create(:training_session, user: user ) }
+        let(:training_session) { create(:training_session, user: user) }
         let!(:weather_conditions) { create(:training_session_weather, training_session: training_session) }
         let(:outdoor_training_session) { create(:training_session, :outdoor, user: user) }
 
@@ -265,7 +265,7 @@ RSpec.describe "Training Sessions", type: :request do
               },
               sport_details: {
                 distance: training_session.sport_details.distance,
-                distance_unit: training_session.sport_details.distance_unit,
+                distance_unit: training_session.sport_details.distance_unit
               }
             }
           }, headers: auth_headers
@@ -294,7 +294,7 @@ RSpec.describe "Training Sessions", type: :request do
                   distance: training_session.sport_details.distance,
                   distance_unit: training_session.sport_details.distance_unit
                 }
-              }  
+              }
             }, headers: auth_headers
             expect(response).to have_http_status(:ok)
             expect(training_session.reload.weather_conditions).to be_nil
