@@ -13,7 +13,12 @@ const shared = z.object({
   notes: z.string().optional(),
   temperature: z.number().optional(),
   temperature_unit: z.enum(['f', 'c']).nullable().optional(),
-  humidity: z.number().min(0).max(100).nullable().optional(),
+  humidity: z
+    .int({ error: 'Enter an integer between 0 and 100' })
+    .min(0, { message: 'Humidity must be between 0 and 100' })
+    .max(100, { message: 'Humidity must be between 0 and 100' })
+    .nullable()
+    .optional(),
   conditions: z.string().nullable().optional(),
 });
 
@@ -30,17 +35,17 @@ const runningSchema = shared
       }),
     unit: z.enum(['mi', 'km']).nullable().optional(),
     elevation_gain: z
-      .number({ error: 'Enter an elevation gain' })
+      .int({ error: 'Enter an elevation gain' })
       .nonnegative('Elevation gain must be 0 or greater')
       .nullable()
       .optional(),
     elevation_unit: z.enum(['ft', 'm']).nullable().optional(),
     average_heart_rate: z
-      .number({ error: 'Enter a heart rate' })
+      .int({ error: 'Enter a heart rate' })
       .positive('Heart rate must be greater than 0')
       .optional(),
     average_cadence: z
-      .number({ error: 'Enter a cadence' })
+      .int({ error: 'Enter a cadence' })
       .positive('Cadence must be greater than 0')
       .optional(),
   })

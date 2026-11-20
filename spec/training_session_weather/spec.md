@@ -96,7 +96,7 @@ Invalid temperature, unit, or humidity is a 422 validation error on `weather_con
 | Temperature | Number | Optional. At most one decimal place. |
 | Temperature unit | Single-select, `f` or `c` | On create, the user setting. On edit, the stored unit. A null stored unit stays empty. Required only when temperature is entered. |
 | Humidity | Integer | Optional. 0 through 100. |
-| Conditions | Text with suggestions | Optional. Suggestions: `Rainy`, `Windy`, `Foggy`, `Snowy`, `Partly cloudy`, `Cloudy`, `Sunny`. Any other string is allowed. |
+| Conditions | Text with suggestions | Optional. Suggestions: `Rainy`, `Windy`, `Foggy`, `Snowy`, `Partly Cloudy`, `Cloudy`, `Sunny`. Any other string is allowed. |
 
 The suggestion list is the full set offered in the control. The submitted string is not rewritten to one of those values.
 

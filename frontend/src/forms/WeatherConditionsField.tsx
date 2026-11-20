@@ -22,7 +22,6 @@ const WEATHER_CONDITIONS = [
   'Windy',
   'Snowy',
   'Foggy',
-  'Other',
 ];
 
 interface WeatherConditionsFieldProps<TFieldValues extends FieldValues> {

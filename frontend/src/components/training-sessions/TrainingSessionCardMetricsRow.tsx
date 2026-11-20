@@ -20,18 +20,6 @@ interface TrainingSessionCardMetricsRowProps {
 
 const CONDITIONS_ICON_MAP = [
   {
-    match: 'sun',
-    icon: SunIcon,
-  },
-  {
-    match: 'partly cloudy',
-    icon: CloudSunIcon,
-  },
-  {
-    match: 'cloud',
-    icon: CloudyIcon,
-  },
-  {
     match: 'rain',
     icon: CloudRainIcon,
   },
@@ -40,12 +28,24 @@ const CONDITIONS_ICON_MAP = [
     icon: WindIcon,
   },
   {
+    match: 'fog',
+    icon: CloudFogIcon,
+  },
+  {
     match: 'snow',
     icon: CloudSnowIcon,
   },
   {
-    match: 'fog',
-    icon: CloudFogIcon,
+    exactMatch: 'partly cloudy',
+    icon: CloudSunIcon,
+  },
+  {
+    match: 'cloud',
+    icon: CloudyIcon,
+  },
+  {
+    match: 'sun',
+    icon: SunIcon,
   },
 ];
 
@@ -57,11 +57,19 @@ export const TrainingSessionCardMetricsRow = ({
       trainingSession.sport_details_type === 'CrossTrainingSession') &&
     trainingSession.sport_details.elevation_gain !== null;
 
-  const ConditionsIcon = CONDITIONS_ICON_MAP.find((condition) =>
-    trainingSession.weather_conditions?.conditions
-      ?.toLowerCase()
-      .includes(condition.match.toLowerCase()),
-  )?.icon;
+  const ConditionsIcon = CONDITIONS_ICON_MAP.find((condition) => {
+    const sessionConditions =
+      trainingSession.weather_conditions?.conditions?.toLowerCase().trim() ??
+      null;
+    if (!sessionConditions) return null;
+
+    if (condition.match) {
+      return sessionConditions.includes(condition.match.toLowerCase());
+    }
+    if (condition.exactMatch) {
+      return sessionConditions === condition.exactMatch.toLowerCase();
+    }
+  })?.icon;
 
   return (
     <div className="col-span-4 flex flex-row justify-between">
@@ -100,7 +108,9 @@ export const TrainingSessionCardMetricsRow = ({
       <div className="flex flex-row gap-3">
         {trainingSession.weather_conditions?.conditions && (
           <span
-            aria-label="Conditions"
+            aria-label={
+              trainingSession.weather_conditions.conditions ?? 'Conditions'
+            }
             className="flex flex-row items-center gap-1"
           >
             {ConditionsIcon ? (
@@ -110,7 +120,8 @@ export const TrainingSessionCardMetricsRow = ({
             )}
           </span>
         )}
-        {trainingSession.weather_conditions?.temperature && (
+        {(trainingSession.weather_conditions?.temperature ||
+          trainingSession.weather_conditions?.temperature === 0) && (
           <span
             aria-label="Temperature"
             className="flex flex-row items-center gap-1"
@@ -120,7 +131,8 @@ export const TrainingSessionCardMetricsRow = ({
             {trainingSession.weather_conditions.temperature_unit?.toUpperCase()}
           </span>
         )}
-        {trainingSession.weather_conditions?.humidity && (
+        {(trainingSession.weather_conditions?.humidity ||
+          trainingSession.weather_conditions?.humidity === 0) && (
           <span
             aria-label="Humidity"
             className="flex flex-row items-center gap-1"
