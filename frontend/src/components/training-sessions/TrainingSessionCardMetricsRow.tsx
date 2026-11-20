@@ -71,6 +71,10 @@ export const TrainingSessionCardMetricsRow = ({
     }
   })?.icon;
 
+  const displayTemperature = trainingSession.weather_conditions?.temperature
+    ? `${String(Number(trainingSession.weather_conditions.temperature))}º${trainingSession.weather_conditions.temperature_unit?.toUpperCase()}`
+    : null;
+
   return (
     <div className="col-span-4 flex flex-row justify-between">
       <div className="flex flex-row gap-3">
@@ -123,18 +127,25 @@ export const TrainingSessionCardMetricsRow = ({
         {(trainingSession.weather_conditions?.temperature ||
           trainingSession.weather_conditions?.temperature === 0) && (
           <span
-            aria-label="Temperature"
+            aria-label={
+              displayTemperature
+                ? `Temperature: ${displayTemperature}`
+                : 'Temperature'
+            }
             className="flex flex-row items-center gap-1"
           >
             <Thermometer className="text-muted-foreground size-4" />
-            {trainingSession.weather_conditions.temperature}º{' '}
-            {trainingSession.weather_conditions.temperature_unit?.toUpperCase()}
+            {displayTemperature}
           </span>
         )}
         {(trainingSession.weather_conditions?.humidity ||
           trainingSession.weather_conditions?.humidity === 0) && (
           <span
-            aria-label="Humidity"
+            aria-label={
+              trainingSession.weather_conditions?.humidity
+                ? `Humidity: ${trainingSession.weather_conditions.humidity}%`
+                : 'Humidity'
+            }
             className="flex flex-row items-center gap-1"
           >
             <Droplet className="text-muted-foreground size-4" />
