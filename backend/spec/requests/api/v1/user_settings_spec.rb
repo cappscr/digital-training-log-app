@@ -75,12 +75,22 @@ RSpec.describe "User settings", type: :request do
         end
 
         it "updates the user setting" do
-          patch api_v1_users_me_path(user), params: { user: { microcycle_start_day: "sunday", default_weight_unit: "kg", default_distance_unit: "km", default_elevation_unit: "m", theme: "light" } }, headers: auth_headers
+          patch api_v1_users_me_path(user), params: {
+            user: {
+              microcycle_start_day: "sunday",
+              default_weight_unit: "kg",
+              default_distance_unit: "km",
+              default_elevation_unit: "m",
+              default_temperature_unit: "c",
+              theme: "light"
+            }
+          }, headers: auth_headers
           expect(response).to have_http_status(:ok)
           expect(user.reload.user_setting.microcycle_start_day).to eq("sunday")
           expect(user.reload.user_setting.default_weight_unit).to eq("kg")
           expect(user.reload.user_setting.default_distance_unit).to eq("km")
           expect(user.reload.user_setting.default_elevation_unit).to eq("m")
+          expect(user.reload.user_setting.default_temperature_unit).to eq("c")
           expect(user.reload.user_setting.theme).to eq("light")
         end
 
@@ -92,6 +102,7 @@ RSpec.describe "User settings", type: :request do
           expect(user.reload.user_setting.default_weight_unit).to eq("lbs")
           expect(user.reload.user_setting.default_distance_unit).to eq("mi")
           expect(user.reload.user_setting.default_elevation_unit).to eq("ft")
+          expect(user.reload.user_setting.default_temperature_unit).to eq("f")
           expect(user.reload.user_setting.theme).to eq("dark")
         end
       end

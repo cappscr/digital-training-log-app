@@ -19,6 +19,7 @@ import { SportSelectorField } from '../SportSelectorField';
 import { RunningFields } from './RunningFields';
 import { CrossTrainingFields } from './CrossTrainingFields';
 import { StrengthFields } from './StrengthFields';
+import { WeatherFields } from './WeatherFields';
 import {
   logTrainingSessionFormSchema,
   type LogTrainingSessionFormValues,
@@ -60,15 +61,19 @@ export const LogTrainingSessionForm = ({
       : null) ??
     user?.settings.default_elevation_unit ??
     'ft';
+  const defaultTemperatureUnit =
+    trainingSessionToEdit?.weather_conditions?.temperature_unit ??
+    user?.settings.default_temperature_unit ??
+    'f';
 
   const form = useForm<LogTrainingSessionFormValues>({
     resolver: zodResolver(logTrainingSessionFormSchema),
     defaultValues: defaultValuesFromSession(trainingSessionToEdit),
   });
 
-  const [sport] = useWatch({
+  const [sport, indoorOrOutdoor] = useWatch({
     control: form.control,
-    name: ['type'],
+    name: ['type', 'indoor_or_outdoor'],
   });
 
   async function handleSubmit(data: LogTrainingSessionFormValues) {
@@ -190,6 +195,12 @@ export const LogTrainingSessionForm = ({
                   </Field>
                 )}
               />
+              {indoorOrOutdoor === 'outdoor' && (
+                <WeatherFields
+                  defaultUnit={defaultTemperatureUnit}
+                  form={form}
+                />
+              )}
               {sport === 'running' && (
                 <RunningFields
                   form={form}

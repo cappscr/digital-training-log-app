@@ -43,7 +43,7 @@ module Api
           errors: error.record.errors.map do |e|
             {
               detail: e.message.capitalize,
-              pointer: "#/#{root_key}/#{e.attribute}"
+              pointer: "#/#{root_key}/#{e.attribute.to_s.tr(".", "/")}"
             }
           end
         )

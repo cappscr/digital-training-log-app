@@ -61,6 +61,16 @@ export const buildSubmitPayload = (
     duration_seconds: parseDuration(values.duration),
     location_type: values.indoor_or_outdoor,
     notes: values.notes,
+    ...(values.temperature || values.humidity || values.conditions
+      ? {
+          weather_conditions: {
+            temperature: values.temperature ?? null,
+            temperature_unit: values.temperature_unit ?? null,
+            humidity: values.humidity ?? null,
+            conditions: values.conditions ?? null,
+          },
+        }
+      : {}),
   };
 
   const sharedSportDetails = {

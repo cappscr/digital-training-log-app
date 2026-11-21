@@ -5,16 +5,18 @@ status: implemented
 issues:
   - 497
   - 495
+  - 380
 ---
 
 # User Settings
 
 Related intent: [`intent/user_settings/intent.md`](../../intent/user_settings/intent.md)
 Related intent: [`intent/theme_selector/intent.md`](../../intent/theme_selector/intent.md)
+Related intent: [`intent/training_session_weather/intent.md`](../../intent/training_session_weather/intent.md)
 
 ## Summary
 
-Signed-in users get a Settings page in place of the current profile page. The page edits the user's name and four training preferences, and app theme: the day a microcycle starts, and the default units for weight, distance, and elevation. One Save writes the name and those preferences together.
+Signed-in users get a Settings page in place of the current profile page. The page edits the user's name and five training preferences, and app theme: the day a microcycle starts, and the default units for weight, distance, elevation, and temperature. One Save writes the name and those preferences together.
 
 Preferences are defaults for new entry. They do not rewrite sessions already stored.
 
@@ -24,7 +26,7 @@ A signed-in user can:
 
 1. Open Settings from the nav item that today says Profile.
 2. See their name in an editable field and their email in a disabled field.
-3. Choose a microcycle start day and default units for weight, distance, and elevation.
+3. Choose a microcycle start day and default units for weight, distance, elevation, and temperature.
 4. Save the name and those four preferences with one button.
 5. Open a new training session with those units already selected.
 6. Open the pace calculator, while signed in, with pace units that follow the distance setting.
@@ -35,7 +37,7 @@ Out of scope for this slice:
 
 - Editing email or password.
 - Redesigning any other page.
-- Converting units on sessions, exercises, or pace results that are already saved.
+- Converting units on sessions, exercises, pace results, or temperatures that are already saved.
 
 ---
 
@@ -43,12 +45,15 @@ Out of scope for this slice:
 
 `User` has one `UserSetting`. Create the row in the same transaction as the user. On deploy, schema preparation and the data migration both finish before the new process boots. The data migration skips users who already have a settings row.
 
+`default_temperature_unit` is added with a schema default of `f`, so existing settings rows receive `f` without a separate backfill.
+
 | Field | Type | Required | Default | Allowed values |
 | --- | --- | --- | --- | --- |
 | `microcycle_start_day` | string | Yes | `monday` | `sunday`, `monday` |
 | `default_weight_unit` | string | Yes | `lbs` | `lbs`, `kg` |
 | `default_distance_unit` | string | Yes | `mi` | `mi`, `km` |
 | `default_elevation_unit` | string | Yes | `ft` | `ft`, `m` |
+| `default_temperature_unit` | string | Yes | `f` | `f`, `c` |
 | `theme` | string | Yes | `dark` | `light`, `dark`, `system` |
 
 Use the same unit strings the training forms already persist.
@@ -75,6 +80,7 @@ Include `settings` on `UserSerializer`, so `GET /api/v1/users/me`, login, and si
     "default_weight_unit": "lbs",
     "default_distance_unit": "mi",
     "default_elevation_unit": "ft",
+    "default_temperature_unit": "f",
     "theme": "dark"
   }
 }
@@ -92,12 +98,13 @@ Include `settings` on `UserSerializer`, so `GET /api/v1/users/me`, login, and si
     "default_weight_unit": "lbs",
     "default_distance_unit": "mi",
     "default_elevation_unit": "ft",
+    "default_temperature_unit": "f",
     "theme": "dark"
   }
 }
 ```
 
-Permit `name` and the five settings fields. Do not permit `email`, `password`, `password_confirmation`, or `id`.
+Permit `name` and the six settings fields. Do not permit `email`, `password`, `password_confirmation`, or `id`.
 
 Success is 200 and the user payload above. Invalid name or settings values are 422 problem+json. A missing current user is the existing login failure.
 
@@ -144,6 +151,7 @@ Each control is a single-select `ToggleGroup`. A group always has one value; the
 | Weight | lbs, kg |
 | Distance | mi, km |
 | Elevation | ft, m |
+| Temperature | f, c |
 
 **Appearance**
 
@@ -153,7 +161,7 @@ Each control is a single-select `ToggleGroup`. A group always has one value; the
 | --- | --- |
 | Theme | light, dark, system |
 
-One Save button submits the name and the four groups. Disable it while the request is in flight. On success, stay on the page and show a success toast. On 422, show the field errors. Update the current-user cache from the response so open forms see the new defaults.
+One Save button submits the name and each toggle group, including temperature. Disable it while the request is in flight. On success, stay on the page and show a success toast. On 422, show the field errors. Update the current-user cache from the response so open forms see the new defaults.
 
 ### Where the defaults apply
 
@@ -162,6 +170,7 @@ Read settings from the current user. Logged-out screens keep today's hardcoded d
 | Surface | Create or add | Edit an existing record |
 | --- | --- | --- |
 | New training session, including a sport switch on that form | `distance_unit`, `elevation_unit`, and `weight_unit` from settings | Stored `distance_unit`, `elevation_unit`, and `weight_unit` stay as saved. A null stored unit stays empty rather than being filled from settings, so a save does not stamp a unit onto an old row. |
+| New outdoor session temperature | `temperature_unit` from settings (`f` when logged out) | The unit stored on `TrainingSessionWeather` stays as saved. A null stored unit stays empty. Changing this setting does not convert saved temperatures. See [`spec/training_session_weather/spec.md`](../training_session_weather/spec.md). |
 | New strength set or exercise, including one added while editing a session | `weight_unit` from settings | An existing set keeps its stored `weight_unit`. |
 | Pace calculator | Signed in: `mi` → `per_mile`, `km` → `per_km`. Signed out: `per_mile` | The calculator does not edit a saved record. The user can still change the unit for that calculation. |
 

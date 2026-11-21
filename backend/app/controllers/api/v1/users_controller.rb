@@ -41,6 +41,7 @@ module Api
           :default_weight_unit,
           :default_distance_unit,
           :default_elevation_unit,
+          :default_temperature_unit,
           :theme
         ])
       end

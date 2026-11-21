@@ -7,7 +7,7 @@ module Api
 
       def index
         @training_sessions = current_user.training_sessions
-          .includes(sport_details: :exercises)
+          .includes(:weather_conditions, sport_details: :exercises)
           .then { |scope| apply_date_range(scope) }
           .order(session_date: :desc, session_time: :desc)
 
@@ -83,6 +83,13 @@ module Api
             :duration_seconds,
             :location_type,
             :notes,
+            weather_conditions: [
+              :id,
+              :temperature,
+              :temperature_unit,
+              :humidity,
+              :conditions
+            ],
             sport_details: [
               :id,
               :kind,
@@ -116,6 +123,12 @@ module Api
             :duration_seconds,
             :location_type,
             :notes,
+            weather_conditions: [
+              :temperature,
+              :temperature_unit,
+              :humidity,
+              :conditions
+            ],
             sport_details: [
               :activity,
               :distance,

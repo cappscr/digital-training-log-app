@@ -43,6 +43,18 @@ RSpec.describe UserSetting, type: :model do
       end
     end
 
+    describe "default temperature unit" do
+      it "is invalid with an invalid default temperature unit" do
+        user_setting = build(:user_setting, default_temperature_unit: "k")
+        expect(user_setting).not_to be_valid
+      end
+
+      it "is invalid without a default temperature unit" do
+        user_setting = build(:user_setting, default_temperature_unit: nil)
+        expect(user_setting).not_to be_valid
+      end
+    end
+
     describe "microcycle start day" do
       it "is invalid with an invalid microcycle start day" do
         user_setting = build(:user_setting, microcycle_start_day: "saturday")

@@ -1,6 +1,6 @@
 class TrainingSession < ApplicationRecord
   belongs_to :user
-  has_one :training_session_weather, dependent: :destroy
+  has_one :weather_conditions, class_name: "TrainingSessionWeather", dependent: :destroy, autosave: true
   delegated_type :sport_details, types: %w[
     RunningTrainingSession
     CrossTrainingSession

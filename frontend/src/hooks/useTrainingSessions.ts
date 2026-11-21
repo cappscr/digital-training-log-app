@@ -46,6 +46,13 @@ export type RunningTrainingSession = {
   average_cadence: number | null;
 };
 
+export type WeatherConditions = {
+  temperature: number | null;
+  temperature_unit: 'f' | 'c' | null;
+  humidity: number | null;
+  conditions: string | null;
+};
+
 export type TrainingSession = {
   id: string;
   session_date: string;
@@ -54,6 +61,7 @@ export type TrainingSession = {
   duration: string | null;
   location_type: LocationType;
   notes: string | null;
+  weather_conditions: WeatherConditions | null;
 } & (
   | {
       sport_details_type: 'RunningTrainingSession';

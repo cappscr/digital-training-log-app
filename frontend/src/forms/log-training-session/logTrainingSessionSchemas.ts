@@ -1,17 +1,40 @@
 import * as z from 'zod';
 import { parseDuration } from '@/lib/utils';
 
-const shared = z.object({
-  date: z.date({ error: 'Select a date' }),
-  time: z.string().optional(),
-  indoor_or_outdoor: z.enum(['indoor', 'outdoor']),
-  duration: z
-    .string()
-    .refine((value) => !value.trim() || parseDuration(value) !== null, {
-      message: 'Enter a valid duration (e.g. 1:30:00 or 45:30)',
-    }),
-  notes: z.string().optional(),
-});
+const shared = z
+  .object({
+    date: z.date({ error: 'Select a date' }),
+    time: z.string().optional(),
+    indoor_or_outdoor: z.enum(['indoor', 'outdoor']),
+    duration: z
+      .string()
+      .refine((value) => !value.trim() || parseDuration(value) !== null, {
+        message: 'Enter a valid duration (e.g. 1:30:00 or 45:30)',
+      }),
+    notes: z.string().optional(),
+    temperature: z
+      .number()
+      .optional()
+      .refine((n) => n == null || Math.round(n * 10) / 10 === n, {
+        message: 'Use at most one decimal place',
+      }),
+    temperature_unit: z.enum(['f', 'c']).nullable().optional(),
+    humidity: z
+      .int({ error: 'Enter an integer between 0 and 100' })
+      .min(0, { message: 'Humidity must be between 0 and 100' })
+      .max(100, { message: 'Humidity must be between 0 and 100' })
+      .nullable()
+      .optional(),
+    conditions: z.string().nullable().optional(),
+  })
+  .refine(
+    (data) =>
+      typeof data.temperature !== 'number' || data.temperature_unit != null,
+    {
+      message: 'Unit must be specified if temperature is provided',
+      path: ['temperature_unit'],
+    },
+  );
 
 const runningSchema = shared
   .extend({
@@ -26,17 +49,17 @@ const runningSchema = shared
       }),
     unit: z.enum(['mi', 'km']).nullable().optional(),
     elevation_gain: z
-      .number({ error: 'Enter an elevation gain' })
+      .int({ error: 'Enter an elevation gain' })
       .nonnegative('Elevation gain must be 0 or greater')
       .nullable()
       .optional(),
     elevation_unit: z.enum(['ft', 'm']).nullable().optional(),
     average_heart_rate: z
-      .number({ error: 'Enter a heart rate' })
+      .int({ error: 'Enter a heart rate' })
       .positive('Heart rate must be greater than 0')
       .optional(),
     average_cadence: z
-      .number({ error: 'Enter a cadence' })
+      .int({ error: 'Enter a cadence' })
       .positive('Cadence must be greater than 0')
       .optional(),
   })

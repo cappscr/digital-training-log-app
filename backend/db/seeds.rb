@@ -90,16 +90,32 @@ CSV.foreach(training_sessions_csv_path, headers: true) do |row|
     next
   end
 
+  weather_id = seed_id("training_session_weather", row["id"])
   session = TrainingSession.find_or_initialize_by(id: training_id)
+
+  if (row["temperature"].present? || row["humidity"].present? || row["conditions"].present?) && row["location"].presence&.strip == "outdoor"
+    weather_conditions = TrainingSessionWeather.find_or_initialize_by(id: weather_id)
+    weather_conditions.assign_attributes(
+      temperature: row["temperature"].presence&.to_i,
+      temperature_unit: row["temperature_unit"].presence&.strip,
+      humidity: row["humidity"].presence&.to_i,
+      conditions: row["conditions"].presence&.strip,
+    )
+  else
+    TrainingSessionWeather.find_by(id: weather_id)&.destroy
+    weather_conditions = nil
+  end
+
   session.assign_attributes(
-    # in the future add weather details
     user: user,
     duration_seconds: row["duration_seconds"].presence&.to_i,
     notes: row["notes"].presence&.strip,
     session_date: Date.iso8601(row["session_date"]),
     session_time: row["session_time"].presence&.strip,
     location_type: row["location"].presence&.strip,
-    sport_details: sport_details
+    sport_details: sport_details,
+    weather_conditions: weather_conditions
   )
+
   session.save!
 end
