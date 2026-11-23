@@ -61,7 +61,9 @@ export const buildSubmitPayload = (
     duration_seconds: parseDuration(values.duration),
     location_type: values.indoor_or_outdoor,
     notes: values.notes,
-    ...(values.temperature || values.humidity || values.conditions
+    ...(values.temperature != null ||
+    values.humidity != null ||
+    Boolean(values.conditions?.trim())
       ? {
           weather_conditions: {
             temperature: values.temperature ?? null,

@@ -71,9 +71,10 @@ export const TrainingSessionCardMetricsRow = ({
     }
   })?.icon;
 
-  const displayTemperature = trainingSession.weather_conditions?.temperature
-    ? `${String(Number(trainingSession.weather_conditions.temperature))}º${trainingSession.weather_conditions.temperature_unit?.toUpperCase()}`
-    : null;
+  const displayTemperature =
+    trainingSession.weather_conditions?.temperature != null
+      ? `${String(Number(trainingSession.weather_conditions.temperature))}º${trainingSession.weather_conditions.temperature_unit?.toUpperCase()}`
+      : null;
 
   return (
     <div className="col-span-4 flex flex-row justify-between">
@@ -142,8 +143,8 @@ export const TrainingSessionCardMetricsRow = ({
           trainingSession.weather_conditions?.humidity === 0) && (
           <span
             aria-label={
-              trainingSession.weather_conditions?.humidity
-                ? `Humidity: ${trainingSession.weather_conditions.humidity}%`
+              trainingSession.weather_conditions?.humidity != null
+                ? `Humidity: ${trainingSession.weather_conditions?.humidity}%`
                 : 'Humidity'
             }
             className="flex flex-row items-center gap-1"

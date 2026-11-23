@@ -12,27 +12,44 @@ const shared = z
         message: 'Enter a valid duration (e.g. 1:30:00 or 45:30)',
       }),
     notes: z.string().optional(),
-    temperature: z
-      .number()
-      .optional()
-      .refine((n) => n == null || Math.round(n * 10) / 10 === n, {
-        message: 'Use at most one decimal place',
-      }),
+    temperature: z.number().optional().nullable(),
     temperature_unit: z.enum(['f', 'c']).nullable().optional(),
     humidity: z
-      .int({ error: 'Enter an integer between 0 and 100' })
-      .min(0, { message: 'Humidity must be between 0 and 100' })
-      .max(100, { message: 'Humidity must be between 0 and 100' })
+      .number({ error: 'Enter an integer between 0 and 100' })
       .nullable()
       .optional(),
     conditions: z.string().nullable().optional(),
   })
   .refine(
     (data) =>
-      typeof data.temperature !== 'number' || data.temperature_unit != null,
+      data.indoor_or_outdoor === 'indoor' ||
+      data.temperature == null ||
+      Math.round(data.temperature * 10) / 10 === data.temperature,
+    {
+      message: 'Use at most one decimal place',
+      path: ['temperature'],
+    },
+  )
+  .refine(
+    (data) =>
+      data.indoor_or_outdoor === 'indoor' ||
+      typeof data.temperature !== 'number' ||
+      data.temperature_unit != null,
     {
       message: 'Unit must be specified if temperature is provided',
       path: ['temperature_unit'],
+    },
+  )
+  .refine(
+    (data) =>
+      data.indoor_or_outdoor === 'indoor' ||
+      data.humidity == null ||
+      (Number.isInteger(data.humidity) &&
+        data.humidity >= 0 &&
+        data.humidity <= 100),
+    {
+      message: 'Enter an integer between 0 and 100',
+      path: ['humidity'],
     },
   );
 

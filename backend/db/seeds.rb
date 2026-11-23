@@ -96,7 +96,7 @@ CSV.foreach(training_sessions_csv_path, headers: true) do |row|
   if (row["temperature"].present? || row["humidity"].present? || row["conditions"].present?) && row["location"].presence&.strip == "outdoor"
     weather_conditions = TrainingSessionWeather.find_or_initialize_by(id: weather_id)
     weather_conditions.assign_attributes(
-      temperature: row["temperature"].presence&.to_i,
+      temperature: row["temperature"].presence&.to_d,
       temperature_unit: row["temperature_unit"].presence&.strip,
       humidity: row["humidity"].presence&.to_i,
       conditions: row["conditions"].presence&.strip,

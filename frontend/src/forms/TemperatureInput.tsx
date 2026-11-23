@@ -61,8 +61,10 @@ export const TemperatureInput = <TFieldValues extends FieldValues>({
             <Input
               {...field}
               className="tabular-nums"
+              inputMode="decimal"
               autoComplete="off"
               type="number"
+              step="0.1"
               id={`${formId}-${temperatureName}`}
               ref={field.ref}
               onChange={(e) => {
