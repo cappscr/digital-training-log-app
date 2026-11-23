@@ -71,6 +71,7 @@ describe('running elevation gain', () => {
       duration: '45:30',
       location_type: 'outdoor',
       notes: null,
+      weather_conditions: null,
       sport_details_type: 'RunningTrainingSession',
       sport_details: {
         id: 'sport-id',
