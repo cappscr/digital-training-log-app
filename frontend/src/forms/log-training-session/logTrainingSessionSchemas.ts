@@ -74,10 +74,12 @@ const runningSchema = shared
     average_heart_rate: z
       .int({ error: 'Enter a heart rate' })
       .positive('Heart rate must be greater than 0')
+      .nullable()
       .optional(),
     average_cadence: z
       .int({ error: 'Enter a cadence' })
       .positive('Cadence must be greater than 0')
+      .nullable()
       .optional(),
   })
   .refine(
@@ -137,6 +139,7 @@ const crossTrainingSchema = shared
     average_heart_rate: z
       .number({ error: 'Enter a heart rate' })
       .positive('Heart rate must be greater than 0')
+      .nullable()
       .optional(),
   })
   .refine(
@@ -179,6 +182,7 @@ const strengthTrainingSchema = shared.extend({
   average_heart_rate: z
     .number({ error: 'Enter a heart rate' })
     .positive('Heart rate must be greater than 0')
+    .nullable()
     .optional(),
   exercises: z
     .array(

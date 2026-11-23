@@ -35,7 +35,7 @@ export const IntegerInput = <TFieldValues extends FieldValues>({
             value={field.value ?? ''}
             onChange={(e) => {
               const { value, valueAsNumber } = e.target;
-              field.onChange(value === '' ? '' : valueAsNumber);
+              field.onChange(value === '' ? null : valueAsNumber);
             }}
             autoComplete="off"
           />
