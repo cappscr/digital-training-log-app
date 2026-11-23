@@ -27,6 +27,10 @@ export const defaultValuesFromSession = (
       elevation_unit: null,
       average_heart_rate: undefined,
       average_cadence: undefined,
+      temperature: undefined,
+      temperature_unit: null,
+      humidity: undefined,
+      conditions: '',
     };
 
   const shared = {
@@ -35,6 +39,10 @@ export const defaultValuesFromSession = (
     indoor_or_outdoor: session.location_type,
     duration: session.duration ?? '',
     notes: session.notes ?? '',
+    temperature: session.weather_conditions?.temperature ?? undefined,
+    temperature_unit: session.weather_conditions?.temperature_unit ?? null,
+    humidity: session.weather_conditions?.humidity ?? undefined,
+    conditions: session.weather_conditions?.conditions ?? '',
   };
 
   if (session.sport_details_type === 'CrossTrainingSession') {

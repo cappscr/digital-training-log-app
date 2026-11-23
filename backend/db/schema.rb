@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_28_101421) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_15_105526) do
   create_table "cross_training_sessions", id: :string, force: :cascade do |t|
     t.integer "average_heart_rate"
     t.decimal "distance", precision: 5, scale: 2
@@ -20,6 +20,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_28_101421) do
     t.datetime "updated_at", null: false
     t.string "distance_unit"
     t.string "elevation_unit"
+  end
+
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "running_training_session_tags", id: :string, force: :cascade do |t|
@@ -72,10 +75,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_28_101421) do
   create_table "training_session_weathers", id: :string, force: :cascade do |t|
     t.string "training_session_id", null: false
     t.decimal "temperature", precision: 4, scale: 1
-    t.decimal "humidity", precision: 4, scale: 1
+    t.integer "humidity"
     t.string "conditions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "temperature_unit"
     t.index ["training_session_id"], name: "index_training_session_weathers_on_training_session_id", unique: true
   end
 
@@ -116,6 +120,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_28_101421) do
     t.string "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "default_temperature_unit", default: "f", null: false
     t.index ["user_id"], name: "index_user_settings_on_user_id", unique: true
   end
 

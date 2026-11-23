@@ -99,6 +99,83 @@ RSpec.describe "Training Sessions", type: :request do
           )
         end
       end
+
+      context "with weather conditions" do
+        it "creates a new training session with weather conditions" do
+          expect {
+            post api_v1_training_sessions_path, params: {
+              training_session: {
+                session_date: Date.today,
+                session_time: Time.now,
+                duration_seconds: 3600,
+                location_type: "outdoor",
+                notes: "This is a test training session",
+                sport_details: {
+                  kind: "running",
+                  distance: 10,
+                  distance_unit: "mi"
+                },
+                weather_conditions: {
+                  temperature: 20,
+                  temperature_unit: "c",
+                  humidity: 50,
+                  conditions: "Sunny"
+                }
+              }
+            }, headers: auth_headers
+          }.to change(TrainingSession, :count).by(1)
+          expect(response).to have_http_status(:created)
+          expect(TrainingSession.last.weather_conditions.temperature).to eq(20)
+          expect(TrainingSession.last.weather_conditions.temperature_unit).to eq("c")
+          expect(TrainingSession.last.weather_conditions.humidity).to eq(50)
+          expect(TrainingSession.last.weather_conditions.conditions).to eq("Sunny")
+        end
+
+        context "when the weather conditions are invalid" do
+          it "does not create a new training session and returns a 422 Unprocessable Entity error" do
+            expect {
+              post api_v1_training_sessions_path, params: {
+                training_session: {
+                  weather_conditions: {
+                    temperature: "hot",
+                    temperature_unit: "k",
+                    humidity: 101
+                  },
+                  sport_details: {
+                    kind: "running",
+                    distance: 10,
+                    distance_unit: "mi"
+                  }
+                }
+              }, headers: auth_headers
+            }.not_to change(TrainingSession, :count)
+
+            expect(response).to have_http_status(:unprocessable_content)
+
+            parsed_body = JSON.parse(response.body)
+            expect(parsed_body["errors"]).to include(
+              "detail" => "Is not a number",
+              "pointer" => "#/training_session/weather_conditions/temperature"
+            )
+            expect(parsed_body["errors"]).to include(
+              "detail" => "Is not included in the list",
+              "pointer" => "#/training_session/weather_conditions/temperature_unit"
+            )
+            expect(parsed_body["errors"]).to include(
+              "detail" => "Must be less than or equal to 100",
+              "pointer" => "#/training_session/weather_conditions/humidity"
+            )
+          end
+        end
+
+        context "when the training session is indoor" do
+          it "does not create a new weather conditions" do
+            expect {
+              post api_v1_training_sessions_path, params: { training_session: { session_date: Date.today, session_time: Time.now, duration_seconds: 3600, location_type: "indoor", notes: "This is a test training session", sport_details: { kind: "running", distance: 10, distance_unit: "mi" } } }, headers: auth_headers
+            }.not_to change(TrainingSessionWeather, :count)
+          end
+        end
+      end
     end
   end
 
@@ -146,6 +223,82 @@ RSpec.describe "Training Sessions", type: :request do
           expect(cross_training_session.reload.sport_details.distance).to eq(10)
           expect(cross_training_session.reload.sport_details.distance_unit).to eq("mi")
           expect(cross_training_session.reload.sport_details.elevation_gain).to eq(400)
+        end
+      end
+
+      context "with weather conditions" do
+        let(:training_session) { create(:training_session, user: user) }
+        let!(:weather_conditions) { create(:training_session_weather, training_session: training_session) }
+        let(:outdoor_training_session) { create(:training_session, :outdoor, user: user) }
+
+        it "creates weather conditions if the training session is outdoor, weather conditions are present in params, and no weather conditions exist" do
+          put api_v1_training_session_path(outdoor_training_session.id), params: {
+            training_session: {
+              weather_conditions: {
+                temperature: 20,
+                temperature_unit: "c",
+                humidity: 80,
+                conditions: "Rainy"
+              },
+              sport_details: {
+                distance: outdoor_training_session.sport_details.distance,
+                distance_unit: outdoor_training_session.sport_details.distance_unit
+              }
+            }
+          }, headers: auth_headers
+          expect(response).to have_http_status(:ok)
+          expect(outdoor_training_session.reload.weather_conditions.temperature).to eq(20)
+          expect(outdoor_training_session.reload.weather_conditions.temperature_unit).to eq("c")
+          expect(outdoor_training_session.reload.weather_conditions.humidity).to eq(80)
+          expect(outdoor_training_session.reload.weather_conditions.conditions).to eq("Rainy")
+        end
+
+        it "updates the training session's weather conditions but not the weather conditions id" do
+          pre_update_weather_conditions_id = training_session.weather_conditions.id
+          put api_v1_training_session_path(training_session.id), params: {
+            training_session: {
+              weather_conditions: {
+                temperature: 20,
+                temperature_unit: "c",
+                humidity: 80,
+                conditions: "Rainy"
+              },
+              sport_details: {
+                distance: training_session.sport_details.distance,
+                distance_unit: training_session.sport_details.distance_unit
+              }
+            }
+          }, headers: auth_headers
+          expect(response).to have_http_status(:ok)
+          expect(training_session.reload.weather_conditions.temperature).to eq(20)
+          expect(training_session.reload.weather_conditions.temperature_unit).to eq("c")
+          expect(training_session.reload.weather_conditions.humidity).to eq(80)
+          expect(training_session.reload.weather_conditions.conditions).to eq("Rainy")
+          expect(training_session.reload.weather_conditions.id).to eq(pre_update_weather_conditions_id)
+        end
+
+        context "when the training session is indoor" do
+          let(:training_session) { create(:training_session, :indoor, user: user) }
+          let!(:weather_conditions) { create(:training_session_weather, training_session: training_session) }
+
+          it "destroys the weather conditions" do
+            put api_v1_training_session_path(training_session.id), params: {
+              training_session: {
+                weather_conditions: {
+                  temperature: 20,
+                  temperature_unit: "c",
+                  humidity: 80,
+                  conditions: "Rainy"
+                },
+                sport_details: {
+                  distance: training_session.sport_details.distance,
+                  distance_unit: training_session.sport_details.distance_unit
+                }
+              }
+            }, headers: auth_headers
+            expect(response).to have_http_status(:ok)
+            expect(training_session.reload.weather_conditions).to be_nil
+          end
         end
       end
 

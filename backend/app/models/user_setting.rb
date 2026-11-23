@@ -16,6 +16,11 @@ class UserSetting < ApplicationRecord
     ft: "ft"
   }, validate: { allow_nil: false }
 
+  enum :default_temperature_unit, {
+    f: "f",
+    c: "c"
+  }, validate: { allow_nil: false }
+
   enum :microcycle_start_day, {
     sunday: "sunday",
     monday: "monday"

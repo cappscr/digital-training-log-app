@@ -6,6 +6,7 @@ export type UserSettings = {
   default_distance_unit: 'km' | 'mi';
   default_weight_unit: 'kg' | 'lbs';
   default_elevation_unit: 'm' | 'ft';
+  default_temperature_unit: 'f' | 'c';
   theme: 'light' | 'dark' | 'system';
 };
 

@@ -2,7 +2,7 @@ name: Backend CI
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
     paths:
       - "backend/**"
 
@@ -11,7 +11,7 @@ jobs:
     name: Backend CI
     runs-on: ubuntu-latest
     container:
-      image: ruby:4.0.1
+      image: ruby:4.0.10
     steps:
       - uses: actions/checkout@v7
       - name: Install dependencies & prepare DB

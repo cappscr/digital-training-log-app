@@ -19,13 +19,13 @@ Every training session has:
 - `session_date` (required) and optional `session_time`
 - Optional `duration_seconds` (stored in seconds; displayed as S, SS, M:SS, MM:SS, H:MM:SS, or HH:MM:SS). Duration is **not** always required: running and cross training allow **duration or distance** (at least one). Strength has no distance; duration is optional and exercises are required.
 - `location_type`: `indoor` \| `outdoor`. Database default remains `outdoor`. Form defaults: running → outdoor; cross training and strength → indoor.
+- Optional weather when `location_type` is `outdoor`: temperature and unit, humidity, and conditions. Details: [`spec/training_session_weather/spec.md`](../training_session_weather/spec.md). Indoor sessions do not keep weather.
 - Optional notes
 - Belongs to a user (ownership enforced on all API actions)
 
 ### Future (specified, not implemented)
 
 - Links to GPS watch data
-- Weather for outdoor sessions (`TrainingSessionWeather`: temperature, humidity, free-form conditions with suggested options and backend normalization). Do not assume outdoor sessions collect weather in the UI/API yet.
 
 ## Validations
 
@@ -42,7 +42,7 @@ Every training session has:
 - `CrossTrainingSession`
 - `StrengthTrainingSession`
 
-Weather is a separate `TrainingSessionWeather` model associated to the parent session (implemented at the model/table layer; not wired through the training-sessions API/UI yet).
+Weather is a separate `TrainingSessionWeather` model associated to the parent session. Columns, validation, API, form, card, and seeds are specified in [`spec/training_session_weather/spec.md`](../training_session_weather/spec.md).
 
 ## API
 
@@ -54,7 +54,7 @@ Shared resource: `POST/GET/PUT/DELETE /api/v1/training_sessions` (scoped to the 
   - `strength_training` → `StrengthTrainingSession`
   - Unknown kind → validation error (422) with pointer `#/training_session/sport_details/kind`
 - **Update** does **not** change sport type. The persisted `sport_details_type` selects which attributes are applied; client-supplied `kind` / sport-details `id` are ignored for mutation.
-- Clients may supply UUIDs for the session, sport details, and each strength exercise on create (local-first ready).
+- Clients may supply UUIDs for the session, sport details, each strength exercise, and a weather row on create (local-first ready).
 
 ## UI
 
@@ -64,6 +64,7 @@ Shared resource: `POST/GET/PUT/DELETE /api/v1/training_sessions` (scoped to the 
 
 ## Related specs
 
+- [`spec/training_session_weather/spec.md`](../training_session_weather/spec.md) — optional outdoor temperature, humidity, and conditions.
 - [`spec/running_training_sessions/spec.md`](../running_training_sessions/spec.md)
 - [`spec/cross_training_sessions/spec.md`](../cross_training_sessions/spec.md) — activity required; optional distance / HR / elevation with units; duration-or-distance. Elevation unit is shared with running via `ElevationGainValidatable`.
 - [`spec/strength_training_sessions/spec.md`](../strength_training_sessions/spec.md) — exercises (name, sets, reps, bodyweight or weight); optional duration and HR; computed volume load. Supplementary training is absorbed by strength.

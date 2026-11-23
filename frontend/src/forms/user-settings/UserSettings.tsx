@@ -35,6 +35,7 @@ const formSchema = z.object({
   default_distance_unit: z.enum(['km', 'mi']),
   default_weight_unit: z.enum(['kg', 'lbs']),
   default_elevation_unit: z.enum(['m', 'ft']),
+  default_temperature_unit: z.enum(['f', 'c']),
   theme: z.enum(['light', 'dark', 'system']),
 });
 
@@ -58,6 +59,8 @@ export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
       default_weight_unit: currentUser?.settings.default_weight_unit ?? 'lbs',
       default_elevation_unit:
         currentUser?.settings.default_elevation_unit ?? 'ft',
+      default_temperature_unit:
+        currentUser?.settings.default_temperature_unit ?? 'f',
       theme: currentUser?.settings.theme ?? 'dark',
     },
     mode: 'onTouched',
@@ -72,6 +75,7 @@ export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
           default_distance_unit: data.default_distance_unit,
           default_weight_unit: data.default_weight_unit,
           default_elevation_unit: data.default_elevation_unit,
+          default_temperature_unit: data.default_temperature_unit,
           theme: data.theme,
         },
       });
@@ -197,6 +201,19 @@ export const UserSettingsForm = ({ currentUser }: UserSettingsFormProps) => {
                 options={[
                   { value: 'm', label: 'Meters' },
                   { value: 'ft', label: 'Feet' },
+                ]}
+              />
+              <DefaultUnitToggle
+                control={form.control}
+                formId="user-settings-form"
+                name="default_temperature_unit"
+                label="Temperature"
+                defaultValue={
+                  currentUser?.settings.default_temperature_unit ?? 'f'
+                }
+                options={[
+                  { value: 'f', label: 'Fahrenheit' },
+                  { value: 'c', label: 'Celsius' },
                 ]}
               />
             </FieldGroup>
