@@ -51,3 +51,14 @@ asdf reshim nodejs
 ```
 
 The next `yarn` command from the `frontend` directory will pickup the version of yarn specified in the `package.json`'s `"packageManager"` key.
+
+# Upgrading the yarn package manager
+
+To upgrade the version of the `yarn` package manager for installing JavaScript and TypeScript based dependencies:
+
+```bash
+yarn set version <new-version>
+yarn install
+```
+
+This will trigger the installation of the new `yarn` version. Commit the change to the `"packageManager"` in the `package.json` file.
