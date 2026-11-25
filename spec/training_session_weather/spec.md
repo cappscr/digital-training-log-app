@@ -1,7 +1,7 @@
 ---
 title: training session weather
 author: Chris Capps
-status: specified
+status: implemented
 issue: 380
 ---
 

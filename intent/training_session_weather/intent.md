@@ -1,7 +1,7 @@
 ---
 title: training session weather
 author: Chris Capps
-status: in-progress
+status: completed
 issue: 380
 ---
 
