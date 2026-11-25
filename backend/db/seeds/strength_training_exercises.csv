@@ -249,3 +249,10 @@ id,training_session_id,name,sets,reps,weight,weight_unit,bodyweight,position
 248,148,Pull-Aparts,1,14,,,TRUE,6
 249,148,Overhead Press,2,6,60,lbs,,7
 250,148,Single Leg Calf Raises,3,10,33,lbs,,8
+251,151,Split Squats,1,8,50,lbs,,1
+252,151,Split Squats,1,7,65,lbs,,2
+253,151,Banded Arm Circles,1,15,,,TRUE,3
+254,151,Pull-Aparts,1,15,,,TRUE,4
+255,151,RDLs,2,5,90,lbs,,5
+256,151,Single Leg Calf Raises,3,8,38,lbs,,6
+257,151,Chin-Ups,1,9,,,TRUE,7
