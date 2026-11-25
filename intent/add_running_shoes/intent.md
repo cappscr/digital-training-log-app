@@ -35,6 +35,25 @@ The list view should show active shoes on top and a collapsible section below of
 
 The brand field should be an autocomplete with a suggestions list but ultimately allow whatever value the user inputs. Brand and model are required fields while nickname remains optional. Nickname field should have a helper description that describes the purpose. The model and colorway fields will be normal text fields as running shoe models are too volatile to provide a suggestions list. The date first used field should be optional when creating a new pair of running shoes. Future work will automatically update that field when running shoes are associated with a training session.
 
+#### Running shoe brand suggestion list
+
+- Adidas
+- Altra
+- ASICS
+- Brooks
+- HOKA
+- Merrell
+- Mizuno
+- New Balance
+- Nike
+- On
+- PUMA
+- rabbit
+- Salomon
+- Saucony
+- Topo Athletic
+- Tracksmith
+
 ## Out of scope
 
 The nav item is called Gear and eventually could and will serve exercise gear in addition to running shoes; however, in this slice only running shoes are in scope.
