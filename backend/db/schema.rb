@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_15_105526) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_26_115103) do
   create_table "cross_training_sessions", id: :string, force: :cascade do |t|
     t.integer "average_heart_rate"
     t.decimal "distance", precision: 5, scale: 2
@@ -23,6 +23,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_15_105526) do
   end
 
   create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
+  create_table "running_shoes", id: :string, force: :cascade do |t|
+    t.string "brand", null: false
+    t.string "model", null: false
+    t.string "nickname"
+    t.date "date_first_used"
+    t.date "date_retired"
+    t.string "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_running_shoes_on_user_id"
   end
 
   create_table "running_training_session_tags", id: :string, force: :cascade do |t|
@@ -141,6 +153,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_15_105526) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "running_shoes", "users"
   add_foreign_key "running_training_session_tags", "running_training_sessions"
   add_foreign_key "running_training_session_types", "running_training_sessions"
   add_foreign_key "strength_training_exercises", "strength_training_sessions"
