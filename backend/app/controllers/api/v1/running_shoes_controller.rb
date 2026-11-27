@@ -22,7 +22,7 @@ module Api
             :brand,
             :model,
             :nickname,
-            :date_first_used,
+            :date_first_used
           ]
         )
       end

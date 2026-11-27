@@ -5,7 +5,7 @@ RSpec.describe "Running Shoes", type: :request do
   describe "GET /api/v1/running_shoes" do
     let(:user) { create(:user, :activated) }
     let(:other_user) { create(:user, :activated, email: "other@example.com") }
- 
+
     let(:daily_trainers) { create(:running_shoe, user: user) }
     let(:race_day_shoe) { create(:running_shoe, user: user, brand: "PUMA", model: "Fast-R") }
     let(:tempo_shoe) { create(:running_shoe, user: user, brand: "New Balance", model: "Fuel Cell Rebel v5") }
@@ -20,7 +20,7 @@ RSpec.describe "Running Shoes", type: :request do
       end
 
       it "returns a list of all a user's running shoes" do
-        shoes = [daily_trainers, race_day_shoe, tempo_shoe, retired_shoe]
+        shoes = [ daily_trainers, race_day_shoe, tempo_shoe, retired_shoe ]
 
         get api_v1_running_shoes_path, headers: auth_headers
         expect(response).to have_http_status(:success)
