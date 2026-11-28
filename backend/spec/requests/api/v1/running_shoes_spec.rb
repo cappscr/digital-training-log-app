@@ -45,6 +45,44 @@ RSpec.describe "Running Shoes", type: :request do
     end
   end
 
+  # show
+  describe "GET /api/v1/running_shoes" do
+    let(:user) { create(:user, :activated) }
+    let(:other_user) { create(:user, :activated, email: "other@example.com") }
+  
+    let(:daily_trainers) { create(:running_shoe, user: user) }
+    let(:other_user_shoe) { create(:running_shoe, user: other_user) }
+  
+    context "when logged in" do
+      let(:auth_headers) { { "Authorization" => "Bearer #{access_token}" } }
+      let(:access_token) do
+        post api_v1_login_path, params: { email: user.email, password: user.password }
+        response.parsed_body["access_token"]
+      end
+  
+      it "returns the shoe with the given id" do
+        get api_v1_running_shoe_path(daily_trainers.id), headers: auth_headers
+        expect(response).to have_http_status(:success)
+        expect(response.parsed_body["running_shoe"]["id"]).to eq(daily_trainers.id)
+        expect(response.parsed_body["running_shoe"]["brand"]).to eq(daily_trainers.brand)
+        expect(response.parsed_body["running_shoe"]["model"]).to eq(daily_trainers.model)
+      end
+  
+      it "does not return other user's shoes" do
+        get api_v1_running_shoe_path(other_user_shoe.id), headers: auth_headers
+        expect(response).to have_http_status(:not_found)
+        expect(response.parsed_body["detail"]).to eq("Running shoe not found")
+      end
+    end
+  
+    context "when not logged in" do
+      it "returns a 401 Unauthorized error" do
+        get api_v1_running_shoe_path(daily_trainers.id)
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
+
   # create
   describe "POST /api/v1/running_shoes" do
     let(:user) { create(:user, :activated) }

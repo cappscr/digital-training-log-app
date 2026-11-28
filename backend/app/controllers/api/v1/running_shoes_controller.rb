@@ -13,6 +13,11 @@ module Api
         render json: @running_shoe, serializer: RunningShoeSerializer, status: :created
       end
 
+      def show
+        @running_shoe = current_user.running_shoes.find(params[:id])
+        render json: @running_shoe, serializer: RunningShoeSerializer
+      end
+
       private
 
       def running_shoe_create_params
