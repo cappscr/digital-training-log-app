@@ -18,12 +18,30 @@ module Api
         render json: @running_shoe, serializer: RunningShoeSerializer
       end
 
+      def update
+        @running_shoe = current_user.running_shoes.find(params[:id])
+        return render json: { detail: "Running shoe is retired" }, status: :unprocessable_content if @running_shoe.retired?
+        @running_shoe.update!(running_shoe_update_params)
+        render json: @running_shoe, serializer: RunningShoeSerializer, status: :ok
+      end
+
       private
 
       def running_shoe_create_params
         params.expect(
           running_shoe: [
             :id,
+            :brand,
+            :model,
+            :nickname,
+            :date_first_used
+          ]
+        )
+      end
+
+      def running_shoe_update_params
+        params.expect(
+          running_shoe: [
             :brand,
             :model,
             :nickname,

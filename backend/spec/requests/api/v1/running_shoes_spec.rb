@@ -46,7 +46,7 @@ RSpec.describe "Running Shoes", type: :request do
   end
 
   # show
-  describe "GET /api/v1/running_shoes" do
+  describe "GET /api/v1/running_shoes/:id" do
     let(:user) { create(:user, :activated) }
     let(:other_user) { create(:user, :activated, email: "other@example.com") }
   
@@ -232,6 +232,146 @@ RSpec.describe "Running Shoes", type: :request do
 
         parsed_body = JSON.parse(response.body)
         expect(parsed_body["detail"]).to eq("You must be logged in")
+      end
+    end
+  end
+
+  # update
+  describe "PATCH /api/v1/running_shoes/:id" do
+    let(:user) { create(:user, :activated) }
+    let(:other_user) { create(:user, :activated, email: "other@example.com") }
+  
+    let(:daily_trainers) { create(:running_shoe, user: user) }
+    let(:race_day_shoe) { create(:running_shoe, user: user, brand: "PUMA", model: "Fast-R") }
+    let(:tempo_shoe) { create(:running_shoe, user: user, brand: "New Balance", model: "Fuel Cell Rebel v5") }
+    let(:retired_shoe) { create(:running_shoe, :retired, user: user) }
+    let(:other_user_shoe) { create(:running_shoe, user: other_user) }
+  
+    context "when logged in" do
+      let(:auth_headers) { { "Authorization" => "Bearer #{access_token}" } }
+      let(:access_token) do
+        post api_v1_login_path, params: { email: user.email, password: user.password }
+        response.parsed_body["access_token"]
+      end
+
+      context "with missing running_shoe param" do
+        it "does not update the running shoe and returns a 400 Bad Request error" do
+          expect {
+            patch api_v1_running_shoe_path(daily_trainers.id), params: { brand: "HOKA", model: "Clifton 11" }, headers: auth_headers
+          }.not_to change { daily_trainers.reload.attributes }
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+
+      context "with blank brand param" do
+        it "does not update the running shoe and returns a 422 Unprocessable Content error" do
+          expect {
+            patch api_v1_running_shoe_path(daily_trainers.id), params: { running_shoe: { brand: "    ", model: "Clifton 11" } }, headers: auth_headers
+          }.not_to change { daily_trainers.reload.attributes }
+          expect(response).to have_http_status(:unprocessable_content)
+
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body["errors"]).to include(
+            "detail" => "Can't be blank",
+            "pointer" => "#/running_shoe/brand"
+          )
+        end
+      end
+
+      context "with blank model param" do
+        it "does not update the running shoe and returns a 422 Unprocessable Content error" do
+          expect {
+            patch api_v1_running_shoe_path(daily_trainers.id), params: { running_shoe: { brand: "HOKA", model: "    " } }, headers: auth_headers
+          }.not_to change { daily_trainers.reload.attributes }
+          expect(response).to have_http_status(:unprocessable_content)
+
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body["errors"]).to include(
+            "detail" => "Can't be blank",
+            "pointer" => "#/running_shoe/model"
+          )
+        end
+      end
+
+      context "with invalid brand, model, or nickname" do
+        it "does not update the running shoe and returns a 422 Unprocessable Content error" do
+          expect {
+            patch api_v1_running_shoe_path(daily_trainers.id), params: { running_shoe: {
+              brand: "a" * 101,
+              model: "a" * 101,
+              nickname: "a" * 101 } }, headers: auth_headers
+          }.not_to change { daily_trainers.reload.attributes }
+          expect(response).to have_http_status(:unprocessable_content)
+
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body["errors"]).to include(
+            "detail" => "Is too long (maximum is 100 characters)",
+            "pointer" => "#/running_shoe/brand"
+          )
+          expect(parsed_body["errors"]).to include(
+            "detail" => "Is too long (maximum is 100 characters)",
+            "pointer" => "#/running_shoe/model"
+          )
+          expect(parsed_body["errors"]).to include(
+            "detail" => "Is too long (maximum is 100 characters)",
+            "pointer" => "#/running_shoe/nickname"
+          )
+        end
+      end
+
+      context "with an invalid future dated date_first_used" do
+        it "does not update the running shoe and returns a 422 Unprocessable Content error" do
+          expect {
+            patch api_v1_running_shoe_path(daily_trainers.id), params: { running_shoe: {
+              brand: "Nike",
+              model: "Pegasus 39",
+              date_first_used: Date.today + 1.year } }, headers: auth_headers
+          }.not_to change { daily_trainers.reload.attributes }
+          expect(response).to have_http_status(:unprocessable_content)
+
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body["errors"]).to include(
+            "detail" => "Must be less than or equal to #{Date.today.strftime("%Y-%m-%d")}",
+            "pointer" => "#/running_shoe/date_first_used"
+          )
+        end
+      end
+
+      context "with a retired_date in params" do
+        it "does not update the retired_date of the shoe" do
+          expect {
+            patch api_v1_running_shoe_path(daily_trainers.id), params: { running_shoe: {
+              brand: "HOKA",
+              model: "Clifton 11",
+              date_retired: Date.today } }, headers: auth_headers
+          }.not_to change { daily_trainers.reload.date_retired }
+          expect(response).to have_http_status(:ok)
+          expect(daily_trainers.reload.brand).to eq("HOKA")
+          expect(daily_trainers.reload.model).to eq("Clifton 11")
+          expect(daily_trainers.reload.date_retired).to be_nil
+        end
+      end
+
+      context "with a retired shoe" do
+        it "does not update the running shoe and returns a 422 Unprocessable Content error" do
+          expect {
+            patch api_v1_running_shoe_path(retired_shoe.id), params: { running_shoe: { brand: "HOKA", model: "Clifton 11" } }, headers: auth_headers
+          }.not_to change { retired_shoe.reload.attributes }
+          expect(response).to have_http_status(:unprocessable_content)
+        end
+      end
+  
+      it "does not return other user's shoes" do
+        patch api_v1_running_shoe_path(other_user_shoe.id), headers: auth_headers
+        expect(response).to have_http_status(:not_found)
+        expect(response.parsed_body["detail"]).to eq("Running shoe not found")
+      end
+    end
+  
+    context "when not logged in" do
+      it "returns a 401 Unauthorized error" do
+        patch api_v1_running_shoe_path(daily_trainers.id)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end

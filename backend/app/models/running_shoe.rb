@@ -24,6 +24,10 @@ class RunningShoe < ApplicationRecord
   scope :active, -> { where(date_retired: nil) }
   scope :retired, -> { where.not(date_retired: nil) }
 
+  def retired?
+    date_retired.present?
+  end
+
   private
 
   def trim_brand_model
