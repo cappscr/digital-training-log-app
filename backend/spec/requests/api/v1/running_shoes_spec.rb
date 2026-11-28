@@ -242,8 +242,6 @@ RSpec.describe "Running Shoes", type: :request do
     let(:other_user) { create(:user, :activated, email: "other@example.com") }
   
     let(:daily_trainers) { create(:running_shoe, user: user) }
-    let(:race_day_shoe) { create(:running_shoe, user: user, brand: "PUMA", model: "Fast-R") }
-    let(:tempo_shoe) { create(:running_shoe, user: user, brand: "New Balance", model: "Fuel Cell Rebel v5") }
     let(:retired_shoe) { create(:running_shoe, :retired, user: user) }
     let(:other_user_shoe) { create(:running_shoe, user: other_user) }
   
@@ -371,6 +369,49 @@ RSpec.describe "Running Shoes", type: :request do
     context "when not logged in" do
       it "returns a 401 Unauthorized error" do
         patch api_v1_running_shoe_path(daily_trainers.id)
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
+
+  # destroy
+  describe "DELETE /api/v1/running_shoes/:id" do
+    let(:user) { create(:user, :activated) }
+    let(:other_user) { create(:user, :activated, email: "other@example.com") }
+    
+    let(:daily_trainers) { create(:running_shoe, user: user) }
+    let(:other_user_shoe) { create(:running_shoe, user: other_user) }
+    
+    context "when logged in" do
+      let(:auth_headers) { { "Authorization" => "Bearer #{access_token}" } }
+      let(:access_token) do
+        post api_v1_login_path, params: { email: user.email, password: user.password }
+        response.parsed_body["access_token"]
+      end
+    
+      it "deletes the shoe with the given id" do
+        daily_trainers
+
+        expect {
+          delete api_v1_running_shoe_path(daily_trainers.id), headers: auth_headers
+        }.to change(RunningShoe, :count).by(-1)
+        expect(response).to have_http_status(:no_content)
+      end
+    
+      it "does not delete other user's shoes" do
+        other_user_shoe
+
+        expect {
+          delete api_v1_running_shoe_path(other_user_shoe.id), headers: auth_headers
+        }.not_to change(RunningShoe, :count)
+        expect(response).to have_http_status(:not_found)
+        expect(response.parsed_body["detail"]).to eq("Running shoe not found")
+      end
+    end
+    
+    context "when not logged in" do
+      it "returns a 401 Unauthorized error" do
+        delete api_v1_running_shoe_path(daily_trainers.id)
         expect(response).to have_http_status(:unauthorized)
       end
     end

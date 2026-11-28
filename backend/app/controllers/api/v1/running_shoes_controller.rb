@@ -25,6 +25,12 @@ module Api
         render json: @running_shoe, serializer: RunningShoeSerializer, status: :ok
       end
 
+      def destroy
+        @running_shoe = current_user.running_shoes.find(params[:id])
+        @running_shoe.destroy!
+        render json: { detail: "Running shoe deleted" }, status: :no_content
+      end
+
       private
 
       def running_shoe_create_params

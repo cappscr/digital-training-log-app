@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       resources :account_activations, only: [ :create, :update ], path: "account-activation"
       resources :password_resets, only: [ :create, :update ], path: "password-reset"
       resources :training_sessions, only: [ :create, :destroy, :index, :show, :update ]
-      resources :running_shoes, only: [ :create, :index, :show, :update ]
+      resources :running_shoes, only: [ :create, :destroy, :index, :show, :update ]
     end
   end
 
