@@ -122,6 +122,24 @@ RSpec.describe "Running Shoes", type: :request do
         end
       end
 
+      context "with an invalid future dated date_first_used" do
+        it "does not create a new running shoe and returns a 422 Unprocessable Content error" do
+          expect {
+            post api_v1_running_shoes_path, params: { running_shoe: {
+              brand: "Nike",
+              model: "Pegasus 39",
+              date_first_used: Date.today + 1.year } }, headers: auth_headers
+          }.not_to change(RunningShoe, :count)
+          expect(response).to have_http_status(:unprocessable_content)
+
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body["errors"]).to include(
+            "detail" => "Must be less than or equal to #{Date.today.strftime("%Y-%m-%d")}",
+            "pointer" => "#/running_shoe/date_first_used"
+          )
+        end
+      end
+
       context "with date_retired in params" do
         it "creates a new running shoe without date_retired set" do
           expect {
@@ -148,6 +166,21 @@ RSpec.describe "Running Shoes", type: :request do
           expect(response).to have_http_status(:created)
 
           expect(RunningShoe.last.user_id).to eq(user.id)
+        end
+      end
+
+      context "with valid params" do
+        it "creates and returns a new running shoe" do
+          expect {
+            post api_v1_running_shoes_path, params: { running_shoe: { brand: "Nike", model: "Pegasus 39", date_first_used: Date.today } }, headers: auth_headers
+          }.to change(RunningShoe, :count).by(1)
+          expect(response).to have_http_status(:created)
+
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body["running_shoe"]["brand"]).to eq("Nike")
+          expect(parsed_body["running_shoe"]["model"]).to eq("Pegasus 39")
+          expect(parsed_body["running_shoe"]["date_first_used"]).to eq(Date.today.strftime("%Y-%m-%d"))
+          expect(parsed_body["running_shoe"]["date_retired"]).to be_nil
         end
       end
     end
